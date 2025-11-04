@@ -1,0 +1,22 @@
+/**
+* @license
+*
+* Font Family: Author
+* Designed by: Satya Rajpurohit
+* URL: https://www.fontshare.com/fonts/author
+* © 2025 Indian Type Foundry
+*
+* Author Extralight 
+
+*
+*/
+@font-face {
+  font-family: 'Author-Extralight';
+  src: url('../fonts/Author-Extralight.woff2') format('woff2'),
+       url('../fonts/Author-Extralight.woff') format('woff'),
+       url('../fonts/Author-Extralight.ttf') format('truetype');
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
+}
+
