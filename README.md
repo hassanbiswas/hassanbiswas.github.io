@@ -12,7 +12,6 @@ Professional Website Designer & Front-end Developer
     Facebook  : facebook.com/hassanbiswas.github.io
     Instagram : instagram.com/hassanbiswas.github.io
 
-----------------------–---------------------------------------------------------------------------------------------------
     
 # App
 
