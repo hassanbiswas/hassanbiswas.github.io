@@ -1,6 +1,5 @@
 # Web Developer | Hassan Biswas
-@hassanbiswas
-## Professional Website Designer & Front-end Developer
+Professional Website Designer & Front-end Developer
 
 ## Contact
     Portfolio :      hassanbiswas.github.io
