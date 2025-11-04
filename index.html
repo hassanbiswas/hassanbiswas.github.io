@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        localStorage.clear();
+        sessionStorage.clear();
+    </script>
     <meta charset="UTF-8">
-    
-    <meta name="google-site-verification" content="DzMmin3QAgzaQNIJc-_nwKBJ-mzSEBFLgI9Ur3H_p6o" />
-
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RRCG3HZJ08"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-RRCG3HZJ08');
-</script>
-    
-    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <meta http-equiv="refresh" content="1; URL=https://sites.google.com/view/mdezazulhassanbiswas" />
+    <!-- <meta http-equiv="refresh" content="2; URL=https://mdezazulhassan2023.pages.dev/" /> -->
+    <meta http-equiv="refresh" content="0; URL=hassanbiswas.github.io" />
     
     <meta name="theme-color" content="hsl(240, 100%, 50%)" id="meta-theme-color">
 
-    <meta name="author" content="Web Developer | Hassan Biswas, hassanbiswas.github.io, hassanbiswas.github.io@gmail.com, +8801602873384">
+    <meta name="author" content="Web Developer | Hassan Biswas, mdezazulhassanbiswas.github.io, mdezazulhassanbiswas@gmail.com, +8801602873384">
     <meta name="keywords" content="
-      Web Developer | Hassan Biswas, Hassan Biswas,Web Developer,web,web designer,hassan biswas,web developer | hassan biswas,front-end web designer,front-end web developer,hassan biswas,hassanbiswas,1602873384,01602873384,+8801602873384,hassanbiswas.github.io@gmail.com,@hassanbiswas,#hassanbiswas,
+      Web Developer | Hassan Biswas, Hassan Biswas,Web Developer,web,web designer,md ezazul hassan biswas,web developer | md ezazul hassan biswas,front-end web designer,front-end web developer,md ezazul,ezazul hassan,hassan biswas,md ezazul hassan biswas,mdezazulhassanbiswas,1602873384,01602873384,+8801602873384,mdezazulhassanbiswas@gmail.com,@mdezazulhassanbiswas,#mdezazulhassanbiswas,
       website designer,website developer,redesign website,web developer online,front-end developer,front-end designer,mobile ready website,portfolio website,personal website,small business website,professional website,custom website,custom web design,custom web development,
       freelance web designer,freelance web developer,freelance front-end developer,freelance front-end designer,
       hire developer,web developer for hire,web designer near you,web developer near you,web designer jessore district,web developer jessore district,your local web designer,your local web developer,
@@ -40,9 +31,12 @@
     <meta property="og:description" content="Web Developer | Hassan Biswas brings artistry and functionality together to create remarkable web experiences. As a skilled professional, I specialize in designing and developing responsive, user-friendly websites that resonate with clients' visions and engage visitors. I work diligently to deliver innovative and visually stunning websites that make a lasting impact in the digital realm.">
     <meta name="twitter:description" content="Web Developer | Hassan Biswas brings artistry and functionality together to create remarkable web experiences. As a skilled professional, I specialize in designing and developing responsive, user-friendly websites that resonate with clients' visions and engage visitors. I work diligently to deliver innovative and visually stunning websites that make a lasting impact in the digital realm.">
 
+    <?php
+        include 'scripts.php';
+    ?>
 
     <meta name="robots" content="index, follow">
-    <meta property="og:url" content="hassanbiswas.github.io">
+    <meta property="og:url" content="mdezazulhassanbiswas.github.io">
 
     <meta name="twitter:card" content="summary_large_image">
 
@@ -56,16 +50,218 @@
     <meta name="twitter:title" content="Web Developer | Hassan Biswas">
     <meta name="subtitle" content="Front-End Developer">
 
+    <link rel="stylesheet" href="/style.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('Service worker registration successful:', registration);
+            })
+            .catch(error => {
+              console.log('Service worker registration failed:', error);
+            });
+        }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <meta name="google-site-verification" content="AGyMin1tcWmJT3uP06gKEUTf7IYITwMafBxnr6itL_s" />
+    
+    <!-- Google tag 13/10/2025 (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M48XCQZC1Z"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-M48XCQZC1Z');
+    </script>
+    <script src="https://kit.fontawesome.com/9eeb43021d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="import" href="/assets/images/">
 </head>
 <body>
-    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="HORIZONTAL" data-vanity="mdezazulhassanbiswas" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://bd.linkedin.com/in/mdezazulhassanbiswas?trk=profile-badge">Web Developer Hassan Biswas</a></div>
-              
+    <section id="body-notification-container">
+        <section class="top"></section>
+        <section class="middle"></section>
+        <section class="bottom"></section>
+    </section>
+
+    <section id="body-content-container">
+        <!-- data speed (20) === page load time -->
+        <section id="loader" class="grid" data-speed="15" data-duration="100" data-delay="0">
+            <section class="progress">
+                <div class="back-ground"></div>
+                <div class="fore-ground"></div>
+            </section>
+        </section>
+
+        <nav id="tab-switcher" class="container-grid"></nav> <!-- home & Short-videos -->
+
+        <header id="header" class="container-grid">
+            <nav id="nav" class="flex x-center y-center">
+                <ul class="nav-list" id="header-nav-list">
+                    <li class="list-item active-bg"><a href=""></a></li>
+                    <li class="list-item active"><a href="#hero">Home</a></li>
+                    <li class="list-item"><a href="#about-me">About me</a></li>
+                    <!-- <li class="list-item"><a href="#projects">Projects</a></li> -->
+                    <!-- <li class="list-item"><a href="#faqs">FAQs</a></li> -->
+                </ul>
+            </nav>
+        </header>
+        
+        <section id="main-wrapper"> <!-- .5em padding wight accent bg -->
+            <main class="container-grid">
+                <section id="hero">
+                    <section id="scroller">
+                        <section class="slider-container col">
+                            <div class="slide">
+                                <img class="" src="/src/assets/images/2020-06-17.jpg" alt="slide img">
+                            </div>
+                            <div class="slide">
+                                <img class="" src="/src/assets/images/2020-06-01.jpg" alt="slide img">
+                            </div>
+                            <div class="slide">
+                                <img class="" src="/src/assets/images/IMG_20230622_165721.jpg" alt="slide img">
+                            </div>
+                        </section>
+                        <section class="col y-center x-center fade-in-top-container">
+                            <div class="left row x-end">
+                                <h6 class="txt-right fade-in-top">Web Designer</h6>
+                                <h2 class="txt-right fade-in-top">Design and Develop web all around the world</h2>
+                            </div>
+                            <div class="right row y-end">
+                                <p class="fade-in-top">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod, totam maxime rerum repellendus nisi.
+                                </p>
+                                <a class="fade-in-top" href="#">learn more →</a>
+                            </div>
+                        </section>
+                        <section class="col y-center x-center fade-in-top-container">
+                            <div class="left row x-end">
+                                <h6 class="txt-right fade-in-top">Web Developer</h6>
+                                <h2 class="txt-right fade-in-top">Design and Develop web all around the world</h2>
+                            </div>
+                            <div class="right row y-end">
+                                <p class="fade-in-top">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod, totam maxime rerum repellendus nisi.
+                                </p>
+                                <a class="fade-in-top" href="#">learn more →</a>
+                            </div>
+                        </section>
+                        <section class="col y-center x-center fade-in-top-container">
+                            <div class="left row x-end">
+                                <h6 class="txt-right fade-in-top">Let's work together</h6>
+                                <h2 class="txt-right fade-in-top">Design and Develop web all around the world</h2>
+                            </div>
+                            <div class="right row y-end">
+                                <p class="fade-in-top">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod, totam maxime rerum repellendus nisi.
+                                </p>
+                                <a class="fade-in-top" href="#">learn more →</a>
+                            </div>
+                        </section>
+                    </section>
+                    <section id="get-scroller-scroll-width"></section>
+                </section>
+        
+                <section id="about-me" class="row">
+                    <h2 class="text-revel-onscroll">About Me</h2>
+                    <p>
+                        <span  class="text-revel-onscroll">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sint sed ad, officia dolorem eligendi quam culpa. Hic esse fuga reiciendis, provident voluptas tempora excepturi porro maxime ad voluptates, quasi iure sint perspiciatis minus, libero necessitatibus in dolor culpa nulla.
+                        </span>
+                    </p>
+                </section>
+        
+                <section id="projects" class="row">
+                    <h2 class="text-revel-onscroll">Most Recent Projects</h2>
+                    <p>
+                        <span  class="text-revel-onscroll">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sint sed ad, officia dolorem eligendi quam culpa. Hic esse fuga reiciendis, provident voluptas tempora excepturi porro maxime ad voluptates, quasi iure sint perspiciatis minus, libero necessitatibus in dolor culpa nulla.
+                        </span>
+                    </p>
+                </section>
+        
+                <section id="faqs" class="content-page col surface-0">
+                    <section class="row py-x py-y">
+                        <h6>FAQs</h6>
+                        <h2>Frequently Ask Questions</h2>
+                        <p>
+                            <span class="text-revel-onscroll">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci rem magnam molestiae beatae quas laborum!
+                            </span>
+                        </p>
+                    </section>
+                    <section class="row">
+                        <ul class="row question-container py-y">
+                            <li class="question-answer">
+                                <ul class="row  py-x ">
+                                    <li class="question py-y flex x-between"> <div class="flex"> <b>01.</b> <b>question</b> </div> <span class="indicator">+</span> </li>
+                                    <li class="answer">
+                                        <p>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. A porro exercitationem voluptate dolore quos veritatis?
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="question-answer">
+                                <ul class="row  py-x ">
+                                    <li class="question py-y flex x-between"> <div class="flex"> <b>02.</b> <b>question</b> </div> <span class="indicator">+</span> </li>
+                                    <li class="answer">
+                                        <p>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. A porro exercitationem voluptate dolore quos veritatis?
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="question-answer">
+                                <ul class="row  py-x ">
+                                    <li class="question py-y flex x-between"> <div class="flex"> <b>03.</b> <b>question</b> </div> <span class="indicator">+</span> </li>
+                                    <li class="answer">
+                                        <p>
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. A porro exercitationem voluptate dolore quos veritatis?
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+        
+            </main>
+        </section>
     
         
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
+    
+        <footer class="container-grid">
+            <section class="content-page flex x-between">
+                <p> &copy;<span class="year">2025</span> <img class="brand-sm icon" src="/images/favicon-50-png.png" alt="Web Developer | Hassan Biswas"> <span class="txt-accent">Web Developer | Hassan Biswas</span></p>
+                <div class="flex x-center">
+                    <a class="icon" href="http://facebook.com/mdezazulhassanbiswas.profile" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
+                    <a class="icon" href="http://instagram.com/mdezazulhassanbiswas" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+                    <a class="icon" href="http://youtube.com/@mdezazulhassanbiswas" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </section>
+        </footer>
+    </section>
+    
+    <script src="/script.js"></script>
 </body>
 </html>
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
