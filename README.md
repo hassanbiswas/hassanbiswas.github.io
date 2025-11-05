@@ -2,16 +2,16 @@
 Professional Website Designer & Front-end Developer
 
 ## Contact
-    Messenger : m.me/hassanbiswas.github.io
-    Portfolio :      hassanbiswas.github.io
-    Gmail     :      hassanbiswas.github.io@gmail.com
+-     Messenger : m.me/hassanbiswas.github.io
+-     Portfolio :      hassanbiswas.github.io
+-     Gmail     :      hassanbiswas.github.io@gmail.com
     
-    Whatsapp  : wa.me/8801602873384
+-     Whatsapp  : wa.me/8801602873384
 
 ## Follow
-    Facebook  : facebook.com/hassanbiswas.github.io
-    Instagram : instagram.com/hassanbiswas.github.io
-    Threads   : threads.com/hassanbiswas.github.io
+-     Facebook  : facebook.com/hassanbiswas.github.io
+-     Instagram : instagram.com/hassanbiswas.github.io
+-     hreads   : threads.com/hassanbiswas.github.io
 
     
 # App
@@ -32,14 +32,14 @@ or
 2. visit https://hassanbiswas.github.io & from your browsers > menu > cast,save,share > install page as app.
 
 ## Usage:
-    - Install & open the app
-    - Browse products
-    - Choose product
-    - Contact me
-    - Buy product
+ - Install & open the app
+ - Browse products
+ - Choose product
+ - Contact me
+ - Buy product
 
 ## Acknowledgements:
-    All over the World
+ All over the World
 
 
 
