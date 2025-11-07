@@ -3,22 +3,21 @@
 
 ## Contact
 -  Messenger :
--              m.me/hassanbiswas.github.io
+-              hassanbiswas.github.io/messenger
 -  Portfolio :
--                   hassanbiswas.github.io
+-              hassanbiswas.github.io/portfolio
 -  Gmail     :
--                   hassanbiswas.github.io@gmail.com
-    
+-              hassanbiswas.github.io/gmail  
 -  Whatsapp  :
--              wa.me/8801602873384
+-              hassanbiswas.github.io/whatsapp
 
 ## Follow
 - Facebook  :
--             facebook.com/hassanbiswas.github.io
+-             hassanbiswas.github.io/facebook
 - Instagram :
--             instagram.com/hassanbiswas.github.io
+-             hassanbiswas.github.io/instagram
 - Threads   :
--             threads.com/hassanbiswas.github.io
+-             hassanbiswas.github.io/threads
 
     
 ## Acknowledgements:
