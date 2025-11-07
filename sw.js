@@ -1,7 +1,7 @@
-const staticCacheName = 'mdezazulhassanbiswas-static';
+const staticCacheName = 'hassanbiswas-static';
 const urlsToCache = [
   '/',
-  '/index.html',
+  'index.html',
 ];
 
 // Install event
