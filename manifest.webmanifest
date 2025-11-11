@@ -54,7 +54,7 @@
       "name": "Send Email",
       "short_name": "Gmail",
       "description": "Get in touch with me, send me an email",
-      "url": "hassanbiswas.github.io/mail",
+      "url": "hassanbiswas.github.io/gmail",
       "icons": [{ "src": "images/mailto.png", "sizes": "96x96" }]
     },
     {
@@ -75,7 +75,7 @@
       "name": "Get Directions",
       "short_name": "Location",
       "description": "Find my location on Google Maps",
-      "url": "hassanbiswas.github.io/map",
+      "url": "hassanbiswas.github.io/location",
       "icons": [{ "src": "images/location.png", "sizes": "96x96" }]
     }
   ],
