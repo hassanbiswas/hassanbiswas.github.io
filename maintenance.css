@@ -1,0 +1,14 @@
+*{
+  text-align: center;
+}
+body{
+  height: 100dvh;
+  display: grid;
+  align-items: center;
+  justify-centent: center;
+  background: blue;
+  color: white;
+}
+a{
+  color: white;
+}
