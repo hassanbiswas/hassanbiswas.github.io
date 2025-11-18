@@ -19,7 +19,7 @@
   "theme_color": "#0000ff",
   "background_color": "#0000ff",
 
-  "homepage": "https://hassanbiswas.github.io/",
+  "homepage": "https://hassanbiswas.github.io",
   "description": "Welcome to my portfolio website! I'm Hassan Biswas, a passionate web developer dedicated to crafting beautiful and functional websites. Explore my projects, skills, and get in touch to collaborate on exciting web development ventures.",
   "orientation": "portrait",
   "lang": "en-US",
@@ -54,28 +54,28 @@
       "name": "Send Email",
       "short_name": "Gmail",
       "description": "Get in touch with me, send me an email",
-      "url": "hassanbiswas.github.io/gmail",
+      "url": "\gmail",
       "icons": [{ "src": "images/mailto.png", "sizes": "96x96" }]
     },
     {
       "name": "Whatsapp Me",
       "short_name": "Whatsapp",
       "description": "Chat with me on Whatsapp",
-      "url": "hassanbiswas.github.io/whatsapp",
+      "url": "\whatsapp",
       "icons": [{ "src": "images/whatsappto.png", "sizes": "96x96" }]
     },
     {
       "name": "Call Me",
       "short_name": "Call",
       "description": "Give me a call",
-      "url": "hassanbiswas.github.io/call",
+      "url": "\call",
       "icons": [{ "src": "images/callto.png", "sizes": "96x96" }]
     },
     {
       "name": "Get Directions",
       "short_name": "Location",
       "description": "Find my location on Google Maps",
-      "url": "hassanbiswas.github.io/location",
+      "url": "\location",
       "icons": [{ "src": "images/location.png", "sizes": "96x96" }]
     }
   ],
