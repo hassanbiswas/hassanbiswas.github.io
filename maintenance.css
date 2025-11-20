@@ -17,4 +17,7 @@ p{
 }
 a{
   color: white;
+  color: inherit;
+  offset: .5em currentColor;
+  padding: .5em;
 }
