@@ -1,15 +1,16 @@
 *{
   text-align: center;
   color: white;
+  background: blue;
 }
 body{
   height: 100dvh;
   display: grid;
-  align-items: center;
-  justify-centent: center;
-  background: blue;
-  color: white;
+  place-content: center;
 }
-a{
-  color: white;
+h1{
+  font-size: 4em;
+}
+p{
+  font-size: 1em
 }
