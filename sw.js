@@ -1,4 +1,4 @@
-const staticCacheName = 'hassanbiswas';
+const staticCacheName = 'hassanbiswas-github-io';
 const urlsToCache = [
   '/',
   'index.html',
