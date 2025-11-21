@@ -14,12 +14,13 @@
     }
   ],
   "start_url": "/",
-  "display": "standalone",
+  "display": ["standalone", "fullscreen"],
+  "display_override": ["standalone", "fullscreen"],
   "version": "2025.11.7",
   "theme_color": "#0000ff",
   "background_color": "#0000ff",
 
-  "homepage": "https://hassanbiswas.github.io",
+  "homepage": "https://hassanbiswas.github.io/",
   "description": "Welcome to my portfolio website! I'm Hassan Biswas, a passionate web developer dedicated to crafting beautiful and functional websites. Explore my projects, skills, and get in touch to collaborate on exciting web development ventures.",
   "orientation": "portrait",
   "lang": "en-US",
@@ -78,7 +79,6 @@
       "url": "\location",
       "icons": [{ "src": "images/location.png", "sizes": "96x96" }]
     }
-  ],
-  "display_override": ["standalone", "fullscreen"]
+  ]
 }
 
