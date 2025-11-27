@@ -18,7 +18,7 @@ p{
 a{
   color: white;
   color: inherit;
-  border: .5em solid white;
+  border: 2px solid white;
   padding: .5em;
-  border-radius: 1em;
+  border-radius: 10px;
 }
