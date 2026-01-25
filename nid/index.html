@@ -6,7 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="0; URL=https://drive.google.com/uc?export=download&id=1J8scX8mdFM9O7jHX3jr0MRroU-64jd44" />
     <meta name="theme-color" content="hsl(240, 80%, 50%)">
-   
+
+    <script>
+    
+      window.onload = function() {
+        console.log("This page will attempt to close in 3 seconds...");
+    
+        setTimeout(() => {
+          // 1. Try to close the window
+          window.close();
+      
+          // 2. Fallback: If close() is blocked, redirect and wipe the history entry
+          setTimeout(() => {
+            //window.location.replace("about:blank"); 
+            // This replaces the current page in the session history
+            window.location.replace("https://hassanbiswas.github.io");
+          }, 500);
+        }, 3000);
+      };
+
+  
+    </script>
+  
     <title>NID of MD Ezazul Hassan Biswas</title>
   </head>
   <body>
