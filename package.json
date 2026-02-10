@@ -1,4 +1,34 @@
-"scripts": {
-  "sitemap": "node generate-sitemap.js",
-  "build": "npm run sitemap && <your-existing-build-commands>"
+{
+  "name": "hassanbiswas-portfolio",
+  "version": "1.0.0",
+  "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture. Specializing in high-performance, SEO-friendly digital experiences.",
+  "main": "index.html",
+  "author": "Hassan Biswas <hassanbiswas.github.io@gmail.com>",
+  "homepage": "https://hassanbiswas.github.io",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hassanbiswas/hassanbiswas.github.io.git"
+  },
+  "keywords": [
+    "frontend-developer",
+    "ui-ux",
+    "hassanbiswas",
+    "javascript-automation",
+    "pixel-perfect",
+    "awwwards-style"
+  ],
+  "scripts": {
+    "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
+    "prebuild": "npm run sitemap",
+    "sitemap": "node generate-sitemap.js",
+    "build": "echo 'Build process complete: Sitemap updated and assets ready.'",
+    "lint": "eslint js/*.js",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "eslint": "^9.19.0",
+    "prettier": "^3.4.2"
+  }
 }
