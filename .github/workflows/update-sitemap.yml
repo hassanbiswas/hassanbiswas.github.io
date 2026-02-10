@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  # Allows you to run this manually from the Actions tab for testing
+  # Allows manual triggers from the Actions tab
   workflow_dispatch: 
 
 jobs:
@@ -22,9 +22,9 @@ jobs:
         with:
           node-version: '20'
 
-      # Uncomment the next two lines if you actually have a package.json file
-     # - name: Install Dependencies
-      #   run: npm install
+      # Keep this if you have a package.json, otherwise you can remove it
+      - name: Install Dependencies
+        run: npm install || echo "No package.json found, skipping install."
 
       - name: Run Sitemap Script
         run: node generate-sitemap.js
@@ -34,14 +34,13 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Stage the sitemap
           git add sitemap.xml
           
-          # Check if there are actual changes to avoid "Exit Code 1" on empty commits
-          if git diff --cached --quiet; then
-            echo "No changes detected in sitemap.xml. Skipping push."
-          else
+          # This logic checks if there are staged changes before committing
+          if ! git diff --cached --quiet; then
             git commit -m "chore: auto-update sitemap $(date +'%Y-%m-%d') [skip ci]"
             git push
+          else
+            echo "No changes detected in sitemap.xml. Nothing to push."
           fi
           
