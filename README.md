@@ -1,14 +1,14 @@
 # Hassan Biswas
 ### Web Developer | Hassan Biswas — UI/UX & Front-End Architecture
-@hassanbiswas.github.io
+###### @hassanbiswas.github.io
 
 Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
 
-🛠 Tech Stack & Tools
- * Languages: HTML5, CSS3, JavaScript (ES6+)
- * UI/UX Design: Figma, Framer
-* No-Code/Low-Code: Figma, Webflow, Relume
-* Deployment: GitHub Pages
+## Tech Stack & Tools
+  * Languages: HTML5, CSS3, JavaScript (ES6+)
+  * UI/UX Design: Figma, Framer
+  * No-Code/Low-Code: Figma, Webflow, Relume
+  * Deployment: GitHub Pages
      
 ## Contact With Me
     | Platform | Link |
@@ -20,9 +20,9 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
     | WhatsApp | wa.me/8801602873384 |
   
  ## Follow My Work
-     * Facebook facebook.com/hassanbiswas.github.io
-      * Instagram instagram.com/hassanbiswas.github.io
-       * Threads threads.com/hassanbiswas.github.io
+   * Facebook facebook.com/hassanbiswas.github.io
+   * Instagram instagram.com/hassanbiswas.github.io
+   * Threads threads.com/hassanbiswas.github.io
 
 ## Acknowledgements:
-       Serving clients worldwide.
+   Serving clients worldwide.
