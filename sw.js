@@ -9,7 +9,7 @@ const VERSION = new Date().getDate(); // for absolute automation.
 // const VERSION = '1.2.0'; 
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = '/offline.html'; // /offline.html
+const OFFLINE_URL = '/index.html'; // /offline.html
 
 // 2. Logic to map your assets with the version automatically
 const ASSETS_TO_CACHE = [
