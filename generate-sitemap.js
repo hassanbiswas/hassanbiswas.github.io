@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const PAGES = [
   { rel: '', priority: '1.0' },
@@ -9,6 +10,7 @@ const PAGES = [
 ];
 
 const BASE_URL = 'https://hassanbiswas.github.io/';
+// Using your preferred date logic style
 const TODAY = new Date().toISOString().split('T')[0];
 
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
@@ -21,5 +23,11 @@ ${PAGES.map(page => `  <url>
   </url>`).join('\n')}
 </urlset>`;
 
-fs.writeFileSync('sitemap.xml', sitemapContent);
-console.log('✅ sitemap.xml updated with date:', TODAY);
+try {
+  const outputPath = path.join(process.cwd(), 'sitemap.xml');
+  fs.writeFileSync(outputPath, sitemapContent.trim());
+  console.log(`✅ sitemap.xml updated successfully for: ${TODAY}`);
+} catch (error) {
+  console.error('❌ Failed to generate sitemap:', error);
+  process.exit(1); // Ensures GitHub Actions marks it as a failure
+}
