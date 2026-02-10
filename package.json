@@ -1,0 +1,4 @@
+"scripts": {
+  "sitemap": "node generate-sitemap.js",
+  "build": "npm run sitemap && <your-existing-build-commands>"
+}
