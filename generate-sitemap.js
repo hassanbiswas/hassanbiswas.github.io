@@ -5,8 +5,7 @@ const PAGES = [
   { rel: 'about/', priority: '0.8' },
   { rel: 'services/', priority: '0.7' },
   { rel: 'projects/', priority: '0.6' },
-  { rel: 'contact/', priority: '0.5' },
-  { rel: 'testimonials/', priority: '0.4' }
+  { rel: 'contact/', priority: '0.5' }
 ];
 
 const BASE_URL = 'https://hassanbiswas.github.io/';
