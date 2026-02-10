@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  # Allows you to run this manually from the Actions tab for testing
+  workflow_dispatch: 
 
 jobs:
   sitemap:
@@ -20,8 +22,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: npm install
+      # Uncomment the next two lines if you actually have a package.json file
+     # - name: Install Dependencies
+      #   run: npm install
 
       - name: Run Sitemap Script
         run: node generate-sitemap.js
@@ -30,8 +33,15 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the sitemap
           git add sitemap.xml
-          # Commits only if changes exist; prevents workflow failure if sitemap is identical
-          git commit -m "chore: auto-update sitemap $(date +'%Y-%m-%d') [skip ci]" || echo "No changes to commit"
-          git push
+          
+          # Check if there are actual changes to avoid "Exit Code 1" on empty commits
+          if git diff --cached --quiet; then
+            echo "No changes detected in sitemap.xml. Skipping push."
+          else
+            git commit -m "chore: auto-update sitemap $(date +'%Y-%m-%d') [skip ci]"
+            git push
+          fi
           
