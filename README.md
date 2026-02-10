@@ -4,25 +4,30 @@
 
 Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
 
+
 ## Tech Stack & Tools
   * Languages: HTML5, CSS3, JavaScript (ES6+)
   * UI/UX Design: Figma, Framer
   * No-Code/Low-Code: Figma, Webflow, Relume
   * Deployment: GitHub Pages
+
      
 ## Contact With Me
+
     | Platform  | Link                                           |
     |-----------|------------------------------------------------|
-    | Portfolio | hassanbiswas.github.io |
-    | Messenger | m.me/hassanbiswas.github.io |
-    | Phone     | tel:+8801602873384 |
+    | Portfolio | hassanbiswas.github.io                         |
+    | Messenger | m.me/hassanbiswas.github.io                    |
+    | Phone     | tel:+8801602873384                             |
     | Gmail     | mailto:hassanbiswas.github.io+github@gmail.com |
-    | WhatsApp  | wa.me/8801602873384 |
+    | WhatsApp  | wa.me/8801602873384                            |
+
   
  ## Follow My Work
    * Facebook facebook.com/hassanbiswas.github.io
    * Instagram instagram.com/hassanbiswas.github.io
    * Threads threads.com/hassanbiswas.github.io
+
 
 ## Acknowledgements:
    Serving clients worldwide.
