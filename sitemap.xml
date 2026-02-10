@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
-            <loc>https://hassanbiswas.github.io/</loc>
+            <loc>https://hassanbiswas.github.io/index.html</loc>
             <lastmod>2026-02-10</lastmod>
             <changefreq>monthly</changefreq>
             <priority>1.0</priority>
       </url>         
       <url>
-            <loc>https://hassanbiswas.github.io/#about</loc>
+            <loc>https://hassanbiswas.github.io/about/index.html</loc>
             <lastmod>2026-02-09</lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.8</priority>
       </url>          
       <url>
-            <loc>https://hassanbiswas.github.io/#services</loc>
+            <loc>https://hassanbiswas.github.io/services/index.html</loc>
             <lastmod>2026-02-08</lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.7</priority>
       </url>              
       <url>
-            <loc>https://hassanbiswas.github.io/#projects</loc>
+            <loc>https://hassanbiswas.github.io/projects/index.html</loc>
             <lastmod>2026-02-07</lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.6</priority>
       </url>            
       <url>
-            <loc>https://hassanbiswas.github.io/#contact</loc>
+            <loc>https://hassanbiswas.github.io/contact/index.html</loc>
             <lastmod>2026-02-06</lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.5</priority>
       </url>            
       <url>
-            <loc>https://hassanbiswas.github.io/#testimonials</loc>
+            <loc>https://hassanbiswas.github.io/testimonials/index.html</loc>
             <lastmod>2026-02-05</lastmod>
             <changefreq>monthly</changefreq>
             <priority>0.4</priority>
