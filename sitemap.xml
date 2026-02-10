@@ -19,12 +19,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://hassanbiswas.github.io/FreeFire/</loc>
-    <lastmod>2026-02-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://hassanbiswas.github.io/GitHub/</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -56,12 +50,6 @@
   </url>
   <url>
     <loc>https://hassanbiswas.github.io/Meet/</loc>
-    <lastmod>2026-02-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://hassanbiswas.github.io/Messenger/</loc>
     <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
