@@ -20,8 +20,8 @@
   ],
   "scripts": {
     "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
-    "prebuild": "npm run sitemap",
     "sitemap": "node generate-sitemap.js",
+    "prebuild": "npm run sitemap",
     "build": "echo 'Build process complete: Sitemap updated and assets ready.'",
     "lint": "eslint js/*.js",
     "format": "prettier --write ."
