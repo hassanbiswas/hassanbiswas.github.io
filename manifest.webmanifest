@@ -1,0 +1,54 @@
+// 2026 logic & ideas 💡
+{
+  "short_name": "Web Developer",
+  "name": "Web Developer : Hassan Biswas",
+  "description": "Freelance Front-End Developer & Website Designer specializing in modern, mobile-ready, and SEO-friendly custom website design.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1a1aff",
+  "background_color": "#1a1aff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s192-c-no",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIGZpbGw9IiMxOTE5ZTYiLz48cGF0aCBkPSJNODUuMDc2IDg0LjQxNWgtLjE4MmwtLjExNC0uMTE4LjA5LjAzNS4wNTctLjAxN0M4NC44OTQgODQuMzE1IDczIDczLjA1NCA3MyA3My4wNTRoMjIuNzg5VjczQzEwOC42MDcgNzMgMTE5IDgzLjMgMTE5IDk2YzAgMTIuNzAyLTEwLjM5MyAyMy0yMy4yMTEgMjN2LS4yNjFsLTExLjA5MS0xMS4yODRjLS42MjQtLjUxOC0zLjI3Ny0zLjIxNi01Ljg3OS01Ljg0OC0yLjk1OS0yLjk5Ny01LjkwMi02LjAwNi01LjkwMi02LjAwNlY4NC40MTVoMTEuODQ1bDExLjAyNyAxMS4yMDV2MS4xMTZjLTMuMDM1LS4xMDEtMTEuMTQ3LS40MTAtMTEuMTQ3LS40MTAtLjA2OC0uMDY2LjE2MiAxMC41NTguMTkgMTEuODRoMTAuOTU3di0uMTU4YzYuNDkgMCAxMS43NS01LjI2IDExLjc1LTExLjc1cy01LjI2LTExLjc1LTExLjc1LTExLjc1di0uMTcxSDg0Ljg3OHptMTEuODI4IDEyLjA4MmMwIC4wMS0uNDI3LS4wMDgtMS4xMTUtLjAyNnYtMS4wOTZ6IiBmaWxsPSIjMTkxOWU2IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIvPjwvc3ZnPg==",
+      "type": "image/svg+xml",
+      "sizes": "any", // 512×512
+      "purpose": "maskable"
+    }
+  ],      
+  "shortcuts": [
+    {
+      "name": "Messenger",
+      "url": "https://m.me/hassanbiswas.github.io",
+      "icons": [{ "src": "https://www.google.com/s2/favicons?domain=messenger.com&sz=96", "sizes": "96x96" }]
+    },
+    {
+      "name": "Call",
+      "url": "tel:+8801602873384",
+      "icons": [{ "src": "https://www.google.com/s2/favicons?domain=voice.google.com&sz=96", "sizes": "96x96" }]
+    },
+    {
+      "name": "G-mail",
+      "url": "mailto:hassanbiswas.github.io+app@gmail.com",
+      "icons": [{ "src": "https://www.google.com/s2/favicons?domain=mail.google.com&sz=96", "sizes": "96x96" }]
+    },
+    {
+      "name": "Map",
+      "url": "maps.app.goo.gl/LPouGF9mtLHFjcDJ7",
+      "icons": [{ "src": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=96", "sizes": "96x96" }]
+    }
+  ],
+  "screenshots": [
+    { "src": "images/screen-1.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "images/screen-2.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "images/screen-3.svg", "type": "image/svg+xml", "sizes": "any" }
+    // ,{ "src": "images/screen-4.png", "type": "image/png", "sizes": "640x480" }
+  ]
+}
