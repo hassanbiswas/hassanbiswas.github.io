@@ -7,31 +7,41 @@
     <meta charset="UTF-8">
     <title>Redirecting... | Hassan Biswas</title>
     <script>
-        (function() {
-            const path = window.location.pathname;
-                                             
-            // 1. Logic: Remove .html or .php extension from the URL
-            if (path.endsWith('.html') || path.endsWith('.php')) {
-                const newPath = path.replace(/\.(html|php)$/, '');
-                window.location.replace(newPath);
-                return;
-            }
 
-            // 2. Logic: Map specific error codes (Simulating your .htaccess)
-            // Since GH Pages only gives us a 404, we can look for "hints" in the URL
-            const errorMapping = {
-                '/admin': '/index.html', // /error/401.html
-                '/private': '/index.html' // /error/403.html
-            };
+     (function() {
+    const path = window.location.pathname;
 
-            if (errorMapping[path]) {
-              window.location.replace(errorMapping[path]);
-            } else {
+    // 1. Force Lowercase: Redirect if the URL has uppercase characters
+    if (/[A-Z]/.test(path)) {
+        window.location.replace(path.toLowerCase());
+        return;
+    }
+
+    // 2. Logic: Remove .html or .php extension
+    if (path.endsWith('.html') || path.endsWith('.php')) {
+        const newPath = path.replace(/\.(html|php)$/, '');
+        window.location.replace(newPath);
+        return;
+    }
+
+    // 3. Logic: Map specific error codes
+    // Since GH Pages only gives us a 404, we can look for "hints" in the URL
+    const errorMapping = {
+        '/admin': '/index.html', // /error/401.html
+        '/private': '/index.html'  // /error/403.html
+    };
+
+    if (errorMapping[path]) {
+        window.location.replace(errorMapping[path]);
+    } else {
               // Fallback: Show your custom 404 UI or redirect to home
               // window.location.replace('/error/404.html'); 
-              window.location.replace('/index.html'); 
-            }
-        })();
+        // Fallback: Redirect to home
+        window.location.replace('/index.html');
+    }
+})();
+     
+
     </script>
 </head>
 <body>
