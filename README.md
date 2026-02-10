@@ -16,9 +16,9 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
     | Platform  | Link                                           |
     |-----------|------------------------------------------------|
-    | Portfolio | hassanbiswas.github.io                         |
+    | Portfolio | https://hassanbiswas.github.io                 |
     |-----------|------------------------------------------------|
-    | Messenger | m.me/hassanbiswas.github.io                    |
+    | Messenger | https://m.me/hassanbiswas.github.io            |
     |-----------|------------------------------------------------|
     | Phone     | (+880) 1602-873384                             |
     |-----------|------------------------------------------------|
@@ -28,9 +28,9 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
   
  ## Follow My Work
-   * Facebook facebook.com/hassanbiswas.github.io
-   * Instagram instagram.com/hassanbiswas.github.io
-   * Threads threads.com/hassanbiswas.github.io
+   * Facebook  : https://facebook.com/hassanbiswas.github.io
+   * Instagram : https://instagram.com/hassanbiswas.github.io
+   * Threads   : https://threads.com/hassanbiswas.github.io
 
 
 ## Acknowledgements:
