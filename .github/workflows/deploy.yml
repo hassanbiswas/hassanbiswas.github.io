@@ -3,6 +3,14 @@ name: Deploy Website
 on:
   push:
     branches: ["main"]
+    # Ensures it executes when any file or folder is modified
+    paths:
+      - '**' 
+  # This triggers the deploy ONLY after the unzip workflow finishes
+  workflow_run:
+    workflows: ["Unzip Assets"] # Replace with the exact "name:" of your unzip.yml
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -16,6 +24,8 @@ concurrency:
 
 jobs:
   build-and-deploy:
+    # Only run if the triggering workflow was successful (if triggered by workflow_run)
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -23,19 +33,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # Your existing automation logic
-      - name: Sync Repository
+      - name: Sync Repository & Versioning
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
-          # This is where your VERSION logic lives
+          
+          # Your logic: const VERSION = new Date().getDate();
+          # If you have a script to update this, run it here.
+          
           git add .
-          git commit -m "Automated Sync: $(date)" || echo "No changes to commit"
-          git push
+          git commit -m "Automated Sync: $(date) [skip ci]" || echo "No changes to commit"
+          git push origin main
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
