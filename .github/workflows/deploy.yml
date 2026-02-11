@@ -1,12 +1,12 @@
 name: Production Deployment
 
 on:
-  # This triggers ONLY after your existing unzip.yml is finished
+  # Triggers automatically after the unzip workflow finishes
   workflow_run:
-    workflows: ["unzip"] # Replace this with the exact 'name:' found at the top of your unzip.yml
+    workflows: ["unzip"] 
     types:
       - completed
-  # Allows you to run it manually if needed
+  # Allows manual deployment from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -14,21 +14,32 @@ permissions:
   pages: write
   id-token: write
 
+# Prevent concurrent deployments from overlapping
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   deploy-site:
-    # Only run if the unzip workflow actually succeeded (not if it failed)
+    # Only runs if the previous workflow succeeded or if triggered manually
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Set this to '.' if your unzipped files are in the root, 
+          # or the specific folder name if they are unzipped into a subfolder.
           path: '.'
 
       - name: Deploy to GitHub Pages
