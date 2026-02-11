@@ -1,81 +1,57 @@
-name: Uncompress Archive
+name: Auto-Unzip, Overwrite, and Cleanup
 
 on:
   push:
-    paths:
-      - '**.zip'
-      - '**.tar.gz'
-      - '**.7z'
-      - '**.rar'
-      - '**.tar'
-      - '**.gz'
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  unzip-and-sync:
+  unzip_process:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Install Archive Tools
+      - name: Initialize Versioning
         run: |
-          sudo apt-get update
-          sudo apt-get install -y atool p7zip-full rar unrar
+          # Matches your logic: const VERSION = new Date().getDate();
+          VERSION=$(date +%d)
+          echo "Processing version: $VERSION"
 
-      - name: Extract, Flatten, and Overwrite
+      - name: Find, Overwrite, and Extract
         run: |
-          shopt -s dotglob nullglob
-          
-          for f in *.{zip,tar.gz,7z,rar,tar,gz}; do
-            [ -e "$f" ] || continue
-            echo "Processing: $f"
+          # Search for compressed files in the repo
+          find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" \) -not -path "./.git/*" | while read -r file; do
+            DEST=$(dirname "$file")
+            echo "Extracting $file into $DEST and overwriting duplicates..."
             
-            # Prepare fresh temp directory
-            rm -rf temp_extraction
-            mkdir -p temp_extraction
-            
-            # Extract to temp folder
-            aunpack -e -X temp_extraction "$f"
-
-            # Check if there's only one root directory inside the archive
-            CONTENT_COUNT=$(ls -1 temp_extraction | wc -l)
-            if [ "$CONTENT_COUNT" -eq 1 ] && [ -d temp_extraction/*/ ]; then
-              echo "Single directory detected. Flattening and overwriting..."
-              # cp -rf ensures existing files are overwritten and directories merged
-              cp -rf temp_extraction/*/* .
-            else
-              echo "Multiple items detected. Overwriting root..."
-              cp -rf temp_extraction/* .
+            if [[ "$file" == *.zip ]]; then
+              # -o: overwrite existing files without prompting
+              # -q: quiet mode
+              unzip -o -q "$file" -d "$DEST"
+            elif [[ "$file" == *.tar ]] || [[ "$file" == *.gz ]]; then
+              # tar overwrites by default
+              tar -xf "$file" -C "$DEST"
+            elif [[ "$file" == *.7z ]]; then
+              # -aoa: Overwrite All existing files without prompt
+              7z aoa x "$file" -o"$DEST"
             fi
-
-            # Cleanup archive and temp files
-            rm -rf temp_extraction
-            rm -f "$f"
+            
+            # Delete the original archive after extraction
+            rm "$file"
+            echo "Successfully processed and deleted $file"
           done
-
-      - name: Apply Logic Automation
-        run: |
-          # Sync VERSION with current day: const VERSION = new Date().getDate();
-          VERSION_VAL=$(date +%-d)
-          sed -i "s/const VERSION = [^;]*/const VERSION = $VERSION_VAL/g" *.js || true
-          echo "Logic Automation: VERSION synchronized to $VERSION_VAL"
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "hassanbiswas"
+          git config --global user.name "Hassan Biswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
-          
           git add .
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            # Dynamic commit message with the current date version
-            git commit -m "chore: unpack & overwrite duplicates (v.$(date +%-d))"
+            git commit -m "Auto-unzip & Overwrite: Version $VERSION [Skip CI]"
             git push
           fi
           
