@@ -1,56 +1,72 @@
-name: Auto Unzip and Flatten to Root
+name: Uncompress Archive
 
 on:
   push:
     paths:
       - '**.zip'
+      - '**.tar.gz'
+      - '**.7z'
+      - '**.rar'
+      - '**.tar'
+      - '**.gz'
 
 jobs:
-  unzip-and-deploy:
+  unzip-and-sync:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Process ZIP Files
+      - name: Install Archive Tools
+        run: sudo apt-get update && sudo apt-get install -y atool p7zip-full rar unrar
+
+      - name: Extract, Flatten, and Clean
         run: |
-          for f in *.zip; do
-            [ -e "$f" ] || continue
-            echo "Processing $f..."
+          # Enable nullglob to handle cases where an extension might not exist
+          shopt -s nullglob
+          
+          for f in *.{zip,tar.gz,7z,rar,tar,gz}; do
+            echo "Processing archive: $f"
+            mkdir -p temp_extraction
             
-            # Create a temporary directory to avoid conflicts during extraction
-            mkdir temp_ext
-            unzip -o "$f" -d temp_ext
-            
-            # Move content to root. 
-            # If the zip contains a single folder, move its contents instead.
-            if [ $(ls -1 temp_ext | wc -l) -eq 1 ] && [ -d temp_ext/* ]; then
-              mv temp_ext/*/* .
+            # aunpack handles any format automatically
+            aunpack -X temp_extraction "$f"
+
+            # Flattening Logic: If archive contains a single folder, move its contents to root
+            if [ $(ls -1 temp_extraction | wc -l) -eq 1 ] && [ -d temp_extraction/* ]; then
+              cp -r temp_extraction/*/* .
             else
-              mv temp_ext/* .
+              cp -r temp_extraction/* .
             fi
-            
+
             # Cleanup
-            rm -rf temp_ext
+            rm -rf temp_extraction
             rm "$f"
           done
 
-      - name: Commit and Sync
+      - name: Apply Logic Automation
+        run: |
+          # Automatically update the VERSION constant in JS files
+          # Based on your preference: const VERSION = new Date().getDate();
+          VERSION_VAL=$(date +%d)
+          sed -i "s/const VERSION = .*/const VERSION = $VERSION_VAL;/g" *.js || true
+          echo "Logic Automation: VERSION updated to $VERSION_VAL"
+
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "hassanbiswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
           
-          # Logic Automation
-          const_VERSION=$(date +%d)
-          
           git add .
           if git diff --staged --quiet; then
-            echo "No changes detected."
+            echo "No changes detected after extraction."
           else
-            git commit -m "Automated Unzip & Cleanup (V.$const_VERSION)"
+            git commit -m "Automated Unpack & Logic Update (v.$(date +%d))"
             git push
           fi
           
