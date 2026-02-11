@@ -1,45 +1,85 @@
-name: Production Deployment
+name: Uncompress and Deploy
 
 on:
-  # Triggers automatically after the unzip workflow finishes
-  workflow_run:
-    workflows: ["unzip"] 
-    types:
-      - completed
-  # Allows manual deployment from the Actions tab
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Prevent concurrent deployments from overlapping
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  push:
+    branches:
+      - main
+    paths:
+      - '**.zip'
+      - '**.tar.gz'
+      - '**.7z'
+      - '**.rar'
+      - '**.gz'
+      # Keep standard triggers so normal pushes still deploy
+      - '**.html'
+      - '**.css'
+      - '**.js'
 
 jobs:
-  deploy-site:
-    # Only runs if the previous workflow succeeded or if triggered manually
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Archive Tools
+        run: sudo apt-get update && sudo apt-get install -y atool p7zip-full
+
+      - name: Extract, Flatten, and Clean
+        run: |
+          # Find any compressed files pushed
+          shopt -s nullglob
+          for f in *.{zip,tar.gz,7z,rar,gz}; do
+            echo "Processing $f..."
+            mkdir -p temp_ext
+            
+            # Extract using atool (handles any extension)
+            aunpack -X temp_ext "$f"
+
+            # Logic: If archive contains a single folder, move its contents to root
+            # Otherwise, move everything to root
+            if [ $(ls -1 temp_ext | wc -l) -eq 1 ] && [ -d temp_ext/* ]; then
+              cp -r temp_ext/*/* .
+            else
+              cp -r temp_ext/* .
+            fi
+
+            rm -rf temp_ext
+            rm "$f"
+          done
+
+      - name: Apply Logic Automation
+        run: |
+          # Automation: Update const VERSION to current date
+          VERSION_VAL=$(date +%d)
+          sed -i "s/const VERSION = .*/const VERSION = $VERSION_VAL;/g" *.js || true
+          echo "Updated VERSION to $VERSION_VAL"
+
+      - name: Sync Repository
+        run: |
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to repository."
+          else
+            git commit -m "Automated Unpack & Version Update (V.$(date +%d))"
+            git push
+          fi
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Set this to '.' if your unzipped files are in the root, 
-          # or the specific folder name if they are unzipped into a subfolder.
           path: '.'
 
       - name: Deploy to GitHub Pages
