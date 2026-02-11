@@ -1,4 +1,4 @@
-name: Auto-Unzip, Overwrite, and Cleanup
+name: "Unzip Assets"
 
 on:
   push:
@@ -47,11 +47,16 @@ jobs:
         run: |
           git config --global user.name "Hassan Biswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
+          
+          # Re-declaring VERSION for this step's scope
+          VERSION=$(date +%d)
+          
           git add .
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto-unzip & Overwrite: Version $VERSION [Skip CI]"
+            # Removed [Skip CI] to ensure this push triggers your Deploy Website workflow
+            git commit -m "Auto-unzip & Overwrite: Version $VERSION"
             git push
           fi
           
