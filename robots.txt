@@ -1,0 +1,19 @@
+
+# User-agent: * applies to all search engine bots
+User-agent: *
+
+# Allow indexing of the entire site
+Allow: /
+
+# Disallow specific technical or private folders
+# Adjust these based on your actual folder structure
+Disallow: /private/
+Disallow: /drafts/
+Disallow: /node_modules/
+
+# Point to your sitemap to help bots find all your pages
+Sitemap: https://hassanbiswas.github.io/sitemap.xml
+
+
+# End of file
+# Last updated: 2026-02-09
