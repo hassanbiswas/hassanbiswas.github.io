@@ -1,83 +1,43 @@
-name: Uncompress and Deploy
+name: Deploy Website
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - '**.zip'
-      - '**.tar.gz'
-      - '**.7z'
-      - '**.rar'
-      - '**.gz'
-      # Keep standard triggers so normal pushes still deploy
-      - '**.html'
-      - '**.css'
-      - '**.js'
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install Archive Tools
-        run: sudo apt-get update && sudo apt-get install -y atool p7zip-full
-
-      - name: Extract, Flatten, and Clean
-        run: |
-          # Find any compressed files pushed
-          shopt -s nullglob
-          for f in *.{zip,tar.gz,7z,rar,gz}; do
-            echo "Processing $f..."
-            mkdir -p temp_ext
-            
-            # Extract using atool (handles any extension)
-            aunpack -X temp_ext "$f"
-
-            # Logic: If archive contains a single folder, move its contents to root
-            # Otherwise, move everything to root
-            if [ $(ls -1 temp_ext | wc -l) -eq 1 ] && [ -d temp_ext/* ]; then
-              cp -r temp_ext/*/* .
-            else
-              cp -r temp_ext/* .
-            fi
-
-            rm -rf temp_ext
-            rm "$f"
-          done
-
-      - name: Apply Logic Automation
-        run: |
-          # Automation: Update const VERSION to current date
-          VERSION_VAL=$(date +%d)
-          sed -i "s/const VERSION = .*/const VERSION = $VERSION_VAL;/g" *.js || true
-          echo "Updated VERSION to $VERSION_VAL"
-
-      - name: Sync Repository
-        run: |
-          git config --global user.name "hassanbiswas"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
-          git add .
-          if git diff --staged --quiet; then
-            echo "No changes to repository."
-          else
-            git commit -m "Automated Unpack & Version Update (V.$(date +%d))"
-            git push
-          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload Artifact
+      # Your existing automation logic
+      - name: Sync Repository
+        run: |
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas"
+          # This is where your VERSION logic lives
+          git add .
+          git commit -m "Automated Sync: $(date)" || echo "No changes to commit"
+          git push
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
