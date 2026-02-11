@@ -1,0 +1,40 @@
+name: Deploy Website
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch: # Allows manual trigger from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # This step mimics your VERSION logic if needed during build
+      - name: Generate Build Metadata
+        run: |
+          echo "Deploying version from $(date +'%d')" 
+          
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the entire repository (root)
+          path: '.'
+
+      - name: Deploy to GitHub Actions
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
