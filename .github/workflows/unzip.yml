@@ -27,39 +27,41 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y atool p7zip-full rar unrar
 
-      - name: Extract, Flatten, and Clean
+      - name: Extract, Flatten, and Overwrite
         run: |
           shopt -s dotglob nullglob
           
-          # Find all supported archives
           for f in *.{zip,tar.gz,7z,rar,tar,gz}; do
-            echo "Working on: $f"
+            [ -e "$f" ] || continue
+            echo "Processing: $f"
+            
+            # Prepare fresh temp directory
+            rm -rf temp_extraction
             mkdir -p temp_extraction
             
             # Extract to temp folder
             aunpack -e -X temp_extraction "$f"
 
-            # Improved Flattening: Check if there's only one item and it's a directory
+            # Check if there's only one root directory inside the archive
             CONTENT_COUNT=$(ls -1 temp_extraction | wc -l)
             if [ "$CONTENT_COUNT" -eq 1 ] && [ -d temp_extraction/*/ ]; then
-              echo "Single directory detected. Flattening..."
-              mv temp_extraction/*/* .
+              echo "Single directory detected. Flattening and overwriting..."
+              # cp -rf ensures existing files are overwritten and directories merged
+              cp -rf temp_extraction/*/* .
             else
-              echo "Multiple items or files detected. Moving to root..."
-              mv temp_extraction/* .
+              echo "Multiple items detected. Overwriting root..."
+              cp -rf temp_extraction/* .
             fi
 
-            # Cleanup
+            # Cleanup archive and temp files
             rm -rf temp_extraction
-            rm "$f"
+            rm -f "$f"
           done
 
       - name: Apply Logic Automation
         run: |
-          # Updating the VERSION constant based on your preference
-          # const VERSION = new Date().getDate();
+          # Sync VERSION with current day: const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%-d)
-          # Matches 'const VERSION = ' followed by any value or quote
           sed -i "s/const VERSION = [^;]*/const VERSION = $VERSION_VAL/g" *.js || true
           echo "Logic Automation: VERSION synchronized to $VERSION_VAL"
 
@@ -72,8 +74,8 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            # Using your brand color logic context for the commit if desired
-            git commit -m "chore: unpack archives & update logic to v.$VERSION_VAL"
+            # Dynamic commit message with the current date version
+            git commit -m "chore: unpack & overwrite duplicates (v.$(date +%-d))"
             git push
           fi
           
