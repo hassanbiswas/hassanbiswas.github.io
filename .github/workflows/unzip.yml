@@ -1,0 +1,56 @@
+name: Auto Unzip and Flatten to Root
+
+on:
+  push:
+    paths:
+      - '**.zip'
+
+jobs:
+  unzip-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Process ZIP Files
+        run: |
+          for f in *.zip; do
+            [ -e "$f" ] || continue
+            echo "Processing $f..."
+            
+            # Create a temporary directory to avoid conflicts during extraction
+            mkdir temp_ext
+            unzip -o "$f" -d temp_ext
+            
+            # Move content to root. 
+            # If the zip contains a single folder, move its contents instead.
+            if [ $(ls -1 temp_ext | wc -l) -eq 1 ] && [ -d temp_ext/* ]; then
+              mv temp_ext/*/* .
+            else
+              mv temp_ext/* .
+            fi
+            
+            # Cleanup
+            rm -rf temp_ext
+            rm "$f"
+          done
+
+      - name: Commit and Sync
+        run: |
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          
+          # Logic Automation
+          const_VERSION=$(date +%d)
+          
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes detected."
+          else
+            git commit -m "Automated Unzip & Cleanup (V.$const_VERSION)"
+            git push
+          fi
+          
