@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  # Allows manual triggers from the Actions tab
   workflow_dispatch: 
 
 jobs:
@@ -22,7 +21,6 @@ jobs:
         with:
           node-version: '20'
 
-      # Keep this if you have a package.json, otherwise you can remove it
       - name: Install Dependencies
         run: npm install || echo "No package.json found, skipping install."
 
@@ -36,11 +34,19 @@ jobs:
           
           git add sitemap.xml
           
-          # This logic checks if there are staged changes before committing
+          # Using your preferred logic style for versioning
+          VERSION=$(date +'%d')
+          
           if ! git diff --cached --quiet; then
-            git commit -m "chore: auto-update sitemap $(date +'%Y-%m-%d') [skip ci]"
+            git commit -m "chore: sitemap v$VERSION update $(date +'%Y-%m-%d') [skip ci]"
             git push
           else
             echo "No changes detected in sitemap.xml. Nothing to push."
           fi
+
+      - name: Ping Search Engines
+        # This only runs if the previous steps succeeded
+        run: |
+          curl "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml"
+          curl "https://www.bing.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml"
           
