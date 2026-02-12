@@ -6,43 +6,49 @@
     It must be in the root directory of your repository. -->
     <meta charset="UTF-8">
     <title>Redirecting... | Hassan Biswas</title>
-    <script>
+    
+  <script>
+  (function() {
+    const VERSION = new Date().getDate(); 
+    let path = window.location.pathname;
+    const originalPath = path;
 
-     (function() {
-    const path = window.location.pathname;
-
-    // 1. Force Lowercase: Redirect if the URL has uppercase characters
+    // 1. Force Lowercase
     if (/[A-Z]/.test(path)) {
-        window.location.replace(path.toLowerCase());
-        return;
+      path = path.toLowerCase();
     }
 
-    // 2. Logic: Remove .html or .php extension
-    if (path.endsWith('.html') || path.endsWith('.php')) {
-        const newPath = path.replace(/\.(html|php)$/, '');
-        window.location.replace(newPath);
-        return;
+    // 2. Remove index.html or index.php (leaving the trailing slash)
+    if (path.endsWith('/index.html') || path.endsWith('/index.php')) {
+      path = path.replace(/index\.(html|php)$/, '');
     }
 
-    // 3. Logic: Map specific error codes
-    // Since GH Pages only gives us a 404, we can look for "hints" in the URL
+    // 3. Remove .html, .php extensions from other files and strip '#'
+    // This handles /#about -> /about and /contact.html -> /contact
+    path = path.replace(/\.(html|php)$/, '').replace(/#/, '');
+
+    // Redirect only if the path was actually modified
+    if (path !== originalPath) {
+      window.location.replace(path);
+      return;
+    }
+
+    // 4. Custom Error Mapping / Fallback
     const errorMapping = {
-        '/admin': '/index.html', // /error/401.html
-        '/private': '/index.html'  // /error/403.html
+      '/admin': '/',  // /error/401.html
+      '/login': '/' // /error/403.html
     };
 
     if (errorMapping[path]) {
-        window.location.replace(errorMapping[path]);
+      window.location.replace(errorMapping[path]);
     } else {
-              // Fallback: Show your custom 404 UI or redirect to home
-              // window.location.replace('/error/404.html'); 
-        // Fallback: Redirect to home
-        window.location.replace('/index.html');
+      // Default fallback to home if no match found
+      window.location.replace('/');
     }
-})();
-     
-
-    </script>
+  })();
+  </script>
+  
+  
 </head>
 <body>
     <p>Redirecting you to the right place...</p>
