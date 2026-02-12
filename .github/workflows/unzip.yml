@@ -1,16 +1,33 @@
-      - name: Find, Overwrite, and Extract
+name: "Unzip Assets"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  unzip_process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Initialize Versioning
         run: |
-          # Search for compressed files in the repo
+          VERSION=$(date +%d)
+          echo "Processing version: $VERSION"
+
+      - name: Find, Extract, and Flatten
+        run: |
           find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" \) -not -path "./.git/*" | while read -r file; do
-            # Path where the archive is located
             PATH_DIR=$(dirname "$file")
-            # Temporary extraction directory
-            TEMP_EXTRACT="./temp_unzip_$(date +%s)"
+            TEMP_EXTRACT="./temp_extract_$(date +%s)"
             
-            echo "Extracting $file and moving contents to $PATH_DIR..."
-            
+            echo "Processing $file..."
             mkdir -p "$TEMP_EXTRACT"
 
+            # 1. Extract to temporary folder
             if [[ "$file" == *.zip ]]; then
               unzip -o -q "$file" -d "$TEMP_EXTRACT"
             elif [[ "$file" == *.tar ]] || [[ "$file" == *.gz ]]; then
@@ -19,18 +36,35 @@
               7z aoa x "$file" -o"$TEMP_EXTRACT"
             fi
 
-            # Move contents from the descendant folder to PATH_DIR
-            # This handles the case where the archive contains a single top-level folder
-            for dir in "$TEMP_EXTRACT"/*/; do
-              if [ -d "$dir" ]; then
-                cp -rn "$dir"* "$PATH_DIR/"
-              fi
-            done
+            # 2. Move contents from the descendant folder to PATH_DIR
+            # This logic finds the first subdirectory and moves its content up
+            INNER_FOLDER=$(find "$TEMP_EXTRACT" -mindepth 1 -maxdepth 1 -type d | head -n 1)
+            
+            if [ -n "$INNER_FOLDER" ]; then
+              echo "Moving contents from $INNER_FOLDER to $PATH_DIR"
+              cp -rf "$INNER_FOLDER"/* "$PATH_DIR/"
+            else
+              echo "No descendant folder found, moving all files from root"
+              cp -rf "$TEMP_EXTRACT"/* "$PATH_DIR/"
+            fi
 
-            # Cleanup: Remove the archive, the temp folder, and the descendant folder logic is handled by removing TEMP_EXTRACT
+            # 3. Cleanup: Remove archive and temp folder
             rm "$file"
             rm -rf "$TEMP_EXTRACT"
-            
-            echo "Successfully processed, moved contents to $PATH_DIR, and deleted original archive."
           done
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Hassan Biswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          
+          VERSION=$(date +%d)
+          
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-unzip & Flatten: Version $VERSION"
+            git push
+          fi
           
