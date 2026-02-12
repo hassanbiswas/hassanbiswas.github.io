@@ -27,8 +27,8 @@
     // 3. Logic: Map specific error codes
     // Since GH Pages only gives us a 404, we can look for "hints" in the URL
     const errorMapping = {
-        '/admin': '/', // /error/401.html
-        '/private': '/'  // /error/403.html
+        '/admin': '/index.html', // /error/401.html
+        '/private': '/index.html'  // /error/403.html
     };
 
     if (errorMapping[path]) {
@@ -37,7 +37,7 @@
               // Fallback: Show your custom 404 UI or redirect to home
               // window.location.replace('/error/404.html'); 
         // Fallback: Redirect to home
-        window.location.replace('/');
+        window.location.replace('/index.html');
     }
 })();
      
