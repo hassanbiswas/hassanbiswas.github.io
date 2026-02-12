@@ -28,9 +28,9 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
   
  ## Follow My Work
-   * Facebook  : https://facebook.com/hassanbiswas.github.io
-   * Instagram : https://instagram.com/hassanbiswas.github.io
-   * Threads   : https://threads.com/hassanbiswas.github.io
+   * Facebook__: https://facebook.com/hassanbiswas.github.io
+   * Instagram_: https://instagram.com/hassanbiswas.github.io
+   * Threads___: https://threads.com/hassanbiswas.github.io
 
 
 ## Acknowledgements:
