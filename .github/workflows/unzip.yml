@@ -1,0 +1,36 @@
+      - name: Find, Overwrite, and Extract
+        run: |
+          # Search for compressed files in the repo
+          find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" \) -not -path "./.git/*" | while read -r file; do
+            # Path where the archive is located
+            PATH_DIR=$(dirname "$file")
+            # Temporary extraction directory
+            TEMP_EXTRACT="./temp_unzip_$(date +%s)"
+            
+            echo "Extracting $file and moving contents to $PATH_DIR..."
+            
+            mkdir -p "$TEMP_EXTRACT"
+
+            if [[ "$file" == *.zip ]]; then
+              unzip -o -q "$file" -d "$TEMP_EXTRACT"
+            elif [[ "$file" == *.tar ]] || [[ "$file" == *.gz ]]; then
+              tar -xf "$file" -C "$TEMP_EXTRACT"
+            elif [[ "$file" == *.7z ]]; then
+              7z aoa x "$file" -o"$TEMP_EXTRACT"
+            fi
+
+            # Move contents from the descendant folder to PATH_DIR
+            # This handles the case where the archive contains a single top-level folder
+            for dir in "$TEMP_EXTRACT"/*/; do
+              if [ -d "$dir" ]; then
+                cp -rn "$dir"* "$PATH_DIR/"
+              fi
+            done
+
+            # Cleanup: Remove the archive, the temp folder, and the descendant folder logic is handled by removing TEMP_EXTRACT
+            rm "$file"
+            rm -rf "$TEMP_EXTRACT"
+            
+            echo "Successfully processed, moved contents to $PATH_DIR, and deleted original archive."
+          done
+          
