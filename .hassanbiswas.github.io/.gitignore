@@ -1,0 +1,11 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Local Environment
+.vscode/
+*.log
+
+# Build/Automation
+node_modules/
+dist/
