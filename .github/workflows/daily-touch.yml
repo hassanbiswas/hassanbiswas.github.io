@@ -1,0 +1,19 @@
+name: Daily Automation Update
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at 00:00 every day
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Force Re-deployment
+        run: |
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas"
+          git commit --allow-empty -m "Daily automated logic pulse [${{ github.run_id }}]"
+          git push
+          
