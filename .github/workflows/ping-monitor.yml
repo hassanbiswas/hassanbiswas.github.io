@@ -1,29 +1,31 @@
-name: Site Continuity Sync
+name: Daily Heartbeat & Sitemap Ping
 
 on:
   schedule:
-    # 00:00 UTC = 06:00 AM GMT+6
+    # Runs at 00:00 UTC every day
     - cron: '0 0 * * *'
-  workflow_dispatch:
+  workflow_dispatch: # Allows you to run it manually from the Actions tab
 
 jobs:
-  ping-task:
+  ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Initialize Logic for Version $(date +'%d')
-        run: echo "Starting ping sequence for today."
-
-      - name: Ping Loop (10 Iterations)
+      - name: Initialize Logic for Version
         run: |
-          for i in {1..10}
-          do
-            echo "Iteration $i of 10"
-            # Pinging hassanbiswas.github.io
-            curl -I -s https://hassanbiswas.github.io > /dev/null
-            
-            if [ $i -lt 10 ]; then
-              echo "Waiting 30 minutes (1800s)..."
-              sleep 1800
-            fi
-          done
-          
+          # Matches your JS: const VERSION = new Date().getDate();
+          echo "Syncing with Logic Version: $(date +'%d')"
+
+      - name: Heartbeat Ping
+        run: |
+          curl -I -s https://hassanbiswas.github.io > /dev/null
+          echo "Site heartbeat sent."
+
+      - name: Ping Google Sitemap
+        run: |
+          # Standard Google Search Console ping URL
+          curl -s https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml > /dev/null
+          echo "Sitemap pinged to Google."
+
+      - name: Execution Success
+        run: echo "Automation complete for $(date)"
+        
