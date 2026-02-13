@@ -1,28 +1,11 @@
-{
+9{
   "name": "hassanbiswas-portfolio",
   "version": "1.0.0",
-  "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture. Specializing in high-performance, SEO-friendly digital experiences.",
+  "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture.",
   "main": "index.html",
-  "author": "Hassan Biswas <hassanbiswas.github.io@gmail.com>",
-  "homepage": "https://hassanbiswas.github.io",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hassanbiswas/hassanbiswas.github.io.git"
-  },
-  "keywords": [
-    "frontend-developer",
-    "ui-ux",
-    "hassanbiswas",
-    "javascript-automation",
-    "pixel-perfect",
-    "awwwards-style"
-  ],
   "scripts": {
     "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
-    "sitemap": "node generate-sitemap.js",
-    "prebuild": "npm run sitemap",
-    "build": "echo 'Build process complete: Sitemap updated and assets ready.'",
+    "build:assets": "node generate-assets.js",
     "lint": "eslint js/*.js",
     "format": "prettier --write ."
   },
