@@ -14,7 +14,7 @@ const CONFIG = {
 };
 
 const EXCLUSIONS = {
-  folders: ['.github', 'node_modules', '.git', 'dist', '2025_site', 'assets', 'base64',  'components', 'dev', 'devaec', 'error', 'freefire', 'github', 'nid', 'tanuvl', 'voice'],
+  folders: ['dist', 'node_modules', '.git', '.github', '2025_site', 'assets', 'base64',  'components', 'dev', 'devaec', 'error', 'freefire', 'github', 'nid', 'tanuvl', 'voice'],
   files: ['test.html', 'draft.html', '18+X.com_video.mp4.html', '404.html', 'README.md', 'analysis.html', 'app-bg.svg', 'boilerplate.css', 'boilerplate.html', 'favicon.ico', 'favicon.svg', 'favicon_inline.svg', 'generate-assets.js', 'googledb2beed158567cde.html', 'hassanbiswas.vcf', 'hassanbiswas_v2.vcf', 'heartbeat.json', 'lighthouserc.json', 'logo-outline.svg', 'logo.svg', 'maintenance.css', 'manifest.webmanifest', 'nid-3319463133.pdf', 'offline.html', 'package.json', 'password.txt.html', 'resume.pdf', 'seo.txt', 'sitemap.html', 'sw.js', 'template2.html']
 };
 
