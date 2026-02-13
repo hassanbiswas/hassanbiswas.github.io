@@ -1,0 +1,24 @@
+name: Performance & SEO Audit
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lighthouse-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Audit Live Site
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          # Auditing your live production site
+          urls: 'https://hassanbiswas.github.io'
+          # This ensures it checks for SEO, Performance, PWA, and Accessibility
+          uploadArtifacts: true 
+          temporaryPublicStorage: true
+          configPath: './lighthouserc.json' # Optional: if you want custom thresholds
+          
