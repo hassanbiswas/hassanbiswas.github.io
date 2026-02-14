@@ -1,5 +1,5 @@
 # Hassan Biswas
-### Web Developer | Hassan Biswas — UI/UX & Front-End Architecture
+### Web Developer : Hassan Biswas — UI/UX & Front-End Architecture
 ###### @hassanbiswas.github.io
 
 Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
