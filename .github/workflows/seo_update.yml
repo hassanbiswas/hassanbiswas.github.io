@@ -1,0 +1,38 @@
+name: Monthly SEO & Metadata Sync
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Runs at 00:00 on the 1st day of every month
+    - cron: '0 0 1 * *'
+permissions:
+  contents: write
+
+jobs:
+  update-meta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install BeautifulSoup
+        run: pip install beautifulsoup4
+
+      - name: Run SEO Script
+        run: python update_seo.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Hassan Biswas Bot"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git add .
+          # Only commit if there are actual changes
+          git diff-index --quiet HEAD || git commit -m "Monthly SEO Auto-Sync [v$(date +'%d')]"
+          git push
+          
