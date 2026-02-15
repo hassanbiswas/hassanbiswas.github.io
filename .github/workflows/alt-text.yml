@@ -1,0 +1,38 @@
+name: Auto-Generate Alt Text
+
+on:
+  push:
+    paths:
+      - '**.html'
+  workflow_dispatch:
+
+jobs:
+  fix-accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install jsdom axios
+
+      - name: Run JS Automation
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          # Logic automation using your date-based versioning
+          VERSION: ${{ github.run_id }} 
+        run: node .github/scripts/generate-alt.js
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas (Bot)"
+          git add .
+          git commit -m "style: auto-fix alt tags [v${{ github.run_id }}]" || echo "No changes"
+          git push
+          
