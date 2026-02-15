@@ -1,0 +1,45 @@
+name: 15-Day Automated Backup
+
+on:
+  schedule:
+    # Runs at 00:00 on day 1 and 16 of every month (~every 15 days)
+    - cron: '0 0 1,16 * *'
+  workflow_dispatch: # Allows you to run it manually for testing
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repository (hassanbiswas.github.io)
+        uses: [actions/checkout](https://github.com/marketplace/actions/checkout)@v4
+        with:
+          path: source-repo
+
+      - name: Checkout Backup Repository
+        uses: [actions/checkout](https://github.com/marketplace/actions/checkout)@v4
+        with:
+          repository: hassanbiswas/backup
+          token: ${{ secrets.BACKUP_PAT }}
+          path: backup-repo
+
+      - name: Sync and Replace Files
+        run: |
+          # 1. Delete all existing files in backup repo (except .git)
+          find backup-repo -maxdepth 1 ! -name '.git' ! -name 'backup-repo' -exec rm -rf {} +
+          
+          # 2. Copy all files from source to backup (except .git)
+          cp -rn source-repo/* backup-repo/
+          
+          # 3. Commit and Push changes
+          cd backup-repo
+          git config user.name "Hassan Biswas"
+          git config user.email "hassanbiswas.github.io@gmail.com"
+          git add .
+          # Only commit if there are changes to avoid workflow errors
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated backup: $(date +'%Y-%m-%d')"
+            git push origin main
+          else
+            echo "No changes to backup."
+          fi
+          
