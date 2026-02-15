@@ -1,6 +1,8 @@
 {
-  "last_active": "2026-02-13T05:25:30.856Z",
-  "developer": "Hassan Biswas",
-  "brand_color": "HSL(240, 80%, 50%)",
-  "status": "Active"
+  "status": "active",
+  "last_heartbeat": "2/15/2026, 7:08:59 PM",
+  "logic_version": 15,
+  "brand_identity": "HSL(240, 80%, 50%)",
+  "owner": "Hassan Biswas",
+  "contact": "m.me/hassanbiswas.github.io"
 }
