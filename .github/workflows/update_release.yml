@@ -2,8 +2,8 @@ name: Update Release Date
 
 on:
   schedule:
-    - cron: '0 0 1 1,7 *'
-  workflow_dispatch:
+    - cron: '0 0 1 1,7 *' # Automated bi-annual refresh (Jan & July)
+  workflow_dispatch:      # Allows manual trigger for testing
 
 jobs:
   update-release:
@@ -13,26 +13,42 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures tags are available for cleanup
 
       - name: Refresh Release and Assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Delete existing release "∞" and its tag
+          # 1. Force-delete existing release and its remote tag reference
+          # This prevents "Tag already exists" errors during the 'create' step
           gh release delete "∞" --yes --cleanup || true
+          git push origin :refs/tags/∞ || true
 
-          # 2. Wait 5 seconds to let GitHub's backend catch up
+          # 2. Brief pause to allow GitHub's database to reconcile the deletion
           sleep 5
 
-          # 3. Create new release
-          gh release create "∞" \
-            --title "Web Developer | Hassan Biswas Assets" \
-            --notes-file app/README.md \
-            --target main \
-            --latest
+          # 3. Create the new release
+          # Logic: If README exists, use it; otherwise, use a fallback string
+          if [ -f "app/README.md" ]; then
+            gh release create "∞" \
+              --title "Web Developer | Hassan Biswas Assets" \
+              --notes-file app/README.md \
+              --target main \
+              --latest
+          else
+            gh release create "∞" \
+              --title "Web Developer | Hassan Biswas Assets" \
+              --notes "Automated asset release for hassanbiswas.github.io" \
+              --target main \
+              --latest
+          fi
 
-          # 4. Upload assets separately
-          if [ -d "app/assets" ]; then
+          # 4. Upload assets safely
+          # Only attempts upload if the directory exists and is NOT empty
+          if [ -d "app/assets" ] && [ "$(ls -A app/assets 2>/dev/null)" ]; then
             gh release upload "∞" app/assets/* --clobber
+          else
+            echo "No assets found in app/assets/ to upload. Skipping."
           fi
           
