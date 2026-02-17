@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs at 00:00 on the 1st of January and July
     - cron: '0 0 1 1,7 *'
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   update-release:
@@ -15,22 +15,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Refresh Release and Date
+      - name: Refresh Release and Assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Read notes from README
+          # 1. Read notes from README for zero-maintenance updates
           RELEASE_NOTES=$(cat app/README.md)
           
-          # 2. Delete the old release and tag to reset the date
-          # Use --yes to skip confirmation
+          # 2. Delete existing release "∞" and its tag to reset the date
+          # '|| true' ensures the script continues even if they don't exist yet
           gh release delete "∞" --yes || true
           git push --delete origin "∞" || true
           
-          # 3. Create a new release with the same tag "∞"
-          # This sets the date to "Today" automatically
-          gh release create "∞" \
-            --title "Web Developer | Hassan Biswas.apk" \
+          # 3. Recreate the release "∞" 
+          # This automatically updates the date to today's date
+          # 'app/assets/*' uploads every file inside your assets folder
+          gh release create "∞" app/assets/* \
+            --title "Web Developer | Hassan Biswas Assets" \
             --notes "$RELEASE_NOTES" \
             --latest
             
