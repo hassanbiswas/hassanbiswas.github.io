@@ -32,13 +32,13 @@ jobs:
           # Logic: If README exists, use it; otherwise, use a fallback string
           if [ -f "app/README.md" ]; then
             gh release create "∞" \
-              --title "Web Developer | Hassan Biswas Assets" \
+              --title "v ∞" \
               --notes-file app/README.md \
               --target main \
               --latest
           else
             gh release create "∞" \
-              --title "Web Developer | Hassan Biswas Assets" \
+              --title "v ∞" \
               --notes "Automated asset release for hassanbiswas.github.io" \
               --target main \
               --latest
