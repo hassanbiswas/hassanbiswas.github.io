@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs at 00:00 on the 1st and 16th of every month
     - cron: '0 0 1,16 * *'
-  workflow_dispatch: # Allows you to click "Run workflow" manually if needed
+  workflow_dispatch: 
 
 jobs:
   backup:
@@ -14,10 +14,11 @@ jobs:
         id: generate_token
         uses: actions/create-github-app-token@v1
         with:
+          # These secrets come from your GitHub App settings
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
 
-      - name: Checkout Source (Current Repo)
+      - name: Checkout Source
         uses: actions/checkout@v4
         with:
           path: source-repo
@@ -29,25 +30,26 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           path: backup-repo
 
-      - name: Sync Backup
+      - name: Sync Files
         run: |
-          # Sync everything except .git folders
+          # Syncing content while preserving the backup's .git history
           rsync -av --delete --exclude='.git/' source-repo/ backup-repo/
 
-      - name: Commit and Push to Backup
+      - name: Commit and Push
         run: |
           cd backup-repo
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
           
-          # Using your preferred date-based logic for the message
+          # Logic automation: VERSION based on day of the month
+          VERSION=$(date +'%d')
           VERSION_STAMP=$(date +'%Y-%m-%d')
           
           git add -A
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Backup: $VERSION_STAMP"
+            git commit -m "Automated Backup v$VERSION: $VERSION_STAMP"
             git push origin main
           else
-            echo "No changes since last half-month. Everything is synced."
+            echo "No changes detected. Sync complete."
           fi
           
