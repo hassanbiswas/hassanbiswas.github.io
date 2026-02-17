@@ -1,28 +1,37 @@
 name: Monthly SEO Auto-Update
+
 on:
   schedule:
-    - cron: '0 0 1 * *' # Runs on the 1st of every month
+    - cron: '0 0 1 * *' # Runs at midnight on the 1st of every month
   push:
     paths:
-      - '**.html' # Runs whenever a new HTML file is added
+      - '**.html'     # Runs whenever you update your frontend code
+  workflow_dispatch:  # Allows you to trigger it manually if needed
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Essential for the bot to push changes back
     steps:
-      - uses: [actions/checkout](https://github.com/actions/checkout)@v4
+      - uses: actions/checkout@v4
+      
       - name: Set up Python
-        uses: [actions/setup-python](https://github.com/actions/setup-python)@v4
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+          
       - name: Install Dependencies
         run: pip install beautifulsoup4
+        
       - name: Run SEO Update
         run: python update_seo.py
-      - name: Commit changes
+        
+      - name: Commit and Push changes
         run: |
           git config --global user.name 'Hassan Biswas'
           git config --global user.email 'hassanbiswas.github.io@gmail.com'
           git add .
-          git commit -m "Automated SEO Update - $(date +'%Y-%m-%d')" || exit 0
+          git commit -m "🚀 Automated SEO Update: $(date +'%B %Y')" || exit 0
           git push
           
