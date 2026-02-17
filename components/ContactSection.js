@@ -99,3 +99,4 @@ class ContactSection extends HTMLElement {
 
 customElements.define("contact-section", ContactSection);
   
+// <contact-section></contact-section>
