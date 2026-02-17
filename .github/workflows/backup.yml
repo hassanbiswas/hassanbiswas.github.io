@@ -2,9 +2,9 @@ name: 15-Day Automated Backup (No-Expiry)
 
 on:
   schedule:
-    # Runs at 00:00 on day 1 and 16 of every month
+    # Runs at 00:00 on the 1st and 16th of every month
     - cron: '0 0 1,16 * *'
-  workflow_dispatch: # Allows you to run manually right now
+  workflow_dispatch: # Allows you to click "Run workflow" manually if needed
 
 jobs:
   backup:
@@ -17,7 +17,7 @@ jobs:
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
 
-      - name: Checkout Source (hassanbiswas.github.io)
+      - name: Checkout Source (Current Repo)
         uses: actions/checkout@v4
         with:
           path: source-repo
@@ -29,11 +29,9 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           path: backup-repo
 
-      - name: Sync Backup (Delete old, copy new)
+      - name: Sync Backup
         run: |
-          # Use rsync to mirror source-repo into backup-repo
-          # --delete ensures files removed from source are also removed from backup
-          # --exclude='.git/' ensures we don't overwrite the backup repo's git history
+          # Sync everything except .git folders
           rsync -av --delete --exclude='.git/' source-repo/ backup-repo/
 
       - name: Commit and Push to Backup
@@ -42,12 +40,14 @@ jobs:
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
           
-          # Check for changes
+          # Using your preferred date-based logic for the message
+          VERSION_STAMP=$(date +'%Y-%m-%d')
+          
           git add -A
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated backup: $(date +'%Y-%m-%d')"
+            git commit -m "Automated Backup: $VERSION_STAMP"
             git push origin main
           else
-            echo "Backup is already up to date. No changes to push."
+            echo "No changes since last half-month. Everything is synced."
           fi
           
