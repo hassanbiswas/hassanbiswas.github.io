@@ -1,70 +1,50 @@
-name: "Unzip Assets"
-
+name: Unzip Assets Automation
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
-  unzip_process:
+  unzip-process:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Initialize Versioning
+      - name: Process Zips and Exclude Folders
         run: |
+          # Automation Logic: Using date-based versioning
           VERSION=$(date +%d)
-          echo "Processing version: $VERSION"
+          echo "Running Unzip Version: $VERSION"
 
-      - name: Find, Extract, and Flatten
-        run: |
-          find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" \) -not -path "./.git/*" | while read -r file; do
-            PATH_DIR=$(dirname "$file")
-            TEMP_EXTRACT="./temp_extract_$(date +%s)"
-            
-            echo "Processing $file..."
-            mkdir -p "$TEMP_EXTRACT"
+          # 1. Define Excluded Folders (3 Example folder names included)
+          EXCLUDED_FOLDERS=(
+            "node_modules"
+            "src/temp-assets"
+            "backup/old-layouts"
+            "app"
+          )
 
-            # 1. Extract to temporary folder
-            if [[ "$file" == *.zip ]]; then
-              unzip -o -q "$file" -d "$TEMP_EXTRACT"
-            elif [[ "$file" == *.tar ]] || [[ "$file" == *.gz ]]; then
-              tar -xf "$file" -C "$TEMP_EXTRACT"
-            elif [[ "$file" == *.7z ]]; then
-              7z aoa x "$file" -o"$TEMP_EXTRACT"
-            fi
-
-            # 2. Move contents from the descendant folder to PATH_DIR
-            # This logic finds the first subdirectory and moves its content up
-            INNER_FOLDER=$(find "$TEMP_EXTRACT" -mindepth 1 -maxdepth 1 -type d | head -n 1)
-            
-            if [ -n "$INNER_FOLDER" ]; then
-              echo "Moving contents from $INNER_FOLDER to $PATH_DIR"
-              cp -rf "$INNER_FOLDER"/* "$PATH_DIR/"
-            else
-              echo "No descendant folder found, moving all files from root"
-              cp -rf "$TEMP_EXTRACT"/* "$PATH_DIR/"
-            fi
-
-            # 3. Cleanup: Remove archive and temp folder
-            rm "$file"
-            rm -rf "$TEMP_EXTRACT"
+          # 2. Build the exclusion string for the find command
+          # This creates a series of '-not -path "./folder/*"' arguments
+          EXCLUDE_CMD=""
+          for folder in "${EXCLUDED_FOLDERS[@]}"; do
+            EXCLUDE_CMD+=" -not -path \"./$folder/*\""
           done
 
-      - name: Commit and Push Changes
+          # 3. Find and Unzip
+          # Logic: Find .zip files, excluding the list, then unzip into folders
+          eval "find . -type f -name '*.zip' $EXCLUDE_CMD" -print0 | while IFS= read -r -d '' file; do
+            target_dir="${file%.*}"
+            echo "Automating extraction of $file into $target_dir"
+            mkdir -p "$target_dir"
+            unzip -o "$file" -d "$target_dir"
+          done
+
+      - name: Commit changes
         run: |
-          git config --global user.name "Hassan Biswas"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
-          
-          VERSION=$(date +%d)
-          
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas"
           git add .
-          if git diff --staged --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Auto-unzip & Flatten: Version $VERSION"
-            git push
-          fi
+          git commit -m "Automated Unzip - Version $VERSION [skip ci]" || echo "No changes to commit"
+          git push
           
