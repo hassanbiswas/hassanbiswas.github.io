@@ -1,10 +1,9 @@
-Name: Update Release Date
+name: Update Release Date
 
 on:
   schedule:
-    # Runs at 00:00 on the 1st of January and July (every 6 months)
     - cron: '0 0 1 1,7 *'
-  workflow_dispatch: # Allows manual triggering for testing
+  workflow_dispatch:
 
 jobs:
   update-release:
@@ -19,18 +18,28 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Read notes from your README for zero maintenance
+          # 1. Read notes
           RELEASE_NOTES=$(cat app/README.md)
           
-          # 2. Delete existing release "∞" and its tag to reset the date
-          # '|| true' keeps it running even if the release doesn't exist yet
-          gh release delete "∞" --yes || true
-          git push --delete origin "∞" || true
+          # 2. Delete existing release "∞" and its tag
+          # We use --cleanup to ensure the tag is also removed
+          gh release delete "∞" --yes --cleanup || true
           
-          # 3. Create a brand new release "∞" with your branding title
-          # This sets the date to "Today" and uploads everything in app/assets/
-          gh release create "∞" app/assets/* \
+          # 3. Wait 5 seconds to let GitHub's backend catch up
+          # This is the most common reason for "nothing done"
+          sleep 5
+          
+          # 4. Create new release
+          # Added --target to ensure it points to your current branch
+          gh release create "∞" \
             --title "Web Developer | Hassan Biswas Assets" \
             --notes "$RELEASE_NOTES" \
+            --target main \
             --latest
             
+          # 5. Upload assets separately to ensure they are tracked
+          # This prevents issues if the wildcard fails in the create command
+          if [ -d "app/assets" ]; then
+            gh release upload "∞" app/assets/* --clobber
+          fi
+          
