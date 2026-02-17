@@ -1,35 +1,42 @@
-name: Update Release Date
+name: Refresh Release Assets
 
 on:
+  # Manual trigger for anytime execution
+  workflow_dispatch:
+  # Automation: Runs at 00:00 on Jan 1st and July 1st
   schedule:
-    - cron: '0 0 1 1,7 *' # Automated bi-annual refresh (Jan & July)
-  workflow_dispatch:      # Allows manual trigger for testing
+    - cron: '0 0 1 1,7 *'
+
+permissions:
+  contents: write
 
 jobs:
-  update-release:
+  refresh-release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Ensures tags are available for cleanup
 
-      - name: Refresh Release and Assets
+      - name: Cleanup Old Drafts and Refresh Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Force-delete existing release and its remote tag reference
-          # This prevents "Tag already exists" errors during the 'create' step
-          gh release delete "∞" --yes --cleanup || true
-          git push origin :refs/tags/∞ || true
+          # 1. Automate cleanup of all existing drafts
+          echo "Cleaning up old drafts..."
+          gh release list --limit 100 --json isDraft,tagName | \
+          jq -r '.[] | select(.isDraft == true) | .tagName' | \
+          xargs -I {} sh -c 'if [ -n "{}" ]; then gh release delete "{}" --yes; fi' || true
 
-          # 2. Brief pause to allow GitHub's database to reconcile the deletion
+          # 2. Force-delete existing "∞" release and remote tag
+          echo "Removing existing ∞ release..."
+          gh release delete "∞" --yes --cleanup || true
+          git push origin :refs/tags/∞ --delete || true
+
+          # 3. Brief pause for GitHub database reconciliation
           sleep 5
 
-          # 3. Create the new release
-          # Logic: If README exists, use it; otherwise, use a fallback string
+          # 4. Create the new release using logic automation
+          echo "Creating new ∞ release..."
           if [ -f "app/README.md" ]; then
             gh release create "∞" \
               --title "v ∞" \
@@ -44,11 +51,11 @@ jobs:
               --latest
           fi
 
-          # 4. Upload assets safely
-          # Only attempts upload if the directory exists and is NOT empty
+          # 5. Upload assets safely from app/assets
           if [ -d "app/assets" ] && [ "$(ls -A app/assets 2>/dev/null)" ]; then
+            echo "Uploading assets..."
             gh release upload "∞" app/assets/* --clobber
           else
-            echo "No assets found in app/assets/ to upload. Skipping."
+            echo "No assets found. Skipping upload."
           fi
           
