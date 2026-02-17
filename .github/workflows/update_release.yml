@@ -1,0 +1,25 @@
+name: Update Release Date
+
+on:
+  schedule:
+    # Runs at 00:00 on the 1st of January and July (every 6 months)
+    - cron: '0 0 1 1,7 *'
+  workflow_dispatch: # Allows manual triggering for testing
+
+jobs:
+  update-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update Release Tag Date
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Use GitHub CLI to update the existing release
+          # This refreshes the release metadata and date
+          gh release edit "∞" --notes "Automated semi-annual refresh."
+          
