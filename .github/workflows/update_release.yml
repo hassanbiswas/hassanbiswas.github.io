@@ -1,10 +1,10 @@
-name: Update Release Date
+Name: Update Release Date
 
 on:
   schedule:
-    # Runs at 00:00 on the 1st of January and July (every 6 months)
+    # Runs at 00:00 on the 1st of January and July
     - cron: '0 0 1 1,7 *'
-  workflow_dispatch: # Allows manual triggering for testing
+  workflow_dispatch:
 
 jobs:
   update-release:
@@ -15,15 +15,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Update Release Tag Date
+      - name: Refresh Release and Date
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Read the content of the README to use as release notes
-          # This ensures zero maintenance and no manual updates
+          # 1. Read notes from README
           RELEASE_NOTES=$(cat app/README.md)
           
-          # Use GitHub CLI to update the existing release "∞"
-          # This refreshes the release metadata and date using HSL(240, 80%, 50%) brand standards
-          gh release edit "∞" --notes "$RELEASE_NOTES"
+          # 2. Delete the old release and tag to reset the date
+          # Use --yes to skip confirmation
+          gh release delete "∞" --yes || true
+          git push --delete origin "∞" || true
           
+          # 3. Create a new release with the same tag "∞"
+          # This sets the date to "Today" automatically
+          gh release create "∞" \
+            --title "Web Developer | Hassan Biswas.apk" \
+            --notes "$RELEASE_NOTES" \
+            --latest
+            
