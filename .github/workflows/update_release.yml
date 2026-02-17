@@ -12,27 +12,26 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repository
-        uses: [actions/checkout@v4](https://github.com/actions/checkout)
+        uses: actions/checkout@v4
 
       - name: Refresh Release and Assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # 1. Delete existing release "∞" and its tag
-          # We use --cleanup to ensure the tag is also removed
           gh release delete "∞" --yes --cleanup || true
 
           # 2. Wait 5 seconds to let GitHub's backend catch up
           sleep 5
 
-          # 3. Create new release using the integrated notes-file flag
+          # 3. Create new release
           gh release create "∞" \
             --title "Web Developer | Hassan Biswas Assets" \
             --notes-file app/README.md \
             --target main \
             --latest
 
-          # 4. Upload assets separately to ensure they are tracked
+          # 4. Upload assets separately
           if [ -d "app/assets" ]; then
             gh release upload "∞" app/assets/* --clobber
           fi
