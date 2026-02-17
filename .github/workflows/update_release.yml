@@ -12,33 +12,27 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
 
       - name: Refresh Release and Assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Read notes
-          RELEASE_NOTES=$(cat app/README.md)
-          
-          # 2. Delete existing release "∞" and its tag
+          # 1. Delete existing release "∞" and its tag
           # We use --cleanup to ensure the tag is also removed
           gh release delete "∞" --yes --cleanup || true
-          
-          # 3. Wait 5 seconds to let GitHub's backend catch up
-          # This is the most common reason for "nothing done"
+
+          # 2. Wait 5 seconds to let GitHub's backend catch up
           sleep 5
-          
-          # 4. Create new release
-          # Added --target to ensure it points to your current branch
+
+          # 3. Create new release using the integrated notes-file flag
           gh release create "∞" \
             --title "Web Developer | Hassan Biswas Assets" \
-            --notes "$RELEASE_NOTES" \
+            --notes-file app/README.md \
             --target main \
             --latest
-            
-          # 5. Upload assets separately to ensure they are tracked
-          # This prevents issues if the wildcard fails in the create command
+
+          # 4. Upload assets separately to ensure they are tracked
           if [ -d "app/assets" ]; then
             gh release upload "∞" app/assets/* --clobber
           fi
