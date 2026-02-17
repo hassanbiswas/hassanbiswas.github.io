@@ -2,9 +2,9 @@ name: 15-Day Automated Backup (No-Expiry)
 
 on:
   schedule:
-    # Runs at 00:00 on day 1 and 16 of every month (roughly every 15 days)
+    # Runs at 00:00 on day 1 and 16 of every month
     - cron: '0 0 1,16 * *'
-  workflow_dispatch:
+  workflow_dispatch: # Allows you to run manually right now
 
 jobs:
   backup:
@@ -17,36 +17,37 @@ jobs:
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
 
-      - name: Checkout Source
+      - name: Checkout Source (hassanbiswas.github.io)
         uses: actions/checkout@v4
         with:
           path: source-repo
 
-      - name: Checkout Private Backup Repo
+      - name: Checkout Backup Repo
         uses: actions/checkout@v4
         with:
           repository: hassanbiswas/backup
           token: ${{ steps.generate_token.outputs.token }}
           path: backup-repo
 
-      - name: Sync and Replace
+      - name: Sync Backup (Delete old, copy new)
+        run: |
+          # Use rsync to mirror source-repo into backup-repo
+          # --delete ensures files removed from source are also removed from backup
+          # --exclude='.git/' ensures we don't overwrite the backup repo's git history
+          rsync -av --delete --exclude='.git/' source-repo/ backup-repo/
+
+      - name: Commit and Push to Backup
         run: |
           cd backup-repo
-          # Delete everything in the backup repo except the .git folder
-          find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
-
-          # Copy source files (excluding source's .git) into the backup repo
-          cp -ra ../source-repo/. .
-          rm -rf .git/ # Remove the copied source .git to keep backup's history
-
-          # Configure Git using your brand details
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
-
-          # Commit and push if changes exist
+          
+          # Check for changes
           git add -A
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated backup: $(date +'%Y-%m-%d')"
             git push origin main
+          else
+            echo "Backup is already up to date. No changes to push."
           fi
           
