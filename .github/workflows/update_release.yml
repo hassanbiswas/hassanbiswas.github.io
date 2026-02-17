@@ -19,7 +19,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Use GitHub CLI to update the existing release
-          # This refreshes the release metadata and date
-          gh release edit "∞" --notes "Automated semi-annual refresh."
+          # Read the content of the README to use as release notes
+          # This ensures zero maintenance and no manual updates
+          RELEASE_NOTES=$(cat app/README.md)
+          
+          # Use GitHub CLI to update the existing release "∞"
+          # This refreshes the release metadata and date using HSL(240, 80%, 50%) brand standards
+          gh release edit "∞" --notes "$RELEASE_NOTES"
           
