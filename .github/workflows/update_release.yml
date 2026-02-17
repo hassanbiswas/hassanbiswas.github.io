@@ -2,9 +2,9 @@ Name: Update Release Date
 
 on:
   schedule:
-    # Runs at 00:00 on the 1st of January and July
+    # Runs at 00:00 on the 1st of January and July (every 6 months)
     - cron: '0 0 1 1,7 *'
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch: # Allows manual triggering for testing
 
 jobs:
   update-release:
@@ -19,17 +19,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Read notes from README for zero-maintenance updates
+          # 1. Read notes from your README for zero maintenance
           RELEASE_NOTES=$(cat app/README.md)
           
           # 2. Delete existing release "∞" and its tag to reset the date
-          # '|| true' ensures the script continues even if they don't exist yet
+          # '|| true' keeps it running even if the release doesn't exist yet
           gh release delete "∞" --yes || true
           git push --delete origin "∞" || true
           
-          # 3. Recreate the release "∞" 
-          # This automatically updates the date to today's date
-          # 'app/assets/*' uploads every file inside your assets folder
+          # 3. Create a brand new release "∞" with your branding title
+          # This sets the date to "Today" and uploads everything in app/assets/
           gh release create "∞" app/assets/* \
             --title "Web Developer | Hassan Biswas Assets" \
             --notes "$RELEASE_NOTES" \
