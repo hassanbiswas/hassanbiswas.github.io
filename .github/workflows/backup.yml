@@ -14,9 +14,10 @@ jobs:
         id: generate_token
         uses: actions/create-github-app-token@v1
         with:
-          # These secrets come from your GitHub App settings
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
+          # Fix: Scope the token to your entire account/organization
+          owner: ${{ github.repository_owner }}
 
       - name: Checkout Source
         uses: actions/checkout@v4
@@ -41,7 +42,7 @@ jobs:
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
           
-          # Logic automation: VERSION based on day of the month
+          # Automated Versioning logic
           VERSION=$(date +'%d')
           VERSION_STAMP=$(date +'%Y-%m-%d')
           
