@@ -48,7 +48,7 @@ jobs:
           
           git add -A
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Backup v$VERSION: $VERSION_STAMP"
+            git commit -m "Backup v$VERSION: $VERSION_STAMP"
             git push origin main
           else
             echo "No changes detected. Sync complete."
