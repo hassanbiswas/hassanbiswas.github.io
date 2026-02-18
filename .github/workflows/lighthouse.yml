@@ -26,8 +26,7 @@ jobs:
       - name: Run Lighthouse Audit
         uses: [treosh/lighthouse-ci-action@v12](https://github.com/treosh/lighthouse-ci-action)
         with:
-          # Use your live URL for zero-maintenance testing
-          urls: 'https://hassanbiswas.github.io' 
+          # URL is managed in .lighthouserc.json for cleaner logic
           configPath: './lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true # Provides a link to the report without manual hosting
