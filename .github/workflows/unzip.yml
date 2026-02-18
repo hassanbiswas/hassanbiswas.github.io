@@ -6,6 +6,10 @@ on:
 jobs:
   unzip-process:
     runs-on: ubuntu-latest
+    # Added permissions to allow the bot to push changes to your repo
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -14,25 +18,26 @@ jobs:
         run: |
           # Automation Logic: Using date-based versioning
           VERSION=$(date +%d)
+          # Save VERSION to environment so the 'Commit changes' step can see it
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          
           echo "Running Unzip Version: $VERSION"
-
-          # 1. Define Excluded Folders (3 Example folder names included)
+          
+          # 1. Define Excluded Folders
           EXCLUDED_FOLDERS=(
             "node_modules"
             "src/temp-assets"
             "backup/old-layouts"
             "app"
           )
-
+          
           # 2. Build the exclusion string for the find command
-          # This creates a series of '-not -path "./folder/*"' arguments
           EXCLUDE_CMD=""
           for folder in "${EXCLUDED_FOLDERS[@]}"; do
             EXCLUDE_CMD+=" -not -path \"./$folder/*\""
           done
-
+          
           # 3. Find and Unzip
-          # Logic: Find .zip files, excluding the list, then unzip into folders
           eval "find . -type f -name '*.zip' $EXCLUDE_CMD" -print0 | while IFS= read -r -d '' file; do
             target_dir="${file%.*}"
             echo "Automating extraction of $file into $target_dir"
@@ -42,9 +47,12 @@ jobs:
 
       - name: Commit changes
         run: |
+          # Using your profile info for zero-maintenance identity
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
+          
           git add .
+          # Using the environment variable $VERSION saved from the previous step
           git commit -m "Automated Unzip - Version $VERSION [skip ci]" || echo "No changes to commit"
           git push
           
