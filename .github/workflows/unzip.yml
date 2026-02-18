@@ -1,66 +1,76 @@
-name: Unzip Assets Automation
+name: Auto-Unzip and Overwrite Process
 
 on:
   push:
     paths:
       - '**/*.zip'
+      - '**/*.7z'
       - '**/*.tar'
       - '**/*.gz'
-      - '**/*.7z'
       - '**/*.rar'
   schedule:
-    # Automate: Executes every 1st and 15th of the month
+    # 8: Trigger automatically every half of month (1st and 15th)
     - cron: '0 0 1,15 * *'
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
 
 jobs:
-  unzip-process:
+  unzip-and-clean:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Process Zips and Clean Up
+      - name: Process Logic and Overwrite
+        id: process_logic
         run: |
-          # Logic Automation: Using your preferred date-based versioning
-          const VERSION = new Date().getDate();
+          # 6: Version logic automation
+          # const VERSION = new Date().getDate();
           VERSION=$(date +%d)
+          echo "VERSION_ID=$VERSION" >> $GITHUB_ENV
           echo "Executing Unzip Automation for Version: $VERSION"
 
-          # Define exclusions
-          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app")
+          # 5: Excluded names (protecting core architecture)
+          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app" ".git")
           EXCLUDE_CMD=""
           for folder in "${EXCLUDED_FOLDERS[@]}"; do
             EXCLUDE_CMD+=" -not -path \"*/$folder/*\" -not -name \"$folder\""
           done
 
-          # 1 & 7: Find any file with compression extensions
+          # 1 & 7: Find any compressed file and trigger logic
           find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD | while read -r file; do
             
-            # Define paths
+            # Identify the upload path
             base_dir=$(dirname "$file")
             temp_extract_dir="${file%.*}_tmp"
 
             echo "Processing: $file in $base_dir"
             mkdir -p "$temp_extract_dir"
 
-            # 2: Extract to temporary folder
-            if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
-            elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
-            else tar -xf "$file" -C "$temp_extract_dir"; fi
+            # 2: Extract file/folder contents
+            if [[ "$file" == *.zip ]]; then 
+                unzip -o "$file" -d "$temp_extract_dir"
+            elif [[ "$file" == *.7z ]]; then 
+                7z x "$file" -o"$temp_extract_dir" -y
+            elif [[ "$file" == *.rar ]]; then
+                unrar x -o+ "$file" "$temp_extract_dir"
+            else 
+                tar -xf "$file" -C "$temp_extract_dir"
+            fi
 
-            # 3: Move all contents to the path where the compressed file was uploaded
-            # This flattens the structure and handles hidden files
-            cp -rn "$temp_extract_dir"/. "$base_dir/" || true
+            # 3: Move all contents to source path & Overwrite duplicates
+            # The "." ensures hidden files are included
+            cp -rf "$temp_extract_dir"/. "$base_dir/" 
             
-            # 4: Delete compressed file and temporary uncompressed folder after success
+            # 4: Delete compressed file and temporary folder after move success
             rm "$file"
             rm -rf "$temp_extract_dir"
             
-            echo "Success: $file extracted and cleaned."
+            echo "Success: $file extracted, overwritten, and cleaned."
           done
 
       - name: Commit and Push Changes
@@ -69,8 +79,12 @@ jobs:
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           
-          git add .
-          # [skip ci] prevents infinite loops during automation
-          git commit -m "Automation: Extract & Clean Assets v$VERSION [skip ci]" || echo "No changes to commit"
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Automation: Unzipped & Overwritten Assets (v${{ env.VERSION_ID }}) [skip ci]"
+            git push
+            echo "Changes pushed to hassanbiswas.github.io"
+          else
+            echo "No changes detected. Repository is clean."
+          fi
           
