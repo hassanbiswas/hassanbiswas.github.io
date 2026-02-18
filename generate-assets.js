@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
+// Automation: Logic-based versioning (Zero Maintenance)
+const VERSION = new Date().getDate();
 const VERSION_DATE = new Date().toISOString().split('T')[0];
 const BASE_URL = 'https://hassanbiswas.github.io';
-const BRAND_COLOR = '#1a1ae6'; // Equivalent to HSL(240, 80%, 50%)
+const BRAND_COLOR = 'hsl(240, 80%, 50%)'; // Your brand color
 
 // --- 1. SITEMAP LOGIC ---
 const CONFIG = {
@@ -41,34 +43,60 @@ const getHtmlFiles = (dir, fileList = []) => {
 const allPages = getHtmlFiles(process.cwd());
 const sitemapEntries = allPages.map(page => {
   const settings = CONFIG[page] || { priority: 0.5, changefreq: 'monthly' };
-  return `  <url>\n    <loc>${BASE_URL}${page}</loc>\n    <lastmod>${VERSION_DATE}</lastmod>\n    <changefreq>${settings.changefreq}</changefreq>\n    <priority>${settings.priority.toFixed(1)}</priority>\n  </url>`;
+  return `  <url>
+    <loc>${BASE_URL}${page}</loc>
+    <lastmod>${VERSION_DATE}</lastmod>
+    <changefreq>${settings.changefreq}</changefreq>
+    <priority>${settings.priority.toFixed(1)}</priority>
+  </url>`;
 }).join('\n');
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapEntries}
+</urlset>`;
 fs.writeFileSync('sitemap.xml', sitemap);
 
 // --- 2. ROBOTS.TXT LOGIC ---
-const robots = `# User-agent: * applies to all search engine bots\nUser-agent: *\nAllow: /\nDisallow: /private/\nDisallow: /drafts/\nDisallow: /node_modules/\nSitemap: ${BASE_URL}/sitemap.xml\n\n# Last updated: ${VERSION_DATE}`.replace(/^\s+/gm, '');
+const robots = `# User-agent: * applies to all search engine bots
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /drafts/
+Disallow: /node_modules/
+Sitemap: ${BASE_URL}/sitemap.xml
+
+# Updated: ${VERSION_DATE} (v${VERSION})`.replace(/^\s+/gm, '');
 fs.writeFileSync('robots.txt', robots);
 
 // --- 3. MANIFEST LOGIC ---
 const manifest = {
   "short_name": "Web Developer",
   "name": "Web Developer : Hassan Biswas",
-  "description": "Freelance Front-End Developer & Website Designer specializing in modern, mobile-ready, and SEO-friendly custom website design.",
+  "description": "Freelance Front-End Developer & Website Designer specializing in transforming Figma designs into high-performance, SEO-friendly digital experiences.",
   "start_url": "/",
   "display": "standalone",
   "theme_color": BRAND_COLOR,
   "background_color": BRAND_COLOR,
   "orientation": "portrait",
   "icons": [
-    { "src": "https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s192-c-no", "type": "image/png", "sizes": "192x192", "purpose": "any" },
-    { "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiI+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBkPSJNNCA0aDE4NHYxODRINFoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgZD0iTTY2LjQ4MSA2NC41MTloLS40OTNsLS4zMDgtLjMxOS4yNDQuMDkzLjE1NC0uMDQ2Yy0uMDkgMC0zMi4zNTItMzAuNTk5LTMyLjM1Mi0zMC41OTloNjEuODE1VjMzLjVjMzQuNzY5IDAgNjIuOTU5IDI3Ljk4OSA2Mi45NTkgNjIuNDk5IDAgMzQuNTE2LTI4LjE5IDYyLjUwMS02Mi45NTkgNjIuNTAxdi0uNzFsLTMwLjA4NC0zMC42NjJjLTEuNjkzLTEuNDA5LTguODktOC43NC0xNS45NDctMTUuODkxLTguMDI3LTguMTQ1LTE2LjAxMC0xNi4zMi0xNi4wMTAtMTYuMzJWNjQuNTE5aDMyLjEzbDI5LjkxMSAzMC40NDl2My4wMzFjLTguMjMzLS4yNzUtMzAuMjM2LTEuMTE1LTMwLjIzNi0xLjExNS0uMTg2LS4xNzguNDM5IDI4LjY5LjUxNSAzMi4xNzVoMjkuNzIxdi0uNDI4YzE3LjYwNSAwIDMxLjg3Mi0xNC4yOTQgMzEuODcyLTMxLjkzcy0xNC4yNjctMzEuOTI5LTMxLjg3Mi0zMS45Mjl2LS40NjVINjUuOTQ1ek05OC41NjYgOTcuMzVjMCAuMDI3LTEuMTU4LS4wMjEtMy4wMjUtLjA3di0yLjk3OHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PC9zdmc+", "type": "image/svg+xml", "sizes": "any", "purpose": "maskable" }
+    { 
+      "src": "https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no", 
+      "type": "image/png", 
+      "sizes": "400x400", 
+      "purpose": "any" 
+    },
+    { 
+      "src": "favicon.svg", 
+      "type": "image/svg+xml", 
+      "sizes": "any", 
+      "purpose": "maskable" 
+    }
   ],
   "shortcuts": [
     { "name": "Messenger", "url": "https://m.me/hassanbiswas.github.io", "icons": [{ "src": "https://www.google.com/s2/favicons?domain=messenger.com&sz=96", "sizes": "96x96" }] },
     { "name": "Call", "url": "tel:+8801602873384", "icons": [{ "src": "https://www.google.com/s2/favicons?domain=voice.google.com&sz=96", "sizes": "96x96" }] },
-    { "name": "G-mail", "url": "mailto:hassanbiswas.github.io+app@gmail.com", "icons": [{ "src": "https://www.google.com/s2/favicons?domain=mail.google.com&sz=96", "sizes": "96x96" }] }
+    { "name": "G-mail", "url": "mailto:hassanbiswas.github.io@gmail.com", "icons": [{ "src": "https://www.google.com/s2/favicons?domain=mail.google.com&sz=96", "sizes": "96x96" }] }
   ],
   "screenshots": [
     { "src": "images/screen-1.svg", "type": "image/svg+xml", "sizes": "any" },
@@ -76,6 +104,6 @@ const manifest = {
     { "src": "images/screen-3.svg", "type": "image/svg+xml", "sizes": "any" }
   ]
 };
+
 fs.writeFileSync('manifest.webmanifest', JSON.stringify(manifest, null, 2));
-console.log('Sitemap, Robots, and Manifest updated successfully.');
-    
+console.log(`Sitemap, Robots, and Manifest updated successfully (Version Day: ${VERSION}).`);
