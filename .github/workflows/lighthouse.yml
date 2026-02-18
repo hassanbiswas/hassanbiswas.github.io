@@ -18,8 +18,11 @@ jobs:
       - name: Setup Environment
         run: |
           # Automation Logic: Using date for cache-busting/versioning
-          const VERSION = new Date().getDate();
+          # This replaces the JS logic with a Shell equivalent for the runner
+          VERSION=$(date +%d)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Build Version: $VERSION"
+          
 
       - name: Run Audit (Lighthouse CI)
         uses: treosh/lighthouse-ci-action@v12
