@@ -1,7 +1,6 @@
 name: Deploy Website
 
 on:
-  # 1. Logic: Execute whenever you modify/push code or compressed assets
   push:
     branches: ["main"]
     paths:
@@ -12,11 +11,11 @@ on:
       - '**/*.gz'
       - '**/*.rar'
 
-  # 2. Logic: Execute every 1st and 15th (Zero Maintenance)
+  # Logic 2: Execute every 1st and 15th (Zero Maintenance)
   schedule:
     - cron: '0 0 1,15 * *'
 
-  # 3. Logic: Allow manual execution if ever needed
+  # Logic 3: Allow manual execution if ever needed
   workflow_dispatch:
 
 permissions:
@@ -37,7 +36,7 @@ jobs:
     
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
         with:
           fetch-depth: 0
 
@@ -66,18 +65,30 @@ jobs:
             echo "$FOUND_FILES" | while read -r file; do
               base_dir=$(dirname "$file")
               temp_extract_dir="${file%.*}_tmp"
-
+              
               echo "Processing: $file in $base_dir"
               mkdir -p "$temp_extract_dir"
 
+              # Extraction logic
               if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
               elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
               else tar -xf "$file" -C "$temp_extract_dir"; fi
 
+              # Logic: Delete existing duplicates before moving
+              # This ensures zero maintenance and avoids stale file overlap
+              ls -A "$temp_extract_dir" | while read -r item; do
+                target_path="$base_dir/$item"
+                if [ -e "$target_path" ]; then
+                  echo "Removing existing duplicate: $target_path"
+                  rm -rf "$target_path"
+                fi
+              done
+
+              # Move new content and clean up
               cp -rf "$temp_extract_dir"/. "$base_dir/" 
               rm "$file"
               rm -rf "$temp_extract_dir"
-              echo "Success: $file extracted and cleaned."
+              echo "Success: $file processed with Logic Preservation."
             done
           fi
 
@@ -89,21 +100,21 @@ jobs:
           
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "Automation: Unzipped Assets (v${{ env.VERSION_ID }}) [skip ci]"
+            git commit -m "Automation: Unzipped & Purged Duplicates (v${{ env.VERSION_ID }}) [skip ci]"
             git push
           else
             echo "No asset changes to commit."
           fi
 
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4
+        uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
 
       - name: Upload Deployment Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
         with:
-          path: '.' # Root directory for hassanbiswas.github.io
+          path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: [actions/deploy-pages@v4](https://github.com/actions/deploy-pages)
         
