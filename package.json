@@ -1,4 +1,4 @@
-9{
+{
   "name": "hassanbiswas-portfolio",
   "version": "1.0.0",
   "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture.",
@@ -7,7 +7,8 @@
     "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
     "build:assets": "node generate-assets.js",
     "lint": "eslint js/*.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "version:auto": "node -e \"const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json')); const VERSION = new Date().getDate(); pkg.version = `1.0.${VERSION}`; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));\""
   },
   "devDependencies": {
     "browser-sync": "^3.0.3",
