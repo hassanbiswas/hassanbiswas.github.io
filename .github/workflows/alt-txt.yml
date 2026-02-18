@@ -1,0 +1,103 @@
+name: Auto-Generate Alt Text & Keep-Alive
+
+on:
+  push:
+    paths:
+      - '**.html'
+  # Automation: Runs at 00:00 on day 1 of every month to prevent API/Workflow dormancy
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  accessibility-automation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
+
+      - name: Set up Node.js
+        uses: [actions/setup-node@v4](https://github.com/actions/setup-node)
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install jsdom axios
+
+      - name: Run JS Automation
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          # Logic Automation: Using your preferred date-based versioning
+          VERSION: ${{ github.run_id }}
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const { JSDOM } = require('jsdom');
+          const axios = require('axios');
+
+          const VERSION = new Date().getDate();
+          const API_KEY = process.env.AI_API_KEY;
+
+          async function generateAltText(imageSrc) {
+            if (!API_KEY) return 'Visual content for hassanbiswas.github.io';
+            try {
+              const response = await axios.post(
+                \`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${API_KEY}\`,
+                {
+                  contents: [{
+                    parts: [{ 
+                      text: \`Generate a short, SEO-friendly alt text (10 words or less) for this image URL: \${imageSrc}. Focus on UI/UX context for a web developer portfolio.\` 
+                    }]
+                  }]
+                }
+              );
+              return response.data.candidates[0].content.parts[0].text.trim().replace(/\"/g, '');
+            } catch (error) {
+              return 'Professional web design element';
+            }
+          }
+
+          async function processHTMLFiles(dir) {
+            const files = fs.readdirSync(dir);
+            for (const file of files) {
+              const filePath = path.join(dir, file);
+              const stat = fs.statSync(filePath);
+              if (stat.isDirectory()) {
+                if (file !== 'node_modules' && file !== '.git') await processHTMLFiles(filePath);
+              } else if (file.endsWith('.html')) {
+                const html = fs.readFileSync(filePath, 'utf8');
+                const dom = new JSDOM(html);
+                const document = dom.window.document;
+                const images = document.querySelectorAll('img:not([alt]), img[alt=\"\"]');
+                if (images.length === 0) continue;
+                for (const img of images) {
+                  const src = img.getAttribute('src');
+                  if (!src) continue;
+                  const fullSrc = src.startsWith('http') ? src : \`https://hassanbiswas.github.io/\${src.replace(/^\//, '')}\`;
+                  const altText = await generateAltText(fullSrc);
+                  img.setAttribute('alt', altText);
+                  console.log(\`[v\${VERSION}] Added alt to \${src} in \${file}\`);
+                }
+                fs.writeFileSync(filePath, dom.serialize(), 'utf8');
+              }
+            }
+          }
+
+          processHTMLFiles('./').then(() => console.log('Execution Complete.'));
+          "
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas (Bot)"
+          git add .
+          
+          # Logic: $(date +'%d') matches your const VERSION = new Date().getDate();
+          VERSION_STAMP=$(date +'%d')
+          
+          git commit -m "chore: maintenance [v${VERSION_STAMP}]" || echo "No changes to commit"
+          git push
+          
