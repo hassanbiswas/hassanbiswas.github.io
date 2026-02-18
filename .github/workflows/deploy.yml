@@ -1,13 +1,22 @@
 name: Deploy Website
 
 on:
+  # 1. Logic: Execute whenever you modify/push code
   push:
     branches: ["main"]
+
+  # 2. Logic: Execute every month (Zero Maintenance)
+  # Runs at 00:00 on the 1st of every month
+  schedule:
+    - cron: '0 0 1 * *'
+
+  # 3. Logic: Execute after "Unzip Assets Automation" completes
   workflow_run:
-    # This MUST match the 'name' field of the first YML exactly
     workflows: ["Unzip Assets Automation"]
     types:
       - completed
+
+  # 4. Logic: Allow manual execution if ever needed
   workflow_dispatch:
 
 permissions:
@@ -15,33 +24,34 @@ permissions:
   pages: write
   id-token: write
 
+# Prevents multiple deployments from overlapping
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
   build-and-deploy:
-    # Logic: Only run if it's a manual trigger, a direct push, 
-    # or the Unzip workflow finished successfully.
+    # Logic: Only block if the trigger was 'workflow_run' and it failed.
+    # Otherwise, allow push, schedule, and dispatch to run freely.
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
 
-      - name: Upload artifact
+      - name: Upload Deployment Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Deploying high-performance digital experiences from root
+          path: '.' # Root directory for hassanbiswas.github.io
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: tragedy/deploy-pages@v4 # Note: Standard action is actions/deploy-pages@v4
         uses: actions/deploy-pages@v4
         
