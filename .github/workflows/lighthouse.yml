@@ -9,25 +9,27 @@ jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
+      # 1. Automates the checkout process
       - name: Checkout Code
-        uses: [actions/checkout@v4](https://github.com/actions/checkout)
+        uses: actions/checkout@v4
 
+      # 2. Sets up the environment without manual maintenance
       - name: Use Node.js
-        uses: [actions/setup-node@v4](https://github.com/actions/setup-node)
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm' # Automates maintenance by caching dependencies
+          cache: 'npm' # Automates dependency caching
 
       - name: Install & Build
         run: |
           npm install
-          # npm run build # Uncomment if you use a build step
+          # npm run build 
 
+      # 3. Runs the audit and provides a zero-expiry public report link
       - name: Run Lighthouse Audit
-        uses: [treosh/lighthouse-ci-action@v12](https://github.com/treosh/lighthouse-ci-action)
+        uses: treosh/lighthouse-ci-action@v12
         with:
-          # URL is managed in .lighthouserc.json for cleaner logic
           configPath: './lighthouserc.json'
           uploadArtifacts: true
-          temporaryPublicStorage: true # Provides a link to the report without manual hosting
+          temporaryPublicStorage: true # No manual hosting required
           
