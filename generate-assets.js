@@ -17,7 +17,7 @@ const CONFIG = {
 
 const EXCLUSIONS = {
   folders: ['dist', 'node_modules', '.git', '.github', 'assets', 'components', 'draft', 'error', 'freefire', 'nid', 'trash'],
-  files: ['README.md', 'generate-assets.js', 'googledb2beed158567cde.html', 'heartbeat.json', 'lighthouserc.json', 'manifest.webmanifest', 'package.json', 'sw.js', '404.html', 'favicon.ico', 'favicon.svg', 'offline.html', '8886230f8ec14aecb0ba333e57bc135a.txt']
+  files: ['README.md', 'generate-assets.js', 'googledb2beed158567cde.html', 'LICENSE.txt', 'heartbeat.json', 'lighthouserc.json', 'manifest.webmanifest', 'package.json', 'sw.js', '404.html', 'favicon.ico', 'favicon.svg', 'offline.html', '8886230f8ec14aecb0ba333e57bc135a.txt']
 };
 
 const getHtmlFiles = (dir, fileList = []) => {
