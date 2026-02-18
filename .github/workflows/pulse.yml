@@ -18,6 +18,6 @@ jobs:
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
-          git commit --allow-empty -m "Daily automated logic pulse [${{ github.run_id }}]"
+          git commit --allow-empty -m "Pulse [${{ github.run_id }}]"
           git push
           
