@@ -91,7 +91,7 @@ jobs:
             'background_color': BRAND_COLOR,
             'orientation': 'portrait',
             'icons': [
-              { 'src': 'https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no', 'type': 'image/png', 'sizes': '400x400', 'purpose': 'any' },
+              { 'src': 'https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no', 'type': 'image/png', 'sizes': '192x192', 'purpose': 'any' },
               { 'src': 'favicon.svg', 'type': 'image/svg+xml', 'sizes': 'any', 'purpose': 'maskable' }
             ],
             'shortcuts': [
@@ -113,6 +113,6 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add sitemap.xml robots.txt manifest.webmanifest
-          git commit -m "Weekly Automated SEO Refresh: v$(date +%d)" || echo "No changes to commit"
+          git commit -m "Weekly SEO Refresh: v$(date +%d)" || echo "No changes to commit"
           git push
           
