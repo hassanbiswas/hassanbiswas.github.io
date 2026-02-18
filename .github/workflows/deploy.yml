@@ -11,11 +11,11 @@ on:
       - '**/*.gz'
       - '**/*.rar'
 
-  # Logic 2: Execute every 1st and 15th (Zero Maintenance)
+  # Logic: Execute every 1st and 15th (Zero Maintenance)
   schedule:
     - cron: '0 0 1,15 * *'
 
-  # Logic 3: Allow manual execution if ever needed
+  # Logic: Allow manual execution if ever needed
   workflow_dispatch:
 
 permissions:
