@@ -10,16 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: [actions/setup-node@v4](https://github.com/actions/setup-node)
         with:
           node-version: '20'
+          cache: 'npm' # Automates maintenance by caching dependencies
+
+      - name: Install & Build
+        run: |
+          npm install
+          # npm run build # Uncomment if you use a build step
 
       - name: Run Lighthouse Audit
-        uses: treosh/lighthouse-ci-action@v12
+        uses: [treosh/lighthouse-ci-action@v12](https://github.com/treosh/lighthouse-ci-action)
         with:
+          # Use your live URL for zero-maintenance testing
+          urls: 'https://hassanbiswas.github.io' 
           configPath: './lighthouserc.json'
           uploadArtifacts: true
+          temporaryPublicStorage: true # Provides a link to the report without manual hosting
           
