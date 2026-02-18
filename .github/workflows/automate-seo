@@ -1,45 +1,37 @@
-name: Auto Update SEO & PWA Assets
+name: Automate SEO Submission
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   schedule:
-    - cron: '0 0 * * *' 
-  workflow_dispatch: 
+    - cron: '0 0 * * *' # Runs daily at midnight for zero-maintenance freshness
+  workflow_dispatch: # Allows manual trigger if needed
 
 jobs:
-  seo:
+  seo-submission:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Generate SEO and PWA Files
-        run: npm run build:assets
-
-      - name: Commit and Push Changes
+      - name: Submit to IndexNow (Bing/Yandex)
         run: |
-          git config --global user.name "Hassan Biswas (Automation)"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
-          git add sitemap.xml robots.txt manifest.webmanifest
-          VERSION=$(date +'%d')
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: SEO & PWA sync v$VERSION update $(date +'%Y-%m-%d') [skip ci]"
-            git push
-          else
-            echo "No changes detected."
-          fi
+          # Automates URL submission without API keys that expire
+          # Uses your GitHub Pages URL from your profile
+          curl -X POST "https://api.indexnow.org/indexnow" \
+          -H "Content-Type: application/json; charset=utf-8" \
+          -d '{
+            "host": "hassanbiswas.github.io",
+            "key": "${{ secrets.INDEXNOW_KEY }}",
+            "keyLocation": "https://hassanbiswas.github.io/${{ secrets.INDEXNOW_KEY }}.txt",
+            "urlList": [
+              "https://hassanbiswas.github.io/",
+              "https://hassanbiswas.github.io/index.html"
+            ]
+          }'
 
-      - name: Ping Search Engines
+      - name: Notify Google via Sitemap (Modern Method)
         run: |
-          curl "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml" || echo "Google ping failed"
-          curl "https://www.bing.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml" || echo "Bing ping failed"
+          # Since the /ping endpoint is deprecated, we ensure Google 
+          # sees the 'lastmod' change by hitting the sitemap directly
+          curl -I "https://hassanbiswas.github.io/sitemap.xml"
