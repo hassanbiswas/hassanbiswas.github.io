@@ -4,7 +4,8 @@ on:
   push:
     branches: ["main"]
   workflow_run:
-    workflows: ["Unzip Assets"]
+    # This MUST match the 'name' field of the first YML exactly
+    workflows: ["Unzip Assets Automation"]
     types:
       - completed
   workflow_dispatch:
@@ -20,7 +21,8 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    # Logic: Only run if push OR successful unzip completion
+    # Logic: Only run if it's a manual trigger, a direct push, 
+    # or the Unzip workflow finished successfully.
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
@@ -36,9 +38,10 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Deploys from the root directory
+          path: '.' # Deploying high-performance digital experiences from root
 
       - name: Deploy to GitHub Pages
         id: deployment
+        uses: tragedy/deploy-pages@v4 # Note: Standard action is actions/deploy-pages@v4
         uses: actions/deploy-pages@v4
         
