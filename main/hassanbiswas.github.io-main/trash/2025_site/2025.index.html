@@ -83,10 +83,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <?php
         include 'script.php';
     ?>
-  <meta content="index, follow" name="robots">
-   <link href="manifest.webmanifest" rel="manifest"/>
-   <script>
-    if ('serviceWorker' in navigator) {
+  <meta content="index, follow" name="robots"/>
+  <link href="manifest.webmanifest" rel="manifest"/>
+  <script>
+   if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('sw.js')
             .then(registration => {
               console.log('Service worker registration successful:', registration);
@@ -95,25 +95,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               console.log('Service worker registration failed:', error);
             });
         }
-   </script>
-   <!-- Google tag manager (gtag.js) -->
-   <script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-PRSSQR5H">
-   </script>
-   <script>
-    window.dataLayer = window.dataLayer || [];
+  </script>
+  <!-- Google tag manager (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-PRSSQR5H">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
      function gtag(){dataLayer.push(arguments);}
      gtag('js', new Date());
      gtag('config', 'GTM-PRSSQR5H');
-   </script>
-   <!-- End Google tag manager -->
-   <!-- styles goes here! -->
-   <style>
-    @import "style.css";
-   </style>
-   <!-- styles end here! -->
-   <!-- external links go here! -->
-   <link href="style.css" rel="stylesheet"/>
-  </meta>
+  </script>
+  <!-- End Google tag manager -->
+  <!-- styles goes here! -->
+  <style>
+   @import "style.css";
+  </style>
+  <!-- styles end here! -->
+  <!-- external links go here! -->
+  <link href="style.css" rel="stylesheet"/>
  </head>
  <body>
   <h1>
