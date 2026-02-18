@@ -4,11 +4,16 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '**.zip'
-      - '**.tar'
-      - '**.gz'
-      - '**.7z'
-      
+      - '**/*.zip'
+      - '**/*.tar'
+      - '**/*.gz'
+      - '**/*.7z'
+      - '**/*.rar'
+  schedule:
+    # Executes at 00:00 on day 1 and 15 of every month
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch: # Allows manual triggering
+
 jobs:
   unzip-process:
     runs-on: ubuntu-latest
@@ -19,35 +24,41 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Process Zips and Exclude Folders
+      - name: Process Zips and Clean Up
         run: |
           # Logic Automation: Using your preferred date-based versioning
-          # equivalent to: const VERSION = new Date().getDate();
           VERSION=$(date +%d)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          
           echo "Executing Unzip Automation for Version: $VERSION"
-          
-          # 1. Define Excluded Folders (Zero Maintenance List)
-          EXCLUDED_FOLDERS=(
-            "node_modules"
-            "src/temp-assets"
-            "backup/old-layouts"
-            "app"
-          )
-          
-          # 2. Build exclusion string
+
+          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup/old-layouts" "app")
           EXCLUDE_CMD=""
           for folder in "${EXCLUDED_FOLDERS[@]}"; do
             EXCLUDE_CMD+=" -not -path \"./$folder/*\""
           done
-          
-          # 3. Find and Unzip using logic-based extraction
-          eval "find . -type f -name '*.zip' $EXCLUDE_CMD" -print0 | while IFS= read -r -d '' file; do
+
+          # Find all compressed files excluding specified folders
+          find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD -print0 | while IFS= read -r -d '' file; do
+            
             target_dir="${file%.*}"
-            echo "Unzipping $file -> $target_dir"
             mkdir -p "$target_dir"
-            unzip -o "$file" -d "$target_dir"
+            
+            echo "Unzipping $file -> $target_dir"
+            if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$target_dir";
+            elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$target_dir" -y;
+            else tar -xf "$file" -C "$target_dir"; fi
+
+            # Move contents from child folder to parent path if only one directory exists
+            CHILD_COUNT=$(ls -1 "$target_dir" | wc -l)
+            if [ "$CHILD_COUNT" -eq 1 ] && [ -d "$target_dir"/* ]; then
+                echo "Flattening structure for $target_dir"
+                mv "$target_dir"/*/* "$target_dir"/ 2>/dev/null || true
+                mv "$target_dir"/*/.* "$target_dir"/ 2>/dev/null || true
+                find "$target_dir" -type d -empty -delete
+            fi
+
+            # Zero maintenance: Delete the original compressed file after success
+            rm "$file"
+            echo "Deleted original archive: $file"
           done
 
       - name: Commit and Push Changes
@@ -57,7 +68,7 @@ jobs:
           git config --local user.name "Hassan Biswas"
           
           git add .
-          # [skip ci] prevents an infinite loop when the bot pushes back to main
-          git commit -m "Automation: Extract Assets v$VERSION [skip ci]" || echo "No changes to commit"
+          # [skip ci] prevents infinite loops
+          git commit -m "Automation: Extract & Clean Assets v$VERSION [skip ci]" || echo "No changes to commit"
           git push
           
