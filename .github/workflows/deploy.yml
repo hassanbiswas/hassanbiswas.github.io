@@ -1,22 +1,22 @@
 name: Deploy Website
 
 on:
-  # 1. Logic: Execute whenever you modify/push code
+  # 1. Logic: Execute whenever you modify/push code or compressed assets
   push:
     branches: ["main"]
+    paths:
+      - '**'
+      - '**/*.zip'
+      - '**/*.7z'
+      - '**/*.tar'
+      - '**/*.gz'
+      - '**/*.rar'
 
-  # 2. Logic: Execute every month (Zero Maintenance)
-  # Runs at 00:00 on the 1st of every month
+  # 2. Logic: Execute every 1st and 15th (Zero Maintenance)
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 1,15 * *'
 
-  # 3. Logic: Execute after "Unzip Assets Automation" completes
-  workflow_run:
-    workflows: ["Unzip Assets Automation"]
-    types:
-      - completed
-
-  # 4. Logic: Allow manual execution if ever needed
+  # 3. Logic: Allow manual execution if ever needed
   workflow_dispatch:
 
 permissions:
@@ -24,24 +24,76 @@ permissions:
   pages: write
   id-token: write
 
-# Prevents multiple deployments from overlapping
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
-    # Logic: Only block if the trigger was 'workflow_run' and it failed.
-    # Otherwise, allow push, schedule, and dispatch to run freely.
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+  process-and-deploy:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Auto-Unzip and Overwrite Process
+        id: process_logic
+        run: |
+          # Logic: Version automation for cache-busting
+          # const VERSION = new Date().getDate();
+          VERSION=$(date +%d)
+          echo "VERSION_ID=$VERSION" >> $GITHUB_ENV
+          echo "Executing Automation for Version: $VERSION"
+
+          # Excluded names (protecting core architecture)
+          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app" ".git" ".github")
+          EXCLUDE_CMD=""
+          for folder in "${EXCLUDED_FOLDERS[@]}"; do
+            EXCLUDE_CMD+=" -not -path \"*/$folder/*\" -not -name \"$folder\""
+          done
+
+          # Find and process compressed files
+          FOUND_FILES=$(find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD)
+          
+          if [ -z "$FOUND_FILES" ]; then
+            echo "No compressed files found."
+          else
+            echo "$FOUND_FILES" | while read -r file; do
+              base_dir=$(dirname "$file")
+              temp_extract_dir="${file%.*}_tmp"
+
+              echo "Processing: $file in $base_dir"
+              mkdir -p "$temp_extract_dir"
+
+              if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
+              elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
+              else tar -xf "$file" -C "$temp_extract_dir"; fi
+
+              cp -rf "$temp_extract_dir"/. "$base_dir/" 
+              rm "$file"
+              rm -rf "$temp_extract_dir"
+              echo "Success: $file extracted and cleaned."
+            done
+          fi
+
+      - name: Commit Asset Changes
+        run: |
+          # Brand: Hassan Biswas — UI/UX & Front-End Architecture
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Automation: Unzipped Assets (v${{ env.VERSION_ID }}) [skip ci]"
+            git push
+          else
+            echo "No asset changes to commit."
+          fi
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
