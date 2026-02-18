@@ -4,8 +4,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '**.zip' # Only triggers if a zip file is actually pushed
-
+      - '**.zip'
+      - '**.tar'
+      - '**.gz'
+      - '**.7z'
+      
 jobs:
   unzip-process:
     runs-on: ubuntu-latest
