@@ -2,7 +2,6 @@ name: Unzip Assets Automation
 
 on:
   push:
-    branches: [ main ]
     paths:
       - '**/*.zip'
       - '**/*.tar'
@@ -10,7 +9,7 @@ on:
       - '**/*.7z'
       - '**/*.rar'
   schedule:
-    # Executes at 00:00 on day 1 and 15 of every month
+    # Automate: Executes every 1st and 15th of the month
     - cron: '0 0 1,15 * *'
   workflow_dispatch: # Allows manual triggering
 
@@ -27,38 +26,41 @@ jobs:
       - name: Process Zips and Clean Up
         run: |
           # Logic Automation: Using your preferred date-based versioning
+          const VERSION = new Date().getDate();
           VERSION=$(date +%d)
           echo "Executing Unzip Automation for Version: $VERSION"
 
-          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup/old-layouts" "app")
+          # Define exclusions
+          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app")
           EXCLUDE_CMD=""
           for folder in "${EXCLUDED_FOLDERS[@]}"; do
-            EXCLUDE_CMD+=" -not -path \"./$folder/*\""
+            EXCLUDE_CMD+=" -not -path \"*/$folder/*\" -not -name \"$folder\""
           done
 
-          # Find all compressed files excluding specified folders
-          find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD -print0 | while IFS= read -r -d '' file; do
+          # 1 & 7: Find any file with compression extensions
+          find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD | while read -r file; do
             
-            target_dir="${file%.*}"
-            mkdir -p "$target_dir"
+            # Define paths
+            base_dir=$(dirname "$file")
+            temp_extract_dir="${file%.*}_tmp"
+
+            echo "Processing: $file in $base_dir"
+            mkdir -p "$temp_extract_dir"
+
+            # 2: Extract to temporary folder
+            if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
+            elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
+            else tar -xf "$file" -C "$temp_extract_dir"; fi
+
+            # 3: Move all contents to the path where the compressed file was uploaded
+            # This flattens the structure and handles hidden files
+            cp -rn "$temp_extract_dir"/. "$base_dir/" || true
             
-            echo "Unzipping $file -> $target_dir"
-            if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$target_dir";
-            elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$target_dir" -y;
-            else tar -xf "$file" -C "$target_dir"; fi
-
-            # Move contents from child folder to parent path if only one directory exists
-            CHILD_COUNT=$(ls -1 "$target_dir" | wc -l)
-            if [ "$CHILD_COUNT" -eq 1 ] && [ -d "$target_dir"/* ]; then
-                echo "Flattening structure for $target_dir"
-                mv "$target_dir"/*/* "$target_dir"/ 2>/dev/null || true
-                mv "$target_dir"/*/.* "$target_dir"/ 2>/dev/null || true
-                find "$target_dir" -type d -empty -delete
-            fi
-
-            # Zero maintenance: Delete the original compressed file after success
+            # 4: Delete compressed file and temporary uncompressed folder after success
             rm "$file"
-            echo "Deleted original archive: $file"
+            rm -rf "$temp_extract_dir"
+            
+            echo "Success: $file extracted and cleaned."
           done
 
       - name: Commit and Push Changes
@@ -68,7 +70,7 @@ jobs:
           git config --local user.name "Hassan Biswas"
           
           git add .
-          # [skip ci] prevents infinite loops
+          # [skip ci] prevents infinite loops during automation
           git commit -m "Automation: Extract & Clean Assets v$VERSION [skip ci]" || echo "No changes to commit"
           git push
           
