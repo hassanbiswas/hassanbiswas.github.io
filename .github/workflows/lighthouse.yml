@@ -1,35 +1,48 @@
-name: SEO & Performance Guard
+name: Performance, Accessibility, Best Practices, SEO Audit
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *' # Daily automation for zero maintenance
 
 jobs:
-  lighthouse:
+  lighthouse-ci:
     runs-on: ubuntu-latest
     steps:
-      # 1. Automates the checkout process
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. Sets up the environment without manual maintenance
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm' # Automates dependency caching
-
-      - name: Install & Build
+      - name: Setup Environment
         run: |
-          npm install
-          # npm run build 
+          # Automation Logic: Using date for cache-busting/versioning
+          const VERSION = new Date().getDate();
+          echo "Build Version: $VERSION"
 
-      # 3. Runs the audit and provides a zero-expiry public report link
-      - name: Run Lighthouse Audit
+      - name: Run Audit (Lighthouse CI)
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: './lighthouserc.json'
-          uploadArtifacts: true
-          temporaryPublicStorage: true # No manual hosting required
+          # Configuration merged from your JSON
+          urls: |
+            https://hassanbiswas.github.io/
+          numberOfRuns: 3
+          preset: 'desktop'
           
+          # Integrated Assertions for your Brand Standards
+          assertions: |
+            {
+              "categories:performance": ["error", {"minScore": 0.95}],
+              "categories:accessibility": ["error", {"minScore": 0.95}],
+              "categories:best-practices": ["error", {"minScore": 0.95}],
+              "categories:seo": ["error", {"minScore": 1.0}]
+            }
+
+          # Zero maintenance: No API keys or expiration
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Automation Log
+        run: echo "Audit for Performance, Accessibility, Best Practices, and SEO completed."
+        
