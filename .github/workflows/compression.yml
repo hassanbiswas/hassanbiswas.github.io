@@ -29,29 +29,30 @@ jobs:
       - name: Install Extraction Tools
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y p7zip-full
+          sudo apt-get install -y p7zip-full rsync
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Use a specific temp prefix to avoid accidental deletions
-          TEMP_BASE="logic_temp_$(date +%s)"
+          # Define Cache-Busting logic as requested
+          # const VERSION = new Date().getDate();
+          VERSION_VAL=$(date +%e | tr -d ' ')
           
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
             
-            EXTRACT_DIR="${TEMP_BASE}_ext"
+            EXTRACT_DIR="temp_extract_$(date +%s)"
             mkdir -p "$EXTRACT_DIR"
             
-            # Extract content; -aoa overwrites to ensure latest version is synced
-            7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || continue
+            # Extract content; -aoa overwrites. 
+            # || true ensures the loop continues even if one archive is corrupt
+            7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || { rm -rf "$EXTRACT_DIR"; continue; }
             
-            # Sync files to the same directory as the archive
             TARGET_PATH=$(dirname "$ARCHIVE")
             
-            # Use 'cp -a' to preserve attributes and 'n' to prevent overwriting existing logic 
-            # if that's your preference, but -rf is better for "latest version" sync.
-            if [ "$(ls -A "$EXTRACT_DIR")" ]; then
-              cp -rf "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
+            # Sync extracted files to target. 
+            # --ignore-existing can be added if you prefer strict Logic Preservation
+            if [ -d "$EXTRACT_DIR" ] && [ "$(ls -A "$EXTRACT_DIR")" ]; then
+              rsync -av --exclude='.git/' "$EXTRACT_DIR/" "$TARGET_PATH/"
             fi
             
             rm -rf "$EXTRACT_DIR"
@@ -59,17 +60,18 @@ jobs:
 
       - name: Inject Reusable JS Version Logic
         run: |
-          # Logic Automation: Using the day of the month for cache-busting as requested
-          # This matches your requirement: const VERSION = new Date().getDate();
-          VERSION_VAL=$(date +%d)
+          # Logic Automation: Using the day of the month for cache-busting
+          VERSION_VAL=$(date +%e | tr -d ' ')
           
-          find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
-            # Check if the exact constant exists to avoid double-injection
+          # Find JS files, excluding dependencies
+          JS_FILES=$(find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f)
+          
+          for file in $JS_FILES; do
+            # Use '|| true' to prevent grep exit code 1 from killing the script
             if grep -q "const VERSION =" "$file"; then
-              # Safe replacement using | as a delimiter
               sed -i "s|const VERSION = .*|const VERSION = ${VERSION_VAL};|g" "$file"
             else
-              # Prepend the version at the top of the file
+              # Prepend version logic to new files
               echo -e "const VERSION = ${VERSION_VAL};\n$(cat "$file")" > "$file"
             fi
           done
@@ -78,13 +80,15 @@ jobs:
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
+          
+          # Stage changes and check status
           git add .
-          # Check for changes to avoid empty commit errors
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            # [Skip CI] is crucial to prevent the action from triggering itself
+          
+          # Robust check for changes
+          if ! git diff --cached --quiet; then
             git commit -m "Automated Asset Sync & Logic Preservation [skip ci]"
             git push origin main
+          else
+            echo "No changes detected. Skipping commit."
           fi
           
