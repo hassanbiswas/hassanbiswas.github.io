@@ -6,13 +6,12 @@ on:
       - main
     paths:
       - '**'
-  # Execute whenever compression.yml completes successfully
   workflow_run:
     workflows: ["compression.yml"]
     types:
       - completed
-  # Zero Maintenance: Executes automatically at 00:00 on the 1st and 15th
   schedule:
+    # Zero Maintenance: Executes automatically at 00:00 on the 1st and 15th
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
@@ -28,27 +27,28 @@ concurrency:
 jobs:
   process-and-deploy:
     runs-on: ubuntu-latest
-    # Only run if triggered by push/schedule/dispatch OR a successful compression workflow
+    # Logic Preservation: Only runs if push/schedule/dispatch OR successful compression
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout Code
-        uses: [actions/checkout@v4](https://github.com/actions/checkout)
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Pages
-        uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
+        uses: actions/configure-pages@v4
 
       - name: Upload Artifact
-        uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: [actions/deploy-pages@v4](https://github.com/actions/deploy-pages)
+        uses: actions/deploy-pages@v4
         
