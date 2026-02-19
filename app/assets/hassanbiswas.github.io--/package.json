@@ -1,0 +1,17 @@
+9{
+  "name": "hassanbiswas-portfolio",
+  "version": "1.0.0",
+  "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture.",
+  "main": "index.html",
+  "scripts": {
+    "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
+    "build:assets": "node generate-assets.js",
+    "lint": "eslint js/*.js",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "eslint": "^9.19.0",
+    "prettier": "^3.4.2"
+  }
+}

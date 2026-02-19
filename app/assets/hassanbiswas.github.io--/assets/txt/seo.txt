@@ -1,0 +1,38 @@
+The keywords below are categorized for strategic placement in your website's Title, Meta Description, Headings (H1, H2), and Body Content.
+1. Primary Focus & High-Intent Keywords (Use in Title & H1)
+These keywords directly state your service and role.
+ * Front-End Web Developer
+ * Freelance Web Developer
+ * Custom Website Design
+ * Responsive Website Development
+2. Long-Tail Service Keywords (Use in Meta Description & H2s)
+These phrases capture specific client needs and local intent.
+ * Hire Front-End Developer
+ * Small Business Website Designer
+ * Professional Portfolio Website
+ * Freelance Web Designer Jessore District (For Local SEO)
+ * Modern Interactive Website
+ * Mobile-Ready Website Development
+3. Skills & Technology Keywords (Use in Body Content/Project Descriptions)
+Use these to show your technical expertise naturally in project write-ups and a "Skills" section.
+ * HTML, CSS, JavaScript, Bootstrap
+ * Responsive Web Design
+ * Cross-Browser Compatibility
+ * UI/UX Design Trends
+ * Web Performance Optimization
+ * Static Website
+ * SEO-Friendly Website
+🛠️ Best Practice Suggestions for Your Meta Tags
+Rather than a list of keywords for the deprecated meta keywords tag, here's how you should use keywords in the modern, effective SEO meta tags:
+1. Page Title Tag (\le 60 Characters)
+This is the most critical tag. Include your primary keyword, your name/brand, and a strong value proposition.
+> Web Developer | Responsive Website Design & Front-End Development
+> 
+2. Meta Description Tag (\le 160 Characters)
+This snippet appears under your title in search results and acts as an ad for your page. It should be compelling and include your primary keywords.
+> Freelance Front-End Developer, Hassan Biswas, specializing in modern, mobile-ready, and SEO-friendly custom website design. Let's build your professional online brand.
+> 
+3. Personal & Contact Keywords (Avoid in Meta Tags)
+Keywords for your name, phone number, and email address (e.g., hassanbiswas.github.io@gmail.com, +8801602873384, mdezazulhassanbiswas) are not effective SEO keywords for attracting clients.
+ * Correction: Keep these visible on your Contact page, Footer, and in your CV/Resume. Search engines will naturally associate these details with your website from the body content (and structured data, if you use it).
+ * Do NOT include them in your Meta Description or Page Title, as they are not what a potential client is searching for initially.
