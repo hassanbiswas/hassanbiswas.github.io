@@ -36,7 +36,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: [actions/checkout@v4](https://github.com/actions/checkout)
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -53,6 +53,7 @@ jobs:
         run: |
           # Automatically inject the VERSION into your JS files
           # Targets all .js files globally in the repository
+          # Using dynamic VERSION_ID from environment
           find . -name "*.js" -exec sed -i "s/const VERSION = .*/const VERSION = $VERSION_ID;/g" {} +
 
       - name: Commit and Push Changes
@@ -68,19 +69,19 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit (Logic preserved)."
           else
-            git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance)"
+            git commit -m "Automated Deployment: Version $VERSION_ID (Zero Maintenance)"
             git push origin main
           fi
 
       - name: Setup Pages
-        uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
+        uses: actions/configure-pages@v4
 
       - name: Upload Artifact
-        uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: [actions/deploy-pages@v4](https://github.com/actions/deploy-pages)
+        uses: actions/deploy-pages@v4
         
