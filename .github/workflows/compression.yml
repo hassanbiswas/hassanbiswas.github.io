@@ -28,23 +28,20 @@ jobs:
       - name: Install Extraction Tools
         run: |
           sudo apt-get update -y
-          # Removed unrar to prevent license-related exit errors; 7zip handles RAR perfectly.
           sudo apt-get install -y p7zip-full
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Use find with -print0 to handle filenames with spaces safely
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
             EXTRACT_DIR="temp_$(date +%s%N)"
             mkdir -p "$EXTRACT_DIR"
             
-            # Use 7z for everything - it's more robust and handles almost all formats
             7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || echo "Extraction issue with $ARCHIVE, skipping..."
             
             TARGET_PATH=$(dirname "$ARCHIVE")
-            # Logic Preservation: Copy files only if directory is not empty
-            if [ "$(ls -A "$EXTRACT_DIR")" ]; then
+            if [ -d "$EXTRACT_DIR" ] && [ "$(ls -A "$EXTRACT_DIR")" ]; then
+              # Logic Preservation: Copy files only if directory is not empty
               cp -rn "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
             fi
             rm -rf "$EXTRACT_DIR"
@@ -52,13 +49,13 @@ jobs:
 
       - name: Inject Reusable JS Version Logic
         run: |
-          # Automation: Using the current day for cache-busting as requested
-          const VERSION = new Date().getDate();
+          # Logic Automation: Using the current day for cache-busting
+          # Fixed: Removed raw JS line that caused exit code 2
           VERSION_VAL=$(date +%d)
           
           find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
             if grep -q "const VERSION =" "$file"; then
-              # Logic Preservation: Update existing VERSION constant using HSL brand-aligned logic
+              # Logic Preservation: Update existing VERSION constant
               sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" "$file"
             else
               # Zero Maintenance: Prepend VERSION constant if missing
@@ -71,7 +68,6 @@ jobs:
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           git add .
-          # Standard check to prevent error when no files change
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
