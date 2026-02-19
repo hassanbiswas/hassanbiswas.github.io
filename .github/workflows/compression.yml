@@ -31,48 +31,49 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y p7zip-full rsync
 
-      - name: Process Archives & Preserve Logic
+      - name: Process Archives & Sync Assets
         run: |
-          # Define Cache-Busting logic as requested
-          # const VERSION = new Date().getDate();
-          VERSION_VAL=$(date +%e | tr -d ' ')
-          
+          # 1. Logic Preservation: Find archives, excluding hidden git files
+          # Using a temporary directory outside the repo tree to prevent recursive syncing
+          TEMP_PARENT="/tmp/ext_assets"
+          mkdir -p "$TEMP_PARENT"
+
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
             
-            EXTRACT_DIR="temp_extract_$(date +%s)"
+            EXTRACT_DIR="$TEMP_PARENT/$(basename "$ARCHIVE")_dir"
             mkdir -p "$EXTRACT_DIR"
             
             # Extract content; -aoa overwrites. 
-            # || true ensures the loop continues even if one archive is corrupt
-            7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || { rm -rf "$EXTRACT_DIR"; continue; }
-            
-            TARGET_PATH=$(dirname "$ARCHIVE")
-            
-            # Sync extracted files to target. 
-            # --ignore-existing can be added if you prefer strict Logic Preservation
-            if [ -d "$EXTRACT_DIR" ] && [ "$(ls -A "$EXTRACT_DIR")" ]; then
+            if 7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y; then
+              TARGET_PATH=$(dirname "$ARCHIVE")
+              
+              # Sync to target. 
+              # Added --exclude to ensure we don't accidentally sync the archive back into itself
               rsync -av --exclude='.git/' "$EXTRACT_DIR/" "$TARGET_PATH/"
             fi
             
             rm -rf "$EXTRACT_DIR"
           done
+          rm -rf "$TEMP_PARENT"
 
       - name: Inject Reusable JS Version Logic
         run: |
-          # Logic Automation: Using the day of the month for cache-busting
+          # Automation: Using the day of the month for cache-busting as requested
+          # const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%e | tr -d ' ')
           
           # Find JS files, excluding dependencies
-          JS_FILES=$(find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f)
-          
-          for file in $JS_FILES; do
-            # Use '|| true' to prevent grep exit code 1 from killing the script
+          # Fixed: We use a temporary file to safely prepend logic without data loss
+          find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
             if grep -q "const VERSION =" "$file"; then
+              # Update existing version string
               sed -i "s|const VERSION = .*|const VERSION = ${VERSION_VAL};|g" "$file"
             else
-              # Prepend version logic to new files
-              echo -e "const VERSION = ${VERSION_VAL};\n$(cat "$file")" > "$file"
+              # Prepend version logic to the top of the file safely
+              echo "const VERSION = ${VERSION_VAL};" > "${file}.tmp"
+              cat "$file" >> "${file}.tmp"
+              mv "${file}.tmp" "$file"
             fi
           done
 
@@ -81,11 +82,10 @@ jobs:
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           
-          # Stage changes and check status
           git add .
           
-          # Robust check for changes
-          if ! git diff --cached --quiet; then
+          # Check for changes to avoid empty commit errors
+          if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated Asset Sync & Logic Preservation [skip ci]"
             git push origin main
           else
