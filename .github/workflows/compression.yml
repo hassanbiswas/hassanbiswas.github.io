@@ -1,5 +1,4 @@
-name: Automated Compression Logic & Asset Sync
-
+name: Compression & Cleanup Automation
 on:
   push:
     branches:
@@ -15,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  extract-and-clean:
+  extract-sync-delete:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -31,64 +30,60 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y p7zip-full rsync
 
-      - name: Process Archives & Sync Assets
+      - name: Process, Overwrite, and Remove Archives
         run: |
-          # 1. Logic Preservation: Find archives, excluding hidden git files
-          # Using a temporary directory outside the repo tree to prevent recursive syncing
+          # Fallback Security: Safe temp workspace
           TEMP_PARENT="/tmp/ext_assets"
           mkdir -p "$TEMP_PARENT"
 
+          # Logic Preservation: Find and process all archives
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
             
-            EXTRACT_DIR="$TEMP_PARENT/$(basename "$ARCHIVE")_dir"
+            # Create a unique extraction folder
+            EXTRACT_DIR="$TEMP_PARENT/$(basename "$ARCHIVE" | sed 's/[^a-zA-Z0-9]//g')"
             mkdir -p "$EXTRACT_DIR"
             
-            # Extract content; -aoa overwrites. 
-            if 7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y; then
+            # Extract and Overwrite (-aoa)
+            if 7z x "$ARCHIVE" -o"$EXTRACT_DIR" -aoa; then
               TARGET_PATH=$(dirname "$ARCHIVE")
               
-              # Sync to target. 
-              # Added --exclude to ensure we don't accidentally sync the archive back into itself
-              rsync -av --exclude='.git/' "$EXTRACT_DIR/" "$TARGET_PATH/"
+              # --- STRICT EXCLUSION LOGIC ---
+              # -avI: Force overwrite
+              # --exclude: Prevents specific files/folders from being replaced even if they exist in the ZIP
+              rsync -avI \
+                --exclude='.git/' \
+                --exclude='.github/' \
+                --exclude='node_modules/' \
+                --exclude='package.json' \
+                --exclude='package-lock.json' \
+                --exclude='.env' \
+                --exclude='README.md' \
+                "$EXTRACT_DIR/" "$TARGET_PATH/"
+              
+              # Automation: Delete source archive after successful sync
+              echo "Processed $ARCHIVE. Deleting source..."
+              rm -f "$ARCHIVE"
+            else
+              echo "Error: Failed to extract $ARCHIVE."
             fi
             
             rm -rf "$EXTRACT_DIR"
           done
           rm -rf "$TEMP_PARENT"
 
-      - name: Inject Reusable JS Version Logic
-        run: |
-          # Automation: Using the day of the month for cache-busting as requested
-          # const VERSION = new Date().getDate();
-          VERSION_VAL=$(date +%e | tr -d ' ')
-          
-          # Find JS files, excluding dependencies
-          # Fixed: We use a temporary file to safely prepend logic without data loss
-          find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
-            if grep -q "const VERSION =" "$file"; then
-              # Update existing version string
-              sed -i "s|const VERSION = .*|const VERSION = ${VERSION_VAL};|g" "$file"
-            else
-              # Prepend version logic to the top of the file safely
-              echo "const VERSION = ${VERSION_VAL};" > "${file}.tmp"
-              cat "$file" >> "${file}.tmp"
-              mv "${file}.tmp" "$file"
-            fi
-          done
-
       - name: Commit & Push Changes
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           
-          git add .
+          # Stage all changes (extracted assets + archive deletions)
+          git add -A 
           
-          # Check for changes to avoid empty commit errors
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Asset Sync & Logic Preservation [skip ci]"
+            git commit -m "Automated Asset Sync & Strict Cleanup [skip ci]"
             git push origin main
           else
-            echo "No changes detected. Skipping commit."
+            echo "No changes detected."
           fi
           
