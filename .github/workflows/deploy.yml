@@ -56,7 +56,6 @@ jobs:
         shell: bash
         
           
-
       - name: Commit and Push Changes
         run: |
           git config --global user.name "hassanbiswas"
@@ -65,12 +64,16 @@ jobs:
           git add .
           
           # Logic Preservation: Only push if files were changed or VERSION updated
-          if git diff --staged --quiet; then
+          if git diff --cached --quiet; then
             echo "No changes to commit (Logic preserved)."
           else
+            # Pull first to prevent "rejected" errors if the remote has changed
+            git pull origin main --rebase
             git commit -m "Automated Deployment: Version $VERSION_ID (Zero Maintenance)"
             git push origin main
           fi
+        shell: bash
+
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
