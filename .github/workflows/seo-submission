@@ -1,23 +1,29 @@
-name: Automate SEO Submission
+name: Daily Heartbeat & SEO Submission
 
 on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *' # Runs daily at midnight for zero-maintenance freshness
-  workflow_dispatch: # Allows manual trigger if needed
+    # Runs at 00:00 UTC every day for zero-maintenance freshness
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual execution
 
 jobs:
-  seo-submission:
+  automate-logic:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Initialize Logic for Version
+        run: |
+          # Matches your JS: const VERSION = new Date().getDate();
+          const VERSION = $(date +'%d');
+          echo "Syncing with Logic Version: $VERSION"
+
       - name: Submit to IndexNow (Bing/Yandex)
         run: |
           # Automates URL submission without API keys that expire
-          # Uses your GitHub Pages URL from your profile
           curl -X POST "https://api.indexnow.org/indexnow" \
           -H "Content-Type: application/json; charset=utf-8" \
           -d '{
@@ -30,8 +36,13 @@ jobs:
             ]
           }'
 
-      - name: Notify Google via Sitemap (Modern Method)
+      - name: Notify Google & Heartbeat Ping
         run: |
-          # Since the /ping endpoint is deprecated, we ensure Google 
-          # sees the 'lastmod' change by hitting the sitemap directly
-          curl -I "https://hassanbiswas.github.io/sitemap.xml"
+          # Since the /ping endpoint is deprecated, we hit the sitemap and home direct
+          # This ensures Google sees 'lastmod' changes and verifies site availability
+          curl -I -s "https://hassanbiswas.github.io/sitemap.xml" > /dev/null
+          curl -I -s "https://hassanbiswas.github.io" > /dev/null
+          echo "Site heartbeat and sitemap ping sent to hassanbiswas.github.io"
+
+      - name: Execution Success
+        run: echo "Automation complete for $(date)"
