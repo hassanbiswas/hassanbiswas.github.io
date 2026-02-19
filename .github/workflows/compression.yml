@@ -20,7 +20,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: [Actions Checkout](https://github.com/actions/checkout)@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -45,13 +45,23 @@ jobs:
             mkdir -p "$EXTRACT_DIR"
             
             # Extract and Overwrite (-aoa)
-            if 7z x "$ARCHIVE" -o"$EXTRACT_DIR" -aoa; then
+            if [7z](https://linux.die.net/man/1/7z) x "$ARCHIVE" -o"$EXTRACT_DIR" -aoa; then
               TARGET_PATH=$(dirname "$ARCHIVE")
               
+              # Flattening Logic: Check if the archive has a single wrapper folder
+              # If there's only 1 item and it's a directory, move its contents out
+              ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
+              if [ "$ITEM_COUNT" -eq 1 ] && [ -d "$EXTRACT_DIR/$(ls "$EXTRACT_DIR")" ]; then
+                INNER_FOLDER=$(ls "$EXTRACT_DIR")
+                echo "Flattening: Moving contents out of wrapper '$INNER_FOLDER'"
+                mv "$EXTRACT_DIR/$INNER_FOLDER"/* "$EXTRACT_DIR/" 2>/dev/null || true
+                mv "$EXTRACT_DIR/$INNER_FOLDER"/.* "$EXTRACT_DIR/" 2>/dev/null || true
+                rmdir "$EXTRACT_DIR/$INNER_FOLDER"
+              fi
+
               # --- STRICT EXCLUSION LOGIC ---
               # -avI: Force overwrite
-              # --exclude: Prevents specific files/folders from being replaced even if they exist in the ZIP
-              rsync -avI \
+              [rsync](https://linux.die.net/man/1/rsync) -avI \
                 --exclude='app/' \
                 --exclude='.git/' \
                 --exclude='.github/' \
