@@ -10,7 +10,6 @@ on:
       - '**/*.gz'
       - '**/*.rar'
       - '**/*.bz2'
-  # Logic: Automates refresh at the start and middle of every month
   schedule:
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
@@ -26,67 +25,75 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
-          # 1. Version Automation (Cache-busting)
-          VERSION=$(date +%d)
-          echo "Current Version Logic: $VERSION"
-          
-          # 2. Define Excluded Names (Fallback Security)
-          EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
-          EXCLUDE_PARAMS=""
-          for item in "${EXCLUDES[@]}"; do
-            EXCLUDE_PARAMS+=" ! -path '*/$item/*' ! -name '$item'"
-          done
+          const VERSION = new Date().getDate();
+          echo "Logic Automation Version: $VERSION"
 
-          # 3. Find all compressed files (any extension)
-          ARCHIVES=$(find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.tar" -o -name "*.gz" -o -name "*.rar" -o -name "*.bz2" \) $EXCLUDE_PARAMS)
+          # 1. Define strictly excluded paths (Fallback Security)
+          EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
+          
+          # 2. Find compressed files while ignoring excluded directories
+          FIND_CMD="find . -type f \( -name '*.zip' -o -name '*.7z' -o -name '*.tar' -o -name '*.gz' -o -name '*.rar' \)"
+          for dir in "${EXCLUDES[@]}"; do
+            FIND_CMD+=" -not -path './$dir/*'"
+          done
+          
+          ARCHIVES=$(eval $FIND_CMD)
 
           if [ -z "$ARCHIVES" ]; then
-            echo "No new compressed files found. Skipping extraction."
-          else
-            echo "Found archives: $ARCHIVES"
-            echo "$ARCHIVES" | while read -r ARCHIVE; do
-              TARGET_DIR=$(dirname "$ARCHIVE")
-              TEMP_EXTRACT="./temp_extract_$(date +%s)"
-              
-              echo "Extracting $ARCHIVE to $TEMP_EXTRACT..."
-              mkdir -p "$TEMP_EXTRACT"
-
-              # Multi-format handling
-              if [[ "$ARCHIVE" == *.zip ]]; then unzip -o "$ARCHIVE" -d "$TEMP_EXTRACT";
-              elif [[ "$ARCHIVE" == *.7z ]]; then 7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y;
-              elif [[ "$ARCHIVE" == *.rar ]]; then unrar x -o+ "$ARCHIVE" "$TEMP_EXTRACT";
-              else tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"; fi
-
-              # 4. Move, Overwrite, and Delete
-              # Move extracted contents to the archive's original path (overwriting duplicates)
-              cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
-              
-              # Success Check & Cleanup
-              if [ $? -eq 0 ]; then
-                echo "Move successful. Deleting source archive and temp folder."
-                rm -rf "$TEMP_EXTRACT"
-                rm -f "$ARCHIVE"
-              fi
-            done
+            echo "No new compressed files found in allowed paths."
+            exit 0
           fi
+
+          echo "$ARCHIVES" | while read -r ARCHIVE; do
+            TARGET_DIR=$(dirname "$ARCHIVE")
+            TEMP_EXTRACT="./temp_extract_$(date +%s)"
+            mkdir -p "$TEMP_EXTRACT"
+
+            echo "Extracting $ARCHIVE..."
+            if [[ "$ARCHIVE" == *.zip ]]; then unzip -o "$ARCHIVE" -d "$TEMP_EXTRACT";
+            elif [[ "$ARCHIVE" == *.7z ]]; then 7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y;
+            elif [[ "$ARCHIVE" == *.rar ]]; then unrar x -o+ "$ARCHIVE" "$TEMP_EXTRACT";
+            else tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"; fi
+
+            # 3. Handle Nested Folders (Flattening Logic)
+            # If the archive contains exactly one top-level folder, move its contents up
+            CONTENT_COUNT=$(ls -1 "$TEMP_EXTRACT" | wc -l)
+            if [ "$CONTENT_COUNT" -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
+                SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -type d | tail -n 1)
+                echo "Flattening nested folder: $(basename "$SUB_FOLDER")"
+                mv "$SUB_FOLDER"/* "$SUB_FOLDER"/.* "$TEMP_EXTRACT"/ 2>/dev/null || true
+                rmdir "$SUB_FOLDER"
+            fi
+
+            # 4. Duplicate Detection & Safe Removal
+            # Clean target before moving to ensure fresh sync
+            ls -A "$TEMP_EXTRACT" | while read -r item; do
+                if [ -e "$TARGET_DIR/$item" ]; then
+                    echo "Removing duplicate: $item"
+                    rm -rf "$TARGET_DIR/$item"
+                fi
+            done
+
+            # 5. Move, Overwrite, and Cleanup
+            cp -rf "$TEMP_EXTRACT"/. "$TARGET_DIR/"
+            
+            if [ $? -eq 0 ]; then
+              echo "Sync successful for $ARCHIVE"
+              rm -rf "$TEMP_EXTRACT"
+              rm -f "$ARCHIVE"
+            fi
+          done
 
       - name: Inject Version Logic into JS
         run: |
-          # Automation: Updates const VERSION = new Date().getDate(); in all JS
-          # Ensures site logic stays synced with the deployment date
-          VERSION=$(date +%d)
-          find . -name "*.js" -not -path "*/node_modules/*" -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION};/g" {} +
+          # Automatically syncs the cache-busting logic across all JS files
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*/const VERSION = new Date().getDate();/g" {} +
 
-      - name: Commit & Push Changes (Zero Maintenance)
+      - name: Commit & Push Changes
         run: |
-          git config --global user.name "hassanbiswas"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
-          
+          git config --local user.email "hassanbiswas.github.io@gmail.com"
+          git config --local user.name "Hassan Biswas"
           git add .
-          if git diff --staged --quiet; then
-            echo "No changes detected. Logic is already up to date."
-          else
-            git commit -m "Automated Sync: Version ${VERSION} (Archive Extraction & Version Update)"
-            git push
-          fi
+          git commit -m "Automated Asset Sync & Logic Preservation [Skip CI]" || echo "No changes to commit"
+          git push
           
