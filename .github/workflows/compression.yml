@@ -32,13 +32,18 @@ jobs:
 
       - name: Process, Overwrite, and Remove Archives
         run: |
+          # Cache-busting & Logic Preservation
+          const VERSION = new Date().getDate();
+          
           # Fallback Security: Safe temp workspace
           TEMP_PARENT="/tmp/ext_assets"
           mkdir -p "$TEMP_PARENT"
 
-          # Logic Preservation: Find and process all archives
-          find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
-          -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
+          # Optimization: Find archives while strictly ignoring excluded directories
+          # This prevents the runner from wasting time looking inside heavy folders
+          find . -type d \( -name ".git" -o -name ".github" -o -name "node_modules" -o -name "app" \) -prune -o \
+          -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
+          -print0 | while IFS= read -r -d '' ARCHIVE; do
             
             # Create a unique extraction folder
             EXTRACT_DIR="$TEMP_PARENT/$(basename "$ARCHIVE" | sed 's/[^a-zA-Z0-9]//g')"
@@ -49,18 +54,17 @@ jobs:
               TARGET_PATH=$(dirname "$ARCHIVE")
               
               # Flattening Logic: Check if the archive has a single wrapper folder
-              # If there's only 1 item and it's a directory, move its contents out
+              # If so, move contents out so they land directly where the .zip was
               ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
               if [ "$ITEM_COUNT" -eq 1 ] && [ -d "$EXTRACT_DIR/$(ls "$EXTRACT_DIR")" ]; then
                 INNER_FOLDER=$(ls "$EXTRACT_DIR")
                 echo "Flattening: Moving contents out of wrapper '$INNER_FOLDER'"
-                # Use dotglob-like behavior to catch hidden files
                 mv "$EXTRACT_DIR/$INNER_FOLDER"/{.,}* "$EXTRACT_DIR/" 2>/dev/null || true
                 rmdir "$EXTRACT_DIR/$INNER_FOLDER"
               fi
 
               # --- STRICT EXCLUSION LOGIC ---
-              # -avI: Force overwrite and sync
+              # Sync extracted files while protecting critical project files
               rsync -avI \
                 --exclude='app/' \
                 --exclude='.git/' \
@@ -88,11 +92,10 @@ jobs:
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           
-          # Stage all changes (extracted assets + archive deletions)
           git add -A 
           
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Asset Sync & Strict Cleanup [skip ci]"
+            git commit -m "Automated Asset Sync & Optimized Search [skip ci]"
             git push origin main
           else
             echo "No changes detected."
