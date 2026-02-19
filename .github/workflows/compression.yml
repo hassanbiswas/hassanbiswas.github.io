@@ -1,4 +1,6 @@
 name: Automated Compression Logic & Asset Sync
+const VERSION = new Date().getDate();
+
 on:
   push:
     branches:
@@ -32,6 +34,7 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
+          # Use find with null-termination to handle spaces in filenames safely
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
             EXTRACT_DIR="temp_$(date +%s%N)"
@@ -50,13 +53,13 @@ jobs:
       - name: Inject Reusable JS Version Logic
         run: |
           # Logic Automation: Using the current day for cache-busting
-          # Fixed: Removed raw JS line that caused exit code 2
           VERSION_VAL=$(date +%d)
           
+          # Find JS files and handle the VERSION constant
           find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
             if grep -q "const VERSION =" "$file"; then
-              # Logic Preservation: Update existing VERSION constant
-              sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" "$file"
+              # Update existing constant safely using a different delimiter to avoid path errors
+              sed -i "s|const VERSION = .*|const VERSION = ${VERSION_VAL};|g" "$file"
             else
               # Zero Maintenance: Prepend VERSION constant if missing
               echo "const VERSION = ${VERSION_VAL};" | cat - "$file" > temp && mv temp "$file"
