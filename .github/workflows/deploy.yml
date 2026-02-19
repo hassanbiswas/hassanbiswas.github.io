@@ -80,23 +80,33 @@ jobs:
           # Automatically inject the VERSION into JS files for logic preservation
           # Strictly updates: const VERSION = [any value];
           find . -name "*.js" ${{ env.EXCLUDE_CMD }} -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION_ID};/g" {} + || true
-
-      - name: Commit and Push Changes
+    
+      - name: Commit and Push Changes (Logic Preservation)
         run: |
+          # Setup Git Identity
           git config --global user.name "hassanbiswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
-          
+
+          # 1. Sync with Remote to prevent "non-fast-forward" errors
+          git fetch origin main
+          git checkout main
+          git pull --rebase origin main
+
+          # 2. Add all processed files (Unzipped & Versioned JS)
           git add .
-          
-          # Logic Preservation: Only push if files were changed or VERSION updated
-          if git diff --staged --quiet; then
-            echo "No changes to commit (Logic preserved)."
-          else
+
+          # 3. Automation: Only commit if changes actually occurred
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Changes detected. Synchronizing..."
             git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance Sync)"
+            
+            # 4. Fallback Security: Final pull before pushing
             git pull --rebase origin main
             git push origin main
+          else
+            echo "No changes found. Logic preserved."
           fi
-
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
