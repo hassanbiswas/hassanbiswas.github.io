@@ -1,14 +1,5 @@
-name: Compression & Cleanup Automation
+name: Compression Automation
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**/*.zip'
-      - '**/*.7z'
-      - '**/*.tar'
-      - '**/*.gz'
-      - '**/*.rar'
   schedule:
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
@@ -34,13 +25,12 @@ jobs:
         run: |
           # Cache-busting & Logic Preservation
           const VERSION = new Date().getDate();
-          
+
           # Fallback Security: Safe temp workspace
           TEMP_PARENT="/tmp/ext_assets"
           mkdir -p "$TEMP_PARENT"
 
           # Optimization: Find archives while strictly ignoring excluded directories
-          # This prevents the runner from wasting time looking inside heavy folders
           find . -type d \( -name ".git" -o -name ".github" -o -name "node_modules" -o -name "app" \) -prune -o \
           -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -print0 | while IFS= read -r -d '' ARCHIVE; do
@@ -48,24 +38,24 @@ jobs:
             # Create a unique extraction folder
             EXTRACT_DIR="$TEMP_PARENT/$(basename "$ARCHIVE" | sed 's/[^a-zA-Z0-9]//g')"
             mkdir -p "$EXTRACT_DIR"
-            
+
             # Extract and Overwrite (-aoa)
-            if 7z x "$ARCHIVE" -o"$EXTRACT_DIR" -aoa; then
+            if 7z x "$ARCHIVE" "-o$EXTRACT_DIR" -aoa; then
               TARGET_PATH=$(dirname "$ARCHIVE")
-              
+
               # Flattening Logic: Check if the archive has a single wrapper folder
-              # If so, move contents out so they land directly where the .zip was
               ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
               if [ "$ITEM_COUNT" -eq 1 ] && [ -d "$EXTRACT_DIR/$(ls "$EXTRACT_DIR")" ]; then
                 INNER_FOLDER=$(ls "$EXTRACT_DIR")
                 echo "Flattening: Moving contents out of wrapper '$INNER_FOLDER'"
-                mv "$EXTRACT_DIR/$INNER_FOLDER"/{.,}* "$EXTRACT_DIR/" 2>/dev/null || true
+                mv "$EXTRACT_DIR/$INNER_FOLDER"/* "$EXTRACT_DIR/" 2>/dev/null || true
                 rmdir "$EXTRACT_DIR/$INNER_FOLDER"
               fi
 
-              # --- STRICT EXCLUSION LOGIC ---
-              # Sync extracted files while protecting critical project files
-              rsync -avI \
+              # --- STRICT OVERWRITE & PRESERVATION LOGIC ---
+              # -a: archive mode, -v: verbose, -u: update (only copy if newer or different size)
+              # This will replace old files with new ones and merge folders
+              rsync -avu \
                 --exclude='app/' \
                 --exclude='.git/' \
                 --exclude='.github/' \
@@ -75,14 +65,14 @@ jobs:
                 --exclude='.env' \
                 --exclude='README.md' \
                 "$EXTRACT_DIR/" "$TARGET_PATH/"
-              
+
               # Automation: Delete source archive after successful sync
               echo "Processed $ARCHIVE. Deleting source..."
               rm -f "$ARCHIVE"
             else
               echo "Error: Failed to extract $ARCHIVE."
             fi
-            
+
             rm -rf "$EXTRACT_DIR"
           done
           rm -rf "$TEMP_PARENT"
@@ -91,9 +81,9 @@ jobs:
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
-          
-          git add -A 
-          
+
+          git add -A
+
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Automated Asset Sync & Optimized Search [skip ci]"
             git push origin main
