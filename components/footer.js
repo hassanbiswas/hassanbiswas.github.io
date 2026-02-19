@@ -1,3 +1,4 @@
+const VERSION = 19;
 
 // footer
 class TFooter extends HTMLElement {

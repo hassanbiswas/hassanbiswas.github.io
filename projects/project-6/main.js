@@ -1,3 +1,4 @@
+const VERSION = 19;
 const body = document.body;
 
 let header = document.getElementById("header"),

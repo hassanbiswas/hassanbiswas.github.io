@@ -1,3 +1,4 @@
+const VERSION = 19;
 const root = document.documentElement,
 head = document.head,
 body = document.body;
