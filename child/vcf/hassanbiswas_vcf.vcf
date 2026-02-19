@@ -1,0 +1,28 @@
+BEGIN:VCARD
+VERSION:4.0
+FN:Hassan Biswas
+N:Biswas;Hassan;;;
+TITLE:Web Developer
+ORG:Responsive Website Design & Front-End Development
+EMAIL;TYPE=work:hassanbiswas.github.io@gmail.com
+TEL;TYPE="cell,voice";VALUE=uri:tel:+8801602873384
+ADR;TYPE=home;LABEL="Jashore, Khulna, Bangladesh":;;;Jashore;Khulna;;Bangladesh
+URL:https://hassanbiswas.github.io
+PHOTO:https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no
+
+X-SOCIALPROFILE;TYPE=github:https://github.com/hassanbiswas
+X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/hassanbiswas.github.io
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/hassanbiswas.github.io
+X-SOCIALPROFILE;TYPE=threads:https://www.threads.com/hassanbiswas.github.io
+X-SOCIALPROFILE;TYPE=twitter:https://www.x.com/o1602873384
+X-SOCIALPROFILE;TYPE=youtube:https://www.youtube.com/@hassanbiswas-github-io
+X-SOCIALPROFILE;TYPE=pinterest:https://www.pinterest.com/hassanbiswas_github_io
+X-SOCIALPROFILE;TYPE=tiktok:https://www.tiktok.com/@hassanbiswas.github.io
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/hassanbiswas-github-io
+X-SOCIALPROFILE;TYPE=messenger:https://m.me/hassanbiswas.github.io
+X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/8801602873384
+
+NOTE:Freelance Front-End Developer specializing in modern, mobile-ready, and SEO-friendly custom website design using HTML, CSS, JavaScript, and Figma.
+BDAY:20010115
+REV:20260208T131000Z
+END:VCARD
