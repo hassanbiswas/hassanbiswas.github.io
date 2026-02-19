@@ -1,0 +1,45 @@
+name: Auto Update SEO & PWA Assets
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' 
+  workflow_dispatch: 
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate SEO and PWA Files
+        run: npm run build:assets
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Hassan Biswas (Automation)"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git add sitemap.xml robots.txt manifest.webmanifest
+          VERSION=$(date +'%d')
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: SEO & PWA sync v$VERSION update $(date +'%Y-%m-%d') [skip ci]"
+            git push
+          else
+            echo "No changes detected."
+          fi
+
+      - name: Ping Search Engines
+        run: |
+          curl "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml" || echo "Google ping failed"
+          curl "https://www.bing.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml" || echo "Bing ping failed"
