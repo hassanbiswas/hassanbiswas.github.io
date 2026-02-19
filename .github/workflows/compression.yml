@@ -31,8 +31,8 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Logic Automation: Cache-busting version
-          const VERSION = new Date().getDate();
+          # Use Shell Date for Automation (replaces the JS error)
+          VERSION=$(date +%d)
           
           EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
           
@@ -50,7 +50,8 @@ jobs:
 
           echo "$ARCHIVES" | while read -r ARCHIVE; do
             TARGET_DIR=$(dirname "$ARCHIVE")
-            TEMP_EXTRACT="./temp_extract_$(date +%s)"
+            TIMESTAMP=$(date +%s)
+            TEMP_EXTRACT="./temp_extract_$TIMESTAMP"
             mkdir -p "$TEMP_EXTRACT"
             
             echo "Extracting $ARCHIVE..."
@@ -60,8 +61,9 @@ jobs:
               tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"
             fi
             
-            # Flattening Logic: If archive contains a single folder, move contents up
-            if [ $(ls -1 "$TEMP_EXTRACT" | wc -l) -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
+            # Logic: If archive contains a single folder, move contents up (Flattening)
+            ITEM_COUNT=$(ls -1 "$TEMP_EXTRACT" | wc -l)
+            if [ "$ITEM_COUNT" -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
               SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -type d | tail -n 1)
               mv "$SUB_FOLDER"/* "$SUB_FOLDER"/.* "$TEMP_EXTRACT/" 2>/dev/null || true
               rmdir "$SUB_FOLDER"
@@ -70,21 +72,19 @@ jobs:
             # Sync and Cleanup
             cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
             rm -rf "$TEMP_EXTRACT"
-            # Optional: rm "$ARCHIVE" # Uncomment if you want to delete the zip after extraction
           done
           
       - name: Inject Version Logic into JS
         run: |
           # Automation: Updates JS classes for cache-busting: const VERSION = [DD];
           VERSION_VAL=$(date +%d)
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No JS files found for update"
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No JS files found"
           
       - name: Commit & Push Changes
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           git add .
-          # Check for changes to avoid empty commit errors
           if git diff --quiet && git diff --staged --quiet; then
             echo "No changes to commit"
           else
