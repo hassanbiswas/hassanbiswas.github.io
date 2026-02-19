@@ -1,117 +1,92 @@
-name: Automated Compression & Logic Preservation
+name: Automated Compression Logic & Asset Sync
 on:
   push:
     branches:
       - main
     paths:
-      - '**'
       - '**/*.zip'
       - '**/*.7z'
       - '**/*.tar'
       - '**/*.gz'
       - '**/*.rar'
-  # Zero Maintenance: Automates refresh at the start and middle of every month
+      - '**/*.bz2'
+  # Logic: Automates refresh at the start and middle of every month
   schedule:
     - cron: '0 0 1,15 * *'
-  workflow_dispatch: 
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  extract-and-clean:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Execute Logic & Extraction
-        id: extraction_step
+      - name: Process Archives & Preserve Logic
         run: |
           # 1. Version Automation (Cache-busting)
           VERSION=$(date +%d)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Current Version Logic: $VERSION"
           
           # 2. Define Excluded Names (Fallback Security)
-          EXCLUDE_LOGIC='! -path "./.git/*" ! -path "./.github/*" ! -name "node_modules"'
+          EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
+          EXCLUDE_PARAMS=""
+          for item in "${EXCLUDES[@]}"; do
+            EXCLUDE_PARAMS+=" ! -path '*/$item/*' ! -name '$item'"
+          done
 
-          # 3. Find and Process any compressed extension
-          ARCHIVES=$(find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.tar" -o -name "*.gz" -o -name "*.rar" \) $EXCLUDE_LOGIC)
+          # 3. Find all compressed files (any extension)
+          ARCHIVES=$(find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.tar" -o -name "*.gz" -o -name "*.rar" -o -name "*.bz2" \) $EXCLUDE_PARAMS)
 
           if [ -z "$ARCHIVES" ]; then
-            echo "No archives found. Proceeding with version sync."
+            echo "No new compressed files found. Skipping extraction."
           else
             echo "Found archives: $ARCHIVES"
             echo "$ARCHIVES" | while read -r ARCHIVE; do
-              TARGET_PATH=$(dirname "$ARCHIVE")
-              TEMP_DIR="./tmp_extract_$(date +%s)"
-              mkdir -p "$TEMP_DIR"
+              TARGET_DIR=$(dirname "$ARCHIVE")
+              TEMP_EXTRACT="./temp_extract_$(date +%s)"
+              
+              echo "Extracting $ARCHIVE to $TEMP_EXTRACT..."
+              mkdir -p "$TEMP_EXTRACT"
 
-              echo "Extracting $ARCHIVE..."
-              # Handle various formats
-              if [[ "$ARCHIVE" == *.zip ]]; then unzip -o "$ARCHIVE" -d "$TEMP_DIR";
-              elif [[ "$ARCHIVE" == *.7z ]]; then 7z x "$ARCHIVE" -o"$TEMP_DIR" -y;
-              elif [[ "$ARCHIVE" == *.tar* || "$ARCHIVE" == *.gz ]]; then tar -xf "$ARCHIVE" -C "$TEMP_DIR";
+              # Multi-format handling
+              if [[ "$ARCHIVE" == *.zip ]]; then unzip -o "$ARCHIVE" -d "$TEMP_EXTRACT";
+              elif [[ "$ARCHIVE" == *.7z ]]; then 7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y;
+              elif [[ "$ARCHIVE" == *.rar ]]; then unrar x -o+ "$ARCHIVE" "$TEMP_EXTRACT";
+              else tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"; fi
+
+              # 4. Move, Overwrite, and Delete
+              # Move extracted contents to the archive's original path (overwriting duplicates)
+              cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
+              
+              # Success Check & Cleanup
+              if [ $? -eq 0 ]; then
+                echo "Move successful. Deleting source archive and temp folder."
+                rm -rf "$TEMP_EXTRACT"
+                rm -f "$ARCHIVE"
               fi
-
-              # 4. Move & Overwrite: Move contents to the directory where the archive was
-              echo "Moving files to $TARGET_PATH and overwriting duplicates..."
-              cp -rf "$TEMP_DIR"/. "$TARGET_PATH/"
-
-              # 5. Cleanup: Delete archive and temp folder
-              rm -rf "$TEMP_DIR"
-              rm -f "$ARCHIVE"
-              echo "Cleanup complete for $ARCHIVE"
             done
           fi
 
-      - name: Inject Brand & Version
+      - name: Inject Version Logic into JS
         run: |
-          # Logic Preservation: Update VERSION in all JS files
-          # Matches: const VERSION = new Date().getDate();
-          find . -name "*.js" -not -path "./.github/*" -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION};/g" {} +
-          
-          # Maintain Brand Identity
-          echo "BRAND_COLOR='hsl(240, 80%, 50%)'" >> $GITHUB_ENV
+          # Automation: Updates const VERSION = new Date().getDate(); in all JS
+          # Ensures site logic stays synced with the deployment date
+          VERSION=$(date +%d)
+          find . -name "*.js" -not -path "*/node_modules/*" -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION};/g" {} +
 
-      - name: Commit Updated Logic
+      - name: Commit & Push Changes (Zero Maintenance)
         run: |
           git config --global user.name "hassanbiswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
+          
           git add .
-          if ! git diff --staged --quiet; then
-            git commit -m "Automated Sync: Version ${VERSION} (Archive Extraction & Cleanup)"
-            git push
+          if git diff --staged --quiet; then
+            echo "No changes detected. Logic is already up to date."
           else
-            echo "No changes to commit."
+            git commit -m "Automated Sync: Version ${VERSION} (Archive Extraction & Version Update)"
+            git push
           fi
-
-      - name: Interactive Log (Zero Cost Notification)
-        if: always()
-        run: |
-          echo "### 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "---" >> $GITHUB_STEP_SUMMARY
-          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Version Logic:** ${VERSION} (Cache-busting active)" >> $GITHUB_STEP_SUMMARY
-          echo "**Brand Color:** \`hsl(240, 80%, 50%)\`" >> $GITHUB_STEP_SUMMARY
-          echo "---" >> $GITHUB_STEP_SUMMARY
-          echo "### 📬 Manual Verification" >> $GITHUB_STEP_SUMMARY
-          echo "If any issues occur, contact via preferred method:" >> $GITHUB_STEP_SUMMARY
-          echo "[Open Messenger: hassanbiswas.github.io](https://m.me/hassanbiswas.github.io)" >> $GITHUB_STEP_SUMMARY
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        
+          
