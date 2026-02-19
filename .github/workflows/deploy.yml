@@ -2,7 +2,8 @@ name: Deploy Website
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
     paths:
       - '**'
       - '**/*.zip'
@@ -10,13 +11,10 @@ on:
       - '**/*.tar'
       - '**/*.gz'
       - '**/*.rar'
-
-  # Logic: Execute every 1st and 15th (Zero Maintenance)
+  # Zero Maintenance: Executes automatically at 00:00 on the 1st and 15th of every month
   schedule:
     - cron: '0 0 1,15 * *'
-
-  # Logic: Allow manual execution if ever needed
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual trigger for testing
 
 permissions:
   contents: write
@@ -33,7 +31,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     steps:
       - name: Checkout Code
         uses: [actions/checkout@v4](https://github.com/actions/checkout)
@@ -43,73 +41,72 @@ jobs:
       - name: Auto-Unzip and Overwrite Process
         id: process_logic
         run: |
-          # Logic: Version automation for cache-busting
-          # const VERSION = new Date().getDate();
+          # Logic Automation: Cache-busting (Day of month)
+          # Equivalent to: const VERSION = new Date().getDate();
           VERSION=$(date +%d)
           echo "VERSION_ID=$VERSION" >> $GITHUB_ENV
           echo "Executing Automation for Version: $VERSION"
 
-          # Excluded names (protecting core architecture)
-          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app" ".git" ".github")
+          # Brand Identity Preservation
+          echo "BRAND_COLOR='hsl(240, 80%, 50%)'" >> $GITHUB_ENV
+
+          # Fallback Security: Define exclusions (protecting core architecture)
+          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app" ".git" ".github" "dist")
           EXCLUDE_CMD=""
           for folder in "${EXCLUDED_FOLDERS[@]}"; do
-            EXCLUDE_CMD+=" -not -path \"*/$folder/*\" -not -name \"$folder\""
+            EXCLUDE_CMD+=" -not -path '*/$folder/*' -not -name '$folder'"
           done
 
           # Find and process compressed files
           FOUND_FILES=$(find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD)
-          
+
           if [ -z "$FOUND_FILES" ]; then
             echo "No compressed files found."
           else
+            echo "Found compressed files: $FOUND_FILES"
             echo "$FOUND_FILES" | while read -r file; do
               base_dir=$(dirname "$file")
-              temp_extract_dir="${file%.*}_tmp"
+              temp_extract_dir="${file%}_tmp"
               
               echo "Processing: $file in $base_dir"
               mkdir -p "$temp_extract_dir"
 
-              # Extraction logic
+              # Extraction logic for different formats
               if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
               elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
               else tar -xf "$file" -C "$temp_extract_dir"; fi
 
-              # Logic: Delete existing duplicates before moving
-              # This ensures zero maintenance and avoids stale file overlap
-              ls -A "$temp_extract_dir" | while read -r item; do
-                target_path="$base_dir/$item"
-                if [ -e "$target_path" ]; then
-                  echo "Removing existing duplicate: $target_path"
-                  rm -rf "$target_path"
-                fi
-              done
-
-              # Move new content and clean up
-              cp -rf "$temp_extract_dir"/. "$base_dir/" 
-              rm "$file"
+              # Overwrite existing files with extracted content
+              cp -rf "$temp_extract_dir"/* "$base_dir/"
               rm -rf "$temp_extract_dir"
-              echo "Success: $file processed with Logic Preservation."
+              # Optional: rm "$file" # Uncomment if you want to delete the archive after extraction
             done
           fi
 
-      - name: Commit Asset Changes
+      - name: Update Version Logic in JS
         run: |
-          # Brand: Hassan Biswas — UI/UX & Front-End Architecture
-          git config --local user.email "hassanbiswas.github.io@gmail.com"
-          git config --local user.name "Hassan Biswas"
+          # Automatically inject the VERSION into your JS files for logic preservation
+          # Replaces: const VERSION = ... with current date-based version
+          find . -name "*.js" $EXCLUDE_CMD -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION_ID};/g" {} + || true
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
           
-          if [ -n "$(git status --porcelain)" ]; then
-            git add .
-            git commit -m "Automation: Unzipped & Purged Duplicates (v${{ env.VERSION_ID }}) [skip ci]"
-            git push
+          git add .
+          # Logic Preservation: Only push if files were changed or VERSION updated
+          if git diff --staged --quiet; then
+            echo "No changes to commit (Logic preserved)."
           else
-            echo "No asset changes to commit."
+            git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance Sync)"
+            git push origin main
           fi
 
-      - name: Setup GitHub Pages
+      - name: Setup Pages
         uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
 
-      - name: Upload Deployment Artifact
+      - name: Upload Artifact
         uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
         with:
           path: '.'
