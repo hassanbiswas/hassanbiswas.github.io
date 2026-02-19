@@ -5,8 +5,8 @@
 
 // 1. Manually update this single string when you push a big update.
 // Or use: 
-const VERSION = 19; // for absolute automation.
-// const VERSION = 19; 
+const VERSION = 19;
+// const VERSION = 19;
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
 const OFFLINE_URL = '/index.html'; // /offline.html

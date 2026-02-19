@@ -30,7 +30,7 @@ const getHtmlFiles = (dir, fileList = []) => {
     if (isDirectory) {
       getHtmlFiles(filePath, fileList);
     } else if (file.endsWith('.html')) {
-      let urlPath = filePath.replace(process.cwd(), '').replace(/\\/g, '/').replace(/index\.html$/, '');
+      let urlPath = filePath.replace(process.cwd(), '').replace(/\/g, '/').replace(/index\.html$/, '');
       if (!urlPath.startsWith('/')) urlPath = '/' + urlPath;
       if (!urlPath.endsWith('/')) urlPath = urlPath + '/';
       fileList.push(urlPath);
@@ -42,14 +42,31 @@ const getHtmlFiles = (dir, fileList = []) => {
 const allPages = getHtmlFiles(process.cwd());
 const sitemapEntries = allPages.map(page => {
   const settings = CONFIG[page] || { priority: 0.5, changefreq: 'monthly' };
-  return `  <url>\n    <loc>${BASE_URL}${page}</loc>\n    <lastmod>${VERSION_DATE}</lastmod>\n    <changefreq>${settings.changefreq}</changefreq>\n    <priority>${settings.priority.toFixed(1)}</priority>\n  </url>`;
-}).join('\n');
+  return `  <url>
+    <loc>${BASE_URL}${page}</loc>
+    <lastmod>${VERSION_DATE}</lastmod>
+    <changefreq>${settings.changefreq}</changefreq>
+    <priority>${settings.priority.toFixed(1)}</priority>
+  </url>`;
+}).join('
+');
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapEntries}
+</urlset>`;
 fs.writeFileSync('sitemap.xml', sitemap);
 
 // --- 2. ROBOTS.TXT LOGIC ---
-const robots = `# User-agent: * applies to all search engine bots\nUser-agent: *\nAllow: /\nDisallow: /private/\nDisallow: /drafts/\nDisallow: /node_modules/\nSitemap: ${BASE_URL}/sitemap.xml\n\n# Last updated: ${VERSION_DATE}`.replace(/^\s+/gm, '');
+const robots = `# User-agent: * applies to all search engine bots
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /drafts/
+Disallow: /node_modules/
+Sitemap: ${BASE_URL}/sitemap.xml
+
+# Last updated: ${VERSION_DATE}`.replace(/^\s+/gm, '');
 fs.writeFileSync('robots.txt', robots);
 
 // --- 3. MANIFEST LOGIC ---
