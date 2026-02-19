@@ -1,5 +1,5 @@
 // Logic automation for versioning
-const VERSION = new Date().getDate();
+const VERSION = 19;
 
 class ContactSection extends HTMLElement {
   connectedCallback() {
