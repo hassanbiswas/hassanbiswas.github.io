@@ -1,0 +1,55 @@
+name: 15-Day Automated Backup (No-Expiry)
+
+on:
+  schedule:
+    # Runs at 00:00 on the 1st and 16th of every month
+    - cron: '0 0 1,16 * *'
+  workflow_dispatch: 
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Temporary Token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          # These secrets come from your GitHub App settings
+          app-id: ${{ secrets.BACKUP_APP_ID }}
+          private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
+
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          path: source-repo
+
+      - name: Checkout Backup Repo
+        uses: actions/checkout@v4
+        with:
+          repository: hassanbiswas/backup
+          token: ${{ steps.generate_token.outputs.token }}
+          path: backup-repo
+
+      - name: Sync Files
+        run: |
+          # Syncing content while preserving the backup's .git history
+          rsync -av --delete --exclude='.git/' source-repo/ backup-repo/
+
+      - name: Commit and Push
+        run: |
+          cd backup-repo
+          git config user.name "Hassan Biswas"
+          git config user.email "hassanbiswas.github.io@gmail.com"
+          
+          # Logic automation: VERSION based on day of the month
+          VERSION=$(date +'%d')
+          VERSION_STAMP=$(date +'%Y-%m-%d')
+          
+          git add -A
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated Backup v$VERSION: $VERSION_STAMP"
+            git push origin main
+          else
+            echo "No changes detected. Sync complete."
+          fi
+          
