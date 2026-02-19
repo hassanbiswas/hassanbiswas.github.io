@@ -1,5 +1,4 @@
 name: Automated Compression Logic & Asset Sync
-const VERSION = new Date().getDate();
 
 on:
   push:
@@ -34,35 +33,44 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Use find with null-termination to handle spaces in filenames safely
+          # Use a specific temp prefix to avoid accidental deletions
+          TEMP_BASE="logic_temp_$(date +%s)"
+          
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
-            EXTRACT_DIR="temp_$(date +%s%N)"
+            
+            EXTRACT_DIR="${TEMP_BASE}_ext"
             mkdir -p "$EXTRACT_DIR"
             
-            7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || echo "Extraction issue with $ARCHIVE, skipping..."
+            # Extract content; -aoa overwrites to ensure latest version is synced
+            7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || continue
             
+            # Sync files to the same directory as the archive
             TARGET_PATH=$(dirname "$ARCHIVE")
-            if [ -d "$EXTRACT_DIR" ] && [ "$(ls -A "$EXTRACT_DIR")" ]; then
-              # Logic Preservation: Copy files only if directory is not empty
-              cp -rn "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
+            
+            # Use 'cp -a' to preserve attributes and 'n' to prevent overwriting existing logic 
+            # if that's your preference, but -rf is better for "latest version" sync.
+            if [ "$(ls -A "$EXTRACT_DIR")" ]; then
+              cp -rf "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
             fi
+            
             rm -rf "$EXTRACT_DIR"
           done
 
       - name: Inject Reusable JS Version Logic
         run: |
-          # Logic Automation: Using the current day for cache-busting
+          # Logic Automation: Using the day of the month for cache-busting as requested
+          # This matches your requirement: const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%d)
           
-          # Find JS files and handle the VERSION constant
           find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
+            # Check if the exact constant exists to avoid double-injection
             if grep -q "const VERSION =" "$file"; then
-              # Update existing constant safely using a different delimiter to avoid path errors
+              # Safe replacement using | as a delimiter
               sed -i "s|const VERSION = .*|const VERSION = ${VERSION_VAL};|g" "$file"
             else
-              # Zero Maintenance: Prepend VERSION constant if missing
-              echo "const VERSION = ${VERSION_VAL};" | cat - "$file" > temp && mv temp "$file"
+              # Prepend the version at the top of the file
+              echo -e "const VERSION = ${VERSION_VAL};\n$(cat "$file")" > "$file"
             fi
           done
 
@@ -71,10 +79,12 @@ jobs:
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           git add .
+          # Check for changes to avoid empty commit errors
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Automated Asset Sync & Logic Preservation [Skip CI]"
+            # [Skip CI] is crucial to prevent the action from triggering itself
+            git commit -m "Automated Asset Sync & Logic Preservation [skip ci]"
             git push origin main
           fi
           
