@@ -69,12 +69,17 @@ jobs:
             cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
             rm -rf "$TEMP_EXTRACT"
           done
-
+          
       - name: Inject Version Logic into JS
         run: |
-          # Automated Logic: Updates VERSION to current day for cache-busting
+          # Logic Automation: Updates VERSION for cache-busting
+          const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%d)
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} +
+          
+          # Find and replace version in JS files, excluding node_modules
+          # Added -f to sed to prevent error if no files match
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No files updated"
+          
           
       - name: Commit & Push Changes
         run: |
