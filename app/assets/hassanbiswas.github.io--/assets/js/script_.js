@@ -483,7 +483,7 @@ const VERSION = 19;
 
 
       // #######################
-      // \\\\\ animation \\\\\\\
+      // \\\ animation \\\\
       // #######################
 
       // element ? animate(element);
@@ -737,7 +737,7 @@ const VERSION = 19;
           container.appendChild(wordElement);
 
           // Add a non-breaking space after the word element for visual separation
-          container.appendChild(document.createTextNode('\u00A0')); // \u00A0 is a non-breaking space
+          container.appendChild(document.createTextNode(' ')); //   is a non-breaking space
         }
       });
       console.log("All words have been inserted into the DOM and given the 'textLoading' class.");

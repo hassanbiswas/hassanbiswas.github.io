@@ -23,7 +23,7 @@ class TFooter extends HTMLElement {
               <a
                 data-name="facebook"
                 class="link"
-                href="\facebook"
+                href="acebook"
                 target="_blank"
                 >Facebook
               </a>
