@@ -25,18 +25,19 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
-          const VERSION = new Date().getDate();
+          # Logic Automation: Replaces JS const VERSION = new Date().getDate();
+          VERSION=$(date +%d)
           echo "Logic Automation Version: $VERSION"
 
           # 1. Define strictly excluded paths (Fallback Security)
           EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
-          
+
           # 2. Find compressed files while ignoring excluded directories
           FIND_CMD="find . -type f \( -name '*.zip' -o -name '*.7z' -o -name '*.tar' -o -name '*.gz' -o -name '*.rar' \)"
           for dir in "${EXCLUDES[@]}"; do
             FIND_CMD+=" -not -path './$dir/*'"
           done
-          
+
           ARCHIVES=$(eval $FIND_CMD)
 
           if [ -z "$ARCHIVES" ]; then
@@ -56,38 +57,34 @@ jobs:
             else tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"; fi
 
             # 3. Handle Nested Folders (Flattening Logic)
-            # If the archive contains exactly one top-level folder, move its contents up
             CONTENT_COUNT=$(ls -1 "$TEMP_EXTRACT" | wc -l)
             if [ "$CONTENT_COUNT" -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
-                SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -type d | tail -n 1)
-                echo "Flattening nested folder: $(basename "$SUB_FOLDER")"
-                mv "$SUB_FOLDER"/* "$SUB_FOLDER"/.* "$TEMP_EXTRACT"/ 2>/dev/null || true
-                rmdir "$SUB_FOLDER"
+              SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -type d | tail -n 1)
+              echo "Flattening nested folder: $(basename "$SUB_FOLDER")"
+              mv "$SUB_FOLDER"/* "$SUB_FOLDER"/.* "$TEMP_EXTRACT/" 2>/dev/null || true
+              rmdir "$SUB_FOLDER"
             fi
 
             # 4. Duplicate Detection & Safe Removal
-            # Clean target before moving to ensure fresh sync
             ls -A "$TEMP_EXTRACT" | while read -r item; do
-                if [ -e "$TARGET_DIR/$item" ]; then
-                    echo "Removing duplicate: $item"
-                    rm -rf "$TARGET_DIR/$item"
-                fi
+              if [ -e "$TARGET_DIR/$item" ]; then
+                echo "Removing duplicate: $item"
+                rm -rf "$TARGET_DIR/$item"
+              fi
             done
-
-            # 5. Move, Overwrite, and Cleanup
-            cp -rf "$TEMP_EXTRACT"/. "$TARGET_DIR/"
             
-            if [ $? -eq 0 ]; then
-              echo "Sync successful for $ARCHIVE"
-              rm -rf "$TEMP_EXTRACT"
-              rm -f "$ARCHIVE"
-            fi
+            # Move extracted files to target and cleanup
+            mv "$TEMP_EXTRACT"/* "$TARGET_DIR/"
+            rm -rf "$TEMP_EXTRACT"
+            echo "Successfully synced $ARCHIVE"
           done
-
+          
       - name: Inject Version Logic into JS
         run: |
-          # Automatically syncs the cache-busting logic across all JS files
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*/const VERSION = new Date().getDate();/g" {} +
+          const VERSION = new Date().getDate();
+          # Finds all JS files excluding node_modules and updates the VERSION constant
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION};/g" {} +
+          
 
       - name: Commit & Push Changes
         run: |
