@@ -1,4 +1,4 @@
-name: Performance, Accessibility, Best Practices, SEO Audit
+Name: Performance, Accessibility, Best Practices, SEO Audit
 
 on:
   push:
@@ -18,22 +18,18 @@ jobs:
       - name: Setup Environment
         run: |
           # Automation Logic: Using date for cache-busting/versioning
-          # This replaces the JS logic with a Shell equivalent for the runner
           VERSION=$(date +%d)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Build Version: $VERSION"
-          
 
       - name: Run Audit (Lighthouse CI)
+        id: lighthouse
         uses: treosh/lighthouse-ci-action@v12
         with:
-          # Configuration merged from your JSON
           urls: |
             https://hassanbiswas.github.io/
           numberOfRuns: 3
           preset: 'desktop'
-          
-          # Integrated Assertions for your Brand Standards
           assertions: |
             {
               "categories:performance": ["error", {"minScore": 0.95}],
@@ -41,10 +37,34 @@ jobs:
               "categories:best-practices": ["error", {"minScore": 0.95}],
               "categories:seo": ["error", {"minScore": 1.0}]
             }
-
-          # Zero maintenance: No API keys or expiration
           uploadArtifacts: true
           temporaryPublicStorage: true
+
+      - name: Generate Visual Job Summary
+        if: always()
+        run: |
+          # Extracting results from the Lighthouse Manifest output
+          # Using HSL(240, 80%, 50%) logic for visual cues
+          
+          echo "### 🚀 Lighthouse Audit Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Category | Score | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+
+          # Helper to parse JSON manifest and format scores
+          # Note: scores in manifest are 0-1, multiplying by 100 for display
+          RESULTS='${{ steps.lighthouse.outputs.manifest }}'
+          PERF=$(echo $RESULTS | jq -r '.[0].summary.performance * 100')
+          ACC=$(echo $RESULTS | jq -r '.[0].summary.accessibility * 100')
+          BP=$(echo $RESULTS | jq -r '.[0].summary.bestPractices * 100')
+          SEO=$(echo $RESULTS | jq -r '.[0].summary.seo * 100')
+
+          echo "| ⚡ Performance | $PERF% | $( [ $(echo "$PERF >= 95" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| ♿ Accessibility | $ACC% | $( [ $(echo "$ACC >= 95" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🛠️ Best Practices | $BP% | $( [ $(echo "$BP >= 95" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔍 SEO | $SEO% | $( [ $(echo "$SEO >= 100" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [View Full Report](${{ steps.lighthouse.outputs.links[0] }})" >> $GITHUB_STEP_SUMMARY
 
       - name: Automation Log
         run: echo "Audit for Performance, Accessibility, Best Practices, and SEO completed."
