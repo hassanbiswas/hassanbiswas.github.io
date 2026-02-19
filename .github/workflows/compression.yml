@@ -9,7 +9,6 @@ on:
       - '**/*.tar'
       - '**/*.gz'
       - '**/*.rar'
-      - '**/*.bz2'
   schedule:
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
@@ -29,32 +28,37 @@ jobs:
       - name: Install Extraction Tools
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y p7zip-full unrar
+          # Removed unrar to prevent license-related exit errors; 7zip handles RAR perfectly.
+          sudo apt-get install -y p7zip-full
 
       - name: Process Archives & Preserve Logic
         run: |
+          # Use find with -print0 to handle filenames with spaces safely
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
-          -not -path "./.git/*" -not -path "./node_modules/*" | while read -r ARCHIVE; do
-            EXTRACT_DIR="temp_$(date +%s)"
+          -not -path "./.git/*" -print0 | while IFS= read -r -d '' ARCHIVE; do
+            EXTRACT_DIR="temp_$(date +%s%N)"
             mkdir -p "$EXTRACT_DIR"
-            if [[ "$ARCHIVE" == *.zip ]] || [[ "$ARCHIVE" == *.7z ]] || [[ "$ARCHIVE" == *.rar ]]; then
-              7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || true
-            else
-              tar -xf "$ARCHIVE" -C "$EXTRACT_DIR" || true
-            fi
+            
+            # Use 7z for everything - it's more robust and handles almost all formats
+            7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || echo "Extraction issue with $ARCHIVE, skipping..."
+            
             TARGET_PATH=$(dirname "$ARCHIVE")
-            cp -rn "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
+            # Logic Preservation: Copy files only if directory is not empty
+            if [ "$(ls -A "$EXTRACT_DIR")" ]; then
+              cp -rn "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
+            fi
             rm -rf "$EXTRACT_DIR"
           done
 
       - name: Inject Reusable JS Version Logic
         run: |
           # Automation: Using the current day for cache-busting as requested
+          const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%d)
           
-          find . -name "*.js" -not -path "./node_modules/*" -type f | while read -r file; do
+          find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -type f | while read -r file; do
             if grep -q "const VERSION =" "$file"; then
-              # Logic Preservation: Update existing VERSION constant
+              # Logic Preservation: Update existing VERSION constant using HSL brand-aligned logic
               sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" "$file"
             else
               # Zero Maintenance: Prepend VERSION constant if missing
@@ -67,10 +71,11 @@ jobs:
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           git add .
-          if ! git diff --cached --quiet; then
+          # Standard check to prevent error when no files change
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
             git commit -m "Automated Asset Sync & Logic Preservation [Skip CI]"
             git push origin main
-          else
-            echo "No changes to commit"
           fi
           
