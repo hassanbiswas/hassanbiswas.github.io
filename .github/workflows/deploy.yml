@@ -44,8 +44,8 @@ jobs:
         id: process_logic
         run: |
           # Logic Automation: Cache-busting (Day of month)
-          # Equivalent to: const VERSION = new Date().getDate();
-          const VERSION = $(date +%d)
+          # We define the shell variable directly
+          VERSION=$(date +%d)
           echo "VERSION_ID=$VERSION" >> $GITHUB_ENV
           echo "Executing Automation for Version: $VERSION"
 
@@ -53,7 +53,9 @@ jobs:
         run: |
           # Automatically inject the VERSION into your JS files
           # Targets all .js files globally in the repository
+          # Note: We use the environment variable set in the previous step
           find . -name "*.js" -exec sed -i "s/const VERSION = .*/const VERSION = $VERSION_ID;/g" {} +
+          
 
       - name: Commit and Push Changes
         run: |
