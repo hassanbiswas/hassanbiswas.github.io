@@ -1,0 +1,111 @@
+Name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  # Logic Automation: Executes every half of month (1st and 15th) at midnight UTC
+  schedule:
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Prevent concurrent deployments for logic preservation
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  process-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Auto-Unzip and Overwrite Process
+        id: process_logic
+        run: |
+          # Logic Automation: Cache-busting (Day of month)
+          # Automation for: const VERSION = new Date().getDate();
+          VERSION_ID=$(date +%d)
+          echo "VERSION_ID=$VERSION_ID" >> $GITHUB_ENV
+          echo "Executing Automation for Version: $VERSION_ID"
+
+          # Brand Identity Preservation: HSL(240, 80%, 50%)
+          echo "BRAND_COLOR='hsl(240, 80%, 50%)'" >> $GITHUB_ENV
+
+          # Fallback Security: Define exclusions
+          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app" ".git" ".github" "dist")
+          EXCLUDE_CMD=""
+          for folder in "${EXCLUDED_FOLDERS[@]}"; do
+            EXCLUDE_CMD+=" -not -path '*/$folder/*' -not -name '$folder'"
+          done
+          echo "EXCLUDE_CMD=$EXCLUDE_CMD" >> $GITHUB_ENV
+
+          # Find and process compressed files
+          FOUND_FILES=$(find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD)
+
+          if [ -z "$FOUND_FILES" ]; then
+            echo "No compressed files found."
+          else
+            echo "Found compressed files: $FOUND_FILES"
+            echo "$FOUND_FILES" | while read -r file; do
+              base_dir=$(dirname "$file")
+              temp_extract_dir="${file%.*}_tmp"
+
+              echo "Processing: $file in $base_dir"
+              mkdir -p "$temp_extract_dir"
+
+              if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
+              elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
+              else tar -xf "$file" -C "$temp_extract_dir"; fi
+
+              cp -rf "$temp_extract_dir"/* "$base_dir/"
+              rm -rf "$temp_extract_dir"
+            done
+          fi
+
+      - name: Update Version Logic in JS
+        run: |
+          # Automatically inject the VERSION into JS files for logic preservation
+          # Strictly updates: const VERSION = [any value];
+          find . -name "*.js" ${{ env.EXCLUDE_CMD }} -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION_ID};/g" {} + || true
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          
+          git add .
+          
+          # Logic Preservation: Only push if files were changed or VERSION updated
+          if git diff --staged --quiet; then
+            echo "No changes to commit (Logic preserved)."
+          else
+            git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance Sync)"
+            git pull --rebase origin main
+            git push origin main
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
