@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Deploy
 
 on:
   push:
@@ -36,54 +36,19 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
         with:
           fetch-depth: 0
 
-      - name: Initialize Logic Automation
-        id: process_logic
-        run: |
-          # Logic Automation: Cache-busting (Day of month)
-          # We define the shell variable directly
-          VERSION=$(date +%d)
-          echo "VERSION_ID=$VERSION" >> $GITHUB_ENV
-          echo "Executing Automation for Version: $VERSION"
-
-      - name: Update Version Logic in JS
-        run: |
-          # Use a more robust sed syntax for Ubuntu
-          find . -name "*.js" -type f -exec sed -i "s/const VERSION = .*/const VERSION = $VERSION_ID;/g" {} +
-        shell: bash
-        
-          
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "hassanbiswas"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
-          
-          git add .
-          
-          # Logic Preservation: Only push if files were changed or VERSION updated
-          if git diff --cached --quiet; then
-            echo "No changes to commit (Logic preserved)."
-          else
-            # Pull first to prevent "rejected" errors if the remote has changed
-            git pull origin main --rebase
-            git commit -m "Automated Deployment: Version $VERSION_ID (Zero Maintenance)"
-            git push origin main
-          fi
-        shell: bash
-
-
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
         with:
           path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: [actions/deploy-pages@v4](https://github.com/actions/deploy-pages)
         
