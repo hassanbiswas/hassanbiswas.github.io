@@ -1,96 +1,50 @@
-name: Compression Logic & Logic Preservation
+name: Automated Compression & Logic Preservation
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - '**'
+      - '**/*.zip'
+      - '**/*.7z'
+      - '**/*.tar'
+      - '**/*.gz'
+      - '**/*.rar'
+  # Zero Maintenance: Automates refresh twice a month
+  schedule:
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch: 
 
 jobs:
-  process-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout Code
-        uses: [actions/checkout@v4](https://github.com/actions/checkout)
-        with:
-          fetch-depth: 0
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Auto-Unzip and Overwrite Process
-        id: process_logic
+      - name: Execute Logic Preservation
         run: |
-          # Logic Automation: Cache-busting (Day of month)
-          # Equivalent to: const VERSION = new Date().getDate();
-          const VERSION = new Date().getDate();
+          # Automation: Match the JS Date().getDate() logic
           VERSION=$(date +%d)
-          echo "VERSION_ID=$VERSION" >> $GITHUB_ENV
-          echo "Executing Automation for Version: $VERSION"
-
-          # Brand Identity Preservation
-          echo "BRAND_COLOR='hsl(240, 80%, 50%)'" >> $GITHUB_ENV
-
-          # Fallback Security: Define exclusions (protecting core architecture)
-          EXCLUDED_FOLDERS=("node_modules" "src/temp-assets" "backup" "app" ".git" ".github" "dist")
-          EXCLUDE_CMD=""
-          for folder in "${EXCLUDED_FOLDERS[@]}"; do
-            EXCLUDE_CMD+=" -not -path '*/$folder/*' -not -name '$folder'"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          
+          # Extraction logic (Auto-unzip)
+          # Finds all archives, excluding core architecture
+          find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.tar" \) \
+          -not -path "./.git/*" -not -path "./.github/*" | while read -r file; do
+            echo "Processing $file..."
+            if [[ "$file" == *.zip ]]; then unzip -o "$file" -d ./;
+            elif [[ "$file" == *.7z ]]; then 7z x "$file" -y;
+            fi
           done
 
-          # Find and process compressed files
-          FOUND_FILES=$(find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD)
-
-          if [ -z "$FOUND_FILES" ]; then
-            echo "No compressed files found."
-          else
-            echo "Found compressed files: $FOUND_FILES"
-            echo "$FOUND_FILES" | while read -r file; do
-              base_dir=$(dirname "$file")
-              temp_extract_dir="${file}_tmp"
-
-              echo "Processing: $file in $base_dir"
-              mkdir -p "$temp_extract_dir"
-
-              # Extraction logic for different formats
-              if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
-              elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
-              else tar -xf "$file" -C "$temp_extract_dir"; fi
-
-              # Overwrite existing files with extracted content
-              cp -rf "$temp_extract_dir"/* "$base_dir/"
-              rm -rf "$temp_extract_dir"
-              # Optional: rm "$file" # Uncomment to delete archive after extraction
-            done
-          fi
-
-      - name: Update Version Logic in JS
+      - name: Inject Brand & Version
         run: |
-          # Automatically inject the VERSION into your JS files for logic preservation
-          # Replaces: const VERSION = ... with current date-based version
-          find . -name "*.js" $EXCLUDE_CMD -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION_ID};/g" {} + || true
-
-      - name: Commit and Push Changes
-        run: |
-          git config --global user.name "hassanbiswas"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
-
-          git add .
-          # Logic Preservation: Only push if files were changed or VERSION updated
-          if git diff --staged --quiet; then
-            echo "No changes to commit (Logic preserved)."
-          else
-            git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance Sync)"
-            git push origin main
-          fi
-
-      - name: Setup Pages
-        uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
-
-      - name: Upload Artifact
-        uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
-        with:
-          path: '.'
+          # Logic Preservation: Update VERSION in all JS files
+          find . -name "*.js" -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION};/g" {} +
+          
+          # Setting Brand Identity HSL(240, 80%, 50%)
+          echo "BRAND_COLOR='hsl(240, 80%, 50%)'" >> $GITHUB_ENV
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: [actions/deploy-pages@v4](https://github.com/actions/deploy-pages)
-        
+        uses: actions/deploy-pages@v4
