@@ -52,6 +52,7 @@ jobs:
               # -avI: Force overwrite
               # --exclude: Prevents specific files/folders from being replaced even if they exist in the ZIP
               rsync -avI \
+                --exclude='app/' \
                 --exclude='.git/' \
                 --exclude='.github/' \
                 --exclude='node_modules/' \
