@@ -23,25 +23,28 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install Extraction Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unrar p7zip-full
+
       - name: Process Archives & Preserve Logic
         run: |
-          # Logic Automation: Replaces JS const VERSION = new Date().getDate();
-          VERSION=$(date +%d)
-          echo "Logic Automation Version: $VERSION"
-
-          # 1. Define strictly excluded paths (Fallback Security)
+          # Logic Automation: Uses date for cache-busting
+          const VERSION = new Date().getDate();
+          VERSION_VAL=$(date +%d)
+          
           EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
-
-          # 2. Find compressed files while ignoring excluded directories
+          
+          # Find compressed files
           FIND_CMD="find . -type f \( -name '*.zip' -o -name '*.7z' -o -name '*.tar' -o -name '*.gz' -o -name '*.rar' \)"
           for dir in "${EXCLUDES[@]}"; do
             FIND_CMD+=" -not -path './$dir/*'"
           done
-
+          
           ARCHIVES=$(eval $FIND_CMD)
-
           if [ -z "$ARCHIVES" ]; then
-            echo "No new compressed files found in allowed paths."
+            echo "No new compressed files found."
             exit 0
           fi
 
@@ -49,43 +52,30 @@ jobs:
             TARGET_DIR=$(dirname "$ARCHIVE")
             TEMP_EXTRACT="./temp_extract_$(date +%s)"
             mkdir -p "$TEMP_EXTRACT"
-
-            echo "Extracting $ARCHIVE..."
+            
             if [[ "$ARCHIVE" == *.zip ]]; then unzip -o "$ARCHIVE" -d "$TEMP_EXTRACT";
             elif [[ "$ARCHIVE" == *.7z ]]; then 7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y;
             elif [[ "$ARCHIVE" == *.rar ]]; then unrar x -o+ "$ARCHIVE" "$TEMP_EXTRACT";
             else tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"; fi
-
-            # 3. Handle Nested Folders (Flattening Logic)
-            CONTENT_COUNT=$(ls -1 "$TEMP_EXTRACT" | wc -l)
-            if [ "$CONTENT_COUNT" -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
+            
+            # Flattening Logic
+            if [ $(ls -1 "$TEMP_EXTRACT" | wc -l) -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
               SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -type d | tail -n 1)
-              echo "Flattening nested folder: $(basename "$SUB_FOLDER")"
               mv "$SUB_FOLDER"/* "$SUB_FOLDER"/.* "$TEMP_EXTRACT/" 2>/dev/null || true
               rmdir "$SUB_FOLDER"
             fi
-
-            # 4. Duplicate Detection & Safe Removal
-            ls -A "$TEMP_EXTRACT" | while read -r item; do
-              if [ -e "$TARGET_DIR/$item" ]; then
-                echo "Removing duplicate: $item"
-                rm -rf "$TARGET_DIR/$item"
-              fi
-            done
             
-            # Move extracted files to target and cleanup
-            mv "$TEMP_EXTRACT"/* "$TARGET_DIR/"
+            # Sync and Cleanup
+            cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
             rm -rf "$TEMP_EXTRACT"
-            echo "Successfully synced $ARCHIVE"
           done
-          
+
       - name: Inject Version Logic into JS
         run: |
-          const VERSION = new Date().getDate();
-          # Finds all JS files excluding node_modules and updates the VERSION constant
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION};/g" {} +
+          # Automated Logic: Updates VERSION to current day for cache-busting
+          VERSION_VAL=$(date +%d)
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} +
           
-
       - name: Commit & Push Changes
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
