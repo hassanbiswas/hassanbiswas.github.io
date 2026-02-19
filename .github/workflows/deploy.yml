@@ -51,10 +51,10 @@ jobs:
 
       - name: Update Version Logic in JS
         run: |
-          # Automatically inject the VERSION into your JS files
-          # Targets all .js files globally in the repository
-          # Note: We use the environment variable set in the previous step
-          find . -name "*.js" -exec sed -i "s/const VERSION = .*/const VERSION = $VERSION_ID;/g" {} +
+          # Use a more robust sed syntax for Ubuntu
+          find . -name "*.js" -type f -exec sed -i "s/const VERSION = .*/const VERSION = $VERSION_ID;/g" {} +
+        shell: bash
+        
           
 
       - name: Commit and Push Changes
