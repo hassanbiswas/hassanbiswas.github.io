@@ -26,12 +26,11 @@ jobs:
       - name: Install Extraction Tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y unrar p7zip-full
+          sudo apt-get install -y p7zip-full
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Logic Automation: Uses date for cache-busting
-          const VERSION = new Date().getDate();
+          # Logic Automation: Cache-busting version
           VERSION_VAL=$(date +%d)
           
           EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
@@ -53,10 +52,12 @@ jobs:
             TEMP_EXTRACT="./temp_extract_$(date +%s)"
             mkdir -p "$TEMP_EXTRACT"
             
-            if [[ "$ARCHIVE" == *.zip ]]; then unzip -o "$ARCHIVE" -d "$TEMP_EXTRACT";
-            elif [[ "$ARCHIVE" == *.7z ]]; then 7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y;
-            elif [[ "$ARCHIVE" == *.rar ]]; then unrar x -o+ "$ARCHIVE" "$TEMP_EXTRACT";
-            else tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"; fi
+            # Use 7z for everything for better reliability and RAR support
+            if [[ "$ARCHIVE" == *.zip ]] || [[ "$ARCHIVE" == *.7z ]] || [[ "$ARCHIVE" == *.rar ]]; then
+              7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y
+            else
+              tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"
+            fi
             
             # Flattening Logic
             if [ $(ls -1 "$TEMP_EXTRACT" | wc -l) -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
@@ -72,14 +73,9 @@ jobs:
           
       - name: Inject Version Logic into JS
         run: |
-          # Logic Automation: Updates VERSION for cache-busting
-          const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%d)
-          
-          # Find and replace version in JS files, excluding node_modules
-          # Added -f to sed to prevent error if no files match
+          # Updates JS classes for cache-busting: const VERSION = [DD];
           find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No files updated"
-          
           
       - name: Commit & Push Changes
         run: |
