@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - '**'
+  # Execute whenever compression.yml completes successfully
+  workflow_run:
+    workflows: ["compression.yml"]
+    types:
+      - completed
   # Zero Maintenance: Executes automatically at 00:00 on the 1st and 15th
   schedule:
     - cron: '0 0 1,15 * *'
@@ -23,13 +28,15 @@ concurrency:
 jobs:
   process-and-deploy:
     runs-on: ubuntu-latest
+    # Only run if triggered by push/schedule/dispatch OR a successful compression workflow
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
         with:
           fetch-depth: 0
 
@@ -46,7 +53,7 @@ jobs:
         run: |
           # Automatically inject the VERSION into your JS files
           # Targets all .js files globally in the repository
-          find . -name "*.js" -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION_ID};/g" {} + || true
+          find . -name "*.js" -exec sed -i "s/const VERSION = .*/const VERSION = $VERSION_ID;/g" {} +
 
       - name: Commit and Push Changes
         run: |
@@ -61,19 +68,19 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit (Logic preserved)."
           else
-            git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance Sync)"
+            git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance)"
             git push origin main
           fi
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: [actions/configure-pages@v4](https://github.com/actions/configure-pages)
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: [actions/upload-pages-artifact@v3](https://github.com/actions/upload-pages-artifact)
         with:
           path: '.'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: [actions/deploy-pages@v4](https://github.com/actions/deploy-pages)
         
