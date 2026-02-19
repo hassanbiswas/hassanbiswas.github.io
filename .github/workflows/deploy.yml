@@ -1,4 +1,4 @@
-Name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -31,17 +31,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Ensure we are explicitly on the main branch
+          ref: main
 
       - name: Auto-Unzip and Overwrite Process
         id: process_logic
         run: |
-          # Logic Automation: Cache-busting (Day of month)
-          # Automation for: const VERSION = new Date().getDate();
+          const VERSION = new Date().getDate();
           VERSION_ID=$(date +%d)
           echo "VERSION_ID=$VERSION_ID" >> $GITHUB_ENV
-          echo "Executing Automation for Version: $VERSION_ID"
-
-          # Brand Identity Preservation: HSL(240, 80%, 50%)
+          
+          # Brand Identity: HSL(240, 80%, 50%)
           echo "BRAND_COLOR='hsl(240, 80%, 50%)'" >> $GITHUB_ENV
 
           # Fallback Security: Define exclusions
@@ -55,21 +55,14 @@ jobs:
           # Find and process compressed files
           FOUND_FILES=$(find . -type f \( -name "*.zip" -o -name "*.tar" -o -name "*.gz" -o -name "*.7z" -o -name "*.rar" \) $EXCLUDE_CMD)
 
-          if [ -z "$FOUND_FILES" ]; then
-            echo "No compressed files found."
-          else
-            echo "Found compressed files: $FOUND_FILES"
+          if [ -n "$FOUND_FILES" ]; then
             echo "$FOUND_FILES" | while read -r file; do
               base_dir=$(dirname "$file")
               temp_extract_dir="${file%.*}_tmp"
-
-              echo "Processing: $file in $base_dir"
               mkdir -p "$temp_extract_dir"
-
               if [[ "$file" == *.zip ]]; then unzip -o "$file" -d "$temp_extract_dir";
               elif [[ "$file" == *.7z ]]; then 7z x "$file" -o"$temp_extract_dir" -y;
               else tar -xf "$file" -C "$temp_extract_dir"; fi
-
               cp -rf "$temp_extract_dir"/* "$base_dir/"
               rm -rf "$temp_extract_dir"
             done
@@ -77,32 +70,23 @@ jobs:
 
       - name: Update Version Logic in JS
         run: |
-          # Automatically inject the VERSION into JS files for logic preservation
-          # Strictly updates: const VERSION = [any value];
+          # Use the defined VERSION for cache-busting
           find . -name "*.js" ${{ env.EXCLUDE_CMD }} -exec sed -i "s/const VERSION = .*/const VERSION = ${VERSION_ID};/g" {} + || true
     
       - name: Commit and Push Changes (Logic Preservation)
         run: |
-          # Setup Git Identity
           git config --global user.name "hassanbiswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
 
-          # 1. Sync with Remote to prevent "non-fast-forward" errors
-          git fetch origin main
-          git checkout main
-          git pull --rebase origin main
+          # Sync logic to handle "non-fast-forward"
+          git pull origin main --rebase
 
-          # 2. Add all processed files (Unzipped & Versioned JS)
           git add .
 
-          # 3. Automation: Only commit if changes actually occurred
           if [[ -n "$(git status --porcelain)" ]]; then
-            echo "Changes detected. Synchronizing..."
             git commit -m "Automated Deployment: Version ${VERSION_ID} (Zero Maintenance Sync)"
-            
-            # 4. Fallback Security: Final pull before pushing
-            git pull --rebase origin main
-            git push origin main
+            # Push with a retry logic for high-reliability
+            git push origin main || (git pull origin main --rebase && git push origin main)
           else
             echo "No changes found. Logic preserved."
           fi
