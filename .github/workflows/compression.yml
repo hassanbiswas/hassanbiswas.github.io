@@ -33,21 +33,15 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Find and process archives excluding hidden directories
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -not -path "./node_modules/*" | while read -r ARCHIVE; do
-            echo "Processing $ARCHIVE..."
             EXTRACT_DIR="temp_$(date +%s)"
             mkdir -p "$EXTRACT_DIR"
-            
-            # Use 7z for compressed formats, tar for others
             if [[ "$ARCHIVE" == *.zip ]] || [[ "$ARCHIVE" == *.7z ]] || [[ "$ARCHIVE" == *.rar ]]; then
               7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || true
             else
               tar -xf "$ARCHIVE" -C "$EXTRACT_DIR" || true
             fi
-            
-            # Sync extracted files back to the archive's directory
             TARGET_PATH=$(dirname "$ARCHIVE")
             cp -rn "$EXTRACT_DIR"/* "$TARGET_PATH/" 2>/dev/null || true
             rm -rf "$EXTRACT_DIR"
@@ -55,16 +49,15 @@ jobs:
 
       - name: Inject Reusable JS Version Logic
         run: |
-          # Use current day for logic automation as requested
-          const VERSION = new Date().getDate();
+          # Automation: Using the current day for cache-busting as requested
           VERSION_VAL=$(date +%d)
           
-          # Find JS files and ensure the VERSION constant is updated or present
           find . -name "*.js" -not -path "./node_modules/*" -type f | while read -r file; do
             if grep -q "const VERSION =" "$file"; then
+              # Logic Preservation: Update existing VERSION constant
               sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" "$file"
             else
-              # If not found, prepend it to the top of the file for automation
+              # Zero Maintenance: Prepend VERSION constant if missing
               echo "const VERSION = ${VERSION_VAL};" | cat - "$file" > temp && mv temp "$file"
             fi
           done
