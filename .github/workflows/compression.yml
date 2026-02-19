@@ -33,16 +33,14 @@ jobs:
 
       - name: Process Archives & Preserve Logic
         run: |
-          # Use Dynamic Date for Cache-Busting Logic
-          const_version="const VERSION = $(date +%d);"
-          
-          # Find and process archives
+          # Find and process archives excluding hidden directories
           find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -not -path "./.git/*" -not -path "./node_modules/*" | while read -r ARCHIVE; do
             echo "Processing $ARCHIVE..."
             EXTRACT_DIR="temp_$(date +%s)"
             mkdir -p "$EXTRACT_DIR"
             
+            # Use 7z for compressed formats, tar for others
             if [[ "$ARCHIVE" == *.zip ]] || [[ "$ARCHIVE" == *.7z ]] || [[ "$ARCHIVE" == *.rar ]]; then
               7z x "$ARCHIVE" -o"$EXTRACT_DIR" -y || true
             else
@@ -57,10 +55,19 @@ jobs:
 
       - name: Inject Reusable JS Version Logic
         run: |
-          # Automates cache-busting by updating the VERSION constant in all JS files
-          # Uses the current day of the month as requested
+          # Use current day for logic automation as requested
+          const VERSION = new Date().getDate();
           VERSION_VAL=$(date +%d)
-          find . -name "*.js" -not -path "./node_modules/*" -type f -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No matching patterns found."
+          
+          # Find JS files and ensure the VERSION constant is updated or present
+          find . -name "*.js" -not -path "./node_modules/*" -type f | while read -r file; do
+            if grep -q "const VERSION =" "$file"; then
+              sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" "$file"
+            else
+              # If not found, prepend it to the top of the file for automation
+              echo "const VERSION = ${VERSION_VAL};" | cat - "$file" > temp && mv temp "$file"
+            fi
+          done
 
       - name: Commit & Push Changes
         run: |
