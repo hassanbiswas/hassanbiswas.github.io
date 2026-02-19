@@ -22,68 +22,73 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Install Extraction Tools
         run: |
-          sudo apt-get update
-          # unrar is required for proprietary RAR formats that p7zip can't handle alone
-          sudo apt-get install -y p7zip-full unrar
+          sudo apt-get update -y
+          sudo apt-get install -y p7zip-full
 
       - name: Process Archives & Preserve Logic
         run: |
           # Logic Automation: Cache-busting version
-          VERSION_VAL=$(date +%d)
+          const VERSION = new Date().getDate();
           
-          # Find all archives while strictly excluding system/source directories
-          # Using a while loop to handle file paths with spaces safely
-          find . -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.tar" -o -name "*.gz" -o -name "*.rar" -o -name "*.bz2" \) | while read -r ARCHIVE; do
-            
-            # Skip excluded paths manually for better control
-            [[ "$ARCHIVE" =~ .git/|.github/|node_modules/|src/|dist/|app/ ]] && continue
-            
+          EXCLUDES=( ".git" ".github" "node_modules" "src" "dist" "app" )
+          
+          # Find compressed files while excluding system directories
+          FIND_CMD="find . -type f \( -name '*.zip' -o -name '*.7z' -o -name '*.tar' -o -name '*.gz' -o -name '*.rar' \)"
+          for dir in "${EXCLUDES[@]}"; do
+            FIND_CMD+=" -not -path './$dir/*'"
+          done
+          
+          ARCHIVES=$(eval $FIND_CMD)
+          if [ -z "$ARCHIVES" ]; then
+            echo "No compressed files found to process."
+            exit 0
+          fi
+
+          echo "$ARCHIVES" | while read -r ARCHIVE; do
             TARGET_DIR=$(dirname "$ARCHIVE")
-            TEMP_EXTRACT="./temp_extract_$(date +%s)_$RANDOM"
+            TEMP_EXTRACT="./temp_extract_$(date +%s)"
             mkdir -p "$TEMP_EXTRACT"
             
-            echo "Processing: $ARCHIVE"
-            
-            # Extraction Logic with Fallback Security
-            if [[ "$ARCHIVE" == *.tar ]] || [[ "$ARCHIVE" == *.gz ]] || [[ "$ARCHIVE" == *.bz2 ]]; then
-              tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT" || echo "Tar extraction failed"
+            echo "Extracting $ARCHIVE..."
+            if [[ "$ARCHIVE" == *.zip ]] || [[ "$ARCHIVE" == *.7z ]] || [[ "$ARCHIVE" == *.rar ]]; then
+              7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y
             else
-              # 7z handles .zip, .7z, and .rar (with unrar installed)
-              7z x "$ARCHIVE" -o"$TEMP_EXTRACT" -y || echo "7z extraction failed"
+              tar -xf "$ARCHIVE" -C "$TEMP_EXTRACT"
             fi
             
             # Flattening Logic: If archive contains a single folder, move contents up
             if [ $(ls -1 "$TEMP_EXTRACT" | wc -l) -eq 1 ] && [ -d "$TEMP_EXTRACT"/* ]; then
-              SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -mindepth 1 -type d)
+              SUB_FOLDER=$(find "$TEMP_EXTRACT" -maxdepth 1 -type d | tail -n 1)
               mv "$SUB_FOLDER"/* "$SUB_FOLDER"/.* "$TEMP_EXTRACT/" 2>/dev/null || true
               rmdir "$SUB_FOLDER"
             fi
             
-            # Sync and Cleanup with Logic Preservation
-            # dotglob ensures hidden files are copied; nullglob prevents errors if empty
-            shopt -s dotglob nullglob
-            if [ "$(ls -A "$TEMP_EXTRACT")" ]; then
-                cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
-                echo "Synced $ARCHIVE to $TARGET_DIR"
-            fi
+            # Sync and Cleanup
+            cp -rf "$TEMP_EXTRACT"/* "$TARGET_DIR/"
             rm -rf "$TEMP_EXTRACT"
+            # Optional: rm "$ARCHIVE" # Uncomment if you want to delete the zip after extraction
           done
           
       - name: Inject Version Logic into JS
         run: |
-          # Automation: const VERSION = [Day of Month];
+          # Automation: Updates JS classes for cache-busting: const VERSION = [DD];
           VERSION_VAL=$(date +%d)
-          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No JS files found to update"
+          find . -name "*.js" -not -path "./node_modules/*" -exec sed -i "s/const VERSION = .*;/const VERSION = ${VERSION_VAL};/g" {} + || echo "No JS files found for update"
           
       - name: Commit & Push Changes
         run: |
           git config --local user.email "hassanbiswas.github.io@gmail.com"
           git config --local user.name "Hassan Biswas"
           git add .
-          # Logic: Prevent infinite loops by skipping CI on the auto-commit
-          git commit -m "Automated Asset Sync & Logic Preservation [Skip CI]" || echo "No changes to commit"
-          git push
+          # Check for changes to avoid empty commit errors
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Automated Asset Sync & Logic Preservation [Skip CI]"
+            git push origin main
+          fi
           
