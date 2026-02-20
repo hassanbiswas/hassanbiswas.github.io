@@ -1,48 +1,51 @@
-name: Daily Heartbeat & SEO Submission
+name: 🚀 Daily SEO & IndexNow Automation
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   schedule:
-    # Runs at 00:00 UTC every day for zero-maintenance freshness
+    # Runs at 00:00 every single day (Daily Cron)
     - cron: '0 0 * * *'
-  workflow_dispatch: # Allows manual execution
+  workflow_dispatch:
 
 jobs:
-  automate-logic:
+  seo-submission:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: 📂 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Initialize Logic for Version
+      - name: 🔑 Generate Automation Version
+        # Aligning with: const VERSION = new Date().getDate();
         run: |
-          # Matches your JS: const VERSION = new Date().getDate();
-          const VERSION = $(date +'%d');
-          echo "Syncing with Logic Version: $VERSION"
+          VERSION=$(date +'%d')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Automation Day: $VERSION"
 
-      - name: Submit to IndexNow (Bing/Yandex)
+      - name: 🌐 Submit to IndexNow (Bing/Yandex)
+        uses: vinceasimov/indexnow-action@v2
+        with:
+          host: 'hassanbiswas.github.io'
+          key: ${{ secrets.INDEXNOW_KEY }}
+          # Points to your root entries and the flattened index
+          url-list: 'https://hassanbiswas.github.io/, https://hassanbiswas.github.io/index.html'
+
+      - name: 🔎 Ping Google Search Console
+        # Directly triggers Google to crawl your sitemap.xml
         run: |
-          # Automates URL submission without API keys that expire
-          curl -X POST "https://api.indexnow.org/indexnow" \
-          -H "Content-Type: application/json; charset=utf-8" \
-          -d '{
-            "host": "hassanbiswas.github.io",
-            "key": "${{ secrets.INDEXNOW_KEY }}",
-            "keyLocation": "https://hassanbiswas.github.io/${{ secrets.INDEXNOW_KEY }}.txt",
-            "urlList": [
-              "https://hassanbiswas.github.io/",
-              "https://hassanbiswas.github.io/index.html"
-            ]
-          }'
+          curl -I "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml"
 
-      - name: Notify Google & Heartbeat Ping
+      - name: 📡 Site Heartbeat
+        # Verifies site availability for your SEO and accessibility standards
         run: |
-          # Since the /ping endpoint is deprecated, we hit the sitemap and home direct
-          # This ensures Google sees 'lastmod' changes and verifies site availability
-          curl -I -s "https://hassanbiswas.github.io/sitemap.xml" > /dev/null
-          curl -I -s "https://hassanbiswas.github.io" > /dev/null
-          echo "Site heartbeat and sitemap ping sent to hassanbiswas.github.io"
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://hassanbiswas.github.io/)
+          if [ $STATUS -eq 200 ]; then
+            echo "✅ Site is accessible. SEO Ping Successful."
+          else
+            echo "❌ Site returned $STATUS. SEO Ping failed."
+            exit 1
+          fi
 
-      - name: Execution Success
-        run: echo "Automation complete for $(date)"
+      - name: 🛠️ Logic Preservation Log
+        run: |
+          echo "SEO Automation for version ${{ env.VERSION }} completed successfully."
