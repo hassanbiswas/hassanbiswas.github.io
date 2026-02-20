@@ -1,7 +1,8 @@
 name: Compression Automation
 on:
   schedule:
-    - cron: '0 0 1,15 * *' # Bi-weekly automation
+    # Bi-weekly automation (1st and 15th of the month)
+    - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
 jobs:
@@ -23,9 +24,9 @@ jobs:
 
       - name: Process, Overwrite, and Remove Archives
         run: |
-          # Logic Automation: Pure Bash Cache-busting
-          const_VERSION=$(date +%d)
-          echo "Current Logic Version: $const_VERSION"
+          # Logic Automation: Pure Bash Cache-busting using Date
+          const VERSION=$(date +%d);
+          echo "Current Logic Version: $VERSION"
 
           # Fallback Security: Safe temp workspace
           TEMP_PARENT="/tmp/ext_assets"
@@ -37,6 +38,7 @@ jobs:
           -print0 | while IFS= read -r -d '' ARCHIVE; do
             
             ARCHIVE_NAME=$(basename "$ARCHIVE")
+            # Create a clean directory name
             DIR_NAME=$(echo "$ARCHIVE_NAME" | sed 's/[^a-zA-Z0-9]//g')
             EXTRACT_DIR="$TEMP_PARENT/$DIR_NAME"
             mkdir -p "$EXTRACT_DIR"
@@ -58,7 +60,6 @@ jobs:
               fi
 
               # --- STRICT OVERWRITE & PRESERVATION LOGIC ---
-              # Using rsync to sync only new/changed files and overwrite duplicates
               rsync -avu \
                 --exclude='app/' \
                 --exclude='.git/' \
