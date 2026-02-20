@@ -6,8 +6,8 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # Runs at 00:00 on day-of-month 1 and 15 (Half-monthly automation)
-    - cron: '0 0 1,15 * *'
+    # Runs at 00:00 on day 1 of every month (Monthly automation)
+    - cron: '0 0 1 * *'
 
 permissions:
   contents: write
@@ -24,32 +24,35 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # 1. Logic Automation: Cache-busting version based on Date
-          VERSION=$(date +%d)
-          echo "Automating release for version/day: $VERSION"
+          VERSION=$(date +%m)
+          echo "Automating release for Month: $VERSION"
 
-          # 2. Flattening Logic: Check for single wrapper folder in app/assets
+          # 2. Flattening Logic: Move inner contents out if a single wrapper exists
           if [ -d "app/assets" ]; then
-            COUNT=$(ls -1 app/assets | wc -l)
-            if [ "$COUNT" -eq 1 ] && [ -d "app/assets/$(ls app/assets)" ]; then
-              echo "Single wrapper detected. Flattening..."
-              SUBFOLDER=$(ls app/assets)
-              mv app/assets/"$SUBFOLDER"/* app/assets/
-              rmdir app/assets/"$SUBFOLDER"
+            ITEM_COUNT=$(ls -1 app/assets | wc -l)
+            if [ "$ITEM_COUNT" -eq 1 ]; then
+              WRAPPER_DIR=$(ls app/assets)
+              if [ -d "app/assets/$WRAPPER_DIR" ]; then
+                echo "Single wrapper detected: $WRAPPER_DIR. Moving contents to app/assets/..."
+                mv app/assets/"$WRAPPER_DIR"/* app/assets/ 2>/dev/null || true
+                rmdir app/assets/"$WRAPPER_DIR"
+              fi
             fi
           fi
 
-          # 3. Cleanup existing drafts and specific "∞" release
-          gh release list --limit 100 --json isDraft,tagName | \
-          jq -r '.[] | select(.isDraft == true) | .tagName' | \
-          xargs -I {} sh -c 'if [ -n "{}" ]; then gh release delete "{}" --yes; fi' || true
-
-          gh release delete "∞" --yes --cleanup || true
+          # 3. Cleanup existing "∞" release and tag
+          # Use --cleanup-tag (valid gh syntax) instead of --cleanup
+          gh release delete "∞" --yes --cleanup-tag || true
+          
+          # Force delete remote tag to ensure a clean slate for the new release
           git push origin :refs/tags/∞ --delete || true
 
-          sleep 5
+          # Wait for GitHub API consistency
+          sleep 10
 
           # 4. Create new release with Logic Preservation
-          NOTES="Automated asset release for hassanbiswas.github.io - Updated on day $VERSION"
+          NOTES="Monthly automated asset refresh - Version: $VERSION"
+          
           if [ -f "app/README.md" ]; then
             gh release create "∞" \
               --title "v ∞" \
