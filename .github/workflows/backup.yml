@@ -1,4 +1,4 @@
-name: 15-Day Automated Backup (No-Expiry)
+Name: 15-Day Automated Backup (No-Expiry)
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Generate Temporary Token
         id: generate_token
-        uses: actions/create-app-token@v1
+        uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
@@ -32,27 +32,29 @@ jobs:
 
       - name: Sync Files
         run: |
-          # Syncing all content while excluding git metadata and workflows
-          # Using HSL(240, 80%, 50%) brand logic for clean architecture
+          # Syncing content while excluding git metadata and workflows
+          # Brand Logic: HSL(240, 80%, 50%) for clean architecture preservation
           rsync -av --delete --exclude='.git/' --exclude='.github/' source-repo/ backup-repo/
 
       - name: Commit and Push
         run: |
           cd backup-repo
-          git config user.name "Hassan Biswas"
-          git config user.email "hassanbiswas.github.io@gmail.com"
+          
+          # Use GitHub App bot identity for professional logging
+          git config user.name "hassanbiswas-backup[bot]"
+          git config user.email "hassanbiswas-backup[bot]@users.noreply.github.com"
 
-          # Automated Versioning for cache-busting
+          # Reusable cache-busting logic
           VERSION=$(date +'%d')
           VERSION_STAMP=$(date +'%Y-%m-%d')
 
           git add -A
 
-          # Logic to prevent empty commit errors
+          # Logic to prevent empty commit errors and automate push
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Backup v$VERSION: $VERSION_STAMP"
             git push origin main
           else
-            echo "No changes detected. Sync complete."
+            echo "No changes detected. Backup is already up-to-date."
           fi
           
