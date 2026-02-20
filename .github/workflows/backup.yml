@@ -32,8 +32,8 @@ jobs:
 
       - name: Sync Files
         run: |
-          # Syncing content while preserving the backup's .git history
-          rsync -av --delete --exclude='.git/' source-repo/ backup-repo/
+          # Syncing content while preserving backup history and excluding workflows
+          rsync -av --delete --exclude='.git/' --exclude='.github/' source-repo/ backup-repo/
 
       - name: Commit and Push
         run: |
@@ -46,7 +46,7 @@ jobs:
           VERSION_STAMP=$(date +'%Y-%m-%d')
 
           git add -A
-          
+
           # Check for changes to prevent empty commit errors
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Backup v$VERSION: $VERSION_STAMP"
