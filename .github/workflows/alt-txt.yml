@@ -16,10 +16,10 @@ jobs:
       contents: write
     steps:
       - name: Checkout Code
-        uses: [actions/checkout@v4](https://github.com/actions/checkout)
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: [actions/setup-node@v4](https://github.com/actions/setup-node)
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
@@ -29,8 +29,6 @@ jobs:
       - name: Run JS Automation
         env:
           AI_API_KEY: ${{ secrets.AI_API_KEY }}
-          # Logic Automation: Using your preferred date-based versioning
-          VERSION: ${{ github.run_id }}
         run: |
           node -e "
           const fs = require('fs');
@@ -68,17 +66,25 @@ jobs:
               if (stat.isDirectory()) {
                 if (file !== 'node_modules' && file !== '.git') await processHTMLFiles(filePath);
               } else if (file.endsWith('.html')) {
-                const html = fs.readFileSync(filePath, 'utf8');
+                let html = fs.readFileSync(filePath, 'utf8');
                 const dom = new JSDOM(html);
                 const document = dom.window.document;
                 const images = document.querySelectorAll('img:not([alt]), img[alt=\"\"]');
+                
                 if (images.length === 0) continue;
+
                 for (const img of images) {
                   const src = img.getAttribute('src');
                   if (!src) continue;
                   const fullSrc = src.startsWith('http') ? src : \`https://hassanbiswas.github.io/\${src.replace(/^\//, '')}\`;
                   const altText = await generateAltText(fullSrc);
                   img.setAttribute('alt', altText);
+                  
+                  // Ensure SVG scaling best-practices for Chrome on Oppo A53
+                  if (src.endsWith('.svg')) {
+                    img.setAttribute('sizes', 'any');
+                  }
+                  
                   console.log(\`[v\${VERSION}] Added alt to \${src} in \${file}\`);
                 }
                 fs.writeFileSync(filePath, dom.serialize(), 'utf8');
@@ -86,7 +92,10 @@ jobs:
             }
           }
 
-          processHTMLFiles('./').then(() => console.log('Execution Complete.'));
+          processHTMLFiles('./').catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
           "
 
       - name: Commit and Push
@@ -95,9 +104,9 @@ jobs:
           git config --local user.name "Hassan Biswas (Bot)"
           git add .
           
-          # Logic: $(date +'%d') matches your const VERSION = new Date().getDate();
+          # Logic: Matches your const VERSION = new Date().getDate();
           VERSION_STAMP=$(date +'%d')
           
           git commit -m "chore: maintenance [v${VERSION_STAMP}]" || echo "No changes to commit"
-          git push
+          git push origin main
           
