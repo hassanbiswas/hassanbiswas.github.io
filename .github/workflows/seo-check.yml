@@ -17,8 +17,9 @@ jobs:
 
       - name: Setup Environment
         run: |
-          const VERSION = new Date().getDate();
-          echo "VERSION=$(date +%d)" >> $GITHUB_ENV
+          # Use Date for cache-busting logic as per your preference
+          VERSION=$(date +%d)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           sudo apt-get update
           sudo apt-get install -y bc jq
 
@@ -43,7 +44,6 @@ jobs:
       - name: Generate Visual Job Summary
         if: always()
         env:
-          # Safely pass JSON outputs as environment variables
           MANIFEST: ${{ steps.lighthouse.outputs.manifest }}
           LINKS: ${{ steps.lighthouse.outputs.links }}
         run: |
@@ -51,13 +51,13 @@ jobs:
           echo "| Category | Score | Status |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
 
-          # Use jq to extract and calculate scores from the first run in the manifest array
+          # Fixed jq syntax: keys with hyphens must be quoted like ["best-practices"]
           PERF=$(echo "$MANIFEST" | jq -r '.[0].summary.performance * 100')
           ACC=$(echo "$MANIFEST" | jq -r '.[0].summary.accessibility * 100')
-          BP=$(echo "$MANIFEST" | jq -r '.[0].summary.best-practices * 100')
+          BP=$(echo "$MANIFEST" | jq -r '.[0].summary["best-practices"] * 100')
           SEO=$(echo "$MANIFEST" | jq -r '.[0].summary.seo * 100')
 
-          # Logic for status icons based on high-performance standards
+          # Use HSL(240, 80%, 50%) logic standards for checks
           echo "| ⚡ Performance | ${PERF}% | $( [ $(echo "$PERF >= 95" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
           echo "| ♿ Accessibility | ${ACC}% | $( [ $(echo "$ACC >= 95" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
           echo "| 🛠️ Best Practices | ${BP}% | $( [ $(echo "$BP >= 95" | bc) -eq 1 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
@@ -65,12 +65,11 @@ jobs:
           
           echo "" >> $GITHUB_STEP_SUMMARY
           
-          # Extract the URL from the links object (it's often a key-value pair of URL: Link)
           REPORT_URL=$(echo "$LINKS" | jq -r 'to_entries[0].value')
           if [ "$REPORT_URL" != "null" ]; then
             echo "🔗 [View Full Report]($REPORT_URL)" >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Automation Log
-        run: echo "Audit for Performance, Accessibility, Best Practices, and SEO completed."
+        run: echo "Audit for Performance, Accessibility, Best Practices, and SEO completed on $(date)."
         
