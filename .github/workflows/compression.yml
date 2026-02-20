@@ -11,7 +11,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout Code
-        uses: [actions/checkout](https://github.com/actions/checkout)@v4
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -24,8 +24,8 @@ jobs:
       - name: Process, Overwrite, and Remove Archives
         run: |
           # Logic Automation: Pure Bash Cache-busting (Monthly/Bi-weekly trigger)
-          VERSION=$(date +%d)
-          echo "Current Logic Version: $VERSION"
+          const_VERSION=$(date +%d)
+          echo "Current Logic Version: $const_VERSION"
 
           # Fallback Security: Safe temp workspace
           TEMP_PARENT="/tmp/ext_assets"
@@ -38,7 +38,9 @@ jobs:
             
             # Create a unique extraction folder
             ARCHIVE_NAME=$(basename "$ARCHIVE")
-            EXTRACT_DIR="$TEMP_PARENT/${ARCHIVE_NAME//[^a-zA-Z0-9]/}"
+            # Cleaning name for directory compatibility
+            DIR_NAME=$(echo "$ARCHIVE_NAME" | sed 's/[^a-zA-Z0-9]//g')
+            EXTRACT_DIR="$TEMP_PARENT/$DIR_NAME"
             mkdir -p "$EXTRACT_DIR"
 
             # Extract and Overwrite (-aoa)
@@ -46,7 +48,7 @@ jobs:
               TARGET_PATH=$(dirname "$ARCHIVE")
 
               # Flattening Logic: check if the archive has a single wrapper folder
-              # If so, it moves the inner contents out so they land directly where the .zip was placed.
+              # If so, move contents out so they land directly where the archive was.
               ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
               if [ "$ITEM_COUNT" -eq 1 ]; then
                 INNER_PATH=$(find "$EXTRACT_DIR" -maxdepth 1 -mindepth 1 -type d)
@@ -59,7 +61,6 @@ jobs:
               fi
 
               # --- STRICT OVERWRITE & PRESERVATION LOGIC ---
-              # -a: archive, -v: verbose, -u: update (Logic Preservation)
               rsync -avu \
                 --exclude='app/' \
                 --exclude='.git/' \
