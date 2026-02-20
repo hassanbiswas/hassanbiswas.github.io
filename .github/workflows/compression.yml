@@ -11,7 +11,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: [actions/checkout](https://github.com/actions/checkout)@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
@@ -23,8 +23,9 @@ jobs:
 
       - name: Process, Overwrite, and Remove Archives
         run: |
-          # Cache-busting & Logic Preservation
-          const VERSION = new Date().getDate();
+          # Logic Automation: Pure Bash Cache-busting (Monthly/Bi-weekly trigger)
+          VERSION=$(date +%d)
+          echo "Current Logic Version: $VERSION"
 
           # Fallback Security: Safe temp workspace
           TEMP_PARENT="/tmp/ext_assets"
@@ -36,25 +37,29 @@ jobs:
           -print0 | while IFS= read -r -d '' ARCHIVE; do
             
             # Create a unique extraction folder
-            EXTRACT_DIR="$TEMP_PARENT/$(basename "$ARCHIVE" | sed 's/[^a-zA-Z0-9]//g')"
+            ARCHIVE_NAME=$(basename "$ARCHIVE")
+            EXTRACT_DIR="$TEMP_PARENT/${ARCHIVE_NAME//[^a-zA-Z0-9]/}"
             mkdir -p "$EXTRACT_DIR"
 
             # Extract and Overwrite (-aoa)
             if 7z x "$ARCHIVE" "-o$EXTRACT_DIR" -aoa; then
               TARGET_PATH=$(dirname "$ARCHIVE")
 
-              # Flattening Logic: Check if the archive has a single wrapper folder
+              # Flattening Logic: check if the archive has a single wrapper folder
+              # If so, it moves the inner contents out so they land directly where the .zip was placed.
               ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
-              if [ "$ITEM_COUNT" -eq 1 ] && [ -d "$EXTRACT_DIR/$(ls "$EXTRACT_DIR")" ]; then
-                INNER_FOLDER=$(ls "$EXTRACT_DIR")
-                echo "Flattening: Moving contents out of wrapper '$INNER_FOLDER'"
-                mv "$EXTRACT_DIR/$INNER_FOLDER"/* "$EXTRACT_DIR/" 2>/dev/null || true
-                rmdir "$EXTRACT_DIR/$INNER_FOLDER"
+              if [ "$ITEM_COUNT" -eq 1 ]; then
+                INNER_PATH=$(find "$EXTRACT_DIR" -maxdepth 1 -mindepth 1 -type d)
+                if [ -n "$INNER_PATH" ]; then
+                  echo "Flattening: Moving contents out of single wrapper folder..."
+                  mv "$INNER_PATH"/* "$EXTRACT_DIR/" 2>/dev/null || true
+                  mv "$INNER_PATH"/.* "$EXTRACT_DIR/" 2>/dev/null || true
+                  rmdir "$INNER_PATH"
+                fi
               fi
 
               # --- STRICT OVERWRITE & PRESERVATION LOGIC ---
-              # -a: archive mode, -v: verbose, -u: update (only copy if newer or different size)
-              # This will replace old files with new ones and merge folders
+              # -a: archive, -v: verbose, -u: update (Logic Preservation)
               rsync -avu \
                 --exclude='app/' \
                 --exclude='.git/' \
@@ -85,7 +90,7 @@ jobs:
           git add -A
 
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Asset Sync & Optimized Search [skip ci]"
+            git commit -m "Automated Asset Sync & Flattening Logic [skip ci]"
             git push origin main
           else
             echo "No changes detected."
