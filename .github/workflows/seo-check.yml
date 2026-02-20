@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *' # Daily automation for zero maintenance
+    - cron: '0 0 1 * *' # Monthly schedule as per your preference
 
 jobs:
   lighthouse-ci:
@@ -17,10 +17,10 @@ jobs:
 
       - name: Setup Environment
         run: |
-          # Use Date for cache-busting/versioning logic
+          # Reusable Date for cache-busting logic
           echo "VERSION=$(date +%d%m%Y)" >> $GITHUB_ENV
           sudo apt-get update
-          sudo apt-get install -y bc jq
+          sudo apt-get install -y jq
 
       - name: Run Audit (Lighthouse CI)
         id: lighthouse
@@ -28,30 +28,28 @@ jobs:
         with:
           urls: |
             https://hassanbiswas.github.io/
-          # Moved parameters into 'runs' to follow strict action schema
           uploadArtifacts: true
           temporaryPublicStorage: true
           runs: 3
-          # Using Chrome flags for better mobile/desktop emulation reliability
-          chromeFlags: --no-sandbox --headless --disable-gpu
+          # Removed invalid 'chromeFlags' to resolve syntax warning
 
       - name: Generate Visual Job Summary
         if: always()
-        env:
-          MANIFEST: ${{ steps.lighthouse.outputs.manifest }}
-          LINKS: ${{ steps.lighthouse.outputs.links }}
         run: |
+          # Logic Preservation: Extracting scores and applying 95% threshold
+          MANIFEST='${{ steps.lighthouse.outputs.manifest }}'
+          LINKS='${{ steps.lighthouse.outputs.links }}'
+          
           echo "### 🚀 Lighthouse Audit Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Category | Score | Status |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
 
-          # Extracting scores safely with jq
-          PERF=$(echo "$MANIFEST" | jq -r '.[0].summary.performance * 100 | tonumber | floor')
-          ACC=$(echo "$MANIFEST" | jq -r '.[0].summary.accessibility * 100 | tonumber | floor')
-          BP=$(echo "$MANIFEST" | jq -r '.[0].summary["best-practices"] * 100 | tonumber | floor')
-          SEO=$(echo "$MANIFEST" | jq -r '.[0].summary.seo * 100 | tonumber | floor')
+          PERF=$(echo "$MANIFEST" | jq -r '.[0].summary.performance * 100 | floor')
+          ACC=$(echo "$MANIFEST" | jq -r '.[0].summary.accessibility * 100 | floor')
+          BP=$(echo "$MANIFEST" | jq -r '.[0].summary["best-practices"] * 100 | floor')
+          SEO=$(echo "$MANIFEST" | jq -r '.[0].summary.seo * 100 | floor')
 
-          # Brand Logic: Applying status based on your 95%+ requirements
+          # Brand Logic: Check against your high-performance goals (HSL(240, 80%, 50%))
           echo "| ⚡ Performance | ${PERF}% | $( [ $PERF -ge 95 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
           echo "| ♿ Accessibility | ${ACC}% | $( [ $ACC -ge 95 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
           echo "| 🛠️ Best Practices | ${BP}% | $( [ $BP -ge 95 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
