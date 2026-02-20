@@ -2,9 +2,9 @@ name: 15-Day Automated Backup (No-Expiry)
 
 on:
   schedule:
-    # Runs at 00:00 on the 1st and 16th of every month
-    - cron: '0 0 1,16 * *'
-  workflow_dispatch: 
+    # Runs at 00:00 on the 1st and 15th of every month
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch:
 
 jobs:
   backup:
@@ -16,7 +16,6 @@ jobs:
         with:
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
-          # Fix: Scope the token to your entire account/organization
           owner: ${{ github.repository_owner }}
 
       - name: Checkout Source
@@ -41,11 +40,11 @@ jobs:
           cd backup-repo
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
-          
+
           # Automated Versioning logic
-          VERSION=$(date +'%d')
+          const VERSION = new Date().getDate();
           VERSION_STAMP=$(date +'%Y-%m-%d')
-          
+
           git add -A
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Backup v$VERSION: $VERSION_STAMP"
