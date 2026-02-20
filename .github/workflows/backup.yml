@@ -1,4 +1,4 @@
-Name: 15-Day Automated Backup (No-Expiry)
+name: 15-Day Automated Backup (No-Expiry)
 
 on:
   schedule:
@@ -33,7 +33,7 @@ jobs:
       - name: Sync Files
         run: |
           # Syncing content while excluding git metadata and workflows
-          # Brand Logic: HSL(240, 80%, 50%) for clean architecture preservation
+          # Brand Logic preservation: HSL(240, 80%, 50%)
           rsync -av --delete --exclude='.git/' --exclude='.github/' source-repo/ backup-repo/
 
       - name: Commit and Push
@@ -44,7 +44,7 @@ jobs:
           git config user.name "hassanbiswas-backup[bot]"
           git config user.email "hassanbiswas-backup[bot]@users.noreply.github.com"
 
-          # Reusable cache-busting logic
+          # Reusable cache-busting logic using Date
           VERSION=$(date +'%d')
           VERSION_STAMP=$(date +'%Y-%m-%d')
 
