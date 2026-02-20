@@ -1,8 +1,15 @@
 name: Compression Automation
 on:
+  push:
+    paths:
+      - '**.zip'
+      - '**.7z'
+      - '**.rar'
+      - '**.tar'
+      - '**.gz'
   schedule:
-    # Bi-weekly automation (1st and 15th of the month)
-    - cron: '0 0 1,15 * *'
+    # Monthly Schedule (per your preference)
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -25,7 +32,7 @@ jobs:
       - name: Process, Overwrite, and Remove Archives
         run: |
           # Logic Automation: Pure Bash Cache-busting using Date
-          const VERSION=$(date +%d);
+          VERSION=$(date +%d)
           echo "Current Logic Version: $VERSION"
 
           # Fallback Security: Safe temp workspace
@@ -36,7 +43,7 @@ jobs:
           find . -maxdepth 2 \( -name ".git" -o -name ".github" -o -name "node_modules" -o -name "app" \) -prune -o \
           -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -print0 | while IFS= read -r -d '' ARCHIVE; do
-            
+
             ARCHIVE_NAME=$(basename "$ARCHIVE")
             # Create a clean directory name
             DIR_NAME=$(echo "$ARCHIVE_NAME" | sed 's/[^a-zA-Z0-9]//g')
