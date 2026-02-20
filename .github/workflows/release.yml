@@ -1,11 +1,9 @@
 name: Refresh Release Assets
 
 on:
-  # Monthly Schedule: Runs at 00:00 on day 1 of every month
   schedule:
+    # Monthly Schedule: Runs at 00:00 on day 1 of every month
     - cron: '0 0 1 * *'
-  
-  # Manual Trigger: Allows you to run it manually from the Actions tab
   workflow_dispatch:
 
 permissions:
@@ -36,20 +34,23 @@ jobs:
               if [ -d "app/assets/$WRAPPER_DIR" ]; then
                 echo "Single wrapper detected: $WRAPPER_DIR"
                 mv app/assets/"$WRAPPER_DIR"/* app/assets/
-                rmdir app/assets/"$WRAPPER_DIR"
+                rmdir "app/assets/$WRAPPER_DIR"
               fi
             fi
           fi
 
-          # 3. Force-Delete Tag & Re-release (Logic Preservation)
-          # Tag Force-Delete to prevent "Tag already exists" errors
+          # 3. Tag Force-Delete (Logic Preservation)
+          # Removes the tag locally and from the server to prevent "already exists" errors
           git tag -d ∞ || true
           git push origin :refs/tags/∞ || true
           
-          # Create new release with app/README.md as source
+          # 4. Clean up previous release if it exists to allow reuse of the ∞ tag
+          gh release delete ∞ --yes || true
+
+          # 5. Create new release with valid syntax
+          # Using --overwrite to handle existing tags safely
           gh release create ∞ \
             --title "Monthly Automated Release ($VERSION)" \
             --notes-file app/README.md \
-            --cleanup-tag \
             app/assets/*
             
