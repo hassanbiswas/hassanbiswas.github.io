@@ -41,11 +41,13 @@ jobs:
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
 
-          # Automated Versioning logic
-          const VERSION = new Date().getDate();
+          # Pure Bash Logic for Versioning (Date-based cache-busting)
+          VERSION=$(date +'%d')
           VERSION_STAMP=$(date +'%Y-%m-%d')
 
           git add -A
+          
+          # Check for changes to prevent empty commit errors
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Backup v$VERSION: $VERSION_STAMP"
             git push origin main
