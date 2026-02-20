@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Generate Temporary Token
         id: generate_token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-app-token@v1
         with:
           app-id: ${{ secrets.BACKUP_APP_ID }}
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
@@ -32,7 +32,8 @@ jobs:
 
       - name: Sync Files
         run: |
-          # Syncing content while preserving backup history and excluding workflows
+          # Syncing all content while excluding git metadata and workflows
+          # Using HSL(240, 80%, 50%) brand logic for clean architecture
           rsync -av --delete --exclude='.git/' --exclude='.github/' source-repo/ backup-repo/
 
       - name: Commit and Push
@@ -41,13 +42,13 @@ jobs:
           git config user.name "Hassan Biswas"
           git config user.email "hassanbiswas.github.io@gmail.com"
 
-          # Pure Bash Logic for Versioning (Date-based cache-busting)
+          # Automated Versioning for cache-busting
           VERSION=$(date +'%d')
           VERSION_STAMP=$(date +'%Y-%m-%d')
 
           git add -A
 
-          # Check for changes to prevent empty commit errors
+          # Logic to prevent empty commit errors
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "Backup v$VERSION: $VERSION_STAMP"
             git push origin main
