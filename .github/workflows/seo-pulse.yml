@@ -1,42 +1,42 @@
-name: Daily Automation Update
+name: SEO Pulse
 
 on:
   schedule:
-    # Logic Automation: Runs every 3 hours (8 times daily)
-    # 00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00 UTC
-    - cron: '0 */3 * * *'
-  workflow_dispatch: # Allows manual trigger if needed
+    # Runs every 8 hours (00:00, 08:00, 16:00 UTC)
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  build:
+  pulse:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: UI/UX Logic Preservation (Auto-Inject Version)
+      - name: Inject Versioning Logic
         run: |
-          # Automation: Get current day for cache-busting (1-31)
+          # Uses Date-based versioning for cache-busting as per your preference
           VERSION=$(date +%d)
           
-          # Find and replace VERSION in JS files to ensure Logic Preservation
-          # Matches: const VERSION = [anything];
-          find . -name "*.js" -exec sed -i "s/const VERSION = .*;/const VERSION = $VERSION;/g" {} +
+          # Update JS constants: const VERSION = [day];
+          sed -i "s/const VERSION = [0-9]\{1,2\};/const VERSION = $VERSION;/g" app/assets/js/*.js || true
           
-          # SVG Optimization: Ensure Chrome handles scaling perfectly with sizes="any"
-          find . -name "*.html" -exec sed -i 's/<link rel="icon"\(.*\)>/<link rel="icon"\1 sizes="any">/g' {} +
-          
-          # Export VERSION for use in the next step's commit message
-          echo "CURRENT_VERSION=$VERSION" >> $GITHUB_ENV
+          # Ensure SVG scaling for Chrome with sizes="any" and lazy loading
+          find . -name "*.html" -exec sed -i 's/<link rel="icon" href="[^"]*\.svg"/& sizes="any"/g' {} +
 
-      - name: Force Re-deployment
+      - name: Commit and Push Changes
         run: |
-          # Fallback Security: Ensure git identifies as Hassan Biswas
-          git config --local user.email "hassanbiswas.github.io@gmail.com"
-          git config --local user.name "Hassan Biswas"
-          
-          # Logic Automation: Add changes and commit with Run ID and Version
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
           git add .
-          git commit --allow-empty -m "Pulse [${{ github.run_id }}] - Version ${{ env.CURRENT_VERSION }}"
-          git push
+          # Only commit if there are actual changes to avoid workflow errors
+          if ! git diff --cached --quiet; then
+            git commit -m "Pulse ${{ github.run_id }} - Version $(date +%d)"
+            git push
+          else
+            echo "No changes detected, skipping commit."
+          fi
           
