@@ -1,7 +1,7 @@
 name: Compression Automation
 on:
   schedule:
-    - cron: '0 0 1,15 * *'
+    - cron: '0 0 1,15 * *' # Bi-weekly automation
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Process, Overwrite, and Remove Archives
         run: |
-          # Logic Automation: Pure Bash Cache-busting (Monthly/Bi-weekly trigger)
+          # Logic Automation: Pure Bash Cache-busting
           const_VERSION=$(date +%d)
           echo "Current Logic Version: $const_VERSION"
 
@@ -31,14 +31,12 @@ jobs:
           TEMP_PARENT="/tmp/ext_assets"
           mkdir -p "$TEMP_PARENT"
 
-          # Optimization: Find archives while strictly ignoring excluded directories
-          find . -type d \( -name ".git" -o -name ".github" -o -name "node_modules" -o -name "app" \) -prune -o \
+          # Optimization: Find archives while ignoring app and system directories
+          find . -maxdepth 2 \( -name ".git" -o -name ".github" -o -name "node_modules" -o -name "app" \) -prune -o \
           -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
           -print0 | while IFS= read -r -d '' ARCHIVE; do
             
-            # Create a unique extraction folder
             ARCHIVE_NAME=$(basename "$ARCHIVE")
-            # Cleaning name for directory compatibility
             DIR_NAME=$(echo "$ARCHIVE_NAME" | sed 's/[^a-zA-Z0-9]//g')
             EXTRACT_DIR="$TEMP_PARENT/$DIR_NAME"
             mkdir -p "$EXTRACT_DIR"
@@ -48,7 +46,6 @@ jobs:
               TARGET_PATH=$(dirname "$ARCHIVE")
 
               # Flattening Logic: check if the archive has a single wrapper folder
-              # If so, move contents out so they land directly where the archive was.
               ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
               if [ "$ITEM_COUNT" -eq 1 ]; then
                 INNER_PATH=$(find "$EXTRACT_DIR" -maxdepth 1 -mindepth 1 -type d)
@@ -61,6 +58,7 @@ jobs:
               fi
 
               # --- STRICT OVERWRITE & PRESERVATION LOGIC ---
+              # Using rsync to sync only new/changed files and overwrite duplicates
               rsync -avu \
                 --exclude='app/' \
                 --exclude='.git/' \
@@ -74,26 +72,19 @@ jobs:
 
               # Automation: Delete source archive after successful sync
               echo "Processed $ARCHIVE. Deleting source..."
-              rm -f "$ARCHIVE"
-            else
-              echo "Error: Failed to extract $ARCHIVE."
+              rm "$ARCHIVE"
             fi
-
-            rm -rf "$EXTRACT_DIR"
           done
-          rm -rf "$TEMP_PARENT"
 
-      - name: Commit & Push Changes
+      - name: Commit and Push Changes
         run: |
-          git config --local user.email "hassanbiswas.github.io@gmail.com"
-          git config --local user.name "Hassan Biswas"
-
-          git add -A
-
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Asset Sync & Flattening Logic [skip ci]"
-            git push origin main
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
           else
-            echo "No changes detected."
+            git commit -m "Automated extraction and sync: $(date +'%Y-%m-%d')"
+            git push
           fi
           
