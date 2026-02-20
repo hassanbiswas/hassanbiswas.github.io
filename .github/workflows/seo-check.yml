@@ -1,4 +1,4 @@
-Name: Performance, Accessibility, Best Practices, SEO Audit
+name: Performance, Accessibility, Best Practices, SEO Audit
 
 on:
   push:
@@ -13,18 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
 
       - name: Setup Environment
         run: |
           # Automation Logic: Using date for cache-busting/versioning
-          VERSION=$(date +%d)
+          const VERSION = new Date().getDate();
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Build Version: $VERSION"
+          # Ensure bc is installed for math comparisons
+          sudo apt-get install -y bc
 
       - name: Run Audit (Lighthouse CI)
         id: lighthouse
-        uses: treosh/lighthouse-ci-action@v12
+        uses: [treosh/lighthouse-ci-action@v12](https://github.com/treosh/lighthouse-ci-action)
         with:
           urls: |
             https://hassanbiswas.github.io/
@@ -44,7 +46,7 @@ jobs:
         if: always()
         run: |
           # Extracting results from the Lighthouse Manifest output
-          # Using HSL(240, 80%, 50%) logic for visual cues
+          # Using brand color HSL(240, 80%, 50%) logic for visual cues
           
           echo "### 🚀 Lighthouse Audit Summary" >> $GITHUB_STEP_SUMMARY
           echo "| Category | Score | Status |" >> $GITHUB_STEP_SUMMARY
