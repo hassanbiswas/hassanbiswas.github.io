@@ -1,13 +1,12 @@
 name: Refresh Release Assets
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  # Monthly Schedule: Runs at 00:00 on day 1 of every month
   schedule:
-    # Runs at 00:00 on day 1 of every month (Monthly automation)
     - cron: '0 0 1 * *'
+  
+  # Manual Trigger: Allows you to run it manually from the Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,12 +17,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Cleanup and Flatten Assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Logic Automation: Cache-busting version based on Date
+          # 1. Logic Automation: Cache-busting version using Month
           VERSION=$(date +%m)
           echo "Automating release for Month: $VERSION"
 
@@ -33,45 +34,22 @@ jobs:
             if [ "$ITEM_COUNT" -eq 1 ]; then
               WRAPPER_DIR=$(ls app/assets)
               if [ -d "app/assets/$WRAPPER_DIR" ]; then
-                echo "Single wrapper detected: $WRAPPER_DIR. Moving contents to app/assets/..."
-                mv app/assets/"$WRAPPER_DIR"/* app/assets/ 2>/dev/null || true
+                echo "Single wrapper detected: $WRAPPER_DIR"
+                mv app/assets/"$WRAPPER_DIR"/* app/assets/
                 rmdir app/assets/"$WRAPPER_DIR"
               fi
             fi
           fi
 
-          # 3. Cleanup existing "∞" release and tag
-          # Use --cleanup-tag (valid gh syntax) instead of --cleanup
-          gh release delete "∞" --yes --cleanup-tag || true
+          # 3. Force-Delete Tag & Re-release (Logic Preservation)
+          # Tag Force-Delete to prevent "Tag already exists" errors
+          git tag -d ∞ || true
+          git push origin :refs/tags/∞ || true
           
-          # Force delete remote tag to ensure a clean slate for the new release
-          git push origin :refs/tags/∞ --delete || true
-
-          # Wait for GitHub API consistency
-          sleep 10
-
-          # 4. Create new release with Logic Preservation
-          NOTES="Monthly automated asset refresh - Version: $VERSION"
-          
-          if [ -f "app/README.md" ]; then
-            gh release create "∞" \
-              --title "v ∞" \
-              --notes-file app/README.md \
-              --target main \
-              --latest
-          else
-            gh release create "∞" \
-              --title "v ∞" \
-              --notes "$NOTES" \
-              --target main \
-              --latest
-          fi
-
-          # 5. Upload assets safely
-          if [ -d "app/assets" ] && [ "$(ls -A app/assets 2>/dev/null)" ]; then
-            echo "Uploading flattened assets..."
-            gh release upload "∞" app/assets/* --clobber
-          else
-            echo "No assets found. Skipping upload."
-          fi
-          
+          # Create new release with app/README.md as source
+          gh release create ∞ \
+            --title "Monthly Automated Release ($VERSION)" \
+            --notes-file app/README.md \
+            --cleanup-tag \
+            app/assets/*
+            
