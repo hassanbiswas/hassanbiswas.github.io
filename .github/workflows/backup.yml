@@ -1,8 +1,8 @@
-name: 15-Day Automated Backup (No-Expiry)
+name: 15-Day Automated Backup (No-Workflow Mirror)
 
 on:
   schedule:
-    # Runs at 00:00 on the 1st and 15th of every month
+    # Logic: Semi-monthly automation (1st and 15th)
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
@@ -18,43 +18,47 @@ jobs:
           private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
-      - name: Checkout Source
+      - name: Checkout Source (Protected)
         uses: actions/checkout@v4
         with:
           path: source-repo
 
-      - name: Checkout Backup Repo
+      - name: Checkout Backup Repo (Destination)
         uses: actions/checkout@v4
         with:
           repository: hassanbiswas/backup
           token: ${{ steps.generate_token.outputs.token }}
           path: backup-repo
 
-      - name: Sync Files
+      - name: Clean Sync Logic
         run: |
-          # Syncing content while excluding git metadata and workflows
-          # Brand Logic preservation: HSL(240, 80%, 50%)
-          rsync -av --delete --exclude='.git/' --exclude='.github/' source-repo/ backup-repo/
+          # 1. We use --exclude to skip .git and .github folders.
+          # 2. We use --delete to remove files in backup-repo that no longer exist in source-repo.
+          # 3. This command DOES NOT touch your source-repo files.
+          rsync -av --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            source-repo/ backup-repo/
 
       - name: Commit and Push
         run: |
           cd backup-repo
           
-          # Use GitHub App bot identity for professional logging
+          # Git Identity for Bot Automation
           git config user.name "hassanbiswas-backup[bot]"
           git config user.email "hassanbiswas-backup[bot]@users.noreply.github.com"
 
-          # Reusable cache-busting logic using Date
+          # Automated Date-based Revision Logic
           VERSION=$(date +'%d')
-          VERSION_STAMP=$(date +'%Y-%m-%d')
+          DATE_STAMP=$(date +'%Y-%m-%d')
 
-          git add -A
+          git add .
 
-          # Logic to prevent empty commit errors and automate push
+          # Only push if there are changes (Set-and-Forget)
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Backup v$VERSION: $VERSION_STAMP"
+            git commit -m "Backup Revision $VERSION: $DATE_STAMP"
             git push origin main
           else
-            echo "No changes detected. Backup is already up-to-date."
+            echo "Everything is up to date. No push needed."
           fi
           
