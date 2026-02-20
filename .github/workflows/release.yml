@@ -1,11 +1,13 @@
 name: Refresh Release Assets
 
 on:
-  # Manual trigger for anytime execution
+  push:
+    branches:
+      - main
   workflow_dispatch:
-  # Automation: Runs at 00:00 on Jan 1st and July 1st
   schedule:
-    - cron: '0 0 1 1,7 *'
+    # Runs at 00:00 on day-of-month 1 and 15 (Half-monthly automation)
+    - cron: '0 0 1,15 * *'
 
 permissions:
   contents: write
@@ -17,26 +19,37 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Cleanup Old Drafts and Refresh Release
+      - name: Cleanup and Flatten Assets
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Automate cleanup of all existing drafts
-          echo "Cleaning up old drafts..."
+          # 1. Logic Automation: Cache-busting version based on Date
+          VERSION=$(date +%d)
+          echo "Automating release for version/day: $VERSION"
+
+          # 2. Flattening Logic: Check for single wrapper folder in app/assets
+          if [ -d "app/assets" ]; then
+            COUNT=$(ls -1 app/assets | wc -l)
+            if [ "$COUNT" -eq 1 ] && [ -d "app/assets/$(ls app/assets)" ]; then
+              echo "Single wrapper detected. Flattening..."
+              SUBFOLDER=$(ls app/assets)
+              mv app/assets/"$SUBFOLDER"/* app/assets/
+              rmdir app/assets/"$SUBFOLDER"
+            fi
+          fi
+
+          # 3. Cleanup existing drafts and specific "∞" release
           gh release list --limit 100 --json isDraft,tagName | \
           jq -r '.[] | select(.isDraft == true) | .tagName' | \
           xargs -I {} sh -c 'if [ -n "{}" ]; then gh release delete "{}" --yes; fi' || true
 
-          # 2. Force-delete existing "∞" release and remote tag
-          echo "Removing existing ∞ release..."
           gh release delete "∞" --yes --cleanup || true
           git push origin :refs/tags/∞ --delete || true
 
-          # 3. Brief pause for GitHub database reconciliation
           sleep 5
 
-          # 4. Create the new release using logic automation
-          echo "Creating new ∞ release..."
+          # 4. Create new release with Logic Preservation
+          NOTES="Automated asset release for hassanbiswas.github.io - Updated on day $VERSION"
           if [ -f "app/README.md" ]; then
             gh release create "∞" \
               --title "v ∞" \
@@ -46,14 +59,14 @@ jobs:
           else
             gh release create "∞" \
               --title "v ∞" \
-              --notes "Automated asset release for hassanbiswas.github.io" \
+              --notes "$NOTES" \
               --target main \
               --latest
           fi
 
-          # 5. Upload assets safely from app/assets
+          # 5. Upload assets safely
           if [ -d "app/assets" ] && [ "$(ls -A app/assets 2>/dev/null)" ]; then
-            echo "Uploading assets..."
+            echo "Uploading flattened assets..."
             gh release upload "∞" app/assets/* --clobber
           else
             echo "No assets found. Skipping upload."
