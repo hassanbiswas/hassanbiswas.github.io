@@ -43,8 +43,8 @@ jobs:
           };
 
           const EXCLUSIONS = {
-            folders: ['dist', 'node_modules', '.git', '.github', 'assets', 'components', 'draft', 'error', 'freefire'],
-            files: ['README.md', 'generate-assets.js', 'googledb2beed158567cde.html', 'LICENSE.txt', 'heartbeat.json']
+            folders: ['dist', 'node_modules', '.git', '.github', 'assets', 'components', 'dev', 'devaec', 'docs', 'draft', 'drive', 'error', 'freefire', 'nid', 'node_modules', 'projects', 'trash'],
+            files: ['8886230f8ec14aecb0ba333e57bc135a.txt', 'LICENSE.txt', 'README.md', 'googledb2beed158567cde.html', 'heartbeat.json', 'offline.html', 'package.json']
           };
 
           const getHtmlFiles = (dir, fileList = []) => {
