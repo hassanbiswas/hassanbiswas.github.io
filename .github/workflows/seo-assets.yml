@@ -4,9 +4,9 @@ on:
   push:
     branches: [ main ]
   schedule:
-    # Automation: Runs every Sunday at 00:00 UTC (Weekly Schedule)
+    # Automation: Runs every Sunday at 00:00 UTC
     - cron: '0 0 * * 0'
-  workflow_dispatch: # Allows manual trigger if needed
+  workflow_dispatch: 
 
 permissions:
   contents: write
@@ -25,88 +25,102 @@ jobs:
 
       - name: Generate SEO Assets
         run: |
-          node -e "
+          cat << 'EOF' > generate-seo.js
           const fs = require('fs');
           const path = require('path');
 
-          // Logic-based versioning for automation
-          const VERSION = new Date().getDate();
-          const VERSION_DATE = new Date().toISOString().split('T');
-          const BASE_URL = 'https://hassanbiswas.github.io';
-          const BRAND_COLOR = 'hsl(240, 80%, 50%)';
+          try {
+            // Logic-based versioning for cache-busting
+            const VERSION = new Date().getDate();
+            const VERSION_DATE = new Date().toISOString().split('T');
+            const BASE_URL = 'https://hassanbiswas.github.io';
+            const BRAND_COLOR = 'hsl(240, 80%, 50%)'; // Your brand blue
 
-          const CONFIG = {
-            '/': { priority: 1.0, changefreq: 'weekly' },
-            '/about/': { priority: 0.8, changefreq: 'monthly' },
-            '/call/': { priority: 0.7, changefreq: 'monthly' },
-            '/case-study/': { priority: 0.5, changefreq: 'monthly' },
-            '/contact/': { priority: 0.8, changefreq: 'monthly' },
-            '/facebook/': { priority: 0.6, changefreq: 'monthly' },
-            '/gmail/': { priority: 0.5, changefreq: 'monthly' },
-            '/imo/': { priority: 0.7, changefreq: 'monthly' },
-            '/instagram/': { priority: 0.6, changefreq: 'monthly' },
-            '/linkedin/': { priority: 0.6, changefreq: 'monthly' },
-            '/location/': { priority: 0.5, changefreq: 'monthly' },
-            '/messenger/': { priority: 0.7, changefreq: 'monthly' },
-            '/pinterest/': { priority: 0.6, changefreq: 'monthly' },
-            '/privacy-policy/': { priority: 0.5, changefreq: 'monthly' },
-            '/projects/': { priority: 0.8, changefreq: 'monthly' },
-            '/refund-and-cancellation-policy/': { priority: 0.5, changefreq: 'monthly' },
-            '/resume/': { priority: 0.5, changefreq: 'monthly' },
-            '/services/': { priority: 0.8, changefreq: 'monthly' },
-            '/terms-of-service/': { priority: 0.5, changefreq: 'monthly' },
-            '/testimonial/': { priority: 0.8, changefreq: 'monthly' },
-            '/threads/': { priority: 0.6, changefreq: 'monthly' },
-            '/tiktok/': { priority: 0.6, changefreq: 'monthly' },
-            '/vcf/': { priority: 0.5, changefreq: 'monthly' },
-            '/whatsapp/': { priority: 0.7, changefreq: 'monthly' },
-            '/x/': { priority: 0.6, changefreq: 'monthly' },
-            '/youtube/': { priority: 0.6, changefreq: 'monthly' }
-          };
+            const CONFIG = {
+              '/': { priority: 1.0, changefreq: 'weekly' },
+              '/about/': { priority: 0.8, changefreq: 'monthly' },
+              '/projects/': { priority: 0.8, changefreq: 'monthly' },
+              '/services/': { priority: 0.8, changefreq: 'monthly' },
+              '/contact/': { priority: 0.8, changefreq: 'monthly' }
+              // ... other paths inherit defaults via Error Handling logic below
+            };
 
-          const INCLUSIONS = {
-            folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund-and-cancellation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
-            extensions: ['.html']
-          };
+            const INCLUSIONS = {
+              folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund-and-cancellation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
+              extensions: ['.html']
+            };
 
-          const getHtmlFiles = (dir, fileList = []) => {
-            const files = fs.readdirSync(dir);
-            files.forEach(file => {
-              const filePath = path.join(dir, file);
-              const isDirectory = fs.statSync(filePath).isDirectory();
-              if (isDirectory) {
-                if (INCLUSIONS.folders.includes(file)) {
-                  getHtmlFiles(filePath, fileList);
-                }
-              } else {
-                if (INCLUSIONS.extensions.includes(path.extname(file))) {
-                  // FIX: Escaped the $ sign for shell compatibility
-                  let urlPath = filePath.replace(process.cwd(), '').replace(/\\/g, '/').replace(/index\.html\$/, '');
-                  if (!urlPath.startsWith('/')) urlPath = '/' + urlPath;
-                  if (!urlPath.endsWith('/')) urlPath = urlPath + '/';
-                  fileList.push(urlPath);
-                }
+            const getHtmlFiles = (dir, fileList = []) => {
+              try {
+                if (!fs.existsSync(dir)) return fileList;
+                
+                const files = fs.readdirSync(dir);
+                files.forEach(file => {
+                  const filePath = path.join(dir, file);
+                  const relativePath = path.relative(process.cwd(), filePath);
+                  
+                  try {
+                    const stats = fs.statSync(filePath);
+                    if (stats.isDirectory()) {
+                      const folderName = path.basename(filePath);
+                      // Only recurse if it's in our inclusion list or the root
+                      if (INCLUSIONS.folders.includes(folderName) || folderName === '.') {
+                        getHtmlFiles(filePath, fileList);
+                      }
+                    } else if (INCLUSIONS.extensions.includes(path.extname(file))) {
+                      let urlPath = '/' + relativePath.replace(/\\/g, '/').replace(/index\.html$/, '');
+                      if (!urlPath.endsWith('/')) urlPath += '/';
+                      fileList.push(urlPath);
+                    }
+                  } catch (e) {
+                    console.error(`Error processing path ${filePath}:`, e.message);
+                  }
+                });
+              } catch (e) {
+                console.error(`Error reading directory ${dir}:`, e.message);
               }
-            });
-            return [...new Set(fileList)];
-          };
+              return [...new Set(fileList)];
+            };
 
-          const allPages = getHtmlFiles(process.cwd());
-          const sitemapEntries = allPages.map(page => {
-            const settings = CONFIG[page] || { priority: 0.5, changefreq: 'monthly' };
-            return '  <url>\n    <loc>' + BASE_URL + page + '</loc>\n    <lastmod>' + VERSION_DATE + '</lastmod>\n    <priority>' + settings.priority + '</priority>\n    <changefreq>' + settings.changefreq + '</changefreq>\n  </url>';
-          }).join('\n');
+            console.log('Starting SEO Generation...');
+            const allPages = getHtmlFiles(process.cwd());
 
-          const sitemap = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n' + sitemapEntries + '\n</urlset>';
-          fs.writeFileSync('sitemap.xml', sitemap);
-          console.log('Sitemap generated for ' + allPages.length + ' pages.');
-          "
+            if (allPages.length === 0) {
+              throw new Error('No HTML files found. Check your INCLUSIONS logic.');
+            }
+
+            const sitemapEntries = allPages.map(page => {
+              // Fallback Logic: Use default values if path isn't in CONFIG
+              const settings = CONFIG[page] || { priority: 0.5, changefreq: 'monthly' };
+              return `  <url>
+          <loc>${BASE_URL}${page}</loc>
+          <lastmod>${VERSION_DATE}</lastmod>
+          <priority>${settings.priority}</priority>
+          <changefreq>${settings.changefreq}</changefreq>
+          </url>`;
+            }).join('\n');
+
+            const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          ${sitemapEntries}
+          </urlset>`;
+            
+            fs.writeFileSync('sitemap.xml', sitemap.trim());
+            console.log(`Successfully generated sitemap.xml for ${allPages.length} pages (v${VERSION}).`);
+
+          } catch (globalError) {
+            console.error('CRITICAL ERROR during SEO automation:', globalError.message);
+            process.exit(1); // Force fail the action so you get notified
+          }
+          EOF
+          node generate-seo.js
+          rm generate-seo.js
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
+          git add sitemap.xml
           git diff-index --quiet HEAD || git commit -m "Automated SEO update: $(date +'%Y-%m-%d')"
           git push origin main
           
