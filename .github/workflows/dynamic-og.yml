@@ -5,7 +5,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *' # Monthly automation as per your preference
+    - cron: '0 0 1 * *' # Monthly automation
 
 jobs:
   generate-og:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Fetches all history for stable merging
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -43,11 +43,10 @@ jobs:
               const page = await browser.newPage();
               await page.setViewport({ width: 1200, height: 630 });
               
-              // Load your local file
               const htmlPath = 'file://' + process.cwd() + '/index.html';
               await page.goto(htmlPath, { waitUntil: 'networkidle0' });
               
-              // Cache-busting logic: const VERSION = new Date().getDate();
+              // Cache-busting logic
               const VERSION = new Date().getDate();
               const fileName = 'og-main.png';
               
@@ -67,5 +66,17 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/og-images/*.png
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-generate dynamic OG images [skip ci]" && git push)
+          
+          # Logic: Only proceed if there are changes
+          if ! git diff --quiet --staged; then
+            # Rebase ensures the push succeeds even if remote has moved forward
+            git pull --rebase origin main
+            
+            # Using Date for cache-busting in the commit message
+            VERSION=$(node -e "console.log(new Date().getDate())")
+            git commit -m "chore: auto-generate dynamic OG images (v$VERSION) [skip ci]"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
           
