@@ -1,0 +1,35 @@
+name: Generate Dynamic OG Images
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate-og:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate OG Images
+        # This action uses Puppeteer to take screenshots of your HTML files
+        uses: potatoqualitee/ogimage@v1.0
+        with:
+          # Path to your custom CSS if you want a specific brand look
+          # Uses your brand color HSL(240, 80%, 50%) logic
+          stylesheet: './assets/css/og-style.css'
+          output-path: './assets/og-images'
+          # Set a custom template or let it capture the actual page content
+          template-path: './index.html' 
+
+      - name: Commit and Push Images
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/og-images/*.png
+          # Prevent error if no changes
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: auto-generate dynamic OG images [skip ci]"
+          git push
