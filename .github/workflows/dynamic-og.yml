@@ -64,17 +64,18 @@ jobs:
 
       - name: Commit and Push Images
         run: |
+          # Configure identity first
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 1. Pull first to ensure we have the latest remote state
-          git pull origin main --rebase
-
-          # 2. Add the generated images
+          # Stage changes BEFORE pulling/rebasing to avoid the "unstaged changes" error
           git add assets/og-images/*.png
           
-          # 3. Logic: Only proceed if there are actual changes
+          # Check if there are actual changes to commit
           if ! git diff --quiet --staged; then
+            # Pull with rebase, autostashing the staged changes
+            git pull origin main --rebase --autostash
+            
             # Using Date for cache-busting in the commit message
             VERSION=$(node -e "console.log(new Date().getDate())")
             git commit -m "chore: auto-generate dynamic OG images (v$VERSION) [skip ci]"
