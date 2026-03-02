@@ -31,37 +31,71 @@ jobs:
 
           // Logic-based versioning for automation
           const VERSION = new Date().getDate();
-          const VERSION_DATE = new Date().toISOString().split('T')[0];
+          const VERSION_DATE = new Date().toISOString().split('T');
           const BASE_URL = 'https://hassanbiswas.github.io';
           const BRAND_COLOR = 'hsl(240, 80%, 50%)';
 
           const CONFIG = {
             '/': { priority: 1.0, changefreq: 'weekly' },
             '/about/': { priority: 0.8, changefreq: 'monthly' },
+            
+            '/call/': { priority: 0.7, changefreq: 'monthly' },
+            '/case-study/': { priority: 0.5, changefreq: 'monthly' },
+            
+            '/contact/': { priority: 0.8, changefreq: 'monthly' },
+            '/facebook/': { priority: 0.6, changefreq: 'monthly' },
+            '/gmail/': { priority: 0.5, changefreq: 'monthly' },
+            '/imo/': { priority: 0.7, changefreq: 'monthly' },
+            
+            '/instagram/': { priority: 0.6, changefreq: 'monthly' },
+            '/linkedin/': { priority: 0.6, changefreq: 'monthly' },
+            '/location/': { priority: 0.5, changefreq: 'monthly' },
+            '/messenger/': { priority: 0.7, changefreq: 'monthly' },
+            '/pinterest/': { priority: 0.6, changefreq: 'monthly' },
+            '/privacy-policy/': { priority: 0.5, changefreq: 'monthly' },
+            '/projects/': { priority: 0.8, changefreq: 'monthly' },
+            '/refund-and-cancellation-policy/': { priority: 0.5, changefreq: 'monthly' },
+            
+            '/resume/': { priority: 0.5, changefreq: 'monthly' },
             '/services/': { priority: 0.8, changefreq: 'monthly' },
-            '/contact/': { priority: 0.7, changefreq: 'monthly' }
+            '/terms-of-service/': { priority: 0.5, changefreq: 'monthly' },
+            '/testimonial/': { priority: 0.8, changefreq: 'monthly' },
+            '/threads/': { priority: 0.6, changefreq: 'monthly' },
+            '/tiktok/': { priority: 0.6, changefreq: 'monthly' },
+            '/vcf/': { priority: 0.5, changefreq: 'monthly' },
+            '/whatsapp/': { priority: 0.7, changefreq: 'monthly' },
+            '/x/': { priority: 0.6, changefreq: 'monthly' },
+            '/youtube/': { priority: 0.6, changefreq: 'monthly' }
           };
 
-          const EXCLUSIONS = {
-            folders: ['dist', 'node_modules', '.git', '.github', 'assets', 'components', 'dev', 'devaec', 'docs', 'draft', 'drive', 'error', 'freefire', 'nid', 'node_modules', 'projects', 'trash'],
-            files: ['8886230f8ec14aecb0ba333e57bc135a.txt', 'LICENSE.txt', 'README.md', 'googledb2beed158567cde.html', 'heartbeat.json', 'offline.html', 'package.json']
+          // INCLUSION LOGIC: Define what to include instead of what to skip
+          const INCLUSIONS = {
+            folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund-and-cancellation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'], // Add specific subdirectories here
+            extensions: ['.html']
           };
 
           const getHtmlFiles = (dir, fileList = []) => {
             const files = fs.readdirSync(dir);
+            
             files.forEach(file => {
               const filePath = path.join(dir, file);
               const isDirectory = fs.statSync(filePath).isDirectory();
-              if (isDirectory && EXCLUSIONS.folders.includes(file)) return;
-              if (!isDirectory && EXCLUSIONS.files.includes(file)) return;
+              const relativePath = path.relative(process.cwd(), filePath);
+              const folderName = isDirectory ? file : path.dirname(relativePath);
 
+              // Only process if it's in the allowed folders list
               if (isDirectory) {
-                getHtmlFiles(filePath, fileList);
-              } else if (file.endsWith('.html')) {
-                let urlPath = filePath.replace(process.cwd(), '').replace(/\\\\/g, '/').replace(/index\.html$/, '');
-                if (!urlPath.startsWith('/')) urlPath = '/' + urlPath;
-                if (!urlPath.endsWith('/')) urlPath = urlPath + '/';
-                fileList.push(urlPath);
+                if (INCLUSIONS.folders.includes(file) || file === '.') {
+                  getHtmlFiles(filePath, fileList);
+                }
+              } else {
+                // Only include specific extensions (like .html)
+                if (INCLUSIONS.extensions.includes(path.extname(file))) {
+                  let urlPath = filePath.replace(process.cwd(), '').replace(/\\/g, '/').replace(/index\.html$/, '');
+                  if (!urlPath.startsWith('/')) urlPath = '/' + urlPath;
+                  if (!urlPath.endsWith('/')) urlPath = urlPath + '/';
+                  fileList.push(urlPath);
+                }
               }
             });
             return [...new Set(fileList)];
@@ -75,6 +109,7 @@ jobs:
           }).join('\n');
 
           const sitemap = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n' + sitemapEntries + '\n</urlset>';
+          
           fs.writeFileSync('sitemap.xml', sitemap);
           console.log('Sitemap generated for ' + allPages.length + ' pages.');
           "
