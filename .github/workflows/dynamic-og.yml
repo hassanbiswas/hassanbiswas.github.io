@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetches all history for stable merging
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -38,6 +38,7 @@ jobs:
           (async () => {
             try {
               const browser = await puppeteer.launch({ 
+                executablePath: '/usr/bin/google-chrome',
                 args: ['--no-sandbox', '--disable-setuid-sandbox'] 
               });
               const page = await browser.newPage();
@@ -46,14 +47,14 @@ jobs:
               const htmlPath = 'file://' + process.cwd() + '/index.html';
               await page.goto(htmlPath, { waitUntil: 'networkidle0' });
               
-              // Cache-busting logic
+              // Date-based cache-busting logic
               const VERSION = new Date().getDate();
               const fileName = 'og-main.png';
               
-              await page.screenshot({ path: \`\${path}/\${fileName}\` });
+              await page.screenshot({ path: path + '/' + fileName });
               
               await browser.close();
-              console.log('OG Image generated successfully for date:', VERSION);
+              console.log('OG Image generated successfully. Version Day:', VERSION);
             } catch (err) {
               console.error(err);
               process.exit(1);
@@ -65,13 +66,15 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 1. Pull first to ensure we have the latest remote state
+          git pull origin main --rebase
+
+          # 2. Add the generated images
           git add assets/og-images/*.png
           
-          # Logic: Only proceed if there are changes
+          # 3. Logic: Only proceed if there are actual changes
           if ! git diff --quiet --staged; then
-            # Rebase ensures the push succeeds even if remote has moved forward
-            git pull --rebase origin main
-            
             # Using Date for cache-busting in the commit message
             VERSION=$(node -e "console.log(new Date().getDate())")
             git commit -m "chore: auto-generate dynamic OG images (v$VERSION) [skip ci]"
