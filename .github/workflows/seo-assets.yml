@@ -38,15 +38,12 @@ jobs:
           const CONFIG = {
             '/': { priority: 1.0, changefreq: 'weekly' },
             '/about/': { priority: 0.8, changefreq: 'monthly' },
-            
             '/call/': { priority: 0.7, changefreq: 'monthly' },
             '/case-study/': { priority: 0.5, changefreq: 'monthly' },
-            
             '/contact/': { priority: 0.8, changefreq: 'monthly' },
             '/facebook/': { priority: 0.6, changefreq: 'monthly' },
             '/gmail/': { priority: 0.5, changefreq: 'monthly' },
             '/imo/': { priority: 0.7, changefreq: 'monthly' },
-            
             '/instagram/': { priority: 0.6, changefreq: 'monthly' },
             '/linkedin/': { priority: 0.6, changefreq: 'monthly' },
             '/location/': { priority: 0.5, changefreq: 'monthly' },
@@ -55,7 +52,6 @@ jobs:
             '/privacy-policy/': { priority: 0.5, changefreq: 'monthly' },
             '/projects/': { priority: 0.8, changefreq: 'monthly' },
             '/refund-and-cancellation-policy/': { priority: 0.5, changefreq: 'monthly' },
-            
             '/resume/': { priority: 0.5, changefreq: 'monthly' },
             '/services/': { priority: 0.8, changefreq: 'monthly' },
             '/terms-of-service/': { priority: 0.5, changefreq: 'monthly' },
@@ -68,30 +64,24 @@ jobs:
             '/youtube/': { priority: 0.6, changefreq: 'monthly' }
           };
 
-          // INCLUSION LOGIC: Define what to include instead of what to skip
           const INCLUSIONS = {
-            folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund-and-cancellation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'], // Add specific subdirectories here
+            folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund-and-cancellation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
             extensions: ['.html']
           };
 
           const getHtmlFiles = (dir, fileList = []) => {
             const files = fs.readdirSync(dir);
-            
             files.forEach(file => {
               const filePath = path.join(dir, file);
               const isDirectory = fs.statSync(filePath).isDirectory();
-              const relativePath = path.relative(process.cwd(), filePath);
-              const folderName = isDirectory ? file : path.dirname(relativePath);
-
-              // Only process if it's in the allowed folders list
               if (isDirectory) {
-                if (INCLUSIONS.folders.includes(file) || file === '.') {
+                if (INCLUSIONS.folders.includes(file)) {
                   getHtmlFiles(filePath, fileList);
                 }
               } else {
-                // Only include specific extensions (like .html)
                 if (INCLUSIONS.extensions.includes(path.extname(file))) {
-                  let urlPath = filePath.replace(process.cwd(), '').replace(/\\/g, '/').replace(/index\.html$/, '');
+                  // FIX: Escaped the $ sign for shell compatibility
+                  let urlPath = filePath.replace(process.cwd(), '').replace(/\\/g, '/').replace(/index\.html\$/, '');
                   if (!urlPath.startsWith('/')) urlPath = '/' + urlPath;
                   if (!urlPath.endsWith('/')) urlPath = urlPath + '/';
                   fileList.push(urlPath);
@@ -101,7 +91,6 @@ jobs:
             return [...new Set(fileList)];
           };
 
-          // 1. SITEMAP GENERATION
           const allPages = getHtmlFiles(process.cwd());
           const sitemapEntries = allPages.map(page => {
             const settings = CONFIG[page] || { priority: 0.5, changefreq: 'monthly' };
@@ -109,7 +98,6 @@ jobs:
           }).join('\n');
 
           const sitemap = '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n' + sitemapEntries + '\n</urlset>';
-          
           fs.writeFileSync('sitemap.xml', sitemap);
           console.log('Sitemap generated for ' + allPages.length + ' pages.');
           "
@@ -120,5 +108,5 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
           git diff-index --quiet HEAD || git commit -m "Automated SEO update: $(date +'%Y-%m-%d')"
-          git push
+          git push origin main
           
