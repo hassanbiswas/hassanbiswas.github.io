@@ -27,8 +27,8 @@ jobs:
         run: npm install puppeteer
 
       - name: Generate OG Image via Script
-        shell: node {0}
         run: |
+          node -e "
           const puppeteer = require('puppeteer');
           const fs = require('fs');
           const path = './assets/og-images';
@@ -36,21 +36,31 @@ jobs:
           if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
 
           (async () => {
-            const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-            const page = await browser.newPage();
-            await page.setViewport({ width: 1200, height: 630 });
-            
-            // Load your local file
-            const htmlPath = 'file://' + process.cwd() + '/index.html';
-            await page.goto(htmlPath, { waitUntil: 'networkidle0' });
-            
-            // Cache-busting logic for the generation
-            const VERSION = new Date().getDate();
-            await page.screenshot({ path: `${path}/og-main.png` });
-            
-            await browser.close();
-            console.log('OG Image generated successfully for date:', VERSION);
+            try {
+              const browser = await puppeteer.launch({ 
+                args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+              });
+              const page = await browser.newPage();
+              await page.setViewport({ width: 1200, height: 630 });
+              
+              // Load your local file
+              const htmlPath = 'file://' + process.cwd() + '/index.html';
+              await page.goto(htmlPath, { waitUntil: 'networkidle0' });
+              
+              // Cache-busting logic: const VERSION = new Date().getDate();
+              const VERSION = new Date().getDate();
+              const fileName = 'og-main.png';
+              
+              await page.screenshot({ path: \`\${path}/\${fileName}\` });
+              
+              await browser.close();
+              console.log('OG Image generated successfully for date:', VERSION);
+            } catch (err) {
+              console.error(err);
+              process.exit(1);
+            }
           })();
+          "
 
       - name: Commit and Push Images
         run: |
