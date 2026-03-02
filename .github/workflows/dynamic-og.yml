@@ -4,32 +4,58 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *' # Monthly automation as per your preference
 
 jobs:
   generate-og:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Generate OG Images
-        # This action uses Puppeteer to take screenshots of your HTML files
-        uses: potatoqualitee/ogimage@v1.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          # Path to your custom CSS if you want a specific brand look
-          # Uses your brand color HSL(240, 80%, 50%) logic
-          stylesheet: './assets/css/og-style.css'
-          output-path: './assets/og-images'
-          # Set a custom template or let it capture the actual page content
-          template-path: './index.html' 
+          node-version: '20'
+
+      - name: Install Puppeteer
+        run: npm install puppeteer
+
+      - name: Generate OG Image via Script
+        shell: node {0}
+        run: |
+          const puppeteer = require('puppeteer');
+          const fs = require('fs');
+          const path = './assets/og-images';
+          
+          if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
+
+          (async () => {
+            const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+            const page = await browser.newPage();
+            await page.setViewport({ width: 1200, height: 630 });
+            
+            // Load your local file
+            const htmlPath = 'file://' + process.cwd() + '/index.html';
+            await page.goto(htmlPath, { waitUntil: 'networkidle0' });
+            
+            // Cache-busting logic for the generation
+            const VERSION = new Date().getDate();
+            await page.screenshot({ path: `${path}/og-main.png` });
+            
+            await browser.close();
+            console.log('OG Image generated successfully for date:', VERSION);
+          })();
 
       - name: Commit and Push Images
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/og-images/*.png
-          # Prevent error if no changes
-          git diff --quiet && git diff --staged --quiet || git commit -m "chore: auto-generate dynamic OG images [skip ci]"
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-generate dynamic OG images [skip ci]" && git push)
+          
