@@ -1,6 +1,6 @@
 # Hassan Biswas
 ### Web Developer | Hassan Biswas — UI/UX & Front-End Architecture
-###### @hassanbiswas
+###### @hassanbiswas.github.io
 
 Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
 
@@ -18,19 +18,19 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
     |-----------|------------------------------------------------|
     | Portfolio | hassanbiswas.github.io                         |
     |-----------|------------------------------------------------|
-    | Messenger | m.me/hassanbiswas.github.io                    |
+    | Messenger | hassanbiswas.github.io/messenger               |
     |-----------|------------------------------------------------|
     | Phone     | (+880) 1602-873384                             |
     |-----------|------------------------------------------------|
-    | Gmail     | hassanbiswas.github.io@gmail.com               |
+    | Gmail     | https://hassanbiswas.github.io@gmail.com               |
     |-----------|------------------------------------------------|
     | WhatsApp  | (+880) 1602-873384                             |
 
   
  ## Follow My Work
-   * Facebook__: https://facebook.com/hassanbiswas.github.io
-   * Instagram_: https://instagram.com/hassanbiswas.github.io
-   * Threads___: https://threads.com/hassanbiswas.github.io
+   * Facebook__: https://hassanbiswas.github.io/facebook
+   * Instagram_: https://hassanbiswas.github.io/instagram
+   * Threads___: https://hassanbiswas.github.io/threads
 
 
 ## Acknowledgements:
