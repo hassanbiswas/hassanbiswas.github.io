@@ -1,4 +1,4 @@
-# Web Developer : Hassan Biswas APK
+# Web Developer | Hassan Biswas — UI/UX & Front-End Architecture APK
 @hassanbiswas.github.io
 
 ## Webview Application
