@@ -6,7 +6,7 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
 
 ## Tech Stack & Tools
-  * Languages: HTML5, CSS3, JavaScript (ES6+)
+  * Languages: HTML, CSS, JavaScript
   * UI/UX Design: Figma, Framer
   * No-Code/Low-Code: Figma, Webflow, Relume
   * Deployment: GitHub Pages
