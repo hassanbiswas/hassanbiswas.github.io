@@ -1,17 +1,17 @@
 /**
  * Web Developer | Hassan Biswas
- * Automated Versioning Logic
+ * Automated Dynamic Versioning & Cache-Busting Logic
  */
 
-// 1. Manually update this single string when you push a big update.
-// Or use: 
-const VERSION = 19;
-// const VERSION = 19;
+// 1. Dynamic Versioning (Format: YYYY.M.D)
+// This automates updates daily to ensure zero-maintenance cache-busting.
+const now = new Date();
+const VERSION = `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`;
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = '/index.html'; // /offline.html
+const OFFLINE_URL = '/index.html'; // offline.html
 
-// 2. Logic to map your assets with the version automatically
+// 2. Logic to map assets with the dynamic version automatically
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -21,7 +21,7 @@ const ASSETS_TO_CACHE = [
   OFFLINE_URL
 ].map(url => (url === '/' || url === OFFLINE_URL) ? url : `${url}?v=${VERSION}`);
 
-// Install Event
+// Install Event: Initialize Cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -32,7 +32,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate Event: Automatic Cleanup
+// Activate Event: Automatic Cleanup of Old Caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -54,6 +54,7 @@ self.addEventListener('fetch', (event) => {
     fetch(event.request)
       .catch(() => {
         return caches.match(event.request).then((response) => {
+          // Return cached asset or fallback to offline page
           return response || caches.match(OFFLINE_URL);
         });
       })
