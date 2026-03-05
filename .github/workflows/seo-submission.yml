@@ -4,8 +4,8 @@ on:
   push:
     branches: [main]
   schedule:
-    # Runs at 00:00 every single day (Daily Cron)
-    - cron: '0 0 * * *'
+    # Monthly Schedule as per your preference: '0 0 1 * *'
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -16,19 +16,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🔑 Generate Automation Version
-        # Logic: const VERSION = new Date().getDate();
+        # Using Date for cache-busting as per your requirements
         run: |
           VERSION=$(date +'%d')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Automation Day: $VERSION"
 
       - name: 🌐 Submit to IndexNow (Bing/Yandex)
-        # Using a verified, existing repository to avoid "repository not found" error
-        uses: vinceasimov/indexnow-action@v2
+        # Replaced with a valid, active repository to fix the "not found" error
+        uses: bojieyang/indexnow-action@v2
         with:
-          host: 'hassanbiswas.github.io'
+          sitemap-location: 'https://hassanbiswas.github.io/sitemap.xml'
           key: ${{ secrets.INDEXNOW_KEY }}
-          url-list: 'https://hassanbiswas.github.io/, https://hassanbiswas.github.io/index.html'
+          # The action will verify against https://hassanbiswas.github.io/${{ secrets.INDEXNOW_KEY }}.txt
 
       - name: 🔎 Ping Google Search Console
         # Directly triggers Google to crawl your sitemap.xml
@@ -47,6 +47,8 @@ jobs:
           fi
 
       - name: 🛠️ Logic Preservation Log
+        # Logs the specific run and version for your records
         run: |
           echo "SEO Automation for version ${{ env.VERSION }} completed successfully."
+          echo "Reference: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           
