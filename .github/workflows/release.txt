@@ -24,8 +24,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Versioning Logic: YearMonthDay for internal tracking
-          VERSION=$(date +%Y%m%d)
+          # 1. Dynamic Versioning Logic: Format YYYY.M.D (e.g., 2026.3.5)
+          # Using sed to remove leading zeros from Month and Day for a cleaner dynamic version
+          VERSION=$(date +'%Y.%m.%d' | sed 's/\.0/./g')
           echo "Processing version: $VERSION"
 
           # 2. Flattening Logic: Check for single wrapper folder in app/assets
