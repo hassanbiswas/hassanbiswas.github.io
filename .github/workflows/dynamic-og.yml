@@ -5,7 +5,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *' # Monthly automation
+    - cron: '0 0 1 * *' # Monthly schedule logic
 
 jobs:
   generate-og:
@@ -24,7 +24,8 @@ jobs:
           node-version: '20'
 
       - name: Install Puppeteer
-        run: npm install puppeteer
+        # Use --no-save to prevent modifying package.json/package-lock.json
+        run: npm install puppeteer --no-save
 
       - name: Generate OG Image via Script
         run: |
@@ -38,16 +39,16 @@ jobs:
           (async () => {
             try {
               const browser = await puppeteer.launch({ 
-                executablePath: '/usr/bin/google-chrome',
                 args: ['--no-sandbox', '--disable-setuid-sandbox'] 
               });
               const page = await browser.newPage();
               await page.setViewport({ width: 1200, height: 630 });
               
+              // Local file path logic
               const htmlPath = 'file://' + process.cwd() + '/index.html';
               await page.goto(htmlPath, { waitUntil: 'networkidle0' });
               
-              // Date-based cache-busting logic
+              // Date-based cache-busting versioning
               const VERSION = new Date().getDate();
               const fileName = 'og-main.png';
               
@@ -64,23 +65,24 @@ jobs:
 
       - name: Commit and Push Images
         run: |
-          # Configure identity first
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Stage changes BEFORE pulling/rebasing to avoid the "unstaged changes" error
-          git add assets/og-images/*.png
+          # Clean up any accidental changes to package files to keep repo clean
+          git checkout package.json package-lock.json || true
           
-          # Check if there are actual changes to commit
-          if ! git diff --quiet --staged; then
-            # Pull with rebase, autostashing the staged changes
-            git pull origin main --rebase --autostash
-            
-            # Using Date for cache-busting in the commit message
-            VERSION=$(node -e "console.log(new Date().getDate())")
+          # Stage the specific asset
+          git add assets/og-images/og-main.png
+          
+          # Cache-busting Logic using Date
+          VERSION=$(node -e "console.log(new Date().getDate())")
+          
+          if ! git diff --cached --quiet; then
+            # Rebase to ensure a clean history before pushing
+            git pull origin main --rebase
             git commit -m "chore: auto-generate dynamic OG images (v$VERSION) [skip ci]"
             git push origin main
           else
-            echo "No changes to commit"
+            echo "No changes detected in OG image."
           fi
           
