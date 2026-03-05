@@ -1,17 +1,17 @@
 /**
  * Web Developer | Hassan Biswas
- * Automated Dynamic Versioning & Cache-Busting Logic
+ * Automated Dynamic Versioning & Cache-Busting Logic (YY.MM.DD)
  */
 
-// 1. Dynamic Versioning (Format: YYYY.M.D)
-// This automates updates daily to ensure zero-maintenance cache-busting.
 const now = new Date();
-const VERSION = `${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`;
+const YY = now.getFullYear().toString().slice(-2);
+const MM = (now.getMonth() + 1).toString().padStart(2, '0');
+const DD = now.getDate().toString().padStart(2, '0');
+const VERSION = `${YY}.${MM}.${DD}`;
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = '/index.html'; // offline.html
+const OFFLINE_URL = '/index.html';
 
-// 2. Logic to map assets with the dynamic version automatically
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -21,7 +21,6 @@ const ASSETS_TO_CACHE = [
   OFFLINE_URL
 ].map(url => (url === '/' || url === OFFLINE_URL) ? url : `${url}?v=${VERSION}`);
 
-// Install Event: Initialize Cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -32,7 +31,6 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate Event: Automatic Cleanup of Old Caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -48,15 +46,12 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event: Network-first Strategy
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    fetch(event.request)
-      .catch(() => {
-        return caches.match(event.request).then((response) => {
-          // Return cached asset or fallback to offline page
-          return response || caches.match(OFFLINE_URL);
-        });
-      })
+    fetch(event.request).catch(() => {
+      return caches.match(event.request).then((response) => {
+        return response || caches.match(OFFLINE_URL);
+      });
+    })
   );
 });
