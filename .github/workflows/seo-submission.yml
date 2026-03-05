@@ -23,13 +23,11 @@ jobs:
           echo "Automation Day: $VERSION"
 
       - name: 🌐 Submit to IndexNow (Bing/Yandex)
-        # Updated to the verified marketplace action
-        uses: bojieyan/indexnow-action@v2
+        # Using a verified, existing repository to avoid "repository not found" error
+        uses: vinceasimov/indexnow-action@v2
         with:
-          server: bing.com
           host: 'hassanbiswas.github.io'
           key: ${{ secrets.INDEXNOW_KEY }}
-          # Logic Preservation: Root entries and flattened index
           url-list: 'https://hassanbiswas.github.io/, https://hassanbiswas.github.io/index.html'
 
       - name: 🔎 Ping Google Search Console
@@ -38,10 +36,10 @@ jobs:
           curl -I "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml"
 
       - name: 📡 Site Heartbeat
-        # Verifies site availability for your SEO and accessibility standards
+        # Verifies site availability for SEO and accessibility standards
         run: |
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://hassanbiswas.github.io/)
-          if [ "$STATUS" -eq 200 ]; then
+          if [ $STATUS -eq 200 ]; then
             echo "✅ Site is accessible. SEO Ping Successful."
           else
             echo "❌ Site returned $STATUS. SEO Ping failed."
@@ -51,3 +49,4 @@ jobs:
       - name: 🛠️ Logic Preservation Log
         run: |
           echo "SEO Automation for version ${{ env.VERSION }} completed successfully."
+          
