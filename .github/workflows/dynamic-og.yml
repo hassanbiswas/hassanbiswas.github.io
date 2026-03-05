@@ -24,7 +24,6 @@ jobs:
           node-version: '20'
 
       - name: Install Puppeteer
-        # Use --no-save to prevent modifying package.json/package-lock.json
         run: npm install puppeteer --no-save
 
       - name: Generate OG Image via Script
@@ -33,56 +32,47 @@ jobs:
           const puppeteer = require('puppeteer');
           const fs = require('fs');
           const path = './assets/og-images';
-          
+
           if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
 
           (async () => {
             try {
-              const browser = await puppeteer.launch({ 
-                args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+              const browser = await puppeteer.launch({
+                args: ['--no-sandbox', '--disable-setuid-sandbox']
               });
               const page = await browser.newPage();
               await page.setViewport({ width: 1200, height: 630 });
-              
+
               // Local file path logic
               const htmlPath = 'file://' + process.cwd() + '/index.html';
               await page.goto(htmlPath, { waitUntil: 'networkidle0' });
-              
+
               // Date-based cache-busting versioning
               const VERSION = new Date().getDate();
               const fileName = 'og-main.png';
-              
+
               await page.screenshot({ path: path + '/' + fileName });
-              
               await browser.close();
-              console.log('OG Image generated successfully. Version Day:', VERSION);
+              console.log('OG Image generated successfully');
             } catch (err) {
               console.error(err);
               process.exit(1);
             }
-          })();
-          "
+          })();"
 
-      - name: Commit and Push Images
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Clean up any accidental changes to package files to keep repo clean
-          git checkout package.json package-lock.json || true
-          
-          # Stage the specific asset
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/og-images/og-main.png
           
-          # Cache-busting Logic using Date
-          VERSION=$(node -e "console.log(new Date().getDate())")
-          
-          if ! git diff --cached --quiet; then
-            # Rebase to ensure a clean history before pushing
-            git pull origin main --rebase
-            git commit -m "chore: auto-generate dynamic OG images (v$VERSION) [skip ci]"
-            git push origin main
+          # Only commit if there are changes to avoid empty commit errors
+          if git diff --staged --quiet; then
+            echo "No changes to image, skipping push."
           else
-            echo "No changes detected in OG image."
+            git commit -m "chore: update dynamic OG image [cache-bust $(date +%d)]"
+            # Use pull --rebase with autostash to handle the "unstaged changes" error
+            git pull --rebase --autostash
+            git push
           fi
           
