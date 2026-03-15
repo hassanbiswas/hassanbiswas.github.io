@@ -7,7 +7,7 @@ const now = new Date();
 const YY = now.getFullYear().toString().slice(-2);
 const MM = (now.getMonth() + 1).toString().padStart(2, '0');
 const DD = now.getDate().toString().padStart(2, '0');
-const VERSION = `${YY}.${MM}.${DD}`;
+const VERSION = '26.03.15';
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
 const OFFLINE_URL = '/index.html';
