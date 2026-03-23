@@ -36,3 +36,56 @@ This snippet appears under your title in search results and acts as an ad for yo
 Keywords for your name, phone number, and email address (e.g., hassanbiswas.github.io@gmail.com, +8801602873384, mdezazulhassanbiswas) are not effective SEO keywords for attracting clients.
  * Correction: Keep these visible on your Contact page, Footer, and in your CV/Resume. Search engines will naturally associate these details with your website from the body content (and structured data, if you use it).
  * Do NOT include them in your Meta Description or Page Title, as they are not what a potential client is searching for initially.
+
+
+
+SEO.txt
+
+Title, Meta Description, Headings (H1, H2), and Body Content.
+
+# Title & H1
+
+These keywords directly state your service and role.
+ * Front-End Web Developer
+ * Freelance Web Developer
+ * Custom Website Design
+ * Responsive Website Development
+
+# Description & H2:
+
+These phrases capture specific client needs and local intent.
+ * Hire Front-End Developer
+ * Small Business Website Designer
+ * Professional Portfolio Website
+ * Freelance Web Designer Jessore District (For Local SEO)
+ * Modern Interactive Website
+ * Mobile-Ready Website Development
+
+# Body & Content/Project:
+
+Use these to show your technical expertise naturally in project write-ups and a "Skills" section.
+ * HTML, CSS, JavaScript, Bootstrap
+ * Responsive Web Design
+ * Cross-Browser Compatibility
+ * UI/UX Design Trends
+ * Web Performance Optimization
+ * Static Website
+ * SEO-Friendly Website
+
+
+🛠️ Suggestions for Meta Tags:
+
+# title ( 60 > Characters):
+Include your primary keyword, your name/brand, and a strong value proposition.
+
+>>> Web Developer | Responsive Website Design & Front-End Development
+
+# meta description (160 > Characters):
+This snippet appears under your title in search results and acts as an ad for your page. It should be compelling and include your primary keywords.
+
+>>> Freelance Front-End Developer, Hassan Biswas, specializing in modern, mobile-ready, and SEO-friendly custom website design. Let's build your professional online brand.
+
+# Contact-page footer cv/resume:
+Personal & Contact Keywords (Avoid in Meta Tags).
+
+>>> Keywords for your name, phone number, email address (e.g., hassanbiswas.github.io@gmail.com, +8801602873384, hassanbiswas.github.io).
