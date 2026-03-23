@@ -3,51 +3,127 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Home | Hassan Biswas — UI/UX &amp; Front-End Architecture
-  </title>
-  <style>
-   body { font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-                                h1, h2 { color: #222; }
-                                        .contact-info { background: #f4f4f4; padding: 15px; border-radius: 5px; }
-                                                footer { margin-top: 50px; font-size: 0.9em; color: #666; }
-  </style>
-  <meta content="Expert Home by Hassan Biswas. Featuring Edge-Native Apps, Awwwards Aesthetics, Semantic HTML. Optimized for March 2026. Ver: 1" name="description"/>
-  <meta content="Hassan Biswas, Home, Edge-Native Apps, Awwwards Aesthetics, Semantic HTML, Web Developer, UI/UX" name="keywords"/>
-  <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
   <meta content="Hassan Biswas" name="author"/>
+  <script defer>
+   // Your updated logic automation: Changes once per day
+      const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
+
+      const injectAsset = (type, path, media = 'all') => {
+      const versionedPath = `${path}?v=${VERSION}`;
+        if (type === 'css') {
+          document.write(`<link rel="stylesheet" href="${versionedPath}" media="${media}">`);
+        } else {
+        document.write(`<script defer src="${versionedPath}"><\/script>`);
+        }
+      };
+
+      injectAsset('css', 'https://hassanbiswas.github.io/assets/css/style.css');
+      injectAsset('css', 'https://hassanbiswas.github.io/assets/css/animation.css', '(prefers-reduced-motion: none)');
+      injectAsset('js', 'https://hassanbiswas.github.io/components/notch-section.js');
+      injectAsset('js', 'https://hassanbiswas.github.io/components/header-section.js');
+      injectAsset('js', 'https://hassanbiswas.github.io/components/footer-section.js');
+      injectAsset('js', 'https://hassanbiswas.github.io/components/navigation-section.js');
+      injectAsset('js', 'https://hassanbiswas.github.io/components/toast-section.js');
+      injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
+  </script>
+  <title>
+   Privacy Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+  </title>
  </head>
- <body>
-  <header>
+ <body onload="myScript()">
+  <!--/// body starts here! -->
+  <!--/// #loader starts here!  id="loader" -->
+  <loader-section></loader-section>
+  <!-- loader ends ///-->
+
+  <!--/// #notch starts here! -->
+  <notch-section></notch-section>
+  <!-- notch ends ///-->
+
+  <!--/// #header starts here! -->
+    <header-section></header-section>
+  <!-- header ends ///-->
+
+  <!--/// #main starts here! -->
+  <main>
+     
+    <!--/// Info starts here! -->
+      <info-section></info-section>
+    <!-- Info ends ///-->
+
+  </main>
+  <!-- main ends ///-->
+
+  <!--/// #footer starts here! -->
+    <footer-section></footer-section>
+  <!-- footer ends ///-->
+
+  <!-- navigation menu -->
+    <navigation-section id="bottom-navigation"></navigation-section>
+
+  <!--/// #toast starts here! -->
+  <toast-section></toast-section>
+  <!-- toast ends ///-->
+  <!-- body ends ///-->
+  <!--  ----------- js code goes here! ------------ -->
+
+  <script type="text/javascript">
+    // developed in mobile
+    let myScript = () => {
+
+     
+      // =========== Variables ============
+     
+      // =========== Function ============
+document.title = `Privacy Policy | Hassan Biswas — UI/UX & Front-End Architecture`;
+// updated section
+/**
+ * Section Component
+ * Focus: Performance, SEO, and Clean Logic
+ * Build: 2026-03-02
+ */
+class InfoSection extends HTMLElement {
+  connectedCallback() {
+    // 2. Create an off-screen Template
+    const template = document.createElement('template');
+    
+    // 3. Define the HTML 
+
+    template.innerHTML = `
+
+      <section class="fluid-grid-system info-section">
+       <div class="container-md">
+         <div class="row">
+
+<div class="row">
    <h1>
-    Expert Home Solutions
+     Privacy Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
    </h1>
    <p>
-    Last Updated: December 24, 2025
+    <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
    </p>
-  </header>
-  <section>
+
    <p>
-    Welcome to
-    <strong>
-     hassanbiswas.github.io
-    </strong>
-    . As a Web Developer, I value your privacy and am committed to protecting any personal information you share with me.
+     As a Web Developer, I value your privacy and am committed to protecting any personal information you share with me.
    </p>
-  </section>
-  <section>
-   <h2>
-    1. Information I Collect
-   </h2>
-   <p>
-    I may collect the following types of information when you interact with my website or inquire about my front-end development services:
-   </p>
-   <ul>
+  </div>
+
+
+
+  <ol class="row">
     <li>
+      <h2>
+        Information I Collect
+      </h2>
+      <p>
+         I may collect the following types of information:
+      </p>
+      <ul>
+        <li>
      <strong>
       Contact Data:
      </strong>
-     Name, email address, and phone number provided via contact forms.
+     Name, email and phone number.
     </li>
     <li>
      <strong>
@@ -60,80 +136,108 @@
       Project Data:
      </strong>
      Information regarding your website requirements and design preferences.
+        </li>
+      </ul>
     </li>
-   </ul>
-  </section>
-  <section>
-   <h2>
-    2. How I Use Your Information
-   </h2>
-   <p>
-    The information collected is used solely to:
-   </p>
-   <ul>
+
+
+
     <li>
-     Provide and improve my web design and development services.
+      <h2>
+        How I Use Your Information
+      </h2>
+      <p>
+        The information collected is used to:
+      </p>
+      <ul>
+    <li>
+     Provide and improve services.
     </li>
     <li>
-     Communicate with you regarding project inquiries or updates.
+     Communicate with regarding project inquiries or updates.
     </li>
     <li>
      Analyze website performance to enhance user experience.
     </li>
-   </ul>
-  </section>
-  <section>
-   <h2>
-    3. Third-Party Services
-   </h2>
-   <p>
-    I do not sell or trade your personal information. However, my website is hosted on GitHub Pages, which may collect server logs. I may also use tools like Google Analytics to monitor traffic.
-   </p>
-  </section>
-  <section>
-   <h2>
-    4. Your Rights
-   </h2>
-   <p>
-    You have the right to request access to the personal data I hold about you, or to request that I delete any personal information by contacting me directly.
-   </p>
-  </section>
-  <section class="contact-info">
-   <h2>
-    5. Contact Me
-   </h2>
-   <p>
-    If you have any questions about this Privacy Policy, please contact me:
-   </p>
-   <ul>
+      </ul>
+    </li>
+
+
+
     <li>
-     <strong>
-      Website:
-     </strong>
-     <a href="https://hassanbiswas.github.io">
+      <h2>
+        Third-Party Services
+      </h2>
+      <p>
+        I do not sell or trade your personal information. However, if website is hosted on GitHub Pages, which may collect server logs. Also use tools like Google Analytics to monitor traffic.
+      </p>
+    </li>
+
+
+
+    <li>
+      <h2>
+        Your Rights
+      </h2>
+      <p>
+        You have the right to request access to the personal data I hold about you, or to request that I delete any personal information by contacting me directly.
+      </p>
+    </li>
+
+
+
+    <li>
+      <h2>
+        Contact Me
+      </h2>
+      <p>
+        If you have any questions about this Privacy Policy, please contact me:
+      </p>
+      <ul>
+    <li>
+     <a href="hassanbiswas.github.io">
       hassanbiswas.github.io
      </a>
     </li>
     <li>
-     <strong>
-      Email:
-     </strong>
-     <a href="mailto:hassanbiswas.github.io@gmail.com">
+     <a href="hassanbiswas.github.io/gmail">
       hassanbiswas.github.io@gmail.com
      </a>
     </li>
     <li>
-     <strong>
-      Phone:
-     </strong>
-     +8801602873384
+     (+880)<a href="hassanbiswas.github.io/call">
+      1602-873384
+     </a>
     </li>
-   </ul>
-  </section>
-  <footer>
-   <p>
-    © 2026 Web Developer | Hassan Biswas. All rights reserved.
-   </p>
-  </footer>
+      </ul>
+    </li>
+
+
+  </ol>
+
+
+         </div>
+       </div>
+      </section>
+
+    `;
+
+    // 4. THE MAGIC: Synchronous swap
+    this.replaceWith(template.content);
+  }
+}
+
+
+
+     
+      // =========== Execute ============
+
+// Define the custom element
+if (!customElements.get("info-section")) {
+  customElements.define("info-section", InfoSection);
+}
+    }
+myScript()
+  </script>
  </body>
 </html>
