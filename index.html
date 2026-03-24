@@ -3635,7 +3635,7 @@
 
     // Cleaning the domain string for the display text (e.g., "example.com" instead of "https://example.com")
      // authore.domain = authore.siteUrl.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "");
-     authore.domain = authore.siteUrl;
+     authore.domain = false;
 
      // Now safely add the dynamic title
      authore.title = `Web Developer | ${authore.name} — UI/UX & Front-End Architecture`;
@@ -4905,7 +4905,7 @@ class FooterSection extends HTMLElement {
 
        <button style="white-space: no-wrap;" class="txt-1 flex no-wrap content-center pill" id="installApp" style="display: none; cursor: pointer; place-items: center;">
         <img class="square" alt="Android" src="https://www.google.com/s2/favicons?domain=developer.android.com&amp;sz=24"/>
-        <span>Install</span>
+        <span>↘</span>
        </button>
 
       </div>
