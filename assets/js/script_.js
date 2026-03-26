@@ -1,44 +1,3 @@
-const VERSION = 19;
-
-
-
-    // <script type="text/javascript">
-      // loading animation
-      let loader = document.querySelector('#loader'),
-        sayHello = document.querySelector('#say-hello'),
-        hello = [
-          'Hello', // english
-          'هتاف للترحيب', // arabic
-          'হ্যালো', // bangla
-          'हेलो', // hindi
-          '你好', // chinese
-          '안녕하세요', // korean
-          'こんにちは', // japanese
-          'Bonjour'; // french
-        ];
-        // until document loaded
-        let i = 0;
-        let greeting = setInterval(() => {
-          sayHello.innerText = hello[i];
-          i++;
-          i == hello.lenth ? i = 0;    
-
-          // document.addEventListener('DOMContentLoaded', () => {
-            // i == hello.lenth ? {
-              // clearInterval(greeting); 
-              // loader.style = 'display: none;';
-            // }
-          // });
-        }, 1000);
-
-      document.addEventListener('DOMContentLoaded', () => {
-        i == hello.lenth ? {
-          clearInterval(greeting); 
-          loader.style = 'display: none;';
-        }
-      });
-    // </script>
-
 
     // <script type="text/javascript">
       // dates functions
@@ -95,76 +54,6 @@ const VERSION = 19;
       });
     // </script>
 
-
-    // <script type="text/javascript">
-      // media content
-
-      let height = window.innerHeight,
-        width = window.innerWidth,
-        aspectRatio = (width >= height) ? `16:9` : `9:16`;
-
-      let imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
-      let mediaContents = document.querySelectorAll('img, picture, video, iframe');
-
-      let mediaPhotos = document.querySelectorAll('img, picture');
-      let mediaVideos = document.querySelectorAll('video');
-      let mediaIframes = document.querySelectorAll('iframe');
-      let mediaSvgs = document.querySelectorAll('svg');
-
-      // photo
-      mediaPhotos?.forEach(media => {
-        this.setAttribute('loading', 'lazy');
-        this.setAttribute('draggable', 'false');
-        media.style.aspectRatio = aspectRatio;
-      });
-      // video
-      mediaVideos?.forEach(media => {
-        this.setAttribute('loading', 'lazy');
-        this.setAttribute('draggable', 'false');
-        this.setAttribute('muted');
-        this.setAttribute('loop');
-        this.setAttribute('autoplay');
-        this.setAttribute('playsinline');
-        media.style.aspectRatio = aspectRatio;
-      });
-      // iframe
-      mediaIframes?.forEach(media => {
-        this.setAttribute('loading', 'lazy');
-        this.setAttribute('draggable', 'false');
-        media.style.aspectRatio = aspectRatio;
-      });
-      // svg
-      mediaSvgs?.forEach(media => {
-        this.setAttribute('loading', 'lazy');
-        this.setAttribute('draggable', 'false');
-        media.style.aspectRatio = aspectRatio;
-      });
-
-      // color from image
-      imageContainers?.forEach(container => {
-        let image = container.querySelector('img'),
-          width = image.innerWidth,
-          height = image.innerHeight,
-          canvas = container.createElement('canvas'),
-          ctx = canvas.getContext('2d');
-
-        canvas.setAttribute('inert');
-        canvas.setAttribute('aria-hidden', 'true');
-
-        canvas.innerWidth = width;
-        canvas.innerHeight = height;
-        ctx.drawImage(image, 0, 0, width, height); // img
-
-        let imageData = ctx.getImageData(x, y, 1, 1).data,
-          r = imageData[0],
-          g = imageData[1],
-          b = imageData[2];
-
-        // convrt rgb to hex 
-        let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-        container.style.setProperty(`--primary-50`, imageColor);
-      });
-    // </script>
     
 
     // <script type="text/javascript">
@@ -240,7 +129,7 @@ const VERSION = 19;
           const response = await fetch(
             `https://www.googleapis.com/youtube/v3/channels?part=snippet&${queryParam}&key=${apiKey}`
           );
-                                                                                                                                                                                                     
+
           const data = await response.json();
 
           if (!data.items || data.items.length === 0) {
@@ -257,17 +146,7 @@ const VERSION = 19;
       }
 
       // Example Usage:
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-      //  const API_KEY = 'AIzaSyDmANPgkfuP5zlqESHI1Hhy81G0UWdRgJA';
-    // sjkkpukak-jskl-sljdkd = kwkkskdlz;wjopw;msld;e;wmskdkdllde;
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
-     // ey-api-el = ljaí8i1m9pkjdk97il,mw091kmw;[jma;'''k];
+      //  const API_KEY =
       const url = 'https://www.youtube.com/@Google';
 
       getYouTubeLogo(url, API_KEY).then(photoUrl => {
@@ -278,37 +157,6 @@ const VERSION = 19;
     // </script>
     
 
-    // <script type="text/javascript">
-      // testimonials
-
-      let quote = document.querySelector('.quote'),
-        person = document.querySelector('.person'),
-        quotesButtons = document.querySelectorAll('.quotes-button'),
-        quotes = [
-          {
-            quote: `thank's a lot ${authore.name}`,
-            person: `Mariam`
-          },
-          {
-            quote: `you are great developer.`,
-            person: `Shamin`
-          },
-          {
-            quote: `hey! this is a great design.`,
-            person: `Tanveer`
-          }
-        ];
-
-      // quotes
-      quotesButtons?.forEach(button => {
-        let random = Math.flore(Math.random() * quotes.lenth);
-                                                                                                                                                                                                                                                                                                                                    
-        button.addEventListener('click', () => {
-          quote?.innerText = quotes[random].quote;
-          person?.innerText = quotes[random].person
-        });
-      });
-    // </script>
     
 
     // <script type="text/javascript">
@@ -399,7 +247,7 @@ const VERSION = 19;
       // question input + cta
       let input = document.querySelector('.visitor-question'),
         ctaBtn = document.querySelector('.visitor-question-btn');
-                                                                                                                                  
+
       input?.addEventListener('keyUp', () => {
         let question = input.value,
           ask = `https://m.me/${authore.website}?text=FAQ's${newLine}Question:${space}${question}${space}${newLine}`;
@@ -407,21 +255,6 @@ const VERSION = 19;
       });
     // </script>
 
-
-    // <script type="text/javascript">
-      //  get favicon ex. google.com 50
-      let getFavicon = (domain, size) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;
-    // </script>
-
-    // <script type="text/javascript">
-      // scroll to top
-      function scrollTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        })
-      };
-    // </script>
     
     
     // <script type="text/javascript">
@@ -675,7 +508,7 @@ const VERSION = 19;
 
           // 3. Map the clamped scroll progress (0 to totalScrollHeight) 
           // to a percentage (0 to 1)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
           const scrollPercentage = scrollProgress / totalScrollHeight;
 
           // 4. Map the percentage (0 to 1) to the video duration (0 to video.duration)
@@ -710,7 +543,7 @@ const VERSION = 19;
     
     // <script>
       // paragraph to word with space 
-      // apend or add class to arry                                                    
+      // apend or add class to arry
       // 1. Define the paragraph string (from your prompt)
       const paragraph = "This is a simple paragraph to convert into a word array.";
 
@@ -727,7 +560,7 @@ const VERSION = 19;
         // Skip empty strings that might result from multiple spaces if needed, but not strictly necessary here
         if (word) {
           const wordElement = document.createElement('span');
-                                                                                                                                                                                                                                                                                          
+
           // Set the text content of the span to the word
           wordElement.textContent = word;
           // Add the required class
@@ -926,7 +759,7 @@ const VERSION = 19;
         // We limit the translation to a maximum of 100% of the movement space.
         // The CSS transform: translateY() accepts percentage units, which are relative
         // to the element's OWN size, so we must use 'vh' (Viewport Height) units for fixed scrolling.
-                                                                                                                                                          
+
         // We limit the value just in case, though the math should keep it 0-100
         const boundedTranslateY = Math.min(scrollPercent, 100);
 
@@ -977,7 +810,7 @@ const VERSION = 19;
             el.classList.add('is-active');
           });
         });
-      };                                                                                                                                                                                                                                                                                                                               
+      };
 
       // Usage:
       staggerParagraph('.hero-text', 0.05, 0.3);
@@ -991,7 +824,7 @@ const VERSION = 19;
         let rotateX = react.top - pos;
 
         el.setProperty('--x', (rotateX / 2))
-      };                                                                                                                                                                                                                    
+      };
     // </script>
                    
     
