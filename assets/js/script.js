@@ -1,4 +1,4 @@
-
+/* 
 
       // 2. Identify if in WebView
       const isWebView = navigator.userAgent.includes("HassanBiswasApp");
@@ -19,7 +19,7 @@
         });
       }
 
-
+*/
 
 
 
