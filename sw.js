@@ -5,7 +5,7 @@
 const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = '/index.html';
+const OFFLINE_URL = '/index.html'; // offline.html
 
 const ASSETS_TO_CACHE = [
   '/',
