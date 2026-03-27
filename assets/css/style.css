@@ -2538,13 +2538,13 @@
         position: fixed;
         top: auto;
         left: 0;
-        bottom: var(--padding-inline);
+        bottom: var(--space-l);
         right: 0;
         z-index: 789;
         /* padding-block-end: var(--space-m); */
         transition: transform .4s linear;
 
-        &.scroll { transform: translateY(-150%); }
+        &.scroll { transform: translateY(-200%); }
 
         :has(#header-nav-list) {
           display: grid;

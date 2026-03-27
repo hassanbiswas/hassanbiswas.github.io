@@ -836,7 +836,7 @@ class HeroSection extends HTMLElement {
       <section id="hero" class="fluid-grid-system dark">
         <section class="container-md row">
 
-          <section style="padding-block: 0em" class="logo-marquee-wrapper stacking-container mask">
+          <section style="padding-block: 0em; scale: .8;" class="logo-marquee-wrapper stacking-container mask">
             <section style="padding-block: 0em" class="brand-logo-container">
               <section style="padding-block: 0em" id="brand-wrapper" class="brand-logo-wrapper">
                 
