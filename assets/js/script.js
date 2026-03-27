@@ -63,133 +63,133 @@ injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
 
 
       // developed in mobile
-    let myScript = () => {
+let myScript = () => {
 
-   // variable  
-   // function  
-   // execute 
-
-
-      // ###################
-      // variables
-      // ###################
+  // variable  
+  // function  
+  // execute 
 
 
-      // dates functions
-      const thisYear = new Date().getFullYear();
-      const thisMonth = new Date().getMonth() + 1; // january = 0
-      const thisDay = new Date().getDate();
+  // ###################
+  // variables
+  // ###################
 
-    // Cache-busting for assets if needed
-// Use Date for a dynamic cache-busting version or release logic
-// Logic automation for versioning
-    const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
-// Results in YY.MM.DD format (e.g., 2026.03.06)
 
-// absolute path for components
+  // dates functions
+  const thisYear = new Date().getFullYear();
+  const thisMonth = new Date().getMonth() + 1; // january = 0
+  const thisDay = new Date().getDate();
 
-// Object
-    const author = {
-      name: `Hassan Biswas`,
-      siteUrl: `hassanbiswas.github.io`,
-      photo: `https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s96-c-no?v=${VERSION}`,
-      mainFaviconSvg: `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="none" viewBox="66 66 52 52"%3E%3Cpath d="M66 66h50v50H66z" fill="transparent"/%3E%3Cpath d="M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z" fill="%231a1ae6" stroke="%231a1ae6"/%3E%3C/svg%3E`,
-      description: `<b>Freelance</b> <b>Front-End Developer</b> & Website Designer specializing in transforming Figma designs into <b>high-performance</b>, <b>SEO-friendly</b> digital experiences. Leveraging a modern stack of <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b>, I build <b>responsive</b>, <b>pixel-perfect</b> websites with a focus on clean logic and award-winning aesthetics inspired by <b>Awwwards</b>.`,
-       faviconBase64: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSJub25lIiB2aWV3Qm94PSI2NiA2NiA1MiA1MiI+PHBhdGggZD0iTTY2IDY2aDUwdjUwSDY2eiIgZmlsbD0idHJhbnNwYXJlbnQiLz48cGF0aCBkPSJNODAuMjMgNzkuMjc0aC0uMTg1bC0uMTE3LS4xMTkuMDkxLjAzNi4wNjItLjAxNGMtLjAzNS4wMDEtMTIuMDgtMTEuNTAyLTEyLjA4LTExLjUwMmgyMy4wNzF2LS4wNTljMTIuOTc5IDAgMjMuNSAxMC41MjEgMjMuNSAyMy41cy0xMC41MjEgMjMuNS0yMy41IDIzLjV2LS4yNjZsLTExLjA5MS0xMS4yODRjLS42MjQtLjUxOC0zLjI3Ny0zLjIxNi01Ljg3OS01Ljg0OC0yLjk1OS0yLjk5Ny01LjkwMi02LjAwNi01LjkwMi02LjAwNlY3OS4yNzRoMTEuODQ1bDExLjAyNyAxMS4yMDV2MS4xMTZjLTMuMDM1LS4xMDEtMTEuMTQ3LS40MTAtMTEuMTQ3LS40MTAtLjA2OC0uMDY2LjE2MiAxMC41NTguMTkgMTEuODRoMTAuOTU3di0uMTU4YzYuNDkgMCAxMS43NS01LjI2IDExLjc1LTExLjc1cy01LjI2LTExLjc1LTExLjc1LTExLjc1di0uMTcxSDgwLjAzWk05Mi4yIDkxLjYyNWMwIC4wMDUtLjQzLS4wMDctMS4xMjgtLjAzMXYtMS4xMTZaIiBmaWxsPSIjMTkxOWU2IiBzdHJva2U9IiMxOTE5ZTYiLz48L3N2Zz4=`,
-       logoBase64v2: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzaXplcz0iYW55IiBsb2FkaW5nPSJsYXp5IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikhhc3NhbiBCaXN3YXMgTG9nbyIgc3R5bGU9IndpZHRoOiAxMDAlOyBoZWlnaHQ6IGF1dG87IGRpc3BsYXk6IGJsb2NrOyI+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBkPSJNMCAwaDE5MnYxOTJIMHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgZD0iTTY2LjQ4MSA2NC41MTloLS40OTNsLS4zMDgtLjMxOS4yNDQuMDkzLjE1NC0uMDQ2Yy0uMDkgMC0zMi4zNTItMzAuNTk5LTMyLjM1Mi0zMC41OTloNjEuODE1VjMzLjVjMzQuNzY5IDAgNjIuOTU5IDI3Ljk4OSA2Mi45NTkgNjIuNDk5IDAgMzQuNTE2LTI4LjE5IDYyLjUwMS02Mi45NTkgNjIuNTAxdi0uNzFsLTMwLjA4NC0zMC42NjJjLTEuNjkzLTEuNDA5LTguODktOC43NDAtMTUuOTQ3LTE1Ljg5MS04LjAyNy04LjE0NS0xNi4wMS0xNi4zMi0xNi4wMS0xNi4zMlY2NC41MTloMzIuMTNsMjkuOTExIDMwLjQ0OXYzLjAzMWMtOC4yMzMtLjI3NS0zMC4yMzYtMS4xMTUtMzAuMjM2LTEuMTE1LS4xODYtLjE3OC40MzkgMjguNjkwLjUxNSAzMi4xNzVoMjkuNzIxdi0uNDI4YzE3LjYwNSAwIDMxLjg3Mi0xNC4yOTQgMzEuODcyLTMxLjkzcy0xNC4yNjctMzEuOTI5LTMxLjg3Mi0zMS45Mjl2LS40NjVINTYuOTQ1ek05OC41NjYgOTcuMzVjMCAuMDI3LTEuMTU4LS4wMjEtMy4wMjUtLjA3di0yLjk3OHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PC9zdmc+`,
-      logoOutlineSvg: `<svg class="logo brand-logo" fill="none" height="192" viewbox="0 0 192 192" width="192" xmlns="http://www.w3.org/2000/svg">
+  // Cache-busting for assets if needed
+  // Use Date for a dynamic cache-busting version or release logic
+  // Logic automation for versioning
+  const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+  // Results in YY.MM.DD format (e.g., 2026.03.06)
+
+  // absolute path for components
+
+  // Object
+  const author = {
+    name: `Hassan Biswas`,
+    siteUrl: `hassanbiswas.github.io`,
+    photo: `https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s96-c-no?v=${VERSION}`,
+    mainFaviconSvg: `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="none" viewBox="66 66 52 52"%3E%3Cpath d="M66 66h50v50H66z" fill="transparent"/%3E%3Cpath d="M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z" fill="%231a1ae6" stroke="%231a1ae6"/%3E%3C/svg%3E`,
+    description: `<b>Freelance</b> <b>Front-End Developer</b> & Website Designer specializing in transforming Figma designs into <b>high-performance</b>, <b>SEO-friendly</b> digital experiences. Leveraging a modern stack of <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b>, I build <b>responsive</b>, <b>pixel-perfect</b> websites with a focus on clean logic and award-winning aesthetics inspired by <b>Awwwards</b>.`,
+    faviconBase64: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSJub25lIiB2aWV3Qm94PSI2NiA2NiA1MiA1MiI+PHBhdGggZD0iTTY2IDY2aDUwdjUwSDY2eiIgZmlsbD0idHJhbnNwYXJlbnQiLz48cGF0aCBkPSJNODAuMjMgNzkuMjc0aC0uMTg1bC0uMTE3LS4xMTkuMDkxLjAzNi4wNjItLjAxNGMtLjAzNS4wMDEtMTIuMDgtMTEuNTAyLTEyLjA4LTExLjUwMmgyMy4wNzF2LS4wNTljMTIuOTc5IDAgMjMuNSAxMC41MjEgMjMuNSAyMy41cy0xMC41MjEgMjMuNS0yMy41IDIzLjV2LS4yNjZsLTExLjA5MS0xMS4yODRjLS42MjQtLjUxOC0zLjI3Ny0zLjIxNi01Ljg3OS01Ljg0OC0yLjk1OS0yLjk5Ny01LjkwMi02LjAwNi01LjkwMi02LjAwNlY3OS4yNzRoMTEuODQ1bDExLjAyNyAxMS4yMDV2MS4xMTZjLTMuMDM1LS4xMDEtMTEuMTQ3LS40MTAtMTEuMTQ3LS40MTAtLjA2OC0uMDY2LjE2MiAxMC41NTguMTkgMTEuODRoMTAuOTU3di0uMTU4YzYuNDkgMCAxMS43NS01LjI2IDExLjc1LTExLjc1cy01LjI2LTExLjc1LTExLjc1LTExLjc1di0uMTcxSDgwLjAzWk05Mi4yIDkxLjYyNWMwIC4wMDUtLjQzLS4wMDctMS4xMjgtLjAzMXYtMS4xMTZaIiBmaWxsPSIjMTkxOWU2IiBzdHJva2U9IiMxOTE5ZTYiLz48L3N2Zz4=`,
+    logoBase64v2: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzaXplcz0iYW55IiBsb2FkaW5nPSJsYXp5IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikhhc3NhbiBCaXN3YXMgTG9nbyIgc3R5bGU9IndpZHRoOiAxMDAlOyBoZWlnaHQ6IGF1dG87IGRpc3BsYXk6IGJsb2NrOyI+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBkPSJNMCAwaDE5MnYxOTJIMHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgZD0iTTY2LjQ4MSA2NC41MTloLS40OTNsLS4zMDgtLjMxOS4yNDQuMDkzLjE1NC0uMDQ2Yy0uMDkgMC0zMi4zNTItMzAuNTk5LTMyLjM1Mi0zMC41OTloNjEuODE1VjMzLjVjMzQuNzY5IDAgNjIuOTU5IDI3Ljk4OSA2Mi45NTkgNjIuNDk5IDAgMzQuNTE2LTI4LjE5IDYyLjUwMS02Mi45NTkgNjIuNTAxdi0uNzFsLTMwLjA4NC0zMC42NjJjLTEuNjkzLTEuNDA5LTguODktOC43NDAtMTUuOTQ3LTE1Ljg5MS04LjAyNy04LjE0NS0xNi4wMS0xNi4zMi0xNi4wMS0xNi4zMlY2NC41MTloMzIuMTNsMjkuOTExIDMwLjQ0OXYzLjAzMWMtOC4yMzMtLjI3NS0zMC4yMzYtMS4xMTUtMzAuMjM2LTEuMTE1LS4xODYtLjE3OC40MzkgMjguNjkwLjUxNSAzMi4xNzVoMjkuNzIxdi0uNDI4YzE3LjYwNSAwIDMxLjg3Mi0xNC4yOTQgMzEuODcyLTMxLjkzcy0xNC4yNjctMzEuOTI5LTMxLjg3Mi0zMS45Mjl2LS40NjVINTYuOTQ1ek05OC41NjYgOTcuMzVjMCAuMDI3LTEuMTU4LS4wMjEtMy4wMjUtLjA3di0yLjk3OHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PC9zdmc+`,
+    logoOutlineSvg: `<svg class="logo brand-logo" fill="none" height="192" viewbox="0 0 192 192" width="192" xmlns="http://www.w3.org/2000/svg">
 
           <path d="M0 0h192v192H0z" fill="transparent" stroke-linecap="round" stroke-linejoin="round"></path>
           <path d="M65.417 63.247h-.512l-.323-.33.252.099.173-.04c-.098.004-33.414-31.814-33.414-31.814h63.814V31c35.9 0 65 29.101 65 65s-29.1 65-65 65v-.735l-30.68-31.213c-1.723-1.43-9.063-8.893-16.258-16.173-8.185-8.29-16.325-16.612-16.325-16.612v-33.02h32.761l30.502 30.991v3.086c-8.395-.277-30.833-1.134-30.833-1.134-.189-.181.448 29.206.526 32.749h30.307v-.435c17.949 0 32.5-14.548 32.5-32.5s-14.551-32.5-32.5-32.5v-.475H64.865zm33.11 34.162c0 .013-1.19-.021-3.12-.088v-3.085z" fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
 
          </svg>`,
      
-      countryCode: `+880`,
-      phone: `8801602873384`,
-      phoneText: `1602-873384`
-     };
+    countryCode: `+880`,
+    phone: `8801602873384`,
+    phoneText: `1602-873384`
+  };
 
 
-    // Cleaning the domain string for the display text (e.g., "example.com" instead of "https://example.com")
-    author.domain = author.siteUrl.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "");
+  // Cleaning the domain string for the display text (e.g., "example.com" instead of "https://example.com")
+  author.domain = author.siteUrl.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "");
 
-     // Now safely add the dynamic title
-     author.title = `Web Developer | ${author.name} — UI/UX & Front-End Architecture`;
-     author.subTitle = `${author.name}`;
-     // maps.app.goo.gl/LPouGF9mtLHFjcDJ7
-     // https://maps.app.goo.gl/ibD4URe7LHMcNtPaA
-     author.location = `/location`; 
+  // Now safely add the dynamic title
+  author.title = `Web Developer | ${author.name} — UI/UX & Front-End Architecture`;
+  author.subTitle = `${author.name}`;
+  // maps.app.goo.gl/LPouGF9mtLHFjcDJ7
+  // https://maps.app.goo.gl/ibD4URe7LHMcNtPaA
+  author.location = `/location`;
 
-    // Replaces both literal " and URL-encoded %22 with '
-    author.faviconSvg = author.mainFaviconSvg.replace(/"|%22/g, '');
-    // same as above 
-     /* 
-     author.faviconSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E`;
-         */
+  // Replaces both literal " and URL-encoded %22 with '
+  author.faviconSvg = author.mainFaviconSvg.replace(/"|%22/g, '');
+  // same as above 
+  /* 
+  author.faviconSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E`;
+      */
 
-     author.iframeHome = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff134bb81a3bb7%3A0xe2dd7732283d1db1!2sWeb%20Developer%20%7C%20Responsive%20Website%20Design%20%26%20Front-End%20Development!5e0!3m2!1sen!2sbd!4v1770707284182!5m2!1sen!2sbd`;
-     author.iframeVillage = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff13bb28c63d57%3A0x266a14a438c0bb8f!2zQmVnYXJpdG9sYSBCYXphciB8IOCmrOCnh-Cml-CmvuCmsOCmv-CmpOCmsuCmviDgpqzgpr7gppzgpr7gprA!5e0!3m2!1sen!2sbd!4v1770707187851!5m2!1sen!2sbd`;
+  author.iframeHome = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff134bb81a3bb7%3A0xe2dd7732283d1db1!2sWeb%20Developer%20%7C%20Responsive%20Website%20Design%20%26%20Front-End%20Development!5e0!3m2!1sen!2sbd!4v1770707284182!5m2!1sen!2sbd`;
+  author.iframeVillage = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff13bb28c63d57%3A0x266a14a438c0bb8f!2zQmVnYXJpdG9sYSBCYXphciB8IOCmrOCnh-Cml-CmvuCmsOCmv-CmpOCmsuCmviDgpqzgpr7gppzgpr7gprA!5e0!3m2!1sen!2sbd!4v1770707187851!5m2!1sen!2sbd`;
 
-      // Village *****
-      const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`;
+  // Village *****
+  const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`;
 
-      // Sub-District *****
-      const monirampur = `https://maps.app.goo.gl/hNNSLwWyrDv4WgfbA`;
+  // Sub-District *****
+  const monirampur = `https://maps.app.goo.gl/hNNSLwWyrDv4WgfbA`;
 
-      // District *****
-      const jashore = `https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9`;
+  // District *****
+  const jashore = `https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9`;
 
-      // Divition *****
-      const khulna = `https://maps.app.goo.gl/FM6vxDsAPLaQErnd6`;
-      const dhaka = `https://maps.app.goo.gl/epey14ek8i1j2dyv5`;
+  // Divition *****
+  const khulna = `https://maps.app.goo.gl/FM6vxDsAPLaQErnd6`;
+  const dhaka = `https://maps.app.goo.gl/epey14ek8i1j2dyv5`;
 
-      // Country *****
-      const bangladesh = `https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9`;
-      const india = `https://maps.app.goo.gl/pMs2qXFPBE9mSnRP6`;
-      const pakistan = `https://maps.app.goo.gl/Jni2cwJ5fni58ACg9`;
-      const china = `https://maps.app.goo.gl/qG5xJbk1CwURQ8uZ9`;
-      const japan = `https://maps.app.goo.gl/yoYtyEydmeEZP7Sp6`;
+  // Country *****
+  const bangladesh = `https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9`;
+  const india = `https://maps.app.goo.gl/pMs2qXFPBE9mSnRP6`;
+  const pakistan = `https://maps.app.goo.gl/Jni2cwJ5fni58ACg9`;
+  const china = `https://maps.app.goo.gl/qG5xJbk1CwURQ8uZ9`;
+  const japan = `https://maps.app.goo.gl/yoYtyEydmeEZP7Sp6`;
 
-      // States *****
-      const uae = `https://maps.app.goo.gl/VwchnJgZWWYs8KHR9`;
-      const uk = `https://maps.app.goo.gl/NVBYjcfqJ2w6tkAe8`;
-      const us = `https://maps.app.goo.gl/p3BBmD8JYCpqPt3i9`;
+  // States *****
+  const uae = `https://maps.app.goo.gl/VwchnJgZWWYs8KHR9`;
+  const uk = `https://maps.app.goo.gl/NVBYjcfqJ2w6tkAe8`;
+  const us = `https://maps.app.goo.gl/p3BBmD8JYCpqPt3i9`;
 
-      // Continent *****
-      const asia = `https://maps.app.goo.gl/eMssXoAjXHkpfcry8`;
-      const africa = `https://maps.app.goo.gl/tenD5kgxxPRemmHy9`;
-      const northAmerica = `https://maps.app.goo.gl/Z7oSTNzY7TETsesz7`;
-      const southAmerica = `https://maps.app.goo.gl/pmqqPp2w7RF2ve9KA`;
-      const antarctica = `https://maps.app.goo.gl/3gspcf93bA8qZRD69`;
-      const europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`;
-      const oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
+  // Continent *****
+  const asia = `https://maps.app.goo.gl/eMssXoAjXHkpfcry8`;
+  const africa = `https://maps.app.goo.gl/tenD5kgxxPRemmHy9`;
+  const northAmerica = `https://maps.app.goo.gl/Z7oSTNzY7TETsesz7`;
+  const southAmerica = `https://maps.app.goo.gl/pmqqPp2w7RF2ve9KA`;
+  const antarctica = `https://maps.app.goo.gl/3gspcf93bA8qZRD69`;
+  const europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`;
+  const oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
 
-      const worldwide = `<a href="${asia}">Asia</a>, <a href="${africa}">Africa</a>, <a href="${northAmerica}">North America</a>, <a href="${southAmerica}">South America</a>, <a href="${europe}">Europe</a>, <a href="${oceania}">Oceania</a>`;
+  const worldwide = `<a href="${asia}">Asia</a>, <a href="${africa}">Africa</a>, <a href="${northAmerica}">North America</a>, <a href="${southAmerica}">South America</a>, <a href="${europe}">Europe</a>, <a href="${oceania}">Oceania</a>`;
 
-      const locationPrimary = `
+  const locationPrimary = `
           <a href="${jashore}">Jashore</a> 
           <a href="${khulna}">Khulna</a> 
           <a href="${bangladesh}">Bangladesh</a>`;
-      const locationSecondary = `
+  const locationSecondary = `
           <a href="${dhaka}">Dhaka</a>, 
           <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide (${worldwide})`;
 
-    const root = document.documentElement;
+  const root = document.documentElement;
 
-    const head = document.head || document.getElementsByTagName('head')[0];
-    const body = document.body || document.getElementsByTagName('body')[0];
+  const head = document.head || document.getElementsByTagName('head')[0];
+  const body = document.body || document.getElementsByTagName('body')[0];
 
-    // 2. Get the computed style of the root
-    const rootStyles = getComputedStyle(document.documentElement);
-    let primaryColor = `hsl(240, 80%, 50%)`; 
+  // 2. Get the computed style of the root
+  const rootStyles = getComputedStyle(document.documentElement);
+  let primaryColor = `hsl(240, 80%, 50%)`;
     
 
-    // <a href=""></a>
-    // review 
-    const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
-    author.direction = `https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB`;
+  // <a href=""></a>
+  // review 
+  const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
+  author.direction = `https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB`;
 
-    const urlGithub = `https://github.com/hassanbiswas`,
+  const urlGithub = `https://github.com/hassanbiswas`,
     urlFacebook = `https://www.facebook.com/hassanbiswas.github.io`,
     urlMessenger = `https://m.me/hassanbiswas.github.io`,
     urlWhatsapp = `https://wa.me/8801602873384`,
@@ -205,89 +205,113 @@ injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
     urlTiktok = `https://www.tiktok.com/@hassanbiswas.github.io`,
     urlLinkedin = `https://www.linkedin.com/in/hassanbiswas-github-io`;
     
-   // dribble, behance, etc.
+  // dribble, behance, etc.
 
-    const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ' , 'হ্যালো', 'হেই', '你好', '안녕하세요', 'こんにちは', 'Bonjour', 'Здравствуйте', 'Olá', 'हेलो'];
+  const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', 'হেই', '你好', '안녕하세요', 'こんにちは', 'Bonjour', 'Здравствуйте', 'Olá', 'हेलो'];
 
-// key specializations & skills: 
-   const specializing = [
-     { name: `Front-End Architecture`, value: `Designing scaleable and efficient user interfaces.`},
-     { name: `UI/UX Design`, value: `Creating intuitive and engaging user experiences.`},
-     { name: `Web Technologies`, value: `Expertize in modern web development standards and performance optimization.`},
-     { name: `Performance Focus`, value: `Specializes in optimizing Core Web Vitals for speed.`}
-];
+  // key specializations & skills: 
+  const specializing = [
+    { name: `Front-End Architecture`, value: `Designing scaleable and efficient user interfaces.` },
+    { name: `UI/UX Design`, value: `Creating intuitive and engaging user experiences.` },
+    { name: `Web Technologies`, value: `Expertize in modern web development standards and performance optimization.` },
+    { name: `Performance Focus`, value: `Specializes in optimizing Core Web Vitals for speed.` }
+  ];
 
-    const servicesPrimary = [
-      { name: `<del>UI/UX design</del>`, price: `50$` },
-      { name: `Web design`, price: `50$` },
-      { name: `Re-Design website`, price: `50$` },
-      { name: `Front-End development`, price: `50$` },
-      { name: `Static website`, price: `50$` },
-      { name: `Photo/image to website`, price: `50$` },
-      { name: `Figma/Framer/Webflow to website`, price: `50$` }
-    ]; 
+  const servicesPrimary = [
+    { name: `<del>UI/UX design</del>`, price: `50$` },
+    { name: `Web design`, price: `50$` },
+    { name: `Re-Design website`, price: `50$` },
+    { name: `Front-End development`, price: `50$` },
+    { name: `Static website`, price: `50$` },
+    { name: `Photo/image to website`, price: `50$` },
+    { name: `Figma/Framer/Webflow to website`, price: `50$` }
+  ];
 
-    const servicesSecondery = [
-      { name: `Custom QR code`, price: `.5$` },
-      { name: `YouTube Channel ownership transfer`, price: `1.5$` }
-    ];
-
-
+  const servicesSecondery = [
+    { name: `Custom QR code`, price: `.5$` },
+    { name: `YouTube Channel ownership transfer`, price: `1.5$` }
+  ];
 
 
-// get essential favicon by domain name
-const getFavicon = (domain, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
 
 
-// Uses
-const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
+  // get essential favicon by domain name
+  const getFavicon = (domain, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
 
-  faviconMessenger = getFavicon(`m.me`),
-  faviconYoutube = getFavicon(`youtube.com`),
 
-  // wa.me 
-  faviconMobile = getFavicon(`voice.google.com/regain`),
-  faviconWhatsapp = getFavicon(`whatsapp.com`),
+  // Uses
+  const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
 
-  // https://mail.google.com/mail/u/0/#inbox 
-  faviconGmail = getFavicon(`chat.google.com`),
-  faviconMap = getFavicon(`maps.google.com`),
+    faviconMessenger = getFavicon(`m.me`),
+    faviconYoutube = getFavicon(`youtube.com`),
 
-  faviconMeet = getFavicon(`meet.google.com`),
-  faviconBkash = getFavicon(`bka.sh`),
+    // wa.me 
+    faviconMobile = getFavicon(`voice.google.com/regain`),
+    faviconWhatsapp = getFavicon(`whatsapp.com`),
 
-  faviconFacebook = getFavicon(`facebook.com`),
-  faviconInstagram = getFavicon(`instagram.com`),
-  faviconThreads = getFavicon(`threads.com`)
+    // https://mail.google.com/mail/u/0/#inbox 
+    faviconGmail = getFavicon(`chat.google.com`),
+    faviconMap = getFavicon(`maps.google.com`),
+
+    faviconMeet = getFavicon(`meet.google.com`),
+    faviconBkash = getFavicon(`bka.sh`),
+
+    faviconFacebook = getFavicon(`facebook.com`),
+    faviconInstagram = getFavicon(`instagram.com`),
+    faviconThreads = getFavicon(`threads.com`)
   faviconX = getFavicon(`x.com`),
 
-  faviconAndroid = getFavicon(`developer.android.com`),
+    faviconAndroid = getFavicon(`developer.android.com`),
 
 
     // skills
-  faviconHtml = getFavicon(`developer.mozilla.org`),
-  faviconCss = getFavicon(`w3.org`),
-  faviconJs = getFavicon(`javascript.info`),
+    faviconHtml = getFavicon(`developer.mozilla.org`),
+    faviconCss = getFavicon(`w3.org`),
+    faviconJs = getFavicon(`javascript.info`),
       
     // tools
-  faviconVscode = getFavicon(`code.visualstudio.com`),
-  faviconBootstrap = getFavicon(`getbootstrap.com`),
-  faviconFigma = getFavicon(`figma.com`),
-  faviconWebflow = getFavicon(`webflow.com`),
-  faviconFramer = getFavicon(`framer.com`),
-  faviconGithub = getFavicon(`github.com`);
+    faviconVscode = getFavicon(`code.visualstudio.com`),
+    faviconBootstrap = getFavicon(`getbootstrap.com`),
+    faviconFigma = getFavicon(`figma.com`),
+    faviconWebflow = getFavicon(`webflow.com`),
+    faviconFramer = getFavicon(`framer.com`),
+    faviconGithub = getFavicon(`github.com`);
 
 
-const preferedLanguages = [
+  const preferedLanguages = [
     `English`, `<b>Bangla</b>`, `Hindi`
-]
+  ]
 
-/* 
-const metaKey = document.querySelector('meta[name="keywords"]');
-if (metaKey) {
-  console.log(metaKey.getAttribute('content'));
-}
-*/
+  /* 
+  const metaKey = document.querySelector('meta[name="keywords"]');
+  if (metaKey) {
+    console.log(metaKey.getAttribute('content'));
+  }
+  */
+
+
+  let metaViewport = () => {
+    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.8";
+            
+    // Attempt to find existing viewport meta tag
+    let viewport = document.querySelector('meta[name="viewport"]');
+
+    if (viewport) {
+      // Update existing tag
+      viewport.setAttribute("content", VIEWPORT_CONTENT);
+      viewport.setAttribute("data-version", VERSION);
+    } else {
+      // Create and inject new tag if missing
+      viewport = document.createElement('meta');
+      viewport.name = "viewport";
+      viewport.content = VIEWPORT_CONTENT;
+      viewport.setAttribute("data-version", VERSION);
+      document.head.appendChild(viewport);
+    }
+
+  }
+  metaViewport()
+      
 
     // ###### JavaScript variables declear golobally above ######
 
