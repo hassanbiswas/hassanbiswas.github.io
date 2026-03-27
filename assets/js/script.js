@@ -1498,11 +1498,13 @@ class FooterSection extends HTMLElement {
     // https://developer.android.com/
 
     const navigations = [
+      { name: `Home`,link: `/` },
       { name: `About`,link: `#about` },
       { name: `Services`, link: `#services` },
       { name: `Projects`, link: `#projects` },
       { name: `Contact`, link: `#contact` },
-      { name: `Case Studies`, link: `/case-studies` }
+      { name: `Case Studies`, link: `/case-studies` },
+      { name: `Templates`, link: `/templates` }
     ];
 
     const methods = [
@@ -1565,7 +1567,7 @@ class FooterSection extends HTMLElement {
      </section>
 
      <section style="" class="flex items-start">
-      <nav style="flex: 1; flex-basis: 10ch; gap: var(--space-xs);" class="row">
+      <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
        <h6 class="">
         Navigation
        </h6>
@@ -1579,7 +1581,7 @@ class FooterSection extends HTMLElement {
        </div>
       </nav>
 
-      <nav style="flex: 1; flex-basis: 10ch; gap: var(--space-xs);" class="row">
+      <nav style="flex: 1; flex-basis: 15ch; gap: var(--space-xs);" class="row">
        <h6 class="">
         Method
        </h6>
@@ -1594,7 +1596,7 @@ class FooterSection extends HTMLElement {
        </div>
       </nav>
 
-      <nav style="flex: 1; flex-basis: 10ch; gap: var(--space-xs);" class="row">
+      <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
        <h6 class="">
         Legal
        </h6>
