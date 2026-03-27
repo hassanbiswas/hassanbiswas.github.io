@@ -211,9 +211,9 @@ let myScript = () => {
 
   // key specializations & skills: 
   const specializing = [
-    { name: `Front-End Architecture`, value: `Designing scaleable and efficient user interfaces.` },
+    { name: `Front-End Architecture`, value: `Designing scalable and efficient user interfaces.` },
     { name: `UI/UX Design`, value: `Creating intuitive and engaging user experiences.` },
-    { name: `Web Technologies`, value: `Expertize in modern web development standards and performance optimization.` },
+    { name: `Web Technologies`, value: `Expertise in modern web development standards and performance optimization.` },
     { name: `Performance Focus`, value: `Specializes in optimizing Core Web Vitals for speed.` }
   ];
 
@@ -836,7 +836,7 @@ class HeroSection extends HTMLElement {
       <section id="hero" class="fluid-grid-system dark">
         <section class="container-md row">
 
-          <section style="padding-block: 0em; scale: .8;" class="logo-marquee-wrapper stacking-container mask">
+          <section style="padding-block: 0em; transform: scale(.7);" class="logo-marquee-wrapper stacking-container mask">
             <section style="padding-block: 0em" class="brand-logo-container">
               <section style="padding-block: 0em" id="brand-wrapper" class="brand-logo-wrapper">
                 
@@ -855,7 +855,7 @@ class HeroSection extends HTMLElement {
             </marquee>
           </section>
 
-        <section class="row items-center">
+          <section class="row items-center">
           <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
           <h1 class="txt-center d-non">${author.title}</h1>
           <p class="txt-center">${author.description}</p>
@@ -863,7 +863,7 @@ class HeroSection extends HTMLElement {
             <a style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill" href="#projects"><b>View My Work</b></a>
             <a class="btn btn-cta" href="#contact">Hire Me ↘</a>
           </div>
-        </section>
+          </section>
 
         </section>
       </section>
