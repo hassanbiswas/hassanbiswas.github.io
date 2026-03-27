@@ -1,10 +1,8 @@
 
-
+/* 
 
  // Your updated logic automation: Changes once per day
 const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
-
-/* 
 
 const injectAsset = (type, path, media = 'all') => {
 const versionedPath = `${path}?v=${VERSION}`;
@@ -85,7 +83,7 @@ injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
     // Cache-busting for assets if needed
 // Use Date for a dynamic cache-busting version or release logic
 // Logic automation for versioning
-    // const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
+    const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
 // Results in YY.MM.DD format (e.g., 2026.03.06)
 
 // absolute path for components
