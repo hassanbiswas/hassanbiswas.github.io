@@ -2055,7 +2055,7 @@
         background: var(--primary-50);
 
         block-size: 100dvh;
-        border-radius: 0 0 var(--section-radius) var(--section-radius);
+        /* border-radius: 0 0 var(--section-radius) var(--section-radius); */
         overflow-y: auto;
         overflow-x: clip; /* clip standalone-app */
         
@@ -2128,7 +2128,8 @@
 
         /* for parrent */
         overscroll-behavior: contain;
-        scroll-snap-type: y proximity;
+        /* scroll-snap-type: y proximity; */
+        scroll-snap-type: y mandatory;
         contain-intrinsic-size: auto 5rem; /* prevent section jumping */
         scroll-padding: 0em; /* for curossel paddin */
 
