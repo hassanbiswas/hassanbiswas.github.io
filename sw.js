@@ -19,7 +19,7 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log(`[SW] Initializing Cache: ${CACHE_NAME}`);
+      // console.log(`[SW] Initializing Cache: ${CACHE_NAME}`);
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
@@ -32,7 +32,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
-            console.log(`[SW] Deleting Old Cache: ${cache}`);
+            // console.log(`[SW] Deleting Old Cache: ${cache}`);
             return caches.delete(cache);
           }
         })
