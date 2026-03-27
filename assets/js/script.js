@@ -43,7 +43,7 @@ injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
       const isWebView = navigator.userAgent.includes("HassanBiswasApp");
       if (isWebView) {
         document.body.classList.add('app-mode');
-        console.log("App Mode Active");
+        // console.log("App Mode Active");
       }
       
 
@@ -53,8 +53,8 @@ injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('https://hassanbiswas.github.io/sw.js')
-          .then(reg => console.log('Service Worker Registered'))
-          .catch(err => console.log('Service Worker Failed', err));
+          // .then(reg => console.log('Service Worker Registered'))
+          // .catch(err => console.log('Service Worker Failed', err));
         });
       }
 
@@ -285,7 +285,7 @@ let myScript = () => {
   /* 
   const metaKey = document.querySelector('meta[name="keywords"]');
   if (metaKey) {
-    console.log(metaKey.getAttribute('content'));
+    // console.log(metaKey.getAttribute('content'));
   }
   */
 
@@ -376,7 +376,7 @@ injectIcons();
       */
       const handleConnectionChange = () => {
         if (navigator.onLine) {
-          console.log(`Connection restored. Reloading version: ${VERSION}`);
+          // console.log(`Connection restored. Reloading version: ${VERSION}`);
           window.location.reload();
         }
       };
@@ -448,13 +448,13 @@ class LoaderSection extends HTMLElement {
           
           setTimeout(() => {
             loader.remove();
-          }, 400);
+          }, 250); // 400
         } else {
           // Keep looping if offline or still loading
           i = 0; 
         }
       }
-    }, 200);
+    }, 150);
 
   }
 }
@@ -821,7 +821,7 @@ class HeroSection extends HTMLElement {
     // Configuration for easy updates
     const brandLogo = () => {
         for(i = 0; i <= 10; i++) {
-            console.log('hello world')
+            // console.log('hello world')
         }
     }
 
@@ -836,9 +836,9 @@ class HeroSection extends HTMLElement {
       <section id="hero" class="fluid-grid-system dark">
         <section class="container-md row">
 
-          <section style="padding-block: 0em; transform: scale(.7);" class="logo-marquee-wrapper stacking-container mask">
-            <section style="padding-block: 0em" class="brand-logo-container">
-              <section style="padding-block: 0em" id="brand-wrapper" class="brand-logo-wrapper">
+          <section style="padding: 0em; transform: scale(.7);" class="logo-marquee-wrapper stacking-container mask">
+            <section style="padding: 0em" class="brand-logo-container">
+              <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
                 
                   ${author.logoOutlineSvg}
                 
@@ -1871,7 +1871,7 @@ primaryColor = rootStyles.getPropertyValue('--primary-50').trim() || 'hsl(240, 8
 // detect if a user is running your web app as an installed PWA (standalone mode)
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
   if (evt.matches) {
-    console.log("Switched to Standalone Mode");
+    // console.log("Switched to Standalone Mode");
     // Run your VERSION logic or reset UI
     document.getElementsByTagName('body')[0].dataMode = 'standalone';
   }
@@ -1985,9 +1985,9 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt)
         // Wait for the user to respond to the prompt
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
+            // console.log('User accepted the install prompt');
           } else {
-            console.log('User dismissed the install prompt');
+            // console.log('User dismissed the install prompt');
           }
           deferredPrompt = null;
         });
@@ -1997,7 +1997,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt)
 
       // Logic to hide button if already installed
       window.addEventListener('appinstalled', () => {
-        console.log('PWA was installed');
+        // console.log('PWA was installed');
         installBtn.style.display = 'none';
       });
 
@@ -2223,7 +2223,7 @@ handleThemeChange(darkModeMediaQuery);
       });
 
    document.addEventListener("DOMContentLoaded", function() {
-        console.log("HTML DOM is loaded, but images might not be!");
+        // console.log("HTML DOM is loaded, but images might not be!");
         // SEO script for hight performance & ranking
    myScript();
       });

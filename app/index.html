@@ -73,7 +73,7 @@
       const isWebView = navigator.userAgent.includes("HassanBiswasApp");
       if (isWebView) {
         document.body.classList.add('app-mode');
-        console.log("App Mode Active");
+        // console.log("App Mode Active");
       }
   </script>
   <script>
@@ -81,8 +81,8 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('https://hassanbiswas.github.io/sw.js')
-          .then(reg => console.log('Service Worker Registered'))
-          .catch(err => console.log('Service Worker Failed', err));
+          // .then(reg => console.log('Service Worker Registered'))
+          // .catch(err => console.log('Service Worker Failed', err));
         });
       }
   </script>
