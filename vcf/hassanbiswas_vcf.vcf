@@ -3,12 +3,12 @@ VERSION:4.0
 FN:Hassan Biswas
 N:Biswas;Hassan;;;
 TITLE:Web Developer
-ORG:Responsive Website Design & Front-End Development
+ORG:UI/UX & Front-End Architecture
 EMAIL;TYPE=work:hassanbiswas.github.io@gmail.com
 TEL;TYPE="cell,voice";VALUE=uri:tel:+8801602873384
-ADR;TYPE=home;LABEL="Jashore, Khulna, Bangladesh":;;;Jashore;Khulna;;Bangladesh
+ADR;TYPE=home;LABEL="Jashore Khulna Bangladesh":;;;Jashore;Khulna;;Bangladesh
 URL:https://hassanbiswas.github.io
-PHOTO:https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no
+PHOTO:https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s222-c-no
 
 X-SOCIALPROFILE;TYPE=github:https://github.com/hassanbiswas
 X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/hassanbiswas.github.io
@@ -24,5 +24,5 @@ X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/8801602873384
 
 NOTE:Freelance Front-End Developer specializing in modern, mobile-ready, and SEO-friendly custom website design using HTML, CSS, JavaScript, and Figma.
 BDAY:20010115
-REV:20260208T131000Z
+REV:20260308T131000Z
 END:VCARD
