@@ -1,25 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+ <head id="meta-container">
   <meta charset="utf-8"/>
-  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="0; URL=https://hassanbiswas.github.io/#testimonials" http-equiv="refresh"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+
+  <!-- Google Tag Manager -->
+  <script>
+   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PRSSQR5H');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Google tag (gtag.js) -->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-RRCG3HZJ08">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-RRCG3HZJ08');
+  </script>
+  <!-- Google tag manager (gtag.js) -->
+<!-- Correct usage of async as an attribute -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-PRSSQR5H"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GTM-PRSSQR5H');
+</script>
+
+  <script defer>
+   // Your updated logic automation: Changes once per day
+      const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
+
+      const injectAsset = (type, path, media = 'all') => {
+      const versionedPath = `${path}?v=${VERSION}`;
+        if (type === 'css') {
+          document.write(`<link rel="stylesheet" href="${versionedPath}" media="${media}">`);
+        } else {
+        document.write(`<script defer src="${versionedPath}"><\/script>`);
+        }
+      };
+
+      injectAsset('css', 'https://hassanbiswas.github.io/assets/css/style.css');
+      injectAsset('css', 'https://hassanbiswas.github.io/assets/css/animation.css', '(prefers-reduced-motion: none)');
+      injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
+  </script>
+
+  <link href="https://hassanbiswas.github.io/manifest.json" rel="manifest"/>
+ 
+   <meta name="theme-color" content="hsl(240, 80%, 50%)"/> 
+
+  
   <title>
-   Home | Hassan Biswas — UI/UX &amp; Front-End Architecture
+   Testimonials | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
   </title>
-  <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
-  <link href="/assets/css/maintenance.css" rel="stylesheet"/>
-  <meta content="Expert Home by Hassan Biswas. Featuring Edge-Native Apps, Awwwards Aesthetics, Semantic HTML. Optimized for March 2026. Ver: 28" name="description"/>
-  <meta content="Hassan Biswas, Home, Edge-Native Apps, Awwwards Aesthetics, Semantic HTML, Web Developer, UI/UX" name="keywords"/>
-  <meta content="Hassan Biswas" name="author"/>
- </head>
- <body>
-  <h1>
-   Expert Home Solutions
-  </h1>
-  <a href="https://hassanbiswas.github.io/#testimonials">
-   View Testimonial
-  </a>
+  <meta content="Testimonials | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture" name="title"/>
+  <meta content="Testimonials | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture" name="description"/>
+  <meta content="Hassan Biswas, 
+   Testimonials | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture" name="keywords"/>
+
+  <meta content="index, follow" name="robots"/>
+
+  <script>
+      // 2. Identify if in WebView
+      const isWebView = navigator.userAgent.includes("HassanBiswasApp");
+      if (isWebView) {
+        document.body.classList.add('app-mode');
+        // console.log("App Mode Active");
+      }
+  </script>
+  <script>
+   // 3. Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('https://hassanbiswas.github.io/sw.js')
+          // .then(reg => console.log('Service Worker Registered'))
+          // .catch(err => console.log('Service Worker Failed', err));
+        });
+      }
+  </script>
+
+ </head> 
+ <body onload="myScript()"> 
+     <!-- class/id removed -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+   <iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-PRSSQR5H" style="display:none;visibility:hidden" width="0">
+   </iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!--/// body starts here! -->
+
+  <!--/// #loader starts here! -->
+  <loader-section></loader-section> 
+  <!-- loader ends ///-->
+
+  <!--/// #notch starts here! -->
+  <notch-section></notch-section> 
+  <!-- notch ends ///-->
+
+  <!--/// #header starts here! -->
+  <header-section></header-section> 
+  <!-- header ends ///-->
+
+  <!--/// #main starts here! -->
+  <main> 
+    
+    <!--/// design system -->
+    <!-- 
+
+<design-system-section></design-system-section> 
+
+    -->
+    <!-- design system ///-->
+
+    <!--/// #hero starts here! -->
+    <!-- <hero-section></hero-section> -->
+   <!-- hero ends ///-->
+
+   <!-- <section class="container-fluid" id="hero-transparent" inert="">
+   </section> -->
+
+   <!--/// #clients starts here! -->
+    <!-- <clients-section></clients-section> -->
+   <!--/// #clients ends here! -->
+
+   <!--/// #about starts here! -->
+    <!-- <about-section></about-section> -->
+   <!-- about ends ///-->
+
+   <!--/// #services starts here!  txt-bg-inverse-fluid -->
+    <!-- <services-section></services-section> -->
+   <!-- services ends! ///-->
+
+   <!--/// #projects starts here! -->
+    <!-- <projects-section></projects-section> -->
+   <!-- projects ends ///-->
+
+   <!--/// #testimonials starts here! -->
+    <testimonials-section></testimonials-section> 
+   <!-- testimonials ends ///-->
+
+   <!--/// #FAQs starts here! -->
+    <!-- <faqs-section></faqs-section> -->
+   <!-- faqs ends ///-->
+
+   <!--/// #contact starts here! -->
+    <!-- <contact-section></contact-section> -->
+   <!-- contact ends /// -->
+
+  </main>
+  <!-- main ends ///-->
+
+  <!--/// #footer starts here! -->
+    <footer-section></footer-section> 
+  <!-- footer ends ///-->
+
+  <!-- navigation menu -->
+    <navigation-section></navigation-section> 
+
+  <!--/// #toast starts here! -->
+  <toast-section></toast-section> 
+  <!-- toast ends ///-->
+
+  <!-- body ends ///-->
+  <!--  ----------- js code goes here! ------------ -->
  </body>
 </html>
