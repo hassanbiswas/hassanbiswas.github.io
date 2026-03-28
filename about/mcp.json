@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "hassanbiswas.github.io Docs": {
+      "type": "sse",
+      "url": "https://gitmcp.io/hassanbiswas/hassanbiswas.github.io"
+    }
+  }
+}
