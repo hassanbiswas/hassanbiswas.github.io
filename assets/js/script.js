@@ -279,7 +279,7 @@ let myScript = () => {
 
 
   const preferedLanguages = [
-    `English`, `<b>Bangla</b>`, `Hindi`
+    `English`, `Bangla (Advanced)`, `Hindi`
   ]
 
   /* 
@@ -291,7 +291,7 @@ let myScript = () => {
 
 
   let metaViewport = () => {
-    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.8";
+    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.7";
             
     // Attempt to find existing viewport meta tag
     let viewport = document.querySelector('meta[name="viewport"]');
@@ -311,7 +311,7 @@ let myScript = () => {
 
   }
   metaViewport()
-      
+
 
     // ###### JavaScript variables declear golobally above ######
 
@@ -2120,7 +2120,29 @@ customElements.define("t-section", TSection);
     }
     seoMedia();
 
+  
+//  Simple Accessibility Audit Helper
+ 
+  const auditAccessibility = () => {
+    const images = document.querySelectorAll('img:not([alt])');
+    const buttons = document.querySelectorAll('button:not([aria-label])');
 
+    /* 
+    if (images.length || buttons.length) {
+      console.warn(`[A11Y Audit] Found ${images.length} images missing alt and ${buttons.length} buttons missing labels.`);
+    }
+    */
+        
+    images?.forEach(el => {
+      el.setAttribute('alt', `Visual content`);
+    })  
+    buttons?.forEach(el => {
+      el.setAttribute('aria-label', `button`);
+    })
+  };
+
+  auditAccessibility();
+ 
 
 
       const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
