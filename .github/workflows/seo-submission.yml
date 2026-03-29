@@ -1,42 +1,49 @@
 name: 🚀 Daily SEO & IndexNow Automation
 
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   schedule:
-    # Monthly Schedule as per your preference: '0 0 1 * *'
+    # Runs at 00:00 on the 1st of every month
     - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
   seo-submission:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: 📂 Checkout Repository
         uses: actions/checkout@v4
 
       - name: 🔑 Generate Automation Version
-        # Using Date for cache-busting as per your requirements
+        # Logic: YY.MM.DD format for cache-busting and tracking
         run: |
-          VERSION=$(date +'%d')
+          VERSION=$(date +'%y.%m.%d')
+          COMMITTEE_MSG="Automated SEO Release - Stable Build"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Automation Day: $VERSION"
+          echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
+          
+          echo "------------------------------------------------"
+          echo "Committee Message: $COMMITTEE_MSG"
+          echo "Data Attribute (Version): $VERSION"
+          echo "------------------------------------------------"
 
       - name: 🌐 Submit to IndexNow (Bing/Yandex)
-        # Replaced with a valid, active repository to fix the "not found" error
+        # Using a reliable action to handle IndexNow protocols
         uses: bojieyang/indexnow-action@v2
         with:
           sitemap-location: 'https://hassanbiswas.github.io/sitemap.xml'
           key: ${{ secrets.INDEXNOW_KEY }}
-          # The action will verify against https://hassanbiswas.github.io/${{ secrets.INDEXNOW_KEY }}.txt
 
       - name: 🔎 Ping Google Search Console
-        # Directly triggers Google to crawl your sitemap.xml
+        # Direct ping to Google's indexing service
         run: |
           curl -I "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml"
 
       - name: 📡 Site Heartbeat
-        # Verifies site availability for SEO and accessibility standards
+        # Performance and Accessibility check
         run: |
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://hassanbiswas.github.io/)
           if [ $STATUS -eq 200 ]; then
@@ -47,8 +54,9 @@ jobs:
           fi
 
       - name: 🛠️ Logic Preservation Log
-        # Logs the specific run and version for your records
+        # Final log using the preferred VERSION logic
         run: |
           echo "SEO Automation for version ${{ env.VERSION }} completed successfully."
+          echo "Message: ${{ env.COMMITTEE_MSG }}"
           echo "Reference: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           
