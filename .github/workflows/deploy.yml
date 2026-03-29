@@ -4,15 +4,13 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '**'
   workflow_run:
     workflows: ["compression.yml"]
     types:
       - completed
   schedule:
-    # Zero Maintenance: Executes at 00:00 on the 1st and 15th of every month
-    - cron: '0 0 1,15 * *'
+    # Zero Maintenance: Executes automatically at 00:00 on the 1st of every month
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 permissions:
@@ -27,7 +25,7 @@ concurrency:
 jobs:
   process-and-deploy:
     runs-on: ubuntu-latest
-    # Logic Preservation: Only runs if push/schedule/dispatch OR successful compression
+    # Logic Preservation: Only runs if schedule/dispatch OR successful compression
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     
     environment:
@@ -49,8 +47,9 @@ jobs:
 
       - name: Set Version Logic
         run: |
+          # Logic Preservation: Standardized YY.MM.DD format
           echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
-          echo "COMMITTEE_MSG=Automated Deployment - Stable Build" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Public Deployment - Stable Build" >> $GITHUB_ENV
 
       - name: Display Release Information
         run: |
@@ -65,6 +64,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Points to the root where index.html is located in your public repo
           path: '.'
 
       - name: Deploy to GitHub Pages
