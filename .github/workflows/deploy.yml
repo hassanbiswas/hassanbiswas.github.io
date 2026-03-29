@@ -54,8 +54,10 @@ jobs:
       - name: Display Release Information
         run: |
           echo "------------------------------------------------"
-          echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
-          echo "Data Attribute (Version): ${{ env.VERSION }}"
+          # echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
+          # echo "Data Attribute (Version): ${{ env.VERSION }}"
+          echo "Committee Message: $COMMITTEE_MSG"
+          echo "Data Attribute (Version): $VERSION"
           echo "------------------------------------------------"
 
       - name: Setup Pages
