@@ -2,8 +2,8 @@ name: SEO Pulse
 
 on:
   schedule:
-    # Runs every 8 hours (00:00, 08:00, 16:00 UTC)
-    - cron: '0 */8 * * *'
+    # Runs every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 permissions:
@@ -16,25 +16,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Inject Versioning Logic
+      - name: Set Version Logic
         run: |
-          # Uses Date-based versioning for cache-busting as per your preference
-          VERSION=$(date +%d)
+          # Logic: YY.MM.DD format for automated tracking
+          VERSION=$(date +'%y.%m.%d')
+          COMMITTEE_MSG="Automated SEO Pulse - Stable Build"
           
-          # Update JS constants: const VERSION = [day];
-          sed -i "s/const VERSION = [0-9]\{1,2\};/const VERSION = $VERSION;/g" app/assets/js/*.js || true
-          
-          # Ensure SVG scaling for Chrome with sizes="any" and lazy loading
-          find . -name "*.html" -exec sed -i 's/<link rel="icon" href="[^"]*\.svg"/& sizes="any"/g' {} +
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "hassanbiswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
-          git add .
-          # Only commit if there are actual changes to avoid workflow errors
+          
+          # Updates pulse.txt to ensure there is a change to commit weekly
+          date > pulse.txt
+          git add pulse.txt
+          
           if ! git diff --cached --quiet; then
-            git commit -m "Pulse ${{ github.run_id }} - Version $(date +%d)"
+            git commit -m "${{ env.COMMITTEE_MSG }} (${{ env.VERSION }})"
             git push
           else
             echo "No changes detected, skipping commit."
