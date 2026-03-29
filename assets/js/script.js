@@ -1473,29 +1473,29 @@ let myScript = () => {
                                                                              Project Data:
                                                                                   </strong>
                                                                                        Information regarding your website requirements and design preferences.
-                                                                                               </li>
-                                                                                                     </ul>
-                                                                                                         </li>
+ </li>
+ </ul>
+ </li>
 
 
                                                                                                              <li>
-                                                                                                                   <h2>
+ <h2>
                                                                                                                            How I Use Your Information
-                                                                                                                                 </h2>
+ </h2>
                                                                                                                                        <p>
                                                                                                                                                The information collected is used to:
-                                                                                                                                                     </p>
+ </p>
                                                                                                                                                            <ul>
-                                                                                                                                                               <li>
+ <li>
                                                                                                                                                                     Provide and improve services.
                                                                                                                                                                         </li>
                                                                                                                                                                             <li>
-                                                                                                                                                                                 Communicate with regarding project inquiries or updates.
-                                                                                                                                                                                     </li>
-                                                                                                                                                                                         <li>
+ Communicate with regarding project inquiries or updates.
+ </li>
+ <li>
                                                                                                                                                                                               Analyze website performance to enhance user experience.
                                                                                                                                                                                                   </li>
-                                                                                                                                                                                                        </ul>
+ </ul>
                                                                                                                                                                                                             </li>
 
 
@@ -1504,7 +1504,7 @@ let myScript = () => {
                                                                                                                                                                                                                               Third-Party Services
                                                                                                                                                                                                                                     </h2>
                                                                                                                                                                                                                                           <p>
-                                                                                                                                                                                                                                                  I do not sell or trade your personal information. However, if website is hosted on GitHub Pages, which may collect server logs. Also use tools like Google Analytics to monitor traffic.
+ I do not sell or trade your personal information. However, if website is hosted on GitHub Pages, which may collect server logs. Also use tools like Google Analytics to monitor traffic.
                                                                                                                                                                                                                                                         </p>
     </li>
 
@@ -1859,7 +1859,7 @@ Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">m
 
                                                                                                                                                                                                                                                                                                                                // 4. THE MAGIC: Synchronous swap
                                                                                                                                                                                                                                                                                                                                    this.replaceWith(template.content);
-                                                                                                                                                                                                                                                                                                                                     }
+ }
                                                                                                                                                                                                                                                                                                                                      }
 
 
@@ -1867,7 +1867,7 @@ Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">m
                                                                                                                                                                                                                                                                                                                                           
                                                                                                                                                                                                                                                                                                                                                
   */
-  
+
 
 // updated ContactSection Component
 class ContactSection extends HTMLElement {
