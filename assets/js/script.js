@@ -1855,7 +1855,7 @@ hassanbiswas.github.io@gmail.com
 
 // updated ContactSection Component
 class ContactSection extends HTMLElement {
-  connectedCallback {
+  connectedCallback() {
     // 1. Data Source (Scalable: could be moved to a global config)
 
     // Arry od Data ###
