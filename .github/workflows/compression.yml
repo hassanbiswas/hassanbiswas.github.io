@@ -106,11 +106,11 @@ jobs:
             echo "No changes to commit"
           else
             echo "------------------------------------------------"
-            echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
-            echo "Data Attribute (Version): ${{ env.VERSION }}"
+            echo "Committee Message: $COMMITTEE_MSG"
+            echo "Data Attribute (Version): $VERSION"
             echo "------------------------------------------------"
             
-            git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
+            git commit -m "$COMMITTEE_MSG [$VERSION]"
             git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git pull --rebase --autostash
             git push
