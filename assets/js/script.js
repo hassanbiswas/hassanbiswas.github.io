@@ -1417,95 +1417,94 @@ let myScript = () => {
   }
 
 
-  /*
 
   // updated privacy-policy-section component
   class PrivacyPolicySection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
       const template = document.createElement('template');
-                   
+
       // 3. Define the HTML 
 
       template.innerHTML = `
 
-            <section class="fluid-grid-system info-section">
-                                        <div class="container-md">
-                                                 <div class="row">
+<section class="fluid-grid-system info-section">
+<div class="container-md">
+<div class="row">
 
-                                                 <div class="row">
-                                                    <h1 class="d-none">
-                                                         Privacy Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
-                                                            </h1>
-                                                               <p>
-                                                                   <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
-                                                                      </p>
+<div class="row">
+<h1 class="d-none">
+Privacy Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+</h1>
+<p>
+<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+</p>
 
-                                                                         <p>
-                                                                              As a Web Developer, I value your privacy and am committed to protecting any personal information you share with me.
-                                                                                 </p>
-                                                                                   </div>
+<p>
+As a Web Developer, I value your privacy and am committed to protecting any personal information you share with me.
+</p>
+</div>
 
 
-                                                                                     <ol class="row">
-                                                                                         <li>
-                                                                                               <h2>
-                                                                                                       Information I Collect
-                                                                                                             </h2>
-                                                                                                                   <p>
-                                                                                                                            I may collect the following types of information:
-                                                                                                                                  </p>
-                                                                                                                                        <ul>
-        <li>
-             <strong>
-                   Contact Data:
-                        </strong>
-                             Name, email and phone number.
-                                 </li>
-                                     <li>
-                                          <strong>
-                                                Technical Data:
-                                                     </strong>
-                                                          IP address, browser type, and usage patterns collected via cookies or analytics tools.
-                                                              </li>
-                                                                  <li>
-                                                                       <strong>
-                                                                             Project Data:
-                                                                                  </strong>
-                                                                                       Information regarding your website requirements and design preferences.
+<ol class="row">
+<li>
+<h2>
+Information I Collect
+</h2>
+<p>
+I may collect the following types of information:
+</p>
+<ul>
+<li>
+<strong>
+Contact Data:
+</strong>
+Name, email and phone number.
+</li>
+<li>
+<strong>
+Technical Data:
+</strong>
+IP address, browser type, and usage patterns collected via cookies or analytics tools.
+</li>
+<li>
+<strong>
+Project Data:
+</strong>
+Information regarding your website requirements and design preferences.
  </li>
  </ul>
  </li>
 
 
-                                                                                                             <li>
+<li>
  <h2>
-                                                                                                                           How I Use Your Information
+How I Use Your Information
  </h2>
-                                                                                                                                       <p>
-                                                                                                                                               The information collected is used to:
+<p>
+The information collected is used to:
  </p>
-                                                                                                                                                           <ul>
+<ul>
  <li>
-                                                                                                                                                                    Provide and improve services.
-                                                                                                                                                                        </li>
-                                                                                                                                                                            <li>
+Provide and improve services.
+</li>
+<li>
  Communicate with regarding project inquiries or updates.
  </li>
  <li>
-                                                                                                                                                                                              Analyze website performance to enhance user experience.
-                                                                                                                                                                                                  </li>
+Analyze website performance to enhance user experience.
+</li>
  </ul>
-                                                                                                                                                                                                            </li>
+</li>
 
 
-                                                                                                                                                                                                                <li>
-                                                                                                                                                                                                                      <h2>
-                                                                                                                                                                                                                              Third-Party Services
-                                                                                                                                                                                                                                    </h2>
-                                                                                                                                                                                                                                          <p>
+<li>
+<h2>
+Third-Party Services
+</h2>
+<p>
  I do not sell or trade your personal information. However, if website is hosted on GitHub Pages, which may collect server logs. Also use tools like Google Analytics to monitor traffic.
-                                                                                                                                                                                                                                                        </p>
+</p>
     </li>
 
 
@@ -1528,27 +1527,27 @@ let myScript = () => {
       </p>
       <ul>
     <li>
-     <a href="hassanbiswas.github.io">
+<a href="hassanbiswas.github.io">
       hassanbiswas.github.io
-     </a>
+</a>
     </li>
     <li>
-     <a href="hassanbiswas.github.io/gmail">
+<a href="hassanbiswas.github.io/gmail">
       hassanbiswas.github.io@gmail.com
-     </a>
+</a>
     </li>
     <li>
-     (+880)<a href="hassanbiswas.github.io/call">
+(+880)<a href="hassanbiswas.github.io/call">
       1602-873384
-     </a>
+</a>
     </li>
       </ul>
     </li>
 
   </ol>
 
-         </div>
-       </div>
+</div>
+</div>
       </section>
 
     `;
@@ -1558,8 +1557,7 @@ let myScript = () => {
     }
   }
 
-*/
-  /*
+  
 
   // refund-and-cancellation-policy-section component
   class RefundAndCancellationPolicySection extends HTMLElement {
@@ -1571,24 +1569,23 @@ let myScript = () => {
 
       template.innerHTML = `
 
-                                <section class="fluid-grid-system info-section">
+<section class="fluid-grid-system info-section">
  <div class="container-md">
-                                                <div class="row">
+<div class="row">
 
-                                                <div class="row">
+<div class="row">
  <h1>
-                                                        Refund &amp; Cancellation Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+Refund &amp; Cancellation Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
  </h1>
-                                                              <p>
-                                                                  <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+<p>
+<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
  </p>
 
-                                                                        <p>
-                                                                            Thank you for choosing my services
-                                                                                . I provide custom digital services, I want to ensure we have a clear understanding of our financial commitment before a project begins.
+<p>
+Thank you for choosing my services
+. I provide custom digital services, I want to ensure we have a clear understanding of our financial commitment before a project begins.
  </p>
  </div>
-
 
 
  <ol class="row">
@@ -1599,16 +1596,15 @@ let myScript = () => {
  <p>
  Most projects require an initial deposit (typically
  <mark>
-                                                                                                                                  30% to 50%
-                                                                                                                                      </mark>
-                                                                                                                                          ) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
-                                                                                                                                              <strong>
+30% to 50%
+</mark>
+) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
+<strong>
  Deposits are non-refundable
  </strong>
  once work has started.
  </p>
  </li>
-
 
 
  <li>
@@ -1621,23 +1617,22 @@ let myScript = () => {
   <ul>
  <li>
  If the work completed exceeds the deposit, an additional invoice will be issued.
-                  </li>
+</li>
  <li>
  If the work completed is less than the deposit, no refund of the deposit will be issued.
-                                  </li>
-                                      </ul>
-                                            </p>
-                                                </li>
+</li>
+</ul>
+</p>
+</li>
 
 
-
-                                                    <li>
-                                                          <h2>
-                                                                  Final Delivery &amp; Acceptance
-                                                                        </h2>
-                                                                              <p>
-                                                                                  Once the final files are delivered and the "Final Approval" is signed off by the client,
-                                                                                      <strong>
+<li>
+<h2>
+Final Delivery &amp; Acceptance
+</h2>
+<p>
+Once the final files are delivered and the "Final Approval" is signed off by the client,
+<strong>
  no refunds will be issued
  </strong>
  . Digital products cannot be "returned" in the traditional sense once the source code is in the client's possession.
@@ -1645,125 +1640,118 @@ let myScript = () => {
  </li>
 
 
-
  <li>
  <h2>
  Revisions
  </h2>
-                                                                                                                                           <p>
-                                                                                                                                               To ensure satisfaction, I include a specific number of revision rounds (as stated in our initial contract). This allows us to fine-tune the design and functionality before final delivery.
-                                                                                                                                                     </p>
-                                                                                                                                                         </li>
+<p>
+To ensure satisfaction, I include a specific number of revision rounds (as stated in our initial contract). This allows us to fine-tune the design and functionality before final delivery.
+</p>
+</li>
 
 
+<li>
+<h2>
+Questions &amp; Disputes | Contact Me
+</h2>
+<p>I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
+</p>
+<ul>
+<li>
+<a href="hassanbiswas.github.io">
+hassanbiswas.github.io
+</a>
+</li>
+<li>
+<a href="hassanbiswas.github.io/gmail">
+hassanbiswas.github.io@gmail.com
+</a>
+</li>
+<li>
+(+880)<a href="hassanbiswas.github.io/call">
+1602-873384
+</a>
+</li>
+</ul>
+</li>
 
-                                                                                                                                                             <li>
-                                                                                                                                                                   <h2>
-                                                                                                                                                                           Questions &amp; Disputes | Contact Me
-                                                                                                                                                                                 </h2>
-                                                                                                                                                                                       <p>I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
-                                                                                                                                                                                             </p>
-                                                                                                                                                                                                   <ul>
-                                                                                                                                                                                                       <li>
-                                                                                                                                                                                                            <a href="hassanbiswas.github.io">
-                                                                                                                                                                                                                  hassanbiswas.github.io
-                                                                                                                                                                                                                       </a>
-                                                                                                                                                                                                                           </li>
-                                                                                                                                                                                                                               <li>
-                                                                                                                                                                                                                                    <a href="hassanbiswas.github.io/gmail">
-                                                                                                                                                                                                                                          hassanbiswas.github.io@gmail.com
-                                                                                                                                                                                                                                               </a>
-                                                                                                                                                                                                                                                   </li>
-                                                                                                                                                                                                                                                       <li>
-                                                                                                                                                                                                                                                            (+880)<a href="hassanbiswas.github.io/call">
-                                                                                                                                                                                                                                                                  1602-873384
-                                                                                                                                                                                                                                                                       </a>
-                                                                                                                                                                                                                                                                           </li>
-                                                                                                                                                                                                                                                                                 </ul>
-                                                                                                                                                                                                                                                                                     </li>
+</ol>
+
+</div>
+</div>
+</section>
+
+`;
+
+// 4. THE MAGIC: Synchronous swap
+this.replaceWith(template.content);
+}
+}
 
 
-                                                                                                                                                                                                                                                                                       </ol>
-
-
-                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                       </div>
-                                                                                                                                                                                                                                                                                                             </section>
-
-                                                                                                                                                                                                                                                                                                                 `;
-
-      // 4. THE MAGIC: Synchronous swap
-      this.replaceWith(template.content);
-    }
-  }
-
-  */
-  /*
+  
 
 // updated terms-of-service-section
 class TermsOfServiceSection extends HTMLElement {
   connectedCallback() {
-      // 2. Create an off-screen Template
-          const template = document.createElement('template');
+  // 2. Create an off-screen Template
+const template = document.createElement('template');
               
-                  // 3. Define the HTML 
+// 3. Define the HTML 
 
-                      template.innerHTML = `
+template.innerHTML = `
 
-                            <section class="fluid-grid-system info-section">
-                                   <div class="container-md">
-                                            <div class="row">
+<section class="fluid-grid-system info-section">
+<div class="container-md">
+<div class="row">
 
-                                            <div class="row">
-                                               <h1>
-                                                  Terms of Service | Hassan Biswas — UI/UX &amp; Front-End Architecture
-                                                     </h1>
-                                                        <p>
-                                                            <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
-                                                               </p>
+<div class="row">
+<h1>
+Terms of Service | Hassan Biswas — UI/UX &amp; Front-End Architecture
+</h1>
+<p>
+<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+</p>
 
-                                                                  <p>
-                                                                      These terms govern the web design and front-end development services provided by
-                                                                          <strong>
-                                                                               Hassan Biswas
-                                                                                   </strong>
-                                                                                       through the website
-                                                                                           .
-                                                                                              </p>
-                                                                                                </div>
-
-
-
-                                                                                                  <ol class="row">
-                                                                                                      <li>
-                                                                                                            <h2>
-                                                                                                                    Acceptance of Terms
-                                                                                                                          </h2>
-                                                                                                                                <p>
-                                                                                                                                    By engaging in a project or using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use my services.
-                                                                                                                                          </p>
-                                                                                                                                              </li>
+<p>
+These terms govern the web design and front-end development services provided by
+<strong>
+Hassan Biswas
+</strong>
+through the website
+.
+</p>
+</div>
 
 
-
-                                                                                                                                                  <li>
+<ol class="row">
+<li>
 <h2>
-        Scope of Work
-              </h2>
-                    <p>
-                        I provide front-end development and web design services. The specific deliverables, timelines, and costs will be outlined in a separate project proposal or email agreement for each individual client.
-                              </p>
-                                  </li>
+Acceptance of Terms
+</h2>
+<p>
+By engaging in a project or using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use my services.
+</p>
+</li>
 
 
+<li>
+<h2>
+Scope of Work
+</h2>
+<p>
+I provide front-end development and web design services. The specific deliverables, timelines, and costs will be outlined in a separate project proposal or email agreement for each individual client.
+</p>
+</li>
 
-                                      <li>
-                                            <h2>
-                                                    Intellectual Property &amp; Ownership
-                                                          </h2>
-                                                                <p>
-                                                                    Upon final payment, the ownership of the final front-end code (<b>HTML, CSS, JS</b>) and design <b>assets</b> is transferred to the client. However, I reserve the right to:
-                                                                        <ul>
+
+<li>
+<h2>
+Intellectual Property &amp; Ownership
+</h2>
+<p>
+Upon final payment, the ownership of the final front-end code (<b>HTML, CSS, JS</b>) and design <b>assets</b> is transferred to the client. However, I reserve the right to:
+<ul>
 <li>
 Display the completed work in my professional portfolio.
 </li>
@@ -1775,41 +1763,40 @@ Reuse generic code snippets or libraries developed during the project.
 </li>
 
 
-
 <li>
 <h2>
 Payment Terms
 </h2>
 <p>
 Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
-      </p>
-          </li>
+</p>
+</li>
 
 
-              <li>
-                    <h2>
-                            Client Responsibilities
-                                  </h2>
-                                        <p>
-                                            The client is responsible for providing all necessary content (<b>text, images, branding</b>) in a timely manner. Delays in providing content will result in a shift in the project deadline.
-                                                  </p>
-                                                      </li>
+<li>
+<h2>
+Client Responsibilities
+</h2>
+<p>
+The client is responsible for providing all necessary content (<b>text, images, branding</b>) in a timely manner. Delays in providing content will result in a shift in the project deadline.
+</p>
+</li>
 
 
-                                                          <li>
-                                                                <h2>
-                                                                        Limitation of Liability
-                                                                              </h2>
-                                                                                    <p>
-                                                                                        I strive for perfection, but I am not liable for any lost profits, data loss, or service interruptions caused by third-party hosting, browser updates, or client-side modifications after the project is handed over.
-                                                                                              </p>
-                                                                                                  </li>
+<li>
+<h2>
+Limitation of Liability
+</h2>
+<p>
+I strive for perfection, but I am not liable for any lost profits, data loss, or service interruptions caused by third-party hosting, browser updates, or client-side modifications after the project is handed over.
+</p>
+</li>
 
 
-                                                                                                      <li>
-                                                                                                            <h2>
-                                                                                                                    Governing Law
-                                                                                                                          </h2>
+<li>
+<h2>
+Governing Law
+</h2>
 <p>
 These terms are governed by the laws of
 <mark>
@@ -1862,8 +1849,8 @@ hassanbiswas.github.io@gmail.com
  }
  }
 
- 
-  */
+
+
   
 
 // updated ContactSection Component
