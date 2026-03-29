@@ -2274,6 +2274,9 @@ if (!customElements.get("faqs-section")) {
   customElements.define("faqs-section", FaqsSection);
 }
   
+
+/*
+
 // Define the custom element
   if (!customElements.get("privacy-policy-section")) {
     customElements.define("privacy-policy-section", PrivacyPolicySection);
@@ -2288,6 +2291,9 @@ if (!customElements.get("faqs-section")) {
   if (!customElements.get("refund-and-cancelation-policy-section")) {
     customElements.define("refund-and-cancelation-policy-section", RefundAndCancelationPolicySection);
   }
+
+*/
+
 
 // Define the custom element
 if (!customElements.get("contact-section")) {
