@@ -1764,23 +1764,23 @@ class TermsOfServiceSection extends HTMLElement {
                                                                 <p>
                                                                     Upon final payment, the ownership of the final front-end code (<b>HTML, CSS, JS</b>) and design <b>assets</b> is transferred to the client. However, I reserve the right to:
                                                                         <ul>
-                                                                             <li>
-                                                                                   Display the completed work in my professional portfolio.
-                                                                                        </li>
-                                                                                             <li>
-                                                                                                   Reuse generic code snippets or libraries developed during the project.
-                                                                                                        </li>
-                                                                                                            </ul>
-                                                                                                                  </p>
-                                                                                                                      </li>
+<li>
+Display the completed work in my professional portfolio.
+</li>
+<li>
+Reuse generic code snippets or libraries developed during the project.
+</li>
+</ul>
+</p>
+</li>
 
 
 
-                                                                                                                          <li>
-                                                                                                                                <h2>
-                                                                                                                                        Payment Terms
-                                                                                                                                              </h2>
-                                                                                                                                                    <p>
+<li>
+<h2>
+Payment Terms
+</h2>
+<p>
 Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
       </p>
           </li>
@@ -1810,62 +1810,59 @@ Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">m
                                                                                                             <h2>
                                                                                                                     Governing Law
                                                                                                                           </h2>
-                                                                                                                                <p>
-                                                                                                                                    These terms are governed by the laws of
-                                                                                                                                        <mark>
-                                                                                                                                             Bangladesh
-                                                                                                                                                 </mark>
-                                                                                                                                                     . Any disputes shall be resolved through mutual discussion or within the jurisdiction of local courts.
-                                                                                                                                                           </p>
-                                                                                                                                                               </li>
-
-
-
-                                                                                                                                                                   <li>
-                                                                                                                                                                         <h2>
-                                                                                                                                                                                 Contact Information
-                                                                                                                                                                                       </h2>
-                                                                                                                                                                                             <p>
-                                                                                                                                                                                                 For any legal inquiries regarding these terms, please reach out:
-                                                                                                                                                                                                       </p>
-                                                                                                                                                                                                             <ul>
-                                                                                                                                                                                                                 <li>
-                                                                                                                                                                                                                      <a href="hassanbiswas.github.io">
-                                                                                                                                                                                                                            hassanbiswas.github.io
-                                                                                                                                                                                                                                 </a>
-                                                                                                                                                                                                                                     </li>
-                                                                                                                                                                                                                                         <li>
-                                                                                                                                                                                                                                              <a href="hassanbiswas.github.io/gmail">
-                                                                                                                                                                                                                                                    hassanbiswas.github.io@gmail.com
-                                                                                                                                                                                                                                                         </a>
-                                                                                                                                                                                                                                                             </li>
-                                                                                                                                                                                                                                                                 <li>
-                                                                                                                                                                                                                                                                      (+880)<a href="hassanbiswas.github.io/call">
-                                                                                                                                                                                                                                                                            1602-873384
-                                                                                                                                                                                                                                                                                 </a>
+<p>
+These terms are governed by the laws of
+<mark>
+Bangladesh
+</mark>
+. Any disputes shall be resolved through mutual discussion or within the jurisdiction of local courts.
+</p>
 </li>
- </ul>
-                                                                                                                                                                                                                                                                                               </li>
 
 
-                                                                                                                                                                                                                                                                                                 </ol>
+
+<li>
+<h2>
+Contact Information
+</h2>
+<p>
+For any legal inquiries regarding these terms, please reach out:
+</p>
+<ul>
+<li>
+<a href="hassanbiswas.github.io">
+hassanbiswas.github.io
+</a>
+</li>
+<li>
+<a href="hassanbiswas.github.io/gmail">
+hassanbiswas.github.io@gmail.com
+</a>
+</li>
+<li>
+(+880)<a href="hassanbiswas.github.io/call">
+1602-873384
+</a>
+</li>
+</ul>
+</li>
 
 
-                                                                                                                                                                                                                                                                                                          </div>
-                                                                                                                                                                                                                                                                                                                 </div>
-                                                                                                                                                                                                                                                                                                                       </section>
+</ol>
 
-                                                                                                                                                                                                                                                                                                                           `;
 
-                                                                                                                                                                                                                                                                                                                               // 4. THE MAGIC: Synchronous swap
-                                                                                                                                                                                                                                                                                                                                   this.replaceWith(template.content);
+</div>
+</div>
+</section>
+
+`;
+
+// 4. THE MAGIC: Synchronous swap
+ this.replaceWith(template.content);
  }
-                                                                                                                                                                                                                                                                                                                                     }
+ }
 
-
-
-                                                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                                                                                                                                                                               
+ 
   */
   
 
