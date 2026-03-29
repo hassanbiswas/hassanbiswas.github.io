@@ -313,52 +313,52 @@ let myScript = () => {
   metaViewport()
 
 
-    // ###### JavaScript variables declear golobally above ######
+  // ###### JavaScript variables declear golobally above ######
 
 
 
-      // ###################
-      // methods & functions
-      // ###################
+  // ###################
+  // methods & functions
+  // ###################
 
 
 
-/**
- * Automated Asset Loader
- * Features: Base64 Injection, Cache-Busting, Logic Preservation
- *//**
- * Injects SVG Favicons with automated versioning and responsive attributes.
- * Version: 26.03.21 (Dynamic)
- */
-const injectIcons = () => {
+  /**
+   * Automated Asset Loader
+   * Features: Base64 Injection, Cache-Busting, Logic Preservation
+   *//**
+  * Injects SVG Favicons with automated versioning and responsive attributes.
+  * Version: 26.03.21 (Dynamic)
+  */
+  const injectIcons = () => {
     
     // Define icon configurations
     const icons = [
-        { rel: 'icon' },
-        { rel: 'apple-touch-icon' },
-        { rel: 'alternate icon' }
+      { rel: 'icon' },
+      { rel: 'apple-touch-icon' },
+      { rel: 'alternate icon' }
     ];
 
     icons.forEach(iconData => {
-        // Search for existing link with the specific rel
-        let link = document.querySelector(`link[rel='${iconData.rel}']`);
+      // Search for existing link with the specific rel
+      let link = document.querySelector(`link[rel='${iconData.rel}']`);
 
-        if (!link) {
-            link = document.createElement('link');
-            link.rel = iconData.rel;
-            head.appendChild(link);
-        }
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = iconData.rel;
+        head.appendChild(link);
+      }
 
-        // Apply high-performance & SEO attributes
-        link.type = 'image/svg+xml';
-        link.href = `${author.faviconSvg}?v=${VERSION}`; // Cache-busting using date
-        link.setAttribute('sizes', 'any');
-        link.setAttribute('loading', 'lazy'); // Performance optimization
-        link.dataset.version = VERSION;
+      // Apply high-performance & SEO attributes
+      link.type = 'image/svg+xml';
+      link.href = `${author.faviconSvg}?v=${VERSION}`; // Cache-busting using date
+      link.setAttribute('sizes', 'any');
+      link.setAttribute('loading', 'lazy'); // Performance optimization
+      link.dataset.version = VERSION;
     });
-};
+  };
 
-injectIcons();
+  injectIcons();
 
 
 
@@ -366,39 +366,39 @@ injectIcons();
   const ogImg = document.querySelector('meta[property="og:image"]');
   if (ogImg) ogImg.content += `?v=${VERSION}`;
 
-// index.html only 
+  // index.html only 
   //document.title = `${author.title}`;
 
 
-   /**
-      *  * Logic Automation: Auto-refresh on network restoration
-      * Integrated with your versioning constant
-      */
-      const handleConnectionChange = () => {
-        if (navigator.onLine) {
-          // console.log(`Connection restored. Reloading version: ${VERSION}`);
-          window.location.reload();
-        }
-      };
+  /**
+     *  * Logic Automation: Auto-refresh on network restoration
+     * Integrated with your versioning constant
+     */
+  const handleConnectionChange = () => {
+    if (navigator.onLine) {
+      // console.log(`Connection restored. Reloading version: ${VERSION}`);
+      window.location.reload();
+    }
+  };
 
-      // Listen for the 'online' event
-      window.addEventListener('online', handleConnectionChange);
+  // Listen for the 'online' event
+  window.addEventListener('online', handleConnectionChange);
 
 
 
-// ### offline.html | Loading component ###
-// updated loader section
-/**
- * LoaderSection Component
- * Focus: Performance, SEO, and Clean Logic
- * Build: 2026-03-02
- */
+  // ### offline.html | Loading component ###
+  // updated loader section
+  /**
+   * LoaderSection Component
+   * Focus: Performance, SEO, and Clean Logic
+   * Build: 2026-03-02
+   */
 
-class LoaderSection extends HTMLElement {
-  connectedCallback() {
+  class LoaderSection extends HTMLElement {
+    connectedCallback() {
     
-    const template = document.createElement('template');
-    template.innerHTML = `
+      const template = document.createElement('template');
+      template.innerHTML = `
       <section id="loader" aria-hidden="true" class="fluid-grid-system" data-version="${VERSION}">
        <section class="container-md content-center"> 
         <div class="col items-center">
@@ -410,54 +410,54 @@ class LoaderSection extends HTMLElement {
       </section>
     `;
 
-    const content = template.content.cloneNode(true);
-    const sayHello = content.querySelector('#say-hello');
-    const loader = content.querySelector('#loader');
+      const content = template.content.cloneNode(true);
+      const sayHello = content.querySelector('#say-hello');
+      const loader = content.querySelector('#loader');
 
-    // 1. Initial State Checks
-    let i = 0;
-    let isPageLoaded = document.readyState === 'complete';
+      // 1. Initial State Checks
+      let i = 0;
+      let isPageLoaded = document.readyState === 'complete';
 
-    if (!isPageLoaded) {
-      window.addEventListener('load', () => { isPageLoaded = true; }, { once: true });
-    }
-
-    // 2. Insert into DOM
-    this.replaceWith(content);
-
-    // 3. Animation Logic with Connectivity Check
-    const greetingInterval = setInterval(() => {
-      sayHello.textContent = greetings[i];
-      i++;
-
-      // Reset loop if we hit the end of the array
-      if (i >= greetings.length) {
-        
-        /**
-         * The Exit Condition:
-         * - Page must be fully loaded (isPageLoaded)
-         * - Browser must be online (navigator.onLine)
-         */
-        if (isPageLoaded) {
-          clearInterval(greetingInterval);
-          
-          // Smooth Exit Animation
-          loader.style.transition = 'opacity 0.4s ease, visibility 0.4s';
-          loader.style.opacity = '0';
-          loader.style.visibility = 'hidden';
-          
-          setTimeout(() => {
-            loader.remove();
-          }, 250); // 400
-        } else {
-          // Keep looping if offline or still loading
-          i = 0; 
-        }
+      if (!isPageLoaded) {
+        window.addEventListener('load', () => { isPageLoaded = true; }, { once: true });
       }
-    }, 150);
 
+      // 2. Insert into DOM
+      this.replaceWith(content);
+
+      // 3. Animation Logic with Connectivity Check
+      const greetingInterval = setInterval(() => {
+        sayHello.textContent = greetings[i];
+        i++;
+
+        // Reset loop if we hit the end of the array
+        if (i >= greetings.length) {
+        
+          /**
+           * The Exit Condition:
+           * - Page must be fully loaded (isPageLoaded)
+           * - Browser must be online (navigator.onLine)
+           */
+          if (isPageLoaded) {
+            clearInterval(greetingInterval);
+          
+            // Smooth Exit Animation
+            loader.style.transition = 'opacity 0.4s ease, visibility 0.4s';
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
+          
+            setTimeout(() => {
+              loader.remove();
+            }, 250); // 400
+          } else {
+            // Keep looping if offline or still loading
+            i = 0;
+          }
+        }
+      }, 150);
+
+    }
   }
-}
 
 
 
@@ -465,20 +465,20 @@ class LoaderSection extends HTMLElement {
 
 
 
-// updated notch section
-/**
- * NotchSection Component
- * Focus: Performance, SEO, and Clean Logic
- * Build: 2026-03-24
- */
-class NotchSection extends HTMLElement {
-  connectedCallback() {
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+  // updated notch section
+  /**
+   * NotchSection Component
+   * Focus: Performance, SEO, and Clean Logic
+   * Build: 2026-03-24
+   */
+  class NotchSection extends HTMLElement {
+    connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML 
+      // 3. Define the HTML 
 
-    template.innerHTML = `
+      template.innerHTML = `
   <section class="container-sm collapse" id="notch">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
@@ -491,25 +491,25 @@ class NotchSection extends HTMLElement {
   </section>
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
   }
-}
 
-// updated toast section
-/**
- * ToastSection Component
- * Focus: Performance, SEO, and Clean Logic
- * Build: 2026-03-24
- */
-class ToastSection extends HTMLElement {
-  connectedCallback() {
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+  // updated toast section
+  /**
+   * ToastSection Component
+   * Focus: Performance, SEO, and Clean Logic
+   * Build: 2026-03-24
+   */
+  class ToastSection extends HTMLElement {
+    connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML 
+      // 3. Define the HTML 
 
-    template.innerHTML = `
+      template.innerHTML = `
   <section class="container-sm collapse" id="toast">
     <div class="col dialog" id="toastDialog">
      <p class="notification">
@@ -522,28 +522,28 @@ class ToastSection extends HTMLElement {
   </section>
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
   }
-}
 
 
 
 
-// updated header section
-/**
- * HeaderSection Component
- * Focus: Performance, SEO, and Clean Logic
- * Build: 2026-03-02
- */
-class HeaderSection extends HTMLElement {
-  connectedCallback() {
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+  // updated header section
+  /**
+   * HeaderSection Component
+   * Focus: Performance, SEO, and Clean Logic
+   * Build: 2026-03-02
+   */
+  class HeaderSection extends HTMLElement {
+    connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML 
+      // 3. Define the HTML 
 
-    template.innerHTML = `
+      template.innerHTML = `
       <header class="fluid-grid-system" id="header">
        <section class="container-md">
         <nav style="padding-block: var(--space-xs)" class="col">
@@ -560,109 +560,109 @@ class HeaderSection extends HTMLElement {
       </header>
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
   }
-}
 
-// Define the custom element
-if (!customElements.get("header-section")) {
-  customElements.define("header-section", HeaderSection);
-}
+  // Define the custom element
+  if (!customElements.get("header-section")) {
+    customElements.define("header-section", HeaderSection);
+  }
 
 
-// updated design-system-section
-/**
- * DesignSystemSection Component
- * Focus: Performance, SEO, and Clean Logic
- * Build: 2026-03-02
- */
-class DesignSystemSection extends HTMLElement {
-  connectedCallback() {
-    const colors = [
-       {
-           property: `txt-1`
-       },
-       {
-           property: `txt-2`
-       },
-       {
-           property: `txt-3`
-       },
-       {
-           property: `txt-primary`
-       }
-];  
-const backgrounds = [
-       {
-           property: `bg-1`
-       },
-       {
-           property: `bg-2`
-       },
-       {
-           property: `bg-3`
-       },
-       {
-           property: `primary-40`
-       },
-       {
-           property: `primary-50`
-       },
-       {
-           property: `primary-60`
-       }
-];
-    const headings = [
-       {
-           property: `h1`
-       },
-       {
-           property: `h2`
-       },
-       {
-           property: `h3`
-       },
-       {
-           property: `h4`
-       },
-       {
-           property: `h5`
-       },
-       {
-           property: `h6`
-       }
-];
-    const paragraphs = [
-       {
-           property: `p`
-       },
-       {
-           property: `p-sm`
-       },
-       {
-           property: `p-xsm`
-       }
-];
-    const buttons = [
-       {
-           property: `button`
-       },
-       {
-           property: `btn-primary`
-       },
-       {
-           property: `btn-secondary`
-       }
-];
+  // updated design-system-section
+  /**
+   * DesignSystemSection Component
+   * Focus: Performance, SEO, and Clean Logic
+   * Build: 2026-03-02
+   */
+  class DesignSystemSection extends HTMLElement {
+    connectedCallback() {
+      const colors = [
+        {
+          property: `txt-1`
+        },
+        {
+          property: `txt-2`
+        },
+        {
+          property: `txt-3`
+        },
+        {
+          property: `txt-primary`
+        }
+      ];
+      const backgrounds = [
+        {
+          property: `bg-1`
+        },
+        {
+          property: `bg-2`
+        },
+        {
+          property: `bg-3`
+        },
+        {
+          property: `primary-40`
+        },
+        {
+          property: `primary-50`
+        },
+        {
+          property: `primary-60`
+        }
+      ];
+      const headings = [
+        {
+          property: `h1`
+        },
+        {
+          property: `h2`
+        },
+        {
+          property: `h3`
+        },
+        {
+          property: `h4`
+        },
+        {
+          property: `h5`
+        },
+        {
+          property: `h6`
+        }
+      ];
+      const paragraphs = [
+        {
+          property: `p`
+        },
+        {
+          property: `p-sm`
+        },
+        {
+          property: `p-xsm`
+        }
+      ];
+      const buttons = [
+        {
+          property: `button`
+        },
+        {
+          property: `btn-primary`
+        },
+        {
+          property: `btn-secondary`
+        }
+      ];
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 <section class="fluid-grid-system" id="design-system">
     <section class="container-lg">
@@ -714,124 +714,124 @@ const backgrounds = [
 
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
-  }
-}
-
-/* 
-
-
-     <div class="flex dark">
-      <span class="html">
-       HTML 5
-      </span>
-      <span class="css">
-       CSS 3
-      </span>
-      <span class="javascript">
-       JavaScript ES6
-      </span>
-      <span class="bootstrap">
-       Bootstrap 5
-      </span>
-      <span class="figma">
-       Figma
-      </span>
-      <span class="webflow">
-       Webflow
-      </span>
-      <span class="frammer">
-       Framer
-      </span>
-      <span class="vscode">
-       VScode
-      </span>
-      <span class="github">
-       GitHub
-      </span>
-      <span class="disable" disable="">
-       GSAP
-      </span>
-     </div>
-
-
-*/
-
-
-
-    // Data array for easy updates
-    const skills = [
-      {
-        name: `HTML`,
-        favicon: `${faviconHtml}`
-      },
-      {
-        name: `CSS`,
-        favicon: `${faviconCss}`
-      },
-      {
-        name: `JavaScript`,
-        favicon: `${faviconJs}`
-      }
-    ];
-
-    const tools = [
-      {
-        name: `VScode`,
-        favicon: `${faviconVscode}`
-      },
-      {
-        name: `Bootstrap`,
-        favicon: `${faviconBootstrap}`
-      },
-      {
-        name: `Figma`,
-        favicon: `${faviconFigma}`
-      },
-      {
-        name: `Webflow`,
-        favicon: `${faviconWebflow}`
-      },
-      {
-        name: `Framer`,
-        favicon: `${faviconFramer}`
-      },
-      {
-        name: `GitHub`,
-        favicon: `${faviconGithub}`
-      }
-    ];
-
-
-
-
-// ### 404.html | Hero component ###
-   // updated hero section
-/**
- * HeroSection Component
- * Focus: Performance, SEO, and Clean Logic
- * Build: 2026-03-02
- */
-
-class HeroSection extends HTMLElement {
-  connectedCallback() {
-    // Configuration for easy updates
-    const brandLogo = () => {
-        for(i = 0; i <= 10; i++) {
-            // console.log('hello world')
-        }
     }
+  }
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+  /* 
+  
+  
+       <div class="flex dark">
+        <span class="html">
+         HTML 5
+        </span>
+        <span class="css">
+         CSS 3
+        </span>
+        <span class="javascript">
+         JavaScript ES6
+        </span>
+        <span class="bootstrap">
+         Bootstrap 5
+        </span>
+        <span class="figma">
+         Figma
+        </span>
+        <span class="webflow">
+         Webflow
+        </span>
+        <span class="frammer">
+         Framer
+        </span>
+        <span class="vscode">
+         VScode
+        </span>
+        <span class="github">
+         GitHub
+        </span>
+        <span class="disable" disable="">
+         GSAP
+        </span>
+       </div>
+  
+  
+  */
+
+
+
+  // Data array for easy updates
+  const skills = [
+    {
+      name: `HTML`,
+      favicon: `${faviconHtml}`
+    },
+    {
+      name: `CSS`,
+      favicon: `${faviconCss}`
+    },
+    {
+      name: `JavaScript`,
+      favicon: `${faviconJs}`
+    }
+  ];
+
+  const tools = [
+    {
+      name: `VScode`,
+      favicon: `${faviconVscode}`
+    },
+    {
+      name: `Bootstrap`,
+      favicon: `${faviconBootstrap}`
+    },
+    {
+      name: `Figma`,
+      favicon: `${faviconFigma}`
+    },
+    {
+      name: `Webflow`,
+      favicon: `${faviconWebflow}`
+    },
+    {
+      name: `Framer`,
+      favicon: `${faviconFramer}`
+    },
+    {
+      name: `GitHub`,
+      favicon: `${faviconGithub}`
+    }
+  ];
+
+
+
+
+  // ### 404.html | Hero component ###
+  // updated hero section
+  /**
+   * HeroSection Component
+   * Focus: Performance, SEO, and Clean Logic
+   * Build: 2026-03-02
+   */
+
+  class HeroSection extends HTMLElement {
+    connectedCallback() {
+      // Configuration for easy updates
+      const brandLogo = () => {
+        for (i = 0; i <= 10; i++) {
+          // console.log('hello world')
+        }
+      }
+
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
       <section id="hero" class="fluid-grid-system dark">
         <section class="container-md row">
@@ -872,36 +872,36 @@ class HeroSection extends HTMLElement {
     
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
+    }
   }
-}
 
-// updated ClientsSection Component
-class ClientsSection extends HTMLElement {
-  connectedCallback() {
+  // updated ClientsSection Component
+  class ClientsSection extends HTMLElement {
+    connectedCallback() {
 
-    const youtubers = [
-      { name: `Kevin Powell`,link: `#` },
-      { name: `DesignCourse`,link: `#` },
-      { name: `Flux Academy`,link: `#` },
-      { name: `Web Dev Simplified`,link: `#` },
-      { name: `Codex Community`,link: `#` },
-      { name: `Jesse Showalter`,link: `#` },
-      { name: `Olivier Larose`, link: `#` },
-      { name: `Design2GO`, link: `#` },
-      { name: `Arnau Ros`, link: `#` }
-    ];
+      const youtubers = [
+        { name: `Kevin Powell`, link: `#` },
+        { name: `DesignCourse`, link: `#` },
+        { name: `Flux Academy`, link: `#` },
+        { name: `Web Dev Simplified`, link: `#` },
+        { name: `Codex Community`, link: `#` },
+        { name: `Jesse Showalter`, link: `#` },
+        { name: `Olivier Larose`, link: `#` },
+        { name: `Design2GO`, link: `#` },
+        { name: `Arnau Ros`, link: `#` }
+      ];
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 
 <section class="fluid-grid-system" id="youtubers">
@@ -924,81 +924,81 @@ class ClientsSection extends HTMLElement {
 
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
+    }
   }
-}
 
 
 
-// updated  AboutSection Component
-class AboutSection extends HTMLElement {
-  connectedCallback() {
+  // updated  AboutSection Component
+  class AboutSection extends HTMLElement {
+    connectedCallback() {
 
-    // Story data array for easy updates
-    const stories = [
-      {
-        date: "2001",
-        title: "Birth of mine",
-        heading: "Having mom, dad & small family.",
-        desc: "Growing up with core values that shape my professional work ethic today.",
-        link: `${author.location}`,
-        linkText: "View place"
-      },
-      {
-        date: "2022",
-        title: "Learning web design",
-        heading: "YouTube platform for design and development.",
-        desc: "Started the journey into UI/UX and Front-End architecture through self-directed learning.",
-        link: `${urlYoutube}`,
-        linkText: "View channels"
-      },
-      {
-        date: "2024",
-        title: "Graduated at",
-        heading: "Diploma in Computer Science and Technology.",
-        desc: "Formalized my technical foundation in software logic and system design.",
-        link: "https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8",
-        linkText: "View institute"
-      },
-      {
-        date: "",
-        dateClass: `d-none`,
-        title: "Certified from",
-        heading: "Utshob Technology Ltd.",
-        desc: `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="utshabtech.com.bd">utshabtech.com.bd</a>`,
-        link: "https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7",
-        linkText: "View place"
-        // linkText: "View certificate"
-      },
-      {
-        // FIXED: Used backticks to allow double quotes in the HTML string
-        date: `2025 - ${thisYear}`,
-        title: "Being a developer",
-        heading: "Designing and developing website.",
-        desc: `${author.description}`,
-        link: `/projects`,
-        linkText: "View projects"
-      },
-      {
-        date: `${thisYear}`,
-        title: "Looking for opportunities",
-        heading: "Junior Front-End Developer",
-        desc: "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
-        link: `/cv`,
-        linkText: "Download Resume"
-      }
-];
+      // Story data array for easy updates
+      const stories = [
+        {
+          date: "2001",
+          title: "Birth of mine",
+          heading: "Having mom, dad & small family.",
+          desc: "Growing up with core values that shape my professional work ethic today.",
+          link: `${author.location}`,
+          linkText: "View place"
+        },
+        {
+          date: "2022",
+          title: "Learning web design",
+          heading: "YouTube platform for design and development.",
+          desc: "Started the journey into UI/UX and Front-End architecture through self-directed learning.",
+          link: `${urlYoutube}`,
+          linkText: "View channels"
+        },
+        {
+          date: "2024",
+          title: "Graduated at",
+          heading: "Diploma in Computer Science and Technology.",
+          desc: "Formalized my technical foundation in software logic and system design.",
+          link: "https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8",
+          linkText: "View institute"
+        },
+        {
+          date: "",
+          dateClass: `d-none`,
+          title: "Certified from",
+          heading: "Utshob Technology Ltd.",
+          desc: `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="utshabtech.com.bd">utshabtech.com.bd</a>`,
+          link: "https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7",
+          linkText: "View place"
+          // linkText: "View certificate"
+        },
+        {
+          // FIXED: Used backticks to allow double quotes in the HTML string
+          date: `2025 - ${thisYear}`,
+          title: "Being a developer",
+          heading: "Designing and developing website.",
+          desc: `${author.description}`,
+          link: `/projects`,
+          linkText: "View projects"
+        },
+        {
+          date: `${thisYear}`,
+          title: "Looking for opportunities",
+          heading: "Junior Front-End Developer",
+          desc: "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
+          link: `/cv`,
+          linkText: "Download Resume"
+        }
+      ];
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 <section class="fluid-grid-system" id="about">
     <section style="gap: 0em;" class="container-xxl row">
@@ -1044,26 +1044,26 @@ class AboutSection extends HTMLElement {
     
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
+    }
   }
-}
 
 
 
-// updated ServicesSection Component
-class ServicesSection extends HTMLElement {
-  connectedCallback() {
+  // updated ServicesSection Component
+  class ServicesSection extends HTMLElement {
+    connectedCallback() {
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 <section class="fluid-grid-system" id="services">
     <section class="container-lg row">
@@ -1103,57 +1103,57 @@ class ServicesSection extends HTMLElement {
     
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
+    }
   }
-}
 
 
-// updated ProjectsSection Component
-class ProjectsSection extends HTMLElement {
-  connectedCallback() {
+  // updated ProjectsSection Component
+  class ProjectsSection extends HTMLElement {
+    connectedCallback() {
 
-    // Project data array for easy updates
-    const projects = [
-      {
-        date: `1-Jan-${thisYear}`,
-        category: "Portfolio website",
-        title: `${author.title}`,
-        desc: `${author.description}`,
-        link: `hassanbiswas.github.io`
-      },
-      {
-        date: "24-Nov-2025",
-        category: "Design Agency website",
-        title: "DEVAEC | Website Design & Front-End Development.",
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-        link: `/projects`
-      },
-      {
-        date: "13-May-2025",
-        category: "E-commerce website",
-        title: "TANUVL | Fashion & Clothing.",
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-        link: `/projects`
-      },
-      {
-        date: "09-Jul-2024",
-        category: "Portfolio website",
-        title: "Shamin Ahmed Choudhuri.",
-        desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-        link: `/projects`
-      }
-    ];
+      // Project data array for easy updates
+      const projects = [
+        {
+          date: `1-Jan-${thisYear}`,
+          category: "Portfolio website",
+          title: `${author.title}`,
+          desc: `${author.description}`,
+          link: `hassanbiswas.github.io`
+        },
+        {
+          date: "24-Nov-2025",
+          category: "Design Agency website",
+          title: "DEVAEC | Website Design & Front-End Development.",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          link: `/projects`
+        },
+        {
+          date: "13-May-2025",
+          category: "E-commerce website",
+          title: "TANUVL | Fashion & Clothing.",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          link: `/projects`
+        },
+        {
+          date: "09-Jul-2024",
+          category: "Portfolio website",
+          title: "Shamin Ahmed Choudhuri.",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          link: `/projects`
+        }
+      ];
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
       <section class="fluid-grid-system" id="projects">
         <section style="gap: 0em;" class="container-xl row">
@@ -1198,32 +1198,32 @@ class ProjectsSection extends HTMLElement {
 
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
+    }
   }
-}
 
 
-// updated TestimonialsSection Component
-class TestimonialsSection extends HTMLElement {
-  connectedCallback() {
+  // updated TestimonialsSection Component
+  class TestimonialsSection extends HTMLElement {
+    connectedCallback() {
 
-    const personQuotes = [
-        { name: `${author.name}`, title: `Web Developer`, quote: `I always try to provide the best.`, link: `hassanbiswas.github.io`, photo: `${faviconAuthor}` }, 
-        { name: `Mariam`, title: `Student`, quote: `Hi ${author.name}, thank's a lot!`, link: `#`, photo: `${faviconAuthor}` }, 
-        { name: `Shamin`, title: `Businessman`, quote: `My website is faster than ever.`, link: `#`, photo: `${faviconAuthor}` }, 
+      const personQuotes = [
+        { name: `${author.name}`, title: `Web Developer`, quote: `I always try to provide the best.`, link: `hassanbiswas.github.io`, photo: `${faviconAuthor}` },
+        { name: `Mariam`, title: `Student`, quote: `Hi ${author.name}, thank's a lot!`, link: `#`, photo: `${faviconAuthor}` },
+        { name: `Shamin`, title: `Businessman`, quote: `My website is faster than ever.`, link: `#`, photo: `${faviconAuthor}` },
         { name: `Tanveer`, title: `Freelancer`, quote: `Hey! this is a great design, ${author.name}.`, link: `#`, photo: `${faviconAuthor}` }
-        ];
+      ];
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 
 <section class="fluid-grid-system" id="testimonials">
@@ -1271,63 +1271,63 @@ class TestimonialsSection extends HTMLElement {
    </section>
 
     `;
-/*
+      /*
+            
+            let quote = document.querySelector('.quote'),
+              quotePerson = document.querySelector('.quote-person'),
+              quoteButtons = document.querySelectorAll('.quote-button'),
       
-      let quote = document.querySelector('.quote'),
-        quotePerson = document.querySelector('.quote-person'),
-        quoteButtons = document.querySelectorAll('.quote-button'),
-
-      // quotes
-      quoteButtons?.forEach(button => {
-        let random = Math.flore(Math.random() * personQuotes.lenth);
-
-        button.addEventListener('click', () => {
-          quote?.innerText = personQuotes[random].quote;
-          quotePerson?.innerText = personQuotes[random].name
-        });
-      });
-
-*/
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <*-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+            // quotes
+            quoteButtons?.forEach(button => {
+              let random = Math.flore(Math.random() * personQuotes.lenth);
+      
+              button.addEventListener('click', () => {
+                quote?.innerText = personQuotes[random].quote;
+                quotePerson?.innerText = personQuotes[random].name
+              });
+            });
+      
+      */
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <*-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
   
+    }
   }
-}
 
 
 
-// updated FaqsSection Component
-class FaqsSection extends HTMLElement {
-  connectedCallback() {
+  // updated FaqsSection Component
+  class FaqsSection extends HTMLElement {
+    connectedCallback() {
 
-    // faqs data array for easy updates
-    const faqs = [
-      {
-        question: `Who am I?`,
-        answer: `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`
-      },
-      {
-        question: `What do I do?`,
-        answer: `
+      // faqs data array for easy updates
+      const faqs = [
+        {
+          question: `Who am I?`,
+          answer: `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`
+        },
+        {
+          question: `What do I do?`,
+          answer: `
           I usually <b> design </b> &amp; <b>develop</b> website<sup class="p-sm">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
-      },
-      {
-        question: `What is my design process?`,
-        answer: `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`
-      },
-      {
-        question: `Do I provide custom JS functions?`,
-        answer: `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`
-      },
-      {
-        question: `Am I available for hire?`,
-        answer: `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
+        },
+        {
+          question: `What is my design process?`,
+          answer: `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`
+        },
+        {
+          question: `Do I provide custom JS functions?`,
+          answer: `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`
+        },
+        {
+          question: `Am I available for hire?`,
+          answer: `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
           </sup>`
-      },
-      {
-        question: `What is my contact number?`,
-        answer: ` 
+        },
+        {
+          question: `What is my contact number?`,
+          answer: ` 
            Mobile: (+880)
            <a href="${urlMobile}">
             <b>1602-873384</b>
@@ -1339,17 +1339,17 @@ class FaqsSection extends HTMLElement {
            <a href="${urlWhatsapp}">
             <b>1602-873384</b>
            </a>`
-      }
-];
+        }
+      ];
 
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
     
-    // 3. Define the HTML (Top-level element is now your grid section)
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 <section class="fluid-grid-system" id="faqs">
 <section class="container-md">
@@ -1409,18 +1409,466 @@ class FaqsSection extends HTMLElement {
     
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
-    // Replace the custom element with the content 
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
+      // Replace the custom element with the content 
+    }
   }
-}
 
 
+
+  // updated privacy-policy-section component
+  class PrivacyPolicySection extends HTMLElement {
+    connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
+                   
+      // 3. Define the HTML 
+
+      template.innerHTML = `
+
+            <section class="fluid-grid-system info-section">
+                                        <div class="container-md">
+                                                 <div class="row">
+
+                                                 <div class="row">
+                                                    <h1 class="d-none">
+                                                         Privacy Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+                                                            </h1>
+                                                               <p>
+                                                                   <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+                                                                      </p>
+
+                                                                         <p>
+                                                                              As a Web Developer, I value your privacy and am committed to protecting any personal information you share with me.
+                                                                                 </p>
+                                                                                   </div>
+
+
+                                                                                     <ol class="row">
+                                                                                         <li>
+                                                                                               <h2>
+                                                                                                       Information I Collect
+                                                                                                             </h2>
+                                                                                                                   <p>
+                                                                                                                            I may collect the following types of information:
+                                                                                                                                  </p>
+                                                                                                                                        <ul>
+        <li>
+             <strong>
+                   Contact Data:
+                        </strong>
+                             Name, email and phone number.
+                                 </li>
+                                     <li>
+                                          <strong>
+                                                Technical Data:
+                                                     </strong>
+                                                          IP address, browser type, and usage patterns collected via cookies or analytics tools.
+                                                              </li>
+                                                                  <li>
+                                                                       <strong>
+                                                                             Project Data:
+                                                                                  </strong>
+                                                                                       Information regarding your website requirements and design preferences.
+                                                                                               </li>
+                                                                                                     </ul>
+                                                                                                         </li>
+
+
+                                                                                                             <li>
+                                                                                                                   <h2>
+                                                                                                                           How I Use Your Information
+                                                                                                                                 </h2>
+                                                                                                                                       <p>
+                                                                                                                                               The information collected is used to:
+                                                                                                                                                     </p>
+                                                                                                                                                           <ul>
+                                                                                                                                                               <li>
+                                                                                                                                                                    Provide and improve services.
+                                                                                                                                                                        </li>
+                                                                                                                                                                            <li>
+                                                                                                                                                                                 Communicate with regarding project inquiries or updates.
+                                                                                                                                                                                     </li>
+                                                                                                                                                                                         <li>
+                                                                                                                                                                                              Analyze website performance to enhance user experience.
+                                                                                                                                                                                                  </li>
+                                                                                                                                                                                                        </ul>
+                                                                                                                                                                                                            </li>
+
+
+                                                                                                                                                                                                                <li>
+                                                                                                                                                                                                                      <h2>
+                                                                                                                                                                                                                              Third-Party Services
+                                                                                                                                                                                                                                    </h2>
+                                                                                                                                                                                                                                          <p>
+                                                                                                                                                                                                                                                  I do not sell or trade your personal information. However, if website is hosted on GitHub Pages, which may collect server logs. Also use tools like Google Analytics to monitor traffic.
+                                                                                                                                                                                                                                                        </p>
+    </li>
+
+
+    <li>
+      <h2>
+        Your Rights
+      </h2>
+      <p>
+        You have the right to request access to the personal data I hold about you, or to request that I delete any personal information by contacting me directly.
+      </p>
+    </li>
+
+
+    <li>
+      <h2>
+        Contact Me
+      </h2>
+      <p>
+        If you have any questions about this Privacy Policy, please contact me:
+      </p>
+      <ul>
+    <li>
+     <a href="hassanbiswas.github.io">
+      hassanbiswas.github.io
+     </a>
+    </li>
+    <li>
+     <a href="hassanbiswas.github.io/gmail">
+      hassanbiswas.github.io@gmail.com
+     </a>
+    </li>
+    <li>
+     (+880)<a href="hassanbiswas.github.io/call">
+      1602-873384
+     </a>
+    </li>
+      </ul>
+    </li>
+
+  </ol>
+
+         </div>
+       </div>
+      </section>
+
+    `;
+
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
+  }
+
+
+
+  // refund-and-cancellation-policy-section component
+  class RefundAndCancellationPolicySection extends HTMLElement {
+    connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement('template');
+                  
+      // 3. Define the HTML 
+
+      template.innerHTML = `
+
+                                <section class="fluid-grid-system info-section">
+ <div class="container-md">
+                                                <div class="row">
+
+                                                <div class="row">
+ <h1>
+                                                        Refund &amp; Cancellation Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+ </h1>
+                                                              <p>
+                                                                  <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+ </p>
+
+                                                                        <p>
+                                                                            Thank you for choosing my services
+                                                                                . I provide custom digital services, I want to ensure we have a clear understanding of our financial commitment before a project begins.
+ </p>
+ </div>
+
+
+
+ <ol class="row">
+ <li>
+ <h2>
+ Project Deposits
+ </h2>
+ <p>
+ Most projects require an initial deposit (typically
+ <mark>
+                                                                                                                                  30% to 50%
+                                                                                                                                      </mark>
+                                                                                                                                          ) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
+                                                                                                                                              <strong>
+ Deposits are non-refundable
+ </strong>
+ once work has started.
+ </p>
+ </li>
+
+
+
+ <li>
+ <h2>
+ Cancellation During Development
+ </h2>
+ <p>
+ If a project is cancelled after development has begun but before completion, the client is responsible for payment for all work completed up to the date of cancellation.
+
+  <ul>
+ <li>
+ If the work completed exceeds the deposit, an additional invoice will be issued.
+                  </li>
+ <li>
+ If the work completed is less than the deposit, no refund of the deposit will be issued.
+                                  </li>
+                                      </ul>
+                                            </p>
+                                                </li>
+
+
+
+                                                    <li>
+                                                          <h2>
+                                                                  Final Delivery &amp; Acceptance
+                                                                        </h2>
+                                                                              <p>
+                                                                                  Once the final files are delivered and the "Final Approval" is signed off by the client,
+                                                                                      <strong>
+ no refunds will be issued
+ </strong>
+ . Digital products cannot be "returned" in the traditional sense once the source code is in the client's possession.
+ </p>
+ </li>
+
+
+
+ <li>
+ <h2>
+ Revisions
+ </h2>
+                                                                                                                                           <p>
+                                                                                                                                               To ensure satisfaction, I include a specific number of revision rounds (as stated in our initial contract). This allows us to fine-tune the design and functionality before final delivery.
+                                                                                                                                                     </p>
+                                                                                                                                                         </li>
+
+
+
+                                                                                                                                                             <li>
+                                                                                                                                                                   <h2>
+                                                                                                                                                                           Questions &amp; Disputes | Contact Me
+                                                                                                                                                                                 </h2>
+                                                                                                                                                                                       <p>I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
+                                                                                                                                                                                             </p>
+                                                                                                                                                                                                   <ul>
+                                                                                                                                                                                                       <li>
+                                                                                                                                                                                                            <a href="hassanbiswas.github.io">
+                                                                                                                                                                                                                  hassanbiswas.github.io
+                                                                                                                                                                                                                       </a>
+                                                                                                                                                                                                                           </li>
+                                                                                                                                                                                                                               <li>
+                                                                                                                                                                                                                                    <a href="hassanbiswas.github.io/gmail">
+                                                                                                                                                                                                                                          hassanbiswas.github.io@gmail.com
+                                                                                                                                                                                                                                               </a>
+                                                                                                                                                                                                                                                   </li>
+                                                                                                                                                                                                                                                       <li>
+                                                                                                                                                                                                                                                            (+880)<a href="hassanbiswas.github.io/call">
+                                                                                                                                                                                                                                                                  1602-873384
+                                                                                                                                                                                                                                                                       </a>
+                                                                                                                                                                                                                                                                           </li>
+                                                                                                                                                                                                                                                                                 </ul>
+                                                                                                                                                                                                                                                                                     </li>
+
+
+                                                                                                                                                                                                                                                                                       </ol>
+
+
+                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                       </div>
+                                                                                                                                                                                                                                                                                                             </section>
+
+                                                                                                                                                                                                                                                                                                                 `;
+
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
+  }
+
+  
+
+// updated terms-of-service-section
+class TermsOfServiceSection extends HTMLElement {
+  connectedCallback() {
+      // 2. Create an off-screen Template
+          const template = document.createElement('template');
+              
+                  // 3. Define the HTML 
+
+                      template.innerHTML = `
+
+                            <section class="fluid-grid-system info-section">
+                                   <div class="container-md">
+                                            <div class="row">
+
+                                            <div class="row">
+                                               <h1>
+                                                  Terms of Service | Hassan Biswas — UI/UX &amp; Front-End Architecture
+                                                     </h1>
+                                                        <p>
+                                                            <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+                                                               </p>
+
+                                                                  <p>
+                                                                      These terms govern the web design and front-end development services provided by
+                                                                          <strong>
+                                                                               Hassan Biswas
+                                                                                   </strong>
+                                                                                       through the website
+                                                                                           .
+                                                                                              </p>
+                                                                                                </div>
+
+
+
+                                                                                                  <ol class="row">
+                                                                                                      <li>
+                                                                                                            <h2>
+                                                                                                                    Acceptance of Terms
+                                                                                                                          </h2>
+                                                                                                                                <p>
+                                                                                                                                    By engaging in a project or using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use my services.
+                                                                                                                                          </p>
+                                                                                                                                              </li>
+
+
+
+                                                                                                                                                  <li>
+<h2>
+        Scope of Work
+              </h2>
+                    <p>
+                        I provide front-end development and web design services. The specific deliverables, timelines, and costs will be outlined in a separate project proposal or email agreement for each individual client.
+                              </p>
+                                  </li>
+
+
+
+                                      <li>
+                                            <h2>
+                                                    Intellectual Property &amp; Ownership
+                                                          </h2>
+                                                                <p>
+                                                                    Upon final payment, the ownership of the final front-end code (<b>HTML, CSS, JS</b>) and design <b>assets</b> is transferred to the client. However, I reserve the right to:
+                                                                        <ul>
+                                                                             <li>
+                                                                                   Display the completed work in my professional portfolio.
+                                                                                        </li>
+                                                                                             <li>
+                                                                                                   Reuse generic code snippets or libraries developed during the project.
+                                                                                                        </li>
+                                                                                                            </ul>
+                                                                                                                  </p>
+                                                                                                                      </li>
+
+
+
+                                                                                                                          <li>
+                                                                                                                                <h2>
+                                                                                                                                        Payment Terms
+                                                                                                                                              </h2>
+                                                                                                                                                    <p>
+Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
+      </p>
+          </li>
+
+
+              <li>
+                    <h2>
+                            Client Responsibilities
+                                  </h2>
+                                        <p>
+                                            The client is responsible for providing all necessary content (<b>text, images, branding</b>) in a timely manner. Delays in providing content will result in a shift in the project deadline.
+                                                  </p>
+                                                      </li>
+
+
+                                                          <li>
+                                                                <h2>
+                                                                        Limitation of Liability
+                                                                              </h2>
+                                                                                    <p>
+                                                                                        I strive for perfection, but I am not liable for any lost profits, data loss, or service interruptions caused by third-party hosting, browser updates, or client-side modifications after the project is handed over.
+                                                                                              </p>
+                                                                                                  </li>
+
+
+                                                                                                      <li>
+                                                                                                            <h2>
+                                                                                                                    Governing Law
+                                                                                                                          </h2>
+                                                                                                                                <p>
+                                                                                                                                    These terms are governed by the laws of
+                                                                                                                                        <mark>
+                                                                                                                                             Bangladesh
+                                                                                                                                                 </mark>
+                                                                                                                                                     . Any disputes shall be resolved through mutual discussion or within the jurisdiction of local courts.
+                                                                                                                                                           </p>
+                                                                                                                                                               </li>
+
+
+
+                                                                                                                                                                   <li>
+                                                                                                                                                                         <h2>
+                                                                                                                                                                                 Contact Information
+                                                                                                                                                                                       </h2>
+                                                                                                                                                                                             <p>
+                                                                                                                                                                                                 For any legal inquiries regarding these terms, please reach out:
+                                                                                                                                                                                                       </p>
+                                                                                                                                                                                                             <ul>
+                                                                                                                                                                                                                 <li>
+                                                                                                                                                                                                                      <a href="hassanbiswas.github.io">
+                                                                                                                                                                                                                            hassanbiswas.github.io
+                                                                                                                                                                                                                                 </a>
+                                                                                                                                                                                                                                     </li>
+                                                                                                                                                                                                                                         <li>
+                                                                                                                                                                                                                                              <a href="hassanbiswas.github.io/gmail">
+                                                                                                                                                                                                                                                    hassanbiswas.github.io@gmail.com
+                                                                                                                                                                                                                                                         </a>
+                                                                                                                                                                                                                                                             </li>
+                                                                                                                                                                                                                                                                 <li>
+                                                                                                                                                                                                                                                                      (+880)<a href="hassanbiswas.github.io/call">
+                                                                                                                                                                                                                                                                            1602-873384
+                                                                                                                                                                                                                                                                                 </a>
+                                                                                                                                                                                                                                                                                     </li>
+                                                                                                                                                                                                                                                                                           </ul>
+                                                                                                                                                                                                                                                                                               </li>
+
+
+                                                                                                                                                                                                                                                                                                 </ol>
+
+
+                                                                                                                                                                                                                                                                                                          </div>
+                                                                                                                                                                                                                                                                                                                 </div>
+                                                                                                                                                                                                                                                                                                                       </section>
+
+                                                                                                                                                                                                                                                                                                                           `;
+
+                                                                                                                                                                                                                                                                                                                               // 4. THE MAGIC: Synchronous swap
+                                                                                                                                                                                                                                                                                                                                   this.replaceWith(template.content);
+                                                                                                                                                                                                                                                                                                                                     }
+                                                                                                                                                                                                                                                                                                                                     }
+
+
+
+                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                               
+  
+  
 
 // updated ContactSection Component
 class ContactSection extends HTMLElement {
-  connectedCallback() {
+  connectedCallback {
     // 1. Data Source (Scalable: could be moved to a global config)
 
     // Arry od Data ###
@@ -1822,6 +2270,21 @@ if (!customElements.get("testimonials-section")) {
 if (!customElements.get("faqs-section")) {
   customElements.define("faqs-section", FaqsSection);
 }
+  
+// Define the custom element
+  if (!customElements.get("privacy-policy-section")) {
+    customElements.define("privacy-policy-section", PrivacyPolicySection);
+  }
+  
+// Define the custom element
+  if (!customElements.get("terms-of-service-section")) {
+    customElements.define("terms-of-service-section", TermsOfServiceSection);
+  }
+  
+// Define the custom element
+  if (!customElements.get("refund-and-cancelation-policy-section")) {
+    customElements.define("refund-and-cancelation-policy-section", RefundAndCancelationPolicySection);
+  }
 
 // Define the custom element
 if (!customElements.get("contact-section")) {
