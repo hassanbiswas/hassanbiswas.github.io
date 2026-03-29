@@ -1,18 +1,19 @@
-name: Monthly SEO Auto-Update
+Name: Monthly SEO Auto-Update
 
 on:
   schedule:
     - cron: '0 0 1 * *' # Runs at midnight on the 1st of every month
   push:
-    paths:
-      - '**.html' # Runs whenever you update your frontend code
-  workflow_dispatch: # Allows you to trigger it manually if needed
+    # Commented out push logic as per preference
+    # paths:
+    #   - '**.html' 
+  workflow_dispatch: 
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Essential for the bot to push changes back
+      contents: write 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -29,63 +30,88 @@ jobs:
         run: |
           python3 - <<EOF
           import os
-          import random
           from datetime import datetime
           from bs4 import BeautifulSoup
 
           # --- Zero Maintenance Configurations ---
           BRAND_BLUE = "hsl(240, 80%, 50%)"
-          BASE_TITLE = "Hassan Biswas — UI/UX & Front-End Architecture"
-          VERSION_ID = datetime.now().day 
+          BASE_TITLE = "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture"
           
-          CORE_TECH = ["Agentic UX", "Generative UI", "Core Web Vitals", "Edge-Native Apps", "Spatial Web Design"]
-          DESIGN_STYLES = ["Neubrutalism", "Minimalist Logic", "Tactile UI", "Awwwards Aesthetics"]
-          SEO_FOCUS = ["Zero-Click Optimization", "Semantic HTML", "Performance-First", "SEO Architecture"]
-
-          def get_forever_trends():
-              now = datetime.now()
-              seed = now.year + now.month
-              random.seed(seed) 
-              return f"{random.choice(CORE_TECH)}, {random.choice(DESIGN_STYLES)}, {random.choice(SEO_FOCUS)}"
+          # Mapping folder names to specific SEO intent
+          FOLDER_MAP = {
+              "services": ("Our Services", "Expert Figma to HTML/CSS/JS conversion and responsive web architecture."),
+              "portfolio": ("Portfolio", "Proof of work: High-performance, SEO-friendly digital experiences and UI/UX projects."),
+              "contact": ("Contact", "Let's build something great. Hire a UI/UX Designer and Front-End Expert for your next project."),
+              "resume": ("Resume", "Professional experience and technical stack of Hassan Biswas."),
+              "youtube": ("YouTube", "Video tutorials and web development insights from Hassan Biswas."),
+              "blog": ("Blog", "Articles on UI/UX trends, front-end logic, and web automation."),
+              "sitemap": ("Sitemap", "Directory of all pages and resources on hassanbiswas.github.io."),
+              "testimonials": ("Testimonials", "What clients and colleagues say about my front-end architecture and design work.")
+          }
 
           def update_html_seo(file_path):
-              file_name = os.path.basename(file_path).replace(".html", "")
-              page_subject = "Home" if file_name.lower() == "index" else file_name.replace("-", " ").title()
-              trends = get_forever_trends()
+              # Determine folder context
+              rel_path = os.path.relpath(file_path, ".")
+              folder_name = os.path.dirname(rel_path).split(os.sep)[0].lower()
+              file_name = os.path.basename(file_path).lower()
+              
+              # Default values for root/index files
+              page_subject, description = ("Brand Identity", "Freelance Front-End Developer & Website Designer specializing in high-performance digital experiences.")
+
+              # Check if file is in a mapped folder
+              if folder_name in FOLDER_MAP:
+                  page_subject, description = FOLDER_MAP[folder_name]
+              elif file_name != "index.html" and folder_name == "":
+                  # Handle root files that aren't index
+                  page_subject = file_name.replace(".html", "").replace("-", " ").title()
+
               current_month_year = datetime.now().strftime("%B %Y")
+              full_title = f"{page_subject} | {BASE_TITLE}"
+              full_desc = f"{description} Optimized for {current_month_year}."
 
               with open(file_path, 'r', encoding='utf-8') as f:
                   soup = BeautifulSoup(f, 'html.parser')
 
               if not soup.head: return
               
-              # SEO Context Mapping
-              seo_data = {
-                  "title": f"{page_subject} | {BASE_TITLE}",
-                  "description": f"Expert {page_subject} by Hassan Biswas. Featuring {trends}. Optimized for {current_month_year}. Ver: {VERSION_ID}",
-                  "keywords": f"Hassan Biswas, {page_subject}, {trends}, Web Developer, UI/UX",
+              # Update <title>
+              if soup.title:
+                  soup.title.string = full_title
+              else:
+                  new_title = soup.new_tag('title')
+                  new_title.string = full_title
+                  soup.head.insert(0, new_title)
+
+              # Meta Data to Update
+              meta_updates = {
+                  "description": full_desc,
+                  "keywords": f"Hassan Biswas, {page_subject}, Web Developer, UI/UX, Front-End Architecture, Bangladesh",
                   "theme-color": BRAND_BLUE,
-                  "author": "Hassan Biswas"
+                  "author": "Hassan Biswas",
+                  "robots": "index, follow"
               }
 
-              # Update Title
-              if soup.title: soup.title.string = seo_data["title"]
-              
-              # Update Meta Tags
-              for name, content in seo_data.items():
-                  if name == "title": continue
+              for name, content in meta_updates.items():
                   tag = soup.find('meta', attrs={"name": name})
-                  if tag: tag['content'] = content
-                  else: 
+                  if tag:
+                      tag['content'] = content
+                  else:
                       new_meta = soup.new_tag('meta', attrs={"name": name, "content": content})
                       soup.head.append(new_meta)
 
+              # Logic for H1 Update (Finds first H1 or adds one to body if requested)
+              h1_tag = soup.find('h1')
+              if h1_tag:
+                  h1_tag.string = page_subject
+
               with open(file_path, 'w', encoding='utf-8') as f:
+                  # Save with formatting preserved
                   f.write(soup.prettify())
 
+          # Process all HTML files
           for root, _, files in os.walk("."):
               for file in files:
-                  if file.endswith(".html") and "_site" not in root:
+                  if file.endswith(".html") and "node_modules" not in root:
                       update_html_seo(os.path.join(root, file))
           EOF
 
@@ -93,8 +119,12 @@ jobs:
         run: |
           git config --global user.name 'Hassan Biswas'
           git config --global user.email 'hassanbiswas.github.io@gmail.com'
+          
+          # Use the requested YY.MM.DD versioning logic
+          VERSION=$(date +'%y.%m.%d')
+          COMMITTEE_MSG="Automated SEO Release - Stable Build $VERSION"
+          
           git add .
-          # Using logic automation for the commit message
-          git commit -m "🚀 SEO Update: $(date +'%B %Y') [Ver: $(date +'%d')]" || exit 0
+          git commit -m "$COMMITTEE_MSG" || exit 0
           git push
           
