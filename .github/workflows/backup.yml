@@ -1,9 +1,9 @@
-name: 15-Day Automated Backup (No-Workflow Mirror)
+name: Monthly Automated Backup
 
 on:
   schedule:
-    # Logic: Semi-monthly automation (1st and 15th)
-    - cron: '0 0 1,15 * *'
+    # Zero Maintenance: Executes automatically at 00:00 on the 1st of every month
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
@@ -11,54 +11,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate Temporary Token
-        id: generate_token
+        id: app-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ secrets.BACKUP_APP_ID }}
-          private-key: ${{ secrets.BACKUP_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
+          # Using your preferred secret naming convention
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
-      - name: Checkout Source (Protected)
+      - name: Set Version Logic
+        run: |
+          # Logic Preservation: Standardized YY.MM.DD format
+          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Automated Backup - Stable Build" >> $GITHUB_ENV
+
+      - name: Checkout Source (Private)
         uses: actions/checkout@v4
         with:
           path: source-repo
 
-      - name: Checkout Backup Repo (Destination)
+      - name: Checkout Backup Repo (Public/Backup)
         uses: actions/checkout@v4
         with:
           repository: hassanbiswas/backup
-          token: ${{ steps.generate_token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token }}
           path: backup-repo
 
       - name: Clean Sync Logic
         run: |
-          # 1. We use --exclude to skip .git and .github folders.
-          # 2. We use --delete to remove files in backup-repo that no longer exist in source-repo.
-          # 3. This command DOES NOT touch your source-repo files.
+          # Fallback Security: Syncing while preserving core repo structure
+          # --delete ensures the backup is a 1:1 mirror of the source files
           rsync -av --delete \
             --exclude='.git/' \
             --exclude='.github/' \
             source-repo/ backup-repo/
 
       - name: Commit and Push
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           cd backup-repo
           
           # Git Identity for Bot Automation
-          git config user.name "hassanbiswas-backup[bot]"
-          git config user.email "hassanbiswas-backup[bot]@users.noreply.github.com"
-
-          # Automated Date-based Revision Logic
-          VERSION=$(date +'%d')
-          DATE_STAMP=$(date +'%Y-%m-%d')
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add .
 
-          # Only push if there are changes (Set-and-Forget)
+          # Only push if changes exist (Set-and-Forget)
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Backup Revision $VERSION: $DATE_STAMP"
+            echo "------------------------------------------------"
+            echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
+            echo "Data Attribute (Version): ${{ env.VERSION }}"
+            echo "------------------------------------------------"
+
+            git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
+            
+            # Update remote with token for secure push
+            git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/hassanbiswas/backup.git
             git push origin main
           else
-            echo "Everything is up to date. No push needed."
+            echo "No changes detected. Backup is already synchronized."
           fi
           
