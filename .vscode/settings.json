@@ -1,4 +1,4 @@
 {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "GitHub.codespaces"
+    "editor.defaultFormatter": "vscode.emmet"
 }
