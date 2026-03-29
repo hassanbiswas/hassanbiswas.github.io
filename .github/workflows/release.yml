@@ -24,43 +24,40 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Dynamic Versioning Logic: Format YY.MM.DD for display/cache-busting
+          # 1. Dynamic Versioning Logic: Format YY.MM.DD
           VERSION=$(date +'%y.%m.%d')
           echo "Processing version: $VERSION"
 
-          # 2. Update Manifest Version (Applies to root or app/assets)
-          if [ -f "manifest.json" ]; then
-            sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" manifest.json
-          fi
+          # 2. Update Manifest Version (Internal Logic Preservation)
           if [ -f "app/assets/manifest.json" ]; then
             sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" app/assets/manifest.json
           fi
 
-          # 3. Flattening Logic: Check for single wrapper folder in app/assets
+          # 3. Flattening Logic: Move contents out of a single wrapper folder
           if [ -d "app/assets" ]; then
-            SUB_DIRS=$(ls -d app/assets/*/ 2>/dev/null | wc -l)
-            FILES=$(ls -p app/assets | grep -v / | wc -l)
-            
-            # If there is exactly 1 directory and 0 files in the root of assets
-            if [ "$SUB_DIRS" -eq 1 ] && [ "$FILES" -eq 0 ]; then
-              WRAPPER=$(ls -d app/assets/*/ | head -n 1)
+            SUB_DIRS=$(find app/assets -maxdepth 1 -type d | wc -l)
+            # find includes the parent dir, so 2 means exactly one sub-folder
+            if [ "$SUB_DIRS" -eq 2 ]; then
+              WRAPPER=$(find app/assets -maxdepth 1 -type d ! -path "app/assets" | head -n 1)
               echo "Flattening: Moving contents from $WRAPPER to app/assets/"
-              mv "$WRAPPER"* app/assets/
-              rmdir "$WRAPPER"
+              mv "$WRAPPER"/* app/assets/ 2>/dev/null || true
+              rmdir "$WRAPPER" 2>/dev/null || true
             fi
           fi
 
-          # 4. Tag Force-Delete: Logic Preservation to avoid "Tag already exists"
+          # 4. Tag and Release Cleanup
+          # Force-delete tag locally and on remote to prevent "Already Exists" errors
           git tag -d ∞ || true
           git push origin :refs/tags/∞ || true
-
-          # 5. Remove existing release to allow clean overwrite
           gh release delete ∞ --yes || true
 
-          # 6. Create Release: Title "V∞" with YearMonthDay in notes
-          # Logic: README.md is the primary source for release notes
+          # 5. Create Release
+          # Logic: Only includes files from app/assets/
+          # Notes: Uses app/README.md as the primary source
+          NOTES_CONTENT=$(cat app/README.md 2>/dev/null || echo "Automated Monthly Build")
+          
           gh release create ∞ \
             --title "V∞" \
-            --notes "Release Version: $VERSION | Notes: $(cat app/README.md 2>/dev/null || echo 'Monthly automated update')" \
+            --notes "Release Version: $VERSION | $NOTES_CONTENT" \
             app/assets/*
             
