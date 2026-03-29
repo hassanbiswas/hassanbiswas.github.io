@@ -1,22 +1,30 @@
 name: Generate Dynamic OG Images
+
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
   schedule:
     - cron: '0 0 1 * *' # Monthly schedule logic
 
 jobs:
-  generate-og:
+  release-automation:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Generate Ephemeral Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -25,6 +33,11 @@ jobs:
 
       - name: Install Puppeteer
         run: npm install puppeteer --no-save
+
+      - name: Set Version Logic
+        run: |
+          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Automated OG Image Update - Stable Build" >> $GITHUB_ENV
 
       - name: Generate OG Image via Script
         run: |
@@ -38,6 +51,7 @@ jobs:
           (async () => {
             try {
               const browser = await puppeteer.launch({
+                executablePath: '/usr/bin/google-chrome',
                 args: ['--no-sandbox', '--disable-setuid-sandbox']
               });
               const page = await browser.newPage();
@@ -47,13 +61,17 @@ jobs:
               const htmlPath = 'file://' + process.cwd() + '/index.html';
               await page.goto(htmlPath, { waitUntil: 'networkidle0' });
 
-              // Date-based cache-busting versioning
-              const VERSION = new Date().getDate();
+              // Logic Preservation: Preferred Versioning format
+              const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
               const fileName = 'og-main.png';
 
               await page.screenshot({ path: path + '/' + fileName });
               await browser.close();
-              console.log('OG Image generated successfully');
+              
+              console.log('------------------------------------------------');
+              console.log('Committee Message: Automated Release - Stable Build');
+              console.log('Data Attribute (Version): ' + VERSION);
+              console.log('------------------------------------------------');
             } catch (err) {
               console.error(err);
               process.exit(1);
@@ -61,17 +79,19 @@ jobs:
           })();"
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
           git add assets/og-images/og-main.png
           
-          # Only commit if there are changes to avoid empty commit errors
           if git diff --staged --quiet; then
             echo "No changes to image, skipping push."
           else
-            git commit -m "chore: update dynamic OG image [cache-bust $(date +%d)]"
-            # Use pull --rebase with autostash to handle the "unstaged changes" error
+            git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
+            git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git pull --rebase --autostash
             git push
           fi
