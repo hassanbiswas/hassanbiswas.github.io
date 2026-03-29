@@ -1410,13 +1410,14 @@ let myScript = () => {
     `;
 
       // 4. THE MAGIC: Synchronous swap
-      // Replaces <contact-section> with the contents of the template immediately.
+      // Replaces <section> with the contents of the template immediately.
       this.replaceWith(template.content);
       // Replace the custom element with the content 
     }
   }
 
 
+  /*
 
   // updated privacy-policy-section component
   class PrivacyPolicySection extends HTMLElement {
@@ -1557,7 +1558,8 @@ let myScript = () => {
     }
   }
 
-
+*/
+  /*
 
   // refund-and-cancellation-policy-section component
   class RefundAndCancellationPolicySection extends HTMLElement {
@@ -1695,7 +1697,8 @@ let myScript = () => {
     }
   }
 
-  
+  */
+  /*
 
 // updated terms-of-service-section
 class TermsOfServiceSection extends HTMLElement {
@@ -1863,7 +1866,7 @@ Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">m
 
                                                                                                                                                                                                                                                                                                                                           
                                                                                                                                                                                                                                                                                                                                                
-  
+  */
   
 
 // updated ContactSection Component
