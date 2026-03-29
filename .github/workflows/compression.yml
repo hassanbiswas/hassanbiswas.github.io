@@ -1,13 +1,13 @@
 name: Compression Automation
 
 on:
-   push:
-     paths:
-       - '**.zip'
-       - '**.7z'
-       - '**.rar'
-       - '**.tar'
-       - '**.gz'
+  push:
+    paths:
+      - '**.zip'
+      - '**.7z'
+      - '**.rar'
+      - '**.tar'
+      - '**.gz'
   schedule:
     # Zero Maintenance: Executes automatically at 00:00 on the 1st of every month
     - cron: '0 0 1 * *'
