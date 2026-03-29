@@ -1843,8 +1843,8 @@ Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">m
                                                                                                                                                                                                                                                                       (+880)<a href="hassanbiswas.github.io/call">
                                                                                                                                                                                                                                                                             1602-873384
                                                                                                                                                                                                                                                                                  </a>
-                                                                                                                                                                                                                                                                                     </li>
-                                                                                                                                                                                                                                                                                           </ul>
+</li>
+ </ul>
                                                                                                                                                                                                                                                                                                </li>
 
 
