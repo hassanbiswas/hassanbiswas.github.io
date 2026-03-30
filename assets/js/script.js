@@ -1065,7 +1065,7 @@ let myScript = () => {
       // HTML
       template.innerHTML = `
 
-<section class="fluid-grid-system py-3" id="services">
+<section class="fluid-grid-system" id="services">
     <section class="container-lg row">
      <h2>
       Services available in ${locationSecondary}
@@ -1523,25 +1523,8 @@ Third-Party Services
         Contact Me
       </h2>
       <p>
-        If you have any questions about this Privacy Policy, please contact me:
+        If you have any questions about this Privacy Policy, please contact me.
       </p>
-      <ul>
-    <li>
-<a href="hassanbiswas.github.io">
-      hassanbiswas.github.io
-</a>
-    </li>
-    <li>
-<a href="hassanbiswas.github.io/gmail">
-      hassanbiswas.github.io@gmail.com
-</a>
-    </li>
-    <li>
-(+880)<a href="hassanbiswas.github.io/call">
-      1602-873384
-</a>
-    </li>
-      </ul>
     </li>
 
   </ol>
@@ -1654,25 +1637,9 @@ To ensure satisfaction, I include a specific number of revision rounds (as state
 <h2>
 Questions &amp; Disputes | Contact Me
 </h2>
-<p>I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
+<p>
+I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
 </p>
-<ul>
-<li>
-<a href="hassanbiswas.github.io">
-hassanbiswas.github.io
-</a>
-</li>
-<li>
-<a href="hassanbiswas.github.io/gmail">
-hassanbiswas.github.io@gmail.com
-</a>
-</li>
-<li>
-(+880)<a href="hassanbiswas.github.io/call">
-1602-873384
-</a>
-</li>
-</ul>
 </li>
 
 </ol>
@@ -1810,28 +1777,11 @@ Bangladesh
 
 <li>
 <h2>
-Contact Information
+Contact Me
 </h2>
 <p>
-For any legal inquiries regarding these terms, please reach out:
+For any legal inquiries regarding these terms, please reach out.
 </p>
-<ul>
-<li>
-<a href="hassanbiswas.github.io">
-hassanbiswas.github.io
-</a>
-</li>
-<li>
-<a href="hassanbiswas.github.io/gmail">
-hassanbiswas.github.io@gmail.com
-</a>
-</li>
-<li>
-(+880)<a href="hassanbiswas.github.io/call">
-1602-873384
-</a>
-</li>
-</ul>
 </li>
 
 
