@@ -207,7 +207,7 @@ let myScript = () => {
     
   // dribble, behance, etc.
 
-  const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', 'হেই', '你好', '안녕하세요', 'こんにちは', 'Bonjour', 'Здравствуйте', 'Olá', 'हेलो'];
+  const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', '你好', '안녕하세요', 'こんにちは', 'Bonjour', 'Здравствуйте', 'Olá', 'हेलो'];
 
   // key specializations & skills: 
   const specializing = [
@@ -431,7 +431,7 @@ let myScript = () => {
         i++;
 
         // Reset loop if we hit the end of the array
-        if (i >= greetings.length) {
+        // if (i >= greetings.length) {
         
           /**
            * The Exit Condition:
@@ -448,13 +448,15 @@ let myScript = () => {
           
             setTimeout(() => {
               loader.remove();
-            }, 250); // 400
+            }, 400); // 400
+
           } else {
             // Keep looping if offline or still loading
             i = 0;
           }
-        }
-      }, 150);
+        // }
+
+      }, 200);
 
     }
   }
@@ -1371,8 +1373,8 @@ let myScript = () => {
              </span>
            </p>
             <div class="flex">
-             <input class="pill" checked="" type="radio"/>
-             <label for="radio">
+             <input name="agreement" class="pill" checked="" type="radio"/>
+             <label for="agreement">
               I agree to the
               <a href="/privacy-policy" target="_blank">
                Privacy Policy
@@ -1945,10 +1947,10 @@ class FooterSection extends HTMLElement {
 <footer class="fluid-grid-system" id="footer">
    <section class="container-xl row gap-4 py-5">
     <section class="flex j-center">
-     <select class="pill btn-primary">
-      <option>System Default</option>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
+     <select name="theme" class="pill btn-primary">
+      <option for="theme">System Default</option>
+      <option for="theme" value="light">Light</option>
+      <option for="theme" value="dark">Dark</option>
      </select>
     </section>
     <section class="col">
