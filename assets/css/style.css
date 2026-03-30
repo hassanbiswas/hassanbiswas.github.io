@@ -659,7 +659,7 @@
         /* aspect-ratio: 16 / 9; */
                                       
         /* Placeholder background while loading */
-        background: color-mix(in hsl, var(--primary-50), transparent 95%);
+        /* background: color-mix(in hsl, var(--primary-50), transparent 95%); */
                                                   
         /* Performance */
         content-visibility: auto;
@@ -899,6 +899,7 @@
         
       /* [class*="button btn"], */
       button,
+      .button,
       input[type="button"],
       input[type="submit"],
       input[type="reset"] {
@@ -2593,6 +2594,8 @@
               text-decoration: none;
               text-align: center;
               padding: var(--space-s) var(--space-m);
+
+              block-size: stretch;
             }
                     
             .active{
