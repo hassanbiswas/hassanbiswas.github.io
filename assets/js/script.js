@@ -172,7 +172,7 @@ let myScript = () => {
           <a href="${bangladesh}">Bangladesh</a>`;
   const locationSecondary = `
           <a href="${dhaka}">Dhaka</a>, 
-          <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide (${worldwide})`;
+          <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
 
   const root = document.documentElement;
 
@@ -236,7 +236,7 @@ let myScript = () => {
 
 
   // get essential favicon by domain name
-  const getFavicon = (domain, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
+  let getFavicon = (domain, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
 
 
   // Uses
@@ -1072,6 +1072,26 @@ let myScript = () => {
      <h2>
       Services available in ${locationSecondary}
      </h2>
+     <p>Static website development in Bangladesh typically costs between 7,500 BDT and 30,000+ BDT, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around 10,000–15,000 BDT, while professional, customized static websites with advanced layouts can exceed 30,000 BDT. 
+      </br>
+      Key Price Factors for Static Websites
+        <ul class="list-style: none;">
+          <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
+        <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
+        <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
+        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from 3,000 BDT.</li>
+        </ul>
+      </p>
+      <p>
+       Average Price Ranges (Approximate)
+       </br>
+       <ul class="list-style: none;">
+       <li>Basic/Simple Site: 7,500 BDT – 15,000 BDT (Portfolio, Personal)</li>
+       <li>Business Website: 15,000 BDT – 30,000 BDT (Corporate, Small Business)</li>
+       <li>Customized Site: 30,000+ BDT </li>
+      </ul>
+      </p>
+      <p class="p-sm">Note: Prices are estimates and vary based on the web design company in Bangladesh.</p>
      <section class="col">
       <div style="gap: var(--space-xs);" class="row">
        <h5>
@@ -1080,7 +1100,7 @@ let myScript = () => {
        <p class="p">** Discounted prices are showing **</p>
        <ul>
          ${servicesPrimary.map(service => `
-           <li>${service.name} (${service.price})</li>
+           <li>${service.name} (<b>${service.price}</b>)</li>
          `).join('')}
        </ul>
       </div>
@@ -1088,7 +1108,7 @@ let myScript = () => {
        <h6>More services:</h6>
        <ul>
          ${servicesSecondery.map(service => `
-           <li>${service.name} (${service.price})</li>
+           <li>${service.name} (<b>${service.price}</b>)</li>
         `).join('')}
        </ul>
        </div>
@@ -1906,7 +1926,6 @@ class ContactSection extends HTMLElement {
 // updated FooterSection Component
 class FooterSection extends HTMLElement {
   connectedCallback() {
-    // https://developer.android.com/
 
     const navigations = [
       { name: `Home`,link: `/` },
@@ -1926,7 +1945,7 @@ class FooterSection extends HTMLElement {
     const legals = [
       { name: `Privacy Policy`, link: `/privacy-policy` },
       { name: `Terms of Service`, link: `/terms-of-service` },
-      { name: `Refund &amp; Cancelation Policy`, link: `/refund-and-cancelation-policy` }
+      { name: `Refund &amp; Cancelation Policy`, link: `/refund_and_cancelation-policy` }
     ];
 
     const socials = [
@@ -2660,11 +2679,11 @@ handleThemeChange(darkModeMediaQuery);
    myScript();
       });
 
-   document.addEventListener("DOMContentLoaded", function() {
-        // console.log("HTML DOM is loaded, but images might not be!");
-        // SEO script for hight performance & ranking
-   myScript();
-      });
+         document.addEventListener("DOMContentLoaded", function() {
+                 // console.log("HTML DOM is loaded, but images might not be!");
+                         // SEO script for hight performance & ranking
+                            myScript();
+                                  });
 
 
 window.addEventListener('focus', () => {
