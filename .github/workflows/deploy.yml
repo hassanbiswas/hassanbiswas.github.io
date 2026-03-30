@@ -7,7 +7,7 @@ on:
     # comment-out on push logic as requested
     # branches: [ main ]
   workflow_run:
-    workflows: ["compression.yml"]
+    workflows: ["compression.yml", "seo-assets.yml", "seo-pulse", "seo-update.yml"]
     types:
       - completed
   schedule:

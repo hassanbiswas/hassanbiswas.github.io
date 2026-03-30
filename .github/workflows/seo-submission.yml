@@ -1,8 +1,12 @@
 name: 🚀 Daily SEO & IndexNow Automation
 
 on:
-  push:
-    branches: [main]
+  # push:
+    # branches: [main]
+  workflow_run:
+    workflows: ["compression.yml", "seo-assets.yml", "seo-update.yml"]
+    types:
+      - completed
   schedule:
     # Runs at 00:00 on the 1st of every month
     - cron: '0 0 1 * *'

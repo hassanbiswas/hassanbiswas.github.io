@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  workflow_run:
+    workflows: ["deploy.yml"]
+    types:
+      - completed
   workflow_dispatch:
   schedule:
     - cron: '0 0 1 * *' # Monthly schedule logic

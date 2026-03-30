@@ -8,6 +8,10 @@ on:
     paths:
       - '**.html' 
   workflow_dispatch: 
+  workflow_run:
+    workflows: ["compression.yml"]
+    types:
+      - completed
 
 jobs:
   build:
