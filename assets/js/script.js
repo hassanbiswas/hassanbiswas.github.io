@@ -1963,13 +1963,13 @@ class FooterSection extends HTMLElement {
 
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
-        <button style="flex: 1; block-size: stretch;" class="btn-primary pill">
+        <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center">
           <a href="/cv">
             CV/Resume ↓
           </a>
         </button>
 
-       <button class="btn-primary no-wrap" style="--primary-50: rgb(0, 256, 0); flex: 1; background: hsla(from var(--primary-50), h s l, .5); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center" style="--primary-50: rgb(0, 256, 0); flex: 1; background: hsla(from var(--primary-50), h, s, l, .5); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span class="d-non">Install ↘</span>
        </button>
@@ -2031,13 +2031,13 @@ class FooterSection extends HTMLElement {
         <!-- class = icon -->
 
        ${socials.map(social => `
-        <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${social.link}" target="_blank" title="${social.name}">
+        <a style="flex: 1; flex-basis: 5ch; z-index: 789;" class=”pill squar rounded" href="${social.link}" target="_blank" title="${social.name}">
          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/>
         </a>
        `).join('')}
        
         <a style="position: fixed; right: 1rem; bottom: 12rem; flex: 1; flex-basis: 5ch; inline-size: 15rem;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="inline-size: 6rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${faviconMessenger}"/>
+          <img style="inline-size: 6rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${author.photo}"/>
         </a>
 
        </div>
