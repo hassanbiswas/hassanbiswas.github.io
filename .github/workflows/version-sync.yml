@@ -62,7 +62,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No version changes to commit."
           else
-            git commit -m "$COMMITTEE_MSG [${VERSION] [skip ci]"
+            git commit -m "$COMMITTEE_MSG [$VERSION] [skip ci]"
             # Using the generated app token for the push
             git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
           fi
