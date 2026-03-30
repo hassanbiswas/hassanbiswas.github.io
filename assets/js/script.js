@@ -1065,7 +1065,7 @@ let myScript = () => {
       // HTML
       template.innerHTML = `
 
-<section class="fluid-grid-system" id="services">
+<section class="fluid-grid-system py-3" id="services">
     <section class="container-lg row">
      <h2>
       Services available in ${locationSecondary}
@@ -1428,13 +1428,13 @@ let myScript = () => {
 
       template.innerHTML = `
 
-<section class="fluid-grid-system info-section">
+<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
 <div class="container-md">
 <div class="row">
 
 <div class="row">
-<h1 class="d-none">
-Privacy Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+<h1>
+Privacy Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
 </h1>
 <p>
 <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
@@ -1569,13 +1569,13 @@ Third-Party Services
 
       template.innerHTML = `
 
-<section class="fluid-grid-system info-section">
+<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
  <div class="container-md">
 <div class="row">
 
 <div class="row">
  <h1>
-Refund &amp; Cancelation Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+Refund &amp; Cancelation Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
  </h1>
 <p>
 <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
@@ -1701,13 +1701,13 @@ const template = document.createElement('template');
 
 template.innerHTML = `
 
-<section class="fluid-grid-system info-section">
+<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
 <div class="container-md">
 <div class="row">
 
 <div class="row">
 <h1>
-Terms of Service | Hassan Biswas — UI/UX &amp; Front-End Architecture
+Terms of Service <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
 </h1>
 <p>
 <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
