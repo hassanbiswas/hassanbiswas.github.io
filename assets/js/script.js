@@ -1963,9 +1963,11 @@ class FooterSection extends HTMLElement {
 
       <div class="row">
       <div class="flex grow a-center">
-       <button class="btn-primary pill">
-        <a href="/cv">CV/Resume ↓</a>
-       </button>
+        <a href="/cv">
+          <button class="btn-primary pill">
+            CV/Resume ↓
+          </button>
+        </a>
 
        <button class="btn-primary no-wrap" style="--primary-50: color-mix(in hsl, rgb(0, 256, 0, 1), var(--bg-1) 60%); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
@@ -2034,8 +2036,8 @@ class FooterSection extends HTMLElement {
         </a>
        `).join('')}
        
-        <a style="position: fixed; right: 0; bottom: 5rem;" style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${author.photo}"/>
+        <a style="position: fixed; right: 8rem; bottom: 8rem; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${faviconMessenger}"/>
         </a>
 
        </div>
