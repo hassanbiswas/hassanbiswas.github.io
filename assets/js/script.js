@@ -456,7 +456,7 @@ let myScript = () => {
           }
         }
 
-      }, 200);
+      }, 180);
 
     }
   }
@@ -2033,6 +2033,10 @@ class FooterSection extends HTMLElement {
          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/>
         </a>
        `).join('')}
+       
+        <a style="position: fixed; right: 0; bottom: 5rem;" style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${author.photo}"/>
+        </a>
 
        </div>
       </nav>
