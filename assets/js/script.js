@@ -1963,7 +1963,7 @@ class FooterSection extends HTMLElement {
 
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
-        <button style="flex: 1;" class="btn-primary pill">
+        <button style="flex: 1; block-size: stretch;" class="btn-primary pill">
           <a href="/cv">
             CV/Resume ↓
           </a>
@@ -2036,8 +2036,8 @@ class FooterSection extends HTMLElement {
         </a>
        `).join('')}
        
-        <a style="position: fixed; right: 0rem; bottom: 12rem; flex: 1; flex-basis: 5ch; inline-size: 15rem;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="inline-size: 15rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${faviconMessenger}"/>
+        <a style="position: fixed; right: 1rem; bottom: 12rem; flex: 1; flex-basis: 5ch; inline-size: 15rem;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="inline-size: 6rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${faviconMessenger}"/>
         </a>
 
        </div>
