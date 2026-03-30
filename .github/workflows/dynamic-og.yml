@@ -1,9 +1,9 @@
 name: Generate Dynamic OG Images
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
   schedule:
     - cron: '0 0 1 * *' # Monthly schedule logic
@@ -90,7 +90,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to image, skipping push."
           else
-            git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
+            git commit -m "$COMMITTEE_MSG [$VERSION]"
             git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git pull --rebase --autostash
             git push
