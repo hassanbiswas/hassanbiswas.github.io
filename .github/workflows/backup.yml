@@ -2,27 +2,38 @@ name: Monthly Automated Backup
 
 on:
   schedule:
-    # Zero Maintenance: Executes automatically at 00:00 on the 1st of every month
     - cron: '0 0 1 * *'
   workflow_dispatch:
+
+env:
+  # Future-proofing against Node.js 20 deprecation
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   backup:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Generate Temporary Token
         id: app-token
         uses: actions/create-github-app-token@v1
         with:
-          # Using your preferred secret naming convention
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
 
       - name: Set Version Logic
         run: |
-          # Logic Preservation: Standardized YY.MM.DD format
-          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
-          echo "COMMITTEE_MSG=Automated Backup - Stable Build" >> $GITHUB_ENV
+          # Standardized YY.MM.DD format
+          VERSION=$(date +'%y.%m.%d')
+          COMMITTEE_MSG="Automated Backup - Stable Build"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
+          
+          echo "------------------------------------------------"
+          echo "Committee Message: $COMMITTEE_MSG"
+          echo "Data Attribute (Version): $VERSION"
+          echo "------------------------------------------------"
 
       - name: Checkout Source (Private)
         uses: actions/checkout@v4
@@ -38,36 +49,22 @@ jobs:
 
       - name: Clean Sync Logic
         run: |
-          # Fallback Security: Syncing while preserving core repo structure
-          # --delete ensures the backup is a 1:1 mirror of the source files
+          # 1:1 Mirroring while excluding git metadata
           rsync -av --delete \
             --exclude='.git/' \
             --exclude='.github/' \
             source-repo/ backup-repo/
 
       - name: Commit and Push
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        working-directory: backup-repo
         run: |
-          cd backup-repo
-          
-          # Git Identity for Bot Automation
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add .
 
-          # Only push if changes exist (Set-and-Forget)
           if [ -n "$(git status --porcelain)" ]; then
-            echo "------------------------------------------------"
-            echo "Committee Message: $COMMITTEE_MSG"
-            echo "Data Attribute (Version): $VERSION"
-            echo "------------------------------------------------"
-
             git commit -m "$COMMITTEE_MSG [$VERSION]"
-            
-            # Update remote with token for secure push
-            git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/hassanbiswas/backup.git
             git push origin main
           else
             echo "No changes detected. Backup is already synchronized."
