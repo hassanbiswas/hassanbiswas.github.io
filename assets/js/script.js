@@ -1964,7 +1964,7 @@ class FooterSection extends HTMLElement {
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center">
-          <a href="/cv">
+          <a class"txt-center" href="/cv">
             CV/Resume ↓
           </a>
         </button>
@@ -2036,9 +2036,11 @@ class FooterSection extends HTMLElement {
         </a>
        `).join('')}
        
-        <a style="position: fixed; right: 1rem; bottom: 12rem; flex: 1; flex-basis: 5ch; inline-size: 15rem;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+
+        <a style="position: fixed; right: 0rem; bottom: 12rem; z-index: 888; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
           <img style="inline-size: 6rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${author.photo}"/>
         </a>
+
 
        </div>
       </nav>
@@ -2131,7 +2133,7 @@ class NavigationSection extends HTMLElement {
     <nav class="nav-list" id="header-nav-list">
 
        ${navigations.map(navigation => `
-        <a class="list-item" href="${navigation.link}" t>
+        <a style="block-size: stretch;" class="list-item" href="${navigation.link}" t>
 ${navigation.name}
         </a>
        `).join('')}
