@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 
 env:
-  # Future-proofing against Node.js 20 deprecation
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -24,8 +23,7 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          # Standardized YY.MM.DD format
-          VERSION=$(date +'%y.%m.%d')
+          VERSION=$(导date +'%y.%m.%d')
           COMMITTEE_MSG="Automated Backup - Stable Build"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
@@ -39,22 +37,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: source-repo
-      - name: Checkout Backup Repo (Public/Backup)
+
+      - name: Checkout Backup Repo (Private Destination)
         uses: actions/checkout@v4
         with:
           repository: hassanbiswas/backup
           token: ${{ steps.app-token.outputs.token }}
           path: backup-repo
-          # Explicitly define the branch to avoid the "Determining default branch" lookup fail
-          ref: main 
+          ref: main
 
       - name: Clean Sync Logic
         run: |
-          # Ensure directories exist before rsync
           mkdir -p source-repo backup-repo
-          
-          # 1:1 Mirroring while excluding git metadata
-          # Added --ignore-errors to keep moving if a single file is locked
+          # 1:1 Mirroring while excluding git metadata and GitHub workflows
           rsync -av --delete \
             --exclude='.git/' \
             --exclude='.github/' \
@@ -65,8 +60,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          # Check if there's anything to commit
+          
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "$COMMITTEE_MSG [$VERSION]"
