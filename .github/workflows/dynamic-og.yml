@@ -5,7 +5,7 @@ on:
     branches:
       - main
   workflow_run:
-    workflows: ["deploy.yml"]
+    workflows: ["compression.yml", "deploy.yml"]
     types:
       - completed
   workflow_dispatch:
