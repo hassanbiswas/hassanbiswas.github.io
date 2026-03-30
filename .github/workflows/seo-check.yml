@@ -5,6 +5,10 @@ on:
   #   branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_run:
+    workflows: ["seo-assets.yml", "seo-update.yml"]
+    types:
+      - completed
   schedule:
     - cron: '0 0 1 * *' # Monthly schedule (Set-and-forget automation)
   workflow_dispatch: # Manual trigger capability

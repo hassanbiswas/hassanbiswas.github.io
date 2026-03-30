@@ -222,7 +222,7 @@ let myScript = () => {
     { name: `Web design`, price: `50$` },
     { name: `Re-Design website`, price: `50$` },
     { name: `Front-End development`, price: `50$` },
-    { name: `Static website`, price: `50$` },
+    { name: `Static Websit (Reasonable price!)`, price: `50$` },
     { name: `Photo/image to website`, price: `50$` },
     { name: `Figma/Framer/Webflow to website`, price: `50$` }
   ];
