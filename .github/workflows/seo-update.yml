@@ -1,12 +1,12 @@
-Name: Monthly SEO Auto-Update
+name: Monthly SEO Auto-Update
 
 on:
   schedule:
     - cron: '0 0 1 * *' # Runs at midnight on the 1st of every month
   push:
     # Commented out push logic as per preference
-    # paths:
-    #   - '**.html' 
+    paths:
+      - '**.html' 
   workflow_dispatch: 
 
 jobs:

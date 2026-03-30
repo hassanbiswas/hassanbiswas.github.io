@@ -5,8 +5,8 @@ on:
     # Runs at 00:00 on the 1st and 15th of every month
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
 
 jobs:
   release-automation:
@@ -34,18 +34,18 @@ jobs:
       - name: Sync Version in Manifest and Service Worker
         run: |
           # Update version and version_name in manifest.json
-          sed -i "s/\"version\": \".*\"/\"version\": \"${{ env.VERSION }}\"/" manifest.json
-          sed -i "s/\"version_name\": \".*\"/\"version_name\": \"${{ env.VERSION }}\"/" manifest.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" manifest.json
+          sed -i "s/\"version_name\": \".*\"/\"version_name\": \"$VERSION\"/" manifest.json
           
           # Update the VERSION constant in sw.js for cache-busting
           # Matches: const VERSION = '...'; or const VERSION = "...";
-          sed -i "s/const VERSION = .*;/const VERSION = '${{ env.VERSION }}';/" sw.js
+          sed -i "s/const VERSION = .*;/const VERSION = '$VERSION';/" sw.js
 
       - name: Display Release Information
         run: |
           echo "------------------------------------------------"
-          echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
-          echo "Data Attribute (Version): ${{ env.VERSION }}"
+          echo "Committee Message: $COMMITTEE_MSG"
+          echo "Data Attribute (Version): $VERSION"
           echo "------------------------------------------------"
 
       - name: Commit and Push Changes
@@ -58,7 +58,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No version changes to commit."
           else
-            git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}] [skip ci]"
+            git commit -m "$COMMITTEE_MSG [${VERSION] [skip ci]"
             # Using the generated app token for the push
             git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
           fi

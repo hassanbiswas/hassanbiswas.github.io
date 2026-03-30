@@ -35,7 +35,7 @@ jobs:
           git add pulse.txt
           
           if ! git diff --cached --quiet; then
-            git commit -m "${{ env.COMMITTEE_MSG }} (${{ env.VERSION }})"
+            git commit -m "$COMMITTEE_MSG ($VERSION)"
             git push
           else
             echo "No changes detected, skipping commit."

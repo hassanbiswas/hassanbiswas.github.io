@@ -1,8 +1,8 @@
 name: 🚀 Daily SEO & IndexNow Automation
 
 on:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   schedule:
     # Runs at 00:00 on the 1st of every month
     - cron: '0 0 1 * *'
@@ -56,7 +56,7 @@ jobs:
       - name: 🛠️ Logic Preservation Log
         # Final log using the preferred VERSION logic
         run: |
-          echo "SEO Automation for version ${{ env.VERSION }} completed successfully."
-          echo "Message: ${{ env.COMMITTEE_MSG }}"
+          echo "SEO Automation for version ${VERSION completed successfully."
+          echo "Message: $COMMITTEE_MSG"
           echo "Reference: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           
