@@ -7,6 +7,10 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
+  workflow_run:
+    workflows: ["compression.yml", "seo-assets.yml"]
+    types:
+      - completed
 
 jobs:
   release-automation:
