@@ -2,6 +2,7 @@ name: Monthly Automated Backup
 
 on:
   schedule:
+    # Monthly Schedule: Runs at 00:00 on the 1st of every month
     - cron: '0 0 1 * *'
   workflow_dispatch:
 
@@ -10,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      
     steps:
       - name: Generate Temporary Token
         id: app-token
@@ -20,9 +22,10 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          # Automating the versioning format: YY.MM.DD
+          # Preferred Versioning: YY.MM.DD
           VERSION=$(date +'%y.%m.%d')
           COMMITTEE_MSG="Automated Backup - Stable Build"
+          
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
           
@@ -39,16 +42,15 @@ jobs:
       - name: Checkout Backup Repo (Private Destination)
         uses: actions/checkout@v4
         with:
-          # Verify this repository name exactly matches your GitHub repo name
           repository: hassanbiswas/backup
+          # Use the token directly here so the local .git/config is pre-authenticated
           token: ${{ steps.app-token.outputs.token }}
           path: backup-repo
           ref: main
 
       - name: Clean Sync Logic
         run: |
-          # Use rsync to mirror the content accurately
-          # We exclude .git and .github to keep the backup repo clean
+          # Syncing source to backup while preserving logic and excluding Git/Workflow files
           rsync -av --delete \
             --exclude='.git/' \
             --exclude='.github/' \
@@ -56,19 +58,22 @@ jobs:
             
       - name: Commit and Push
         working-directory: backup-repo
+        env:
+          # Passing the token as an environment variable for safety
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          # Configure Git Bot
+          # Bot Identity
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          # Update the remote URL to use the App Token for authentication
-          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/hassanbiswas/backup.git
+          git add -A
 
-          # Only push if there are actual file changes
+          # Only push if there are actual file changes (Set-and-Forget)
           if [ -n "$(git status --porcelain)" ]; then
-            git add -A
             git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
+            # Authentication is already handled by the 'Checkout' token
             git push origin main
           else
             echo "No changes detected. Backup is already synchronized."
           fi
+          
