@@ -1559,8 +1559,8 @@ Third-Party Services
 
   
 
-  // refund-and-cancellation-policy-section component
-  class RefundAndCancellationPolicySection extends HTMLElement {
+  // refund-and-cancelation-policy-section component
+  class RefundAndCancelationPolicySection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
       const template = document.createElement('template');
@@ -1575,7 +1575,7 @@ Third-Party Services
 
 <div class="row">
  <h1>
-Refund &amp; Cancellation Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
+Refund &amp; Cancelation Policy | Hassan Biswas — UI/UX &amp; Front-End Architecture
  </h1>
 <p>
 <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
@@ -2259,7 +2259,7 @@ if (!customElements.get("faqs-section")) {
 }
   
 
-/*
+
 
 // Define the custom element
   if (!customElements.get("privacy-policy-section")) {
@@ -2276,7 +2276,7 @@ if (!customElements.get("faqs-section")) {
     customElements.define("refund-and-cancelation-policy-section", RefundAndCancelationPolicySection);
   }
 
-*/
+
 
 
 // Define the custom element
