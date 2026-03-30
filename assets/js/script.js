@@ -1962,14 +1962,14 @@ class FooterSection extends HTMLElement {
       </p>
 
       <div class="row">
-      <div style="align-items: stretch;" class="flex grow a-center">
-        <a style="flex: 1; inline-size: 100%;" href="/cv">
-          <button class="btn-primary pill">
+      <div style="align-content: stretch;" class="flex grow a-center">
+        <button style="flex: 1;" class="btn-primary pill">
+          <a href="/cv">
             CV/Resume ↓
-          </button>
-        </a>
+          </a>
+        </button>
 
-       <button class="btn-primary no-wrap" style="flex: 1; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap" style="--primary-50: rgb(0, 256, 0); flex: 1; background: hsla(from var(--primary-50), h s l, .5); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span class="d-non">Install ↘</span>
        </button>
@@ -2036,8 +2036,8 @@ class FooterSection extends HTMLElement {
         </a>
        `).join('')}
        
-        <a style="position: fixed; right: 1rem; bottom: 10rem; flex: 1; flex-basis: 5ch; inline-size: 15rem;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${faviconMessenger}"/>
+        <a style="position: fixed; right: 0rem; bottom: 12rem; flex: 1; flex-basis: 5ch; inline-size: 15rem;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="inline-size: 15rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${faviconMessenger}"/>
         </a>
 
        </div>
