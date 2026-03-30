@@ -2287,8 +2287,10 @@
       #youtubers {
         background: var(--bg-1);
 
+        /* 
+
         :is([class^="container"]).row {
-          gap: var(--space-m); 
+          gap: var(--space-s); 
         }
 
         .flex-wrapper {
@@ -2306,16 +2308,19 @@
               flex-basis: 8rem;
               flex-grow: 1;
             }
-          }
-        }
+          } 
+        } 
+          
 
-        .col { gap: var(--space-2xs); } /* commented */
+        .col { gap: var(--space-2xs); }
         .row { gap: var(--space-2xs); }
         .flex { gap: var(--space-2xs); }
 
         .flex {
-          place-items: center; /* commented */
+          place-items: center;
         }
+          */
+        
 
         ul { list-style: none; }
 
@@ -2364,19 +2369,8 @@
 
       /* #services */
       #services {
-        /* color-scheme: light dark; */
-        color: var(--txt-2);
-        block-size: 100dvh; /* commented */
-
-        background: linear-gradient(
-          to right,
-          var(--bg-1) 50%,
-          var(--txt-1) 50%
-        );
-        background-size: 200%;
-        background-position: 0%;
-        transition: color 2s var(--linear);
-        animation: bg-theme 3s var(--linear) forwards;
+        color-scheme: light dark;
+        block-size: 100dvh;
       }
                   
       #projects {
