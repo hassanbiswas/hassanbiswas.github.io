@@ -4,8 +4,8 @@ on:
   schedule:
     # Monthly Schedule: Runs at 00:00 on day 1 of every month
     - cron: '0 0 1 * *'
-  push:
-    branches: [ main ]
+  # push:
+    # branches: [ main ]
   workflow_dispatch:
 
 permissions:
