@@ -9,7 +9,7 @@ on:
     types:
       - completed
   schedule:
-    # Zero Maintenance: Executes automatically at 00:00 on the 1st of every month
+    # Zero Maintenance: Monthly execution
     - cron: '0 0 1 * *'
   workflow_dispatch:
 
@@ -25,7 +25,6 @@ concurrency:
 jobs:
   process-and-deploy:
     runs-on: ubuntu-latest
-    # Logic Preservation: Only runs if schedule/dispatch OR successful compression
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     
     environment:
@@ -47,52 +46,40 @@ jobs:
       - name: Install Minification Tools
         run: npm install -g terser html-minifier-terser
 
-      - name: Generate Ephemeral Token
-        id: app-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
-
       - name: Set Version Logic
         run: |
-          # Standardized YY.MM.DD format for your brand
           echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=Automated Release - Optimized Build $(date +'%y.%m.%d')" >> $GITHUB_ENV
 
-      - name: Minify Assets
+      - name: Build Optimized Assets
         run: |
-          mkdir -p dist
-          # Copy source to dist, excluding git/workflow files to prevent loops
-          rsync -av --exclude='.git' --exclude='.github' . dist/
+          mkdir -p _site
+          rsync -av --exclude='.git' --exclude='.github' . _site/
           
-          # Minify JS (ES6+ compatible)
-          find dist -name "*.js" -exec terser {} -o {} --compress --mangle \;
+          # --- Flattening Logic ---
+          # Checks if there's only 1 directory and 0 files in the root of _site
+          if [ $(ls -1 _site | wc -l) -eq 1 ] && [ -d "_site/$(ls _site)" ]; then
+            SUBDIR=$(ls _site)
+            echo "Flattening: Moving contents of $SUBDIR to root"
+            mv _site/$SUBDIR/* _site/ 2>/dev/null || true
+            mv _site/$SUBDIR/.* _site/ 2>/dev/null || true
+            rmdir "_site/$SUBDIR"
+          fi
           
-          # Minify CSS & HTML (Preserves your HSL brand colors)
-          find dist -name "*.html" -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true {} -o {} \;
-          find dist -name "*.css" -exec html-minifier-terser --minify-css true --collapse-whitespace {} -o {} \;
-
-      - name: Push to src Branch
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          cd dist
-          git init
-          git config user.name "Hassan Biswas"
-          git config user.email "hassanbiswas.github.io@gmail.com"
-          git remote add origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git checkout -b src
-          git add .
-          git commit -m "$COMMITTEE_MSG"
-          # Force push to keep src purely for minified delivery
-          git push origin src --force
+          # --- Minification (Performance & SEO) ---
+          # JS Minification
+          find _site -name "*.js" -exec terser {} -o {} --compress --mangle \;
+          
+          # CSS Minification (Preserves HSL brand colors)
+          find _site -name "*.css" -exec html-minifier-terser --minify-css true --collapse-whitespace {} -o {} \;
+          
+          # HTML Minification
+          find _site -name "*.html" -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true {} -o {} \;
 
       - name: Cleanup Old Tags
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Deletes the infinity tag if it exists to prevent "already exists" errors
           git push origin :refs/tags/∞ || echo "Tag not found, skipping delete."
 
       - name: Setup Pages
@@ -101,8 +88,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Deploying the minified folder only
-          path: './dist'
+          path: './_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
