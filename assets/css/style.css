@@ -2286,6 +2286,7 @@
 
       #youtubers {
         background: var(--bg-1);
+        border: 1px solid red;
 
         /* 
 
@@ -2371,6 +2372,8 @@
       #services {
         color-scheme: light dark;
         block-size: 100dvh;
+        background: var(--bg-1);
+        color: var(--txt-1);
       }
                   
       #projects {
