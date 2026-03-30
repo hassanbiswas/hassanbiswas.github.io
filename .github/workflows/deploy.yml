@@ -1,0 +1,117 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["compression.yml"]
+    types:
+      - completed
+  schedule:
+    # Zero Maintenance: Executes automatically at 00:00 on the 1st of every month
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  process-and-deploy:
+    runs-on: ubuntu-latest
+    # Logic Preservation: Only runs if schedule/dispatch OR successful compression
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Repository (Main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Minification Tools
+        run: npm install -g terser html-minifier-terser
+
+      - name: Generate Ephemeral Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Set Version Logic
+        run: |
+          # Standardized YY.MM.DD format for your brand
+          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Automated Release - Optimized Build $(date +'%y.%m.%d')" >> $GITHUB_ENV
+
+      - name: Minify Assets
+        run: |
+          mkdir -p dist
+          # Copy source to dist, excluding git/workflow files to prevent loops
+          rsync -av --exclude='.git' --exclude='.github' . dist/
+          
+          # Minify JS (ES6+ compatible)
+          find dist -name "*.js" -exec terser {} -o {} --compress --mangle \;
+          
+          # Minify CSS & HTML (Preserves your HSL brand colors)
+          find dist -name "*.html" -exec html-minifier-terser --collapse-whitespace --remove-comments --minify-js true --minify-css true {} -o {} \;
+          find dist -name "*.css" -exec html-minifier-terser --minify-css true --collapse-whitespace {} -o {} \;
+
+      - name: Push to src Branch
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          cd dist
+          git init
+          git config user.name "Hassan Biswas"
+          git config user.email "hassanbiswas.github.io@gmail.com"
+          git remote add origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git checkout -b src
+          git add .
+          git commit -m "$COMMITTEE_MSG"
+          # Force push to keep src purely for minified delivery
+          git push origin src --force
+
+      - name: Cleanup Old Tags
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          # Deletes the infinity tag if it exists to prevent "already exists" errors
+          git push origin :refs/tags/∞ || echo "Tag not found, skipping delete."
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Deploying the minified folder only
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Display Release Information
+        run: |
+          echo "------------------------------------------------"
+          echo "Committee Message: $COMMITTEE_MSG"
+          echo "Data Attribute (Version): $VERSION"
+          echo "------------------------------------------------"
+          
