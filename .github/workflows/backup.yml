@@ -5,9 +5,6 @@ on:
     - cron: '0 0 1 * *'
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   backup:
     runs-on: ubuntu-latest
@@ -23,7 +20,7 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          # Fixed the '导' character prefix error
+          # Automating the versioning format: YY.MM.DD
           VERSION=$(date +'%y.%m.%d')
           COMMITTEE_MSG="Automated Backup - Stable Build"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
@@ -42,6 +39,7 @@ jobs:
       - name: Checkout Backup Repo (Private Destination)
         uses: actions/checkout@v4
         with:
+          # Verify this repository name exactly matches your GitHub repo name
           repository: hassanbiswas/backup
           token: ${{ steps.app-token.outputs.token }}
           path: backup-repo
@@ -49,24 +47,28 @@ jobs:
 
       - name: Clean Sync Logic
         run: |
-          mkdir -p source-repo backup-repo
-          # 1:1 Mirroring while excluding git metadata and GitHub workflows
+          # Use rsync to mirror the content accurately
+          # We exclude .git and .github to keep the backup repo clean
           rsync -av --delete \
             --exclude='.git/' \
             --exclude='.github/' \
             source-repo/ backup-repo/
-
+            
       - name: Commit and Push
         working-directory: backup-repo
         run: |
+          # Configure Git Bot
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
+          # Update the remote URL to use the App Token for authentication
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/hassanbiswas/backup.git
+
+          # Only push if there are actual file changes
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "$COMMITTEE_MSG [$VERSION]"
+            git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
             git push origin main
           else
             echo "No changes detected. Backup is already synchronized."
           fi
-          
