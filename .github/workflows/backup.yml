@@ -23,7 +23,8 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          VERSION=$(导date +'%y.%m.%d')
+          # Fixed the '导' character prefix error
+          VERSION=$(date +'%y.%m.%d')
           COMMITTEE_MSG="Automated Backup - Stable Build"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
