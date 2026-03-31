@@ -66,16 +66,6 @@
         // console.log("App Mode Active");
       }
   </script>
-  <script>
-   // 3. Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('https://hassanbiswas.github.io/sw.js')
-          // .then(reg => console.log('Service Worker Registered'))
-          // .catch(err => console.log('Service Worker Failed', err));
-        });
-      }
-  </script>
   <meta content="Hassan Biswas" name="author"/>
  </head>
  <body onload="myScript()">
