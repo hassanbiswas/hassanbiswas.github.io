@@ -19,38 +19,35 @@ jobs:
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
+          # Explicitly list the backup repo if it's not the current one
+          owner: hassanbiswas
+          repositories: |
+            hassanbiswas.github.io
+            backup
 
       - name: Set Version Logic
         run: |
-          # Preferred Versioning: YY.MM.DD
           VERSION=$(date +'%y.%m.%d')
-          COMMITTEE_MSG="Automated Backup - Stable Build"
-          
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
-          
-          echo "------------------------------------------------"
-          echo "Committee Message: $COMMITTEE_MSG"
-          echo "Data Attribute (Version): $VERSION"
-          echo "------------------------------------------------"
+          echo "COMMITTEE_MSG=Automated Backup - Stable Build" >> $GITHUB_ENV
 
-      - name: Checkout Source (Private)
+      - name: Checkout Source
         uses: actions/checkout@v4
         with:
           path: source-repo
 
-      - name: Checkout Backup Repo (Private Destination)
+      - name: Checkout Backup Repo
         uses: actions/checkout@v4
         with:
           repository: hassanbiswas/backup
-          # Use the token directly here so the local .git/config is pre-authenticated
           token: ${{ steps.app-token.outputs.token }}
           path: backup-repo
-          ref: main
+          persist-credentials: true
 
       - name: Clean Sync Logic
         run: |
-          # Syncing source to backup while preserving logic and excluding Git/Workflow files
+          # Sync source content (excluding git metadata) into the backup folder
+          # The trailing slash on source-repo/ is important to copy contents, not the folder itself
           rsync -av --delete \
             --exclude='.git/' \
             --exclude='.github/' \
@@ -58,22 +55,16 @@ jobs:
             
       - name: Commit and Push
         working-directory: backup-repo
-        env:
-          # Passing the token as an environment variable for safety
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          # Bot Identity
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          git add -A
+          git add .
 
-          # Only push if there are actual file changes (Set-and-Forget)
           if [ -n "$(git status --porcelain)" ]; then
             git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
-            # Authentication is already handled by the 'Checkout' token
             git push origin main
           else
-            echo "No changes detected. Backup is already synchronized."
+            echo "No changes detected. Backup is current."
           fi
           
