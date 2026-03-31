@@ -20,30 +20,12 @@
       injectAsset('css', 'https://hassanbiswas.github.io/assets/css/animation.css', '(prefers-reduced-motion: none)');
       injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
   </script>
-  <link href="https://hassanbiswas.github.io/manifest.json" rel="manifest"/>
   <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
   <title>
    Offline | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
   </title>
   <meta content="Offline | Hassan Biswas — UI/UX &amp; Front-End Architecture" name="title"/>
-  <script>
-   // 2. Identify if in WebView
-      const isWebView = navigator.userAgent.includes("HassanBiswasApp");
-      if (isWebView) {
-        document.body.classList.add('app-mode');
-        // console.log("App Mode Active");
-      }
-  </script>
-  <script>
-   // 3. Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('https://hassanbiswas.github.io/sw.js')
-          // .then(reg => console.log('Service Worker Registered'))
-          // .catch(err => console.log('Service Worker Failed', err));
-        });
-      }
-  </script>
+  
   <meta content="Freelance Front-End Developer &amp; Website Designer specializing in high-performance digital experiences. Optimized for March 2026." name="description"/>
   <meta content="Hassan Biswas, Offline, Web Developer, UI/UX, Front-End Architecture, Bangladesh" name="keywords"/>
   <meta content="Hassan Biswas" name="author"/>
@@ -65,13 +47,6 @@
   <!-- header ends ///-->
   <!--/// #main starts here! -->
   <main>
-   <!--/// design system -->
-   <!-- 
-
-<design-system-section></design-system-section> 
-
-    -->
-   <!-- design system ///-->
    <!--/// #hero starts here! -->
    <hero-section>
    </hero-section>
