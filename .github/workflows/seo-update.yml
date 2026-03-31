@@ -60,7 +60,7 @@ jobs:
               file_name = os.path.basename(file_path).lower()
               
               # Default values for root/index files
-              page_subject, description = ("Brand Identity", "Freelance Front-End Developer & Website Designer specializing in high-performance digital experiences.")
+              page_subject, description = ("Freelance Front-End Developer & Website Designer specializing in high-performance digital experiences.")
 
               # Check if file is in a mapped folder
               if folder_name in FOLDER_MAP:

@@ -228,7 +228,7 @@ let myScript = () => {
   ];
 
   const servicesSecondery = [
-    { name: `Custom QR code`, price: `.5$` },
+    { name: `Custom QR code`, price: `0.5$` },
     { name: `YouTube Channel ownership transfer`, price: `1.5$` }
   ];
 
@@ -862,8 +862,8 @@ let myScript = () => {
           <h1 class="txt-center d-non">${author.title}</h1>
           <p class="txt-center">${author.description}</p>
           <div class="button-group flex">
-            <a style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill" href="#projects"><b>View My Work</b></a>
-            <a class="btn btn-cta" href="#contact">Hire Me ↘</a>
+            <a style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill" href="/cv"><b>CV/Resume ↓</b></a>
+            <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
           </div>
           </section>
 
@@ -1070,28 +1070,28 @@ let myScript = () => {
 <section class="fluid-grid-system" id="services">
     <section class="container-lg row">
      <h2>
-      Services available in ${locationSecondary}
+      Services available in ${locationSecondary}.
      </h2>
-     <p>Static website development in Bangladesh typically costs between 7,500 BDT and 30,000+ BDT, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around 10,000–15,000 BDT, while professional, customized static websites with advanced layouts can exceed 30,000 BDT. 
+     <p>Static website development in Bangladesh typically costs between 75$ and 300$+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around 100$–150$, while professional, customized static websites with advanced layouts can exceed 300$. 
       </br>
-      Key Price Factors for Static Websites
+      <p class="h6">Key Price Factors for Static Websites:</p>
         <ul class="list-style: none;">
           <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
         <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
         <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
-        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from 3,000 BDT.</li>
+        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from 30$.</li>
         </ul>
       </p>
       <p>
-       Average Price Ranges (Approximate)
+       <p class="h6">Average Price Ranges (Approximate):</p>
        </br>
        <ul class="list-style: none;">
-       <li>Basic/Simple Site: 7,500 BDT – 15,000 BDT (Portfolio, Personal)</li>
-       <li>Business Website: 15,000 BDT – 30,000 BDT (Corporate, Small Business)</li>
-       <li>Customized Site: 30,000+ BDT </li>
+       <li>Basic/Simple Site: 75$ – 150$ (Portfolio, Personal)</li>
+       <li>Business Website: 150$ – 300$ (Corporate, Small Business)</li>
+       <li>Customized Site: 300$+ </li>
       </ul>
       </p>
-      <p class="p-sm">Note: Prices are estimates and vary based on the web design company in Bangladesh.</p>
+      <p class="p-sm"><span class="txt-primary">Note:</span> Prices are estimates and vary based on the web design company in Bangladesh.</p>
      <section class="col">
       <div style="gap: var(--space-xs);" class="row">
        <h5>
@@ -1982,13 +1982,13 @@ class FooterSection extends HTMLElement {
 
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
-        <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center">
+        <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
           <a class"txt-center" href="/cv">
             CV/Resume ↓
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center" style="--primary-50: rgb(0, 256, 0); flex: 1; background: hsla(from var(--primary-50), h, s, l, .5); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; background: hsla(from var(--primary-50), h, s, l, .5); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span class="d-non">Install ↘</span>
        </button>
@@ -2056,8 +2056,8 @@ class FooterSection extends HTMLElement {
        `).join('')}
        
 
-        <a style="position: fixed; right: 0rem; bottom: 12rem; z-index: 888; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="inline-size: 6rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${author.photo}"/>
+        <a style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 888; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${author.photo}"/>
         </a>
 
 
@@ -2076,10 +2076,10 @@ class FooterSection extends HTMLElement {
    </section>
    <!-- footer with links & logo -->
    <p style="display: none;" class="container-md">
-    &copy; ${thisYear} ${author.title}
+    &copy; ${new Date().getFullYear()} ${author.title}
    </p>
 
-   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee" scrollamount="7">
+   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee" scrollamount="3">
     <section class="svg-wrapper">
      <svg>
       <text class="copyright" y="95">
@@ -2088,7 +2088,7 @@ class FooterSection extends HTMLElement {
      </svg>
      <svg>
       <text class="txt-stroke" y="95">
-        ${thisYear}
+        ${new Date().getFullYear()}
       </text>
      </svg>
      <svg>
@@ -2149,7 +2149,7 @@ class NavigationSection extends HTMLElement {
 
   <section class="fluid-grid-system" id="bottom-navigation">
    <section style="overflow: visible;" class="container-sm row">
-    <nav class="nav-list" id="header-nav-list">
+    <nav class="nav-list items-center txt-center" id="header-nav-list">
 
        ${navigations.map(navigation => `
         <a style="block-size: stretch;" class="list-item" href="${navigation.link}" t>
@@ -2394,7 +2394,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt)
             navLink?.classList.remove('active');
           }
         });
-      }, { threshold: 0.4 }); // Trigger when section is 60% visible, avoid 1
+      }, { threshold: 0.5 }); // Trigger when section is 60% visible, avoid 1
 
       document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
 
@@ -2538,6 +2538,7 @@ customElements.define("t-section", TSection);
       photos?.forEach(el => {
         // el.style.aspectRatio = aspectRatio;
         el.setAttribute('alt', `Visual content`);
+        el.style = `height: 100%; width: 100%;`;
       });
       // video
       videos?.forEach(el => {
