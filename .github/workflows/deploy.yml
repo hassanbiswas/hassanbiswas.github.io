@@ -7,7 +7,7 @@ on:
     paths:
       - '**'
   workflow_run:
-    workflows: ["compression.yml"]
+    workflows: ["compression.yml", "seo-assets.yml", "seo-pulse.yml", "seo-update.yml", "version-sync.yml"]
     types:
       - completed
   schedule:
