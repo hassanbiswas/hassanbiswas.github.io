@@ -209,6 +209,11 @@ let myScript = () => {
 
   const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', '你好', '안녕하세요', 'こんにちは', 'Bonjour', 'Здравствуйте', 'Olá', 'हेलो'];
 
+  const heroStatus = [
+    { name: `Available for projects`, value: `#`},
+    { name: `Developed by OPPO A53`, value: `#`}
+  ]
+
   // key specializations & skills: 
   const specializing = [
     { name: `Front-End Architecture`, value: `Designing scalable and efficient user interfaces.` },
@@ -862,7 +867,7 @@ let myScript = () => {
           <h1 class="txt-center d-non">${author.title}</h1>
           <p class="txt-center">${author.description}</p>
           <div class="button-group flex">
-            <a style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill" href="/cv"><b>CV/Resume ↓</b></a>
+            <a href="/cv"><buttton style="border: 2px solid currentColor;" class="btn btn-primary pill">CV/Resume ↓</button></a>
             <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
           </div>
           </section>
@@ -1351,16 +1356,11 @@ let myScript = () => {
           question: `What is my contact number?`,
           answer: ` 
            Mobile: (+880)
-           <a href="${urlMobile}">
-            <b>1602-873384</b>
-           </a>
-           <sup class="p-sm">
-            24/7
-           </sup> </br>
+           <a href="${urlMobile}"><b>1602-873384</b></a>
+           <sup class="p-sm">24/7</sup> 
+           </br></br>
            Whatsapp: (+880)
-           <a href="${urlWhatsapp}">
-            <b>1602-873384</b>
-           </a>`
+           <a href="${urlWhatsapp}"><b>1602-873384</b></a>`
         }
       ];
 
@@ -1393,7 +1393,7 @@ let myScript = () => {
              </span>
            </p>
             <div class="flex">
-             <input name="agreement" class="pill" checked="" type="radio"/>
+             <input name="agreement" id="agreement" class="pill" checked="" type="radio"/>
              <label for="agreement">
               I agree to the
               <a href="/privacy-policy" target="_blank">
@@ -1929,10 +1929,10 @@ class FooterSection extends HTMLElement {
 
     const navigations = [
       { name: `Home`,link: `/` },
-      { name: `About`,link: `#about` },
-      { name: `Services`, link: `#services` },
-      { name: `Projects`, link: `#projects` },
-      { name: `Contact`, link: `#contact` },
+      { name: `About`,link: `/about` },
+      { name: `Services`, link: `/services` },
+      { name: `Projects`, link: `/projects` },
+      { name: `Contact`, link: `/contact` },
       { name: `Case Studies`, link: `/case-studies` },
       { name: `Templates`, link: `/templates` }
     ];
@@ -1966,11 +1966,14 @@ class FooterSection extends HTMLElement {
 <footer class="fluid-grid-system" id="footer">
    <section class="container-xl row gap-4 py-5">
     <section class="flex j-center">
-     <select name="theme" class="pill btn-primary">
-      <option for="theme">System Default</option>
-      <option for="theme" value="light">Light</option>
-      <option for="theme" value="dark">Dark</option>
-     </select>
+      <form>
+        <label class="d-none" for="system-theme">Choose Theme:</label>
+        <select id="system-theme" name="system-theme" class="pill btn-primary">
+          <option value="default">Default</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </form>
     </section>
     <section class="col">
      <section class="row">
@@ -1983,12 +1986,12 @@ class FooterSection extends HTMLElement {
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
-          <a class"txt-center flex items-center txt-center" href="/cv">
+          <a class"txt-center flex items-center txt-center" style="display: flex; align-items: center; justify-content: center; text-align: center;" href="/cv">
             CV/Resume ↓
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; background: hsla(from var(--primary-50), h, s, l, .5); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; background: hsla(100, 80%, 50% .3); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span class="d-non">Install ↘</span>
        </button>
@@ -2006,7 +2009,7 @@ class FooterSection extends HTMLElement {
        <div class="flex navigation-links">
 
        ${navigations.map(navigation => `
-         <a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
+         <a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name} ↘
          </a>
        `).join('')}
 
@@ -2056,8 +2059,8 @@ class FooterSection extends HTMLElement {
        `).join('')}
        
 
-        <a style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 888; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${author.photo}"/>
+        <a style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 899; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 40)}"/>
         </a>
 
 
@@ -2079,7 +2082,7 @@ class FooterSection extends HTMLElement {
     &copy; ${new Date().getFullYear()} ${author.title}
    </p>
 
-   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee" scrollamount="3">
+   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee" scrollamount="7">
     <section class="svg-wrapper">
      <svg>
       <text class="copyright" y="95">
@@ -2394,7 +2397,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt)
             navLink?.classList.remove('active');
           }
         });
-      }, { threshold: 0.5 }); // Trigger when section is 60% visible, avoid 1
+      }, { threshold: 0.4 }); // Trigger when section is 60% visible, avoid 1
 
       document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
 
@@ -2656,11 +2659,16 @@ handleThemeChange(darkModeMediaQuery);
 
 
 
+      
+    // Identify if in WebView
+    const isWebView = navigator.userAgent.includes("HassanBiswasApp");
+    if (isWebView) {
+      document.body.classList.add('app-mode');
+      // console.log("App Mode Active");
+    }
+                                               
 
-
-     
     // ######### Don't Go Bellow ⚠️ ##########
-
     } // myScript() function ends here!
 // scripts/functions ends here!
    myScript(); 
