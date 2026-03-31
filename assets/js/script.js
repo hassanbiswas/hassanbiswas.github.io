@@ -867,7 +867,7 @@ let myScript = () => {
           <h1 class="txt-center d-non">${author.title}</h1>
           <p class="txt-center">${author.description}</p>
           <div class="button-group flex">
-            <a href="/cv"><buttton style="border: 2px solid currentColor;" class="btn btn-primary pill">CV/Resume ↓</button></a>
+            <a href="/cv"><buttton style="border: 2px solid currentColor; padding: 1em .5em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
             <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
           </div>
           </section>
@@ -1928,11 +1928,11 @@ class FooterSection extends HTMLElement {
   connectedCallback() {
 
     const navigations = [
-      { name: `Home`,link: `/` },
-      { name: `About`,link: `/about` },
-      { name: `Services`, link: `/services` },
-      { name: `Projects`, link: `/projects` },
-      { name: `Contact`, link: `/contact` },
+      { name: `Home ↘`,link: `/` },
+      { name: `About ↘`,link: `/about` },
+      { name: `Services ↘`, link: `/services` },
+      { name: `Projects ↘`, link: `/projects` },
+      { name: `Contact ↘`, link: `/contact` },
       { name: `Case Studies`, link: `/case-studies` },
       { name: `Templates`, link: `/templates` }
     ];
@@ -1985,13 +1985,13 @@ class FooterSection extends HTMLElement {
 
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
-        <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
-          <a class"txt-center flex items-center txt-center" style="display: flex; align-items: center; justify-content: center; text-align: center;" href="/cv">
+        <button style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
+          <a class"txt-center flex items-center txt-center" href="/cv">
             CV/Resume ↓
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; background: hsla(100, 80%, 50% .3); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; background: rgba(0, 130, 0, .4); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span class="d-non">Install ↘</span>
        </button>
@@ -2009,7 +2009,7 @@ class FooterSection extends HTMLElement {
        <div class="flex navigation-links">
 
        ${navigations.map(navigation => `
-         <a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name} ↘
+         <a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
          </a>
        `).join('')}
 
@@ -2059,8 +2059,8 @@ class FooterSection extends HTMLElement {
        `).join('')}
        
 
-        <a style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 899; flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 40)}"/>
+        <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 899; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 40)}"/>
         </a>
 
 
@@ -2666,7 +2666,7 @@ handleThemeChange(darkModeMediaQuery);
       document.body.classList.add('app-mode');
       // console.log("App Mode Active");
     }
-                                               
+
 
     // ######### Don't Go Bellow ⚠️ ##########
     } // myScript() function ends here!
