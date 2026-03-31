@@ -218,13 +218,13 @@ let myScript = () => {
   ];
 
   const servicesPrimary = [
-    { name: `<del>UI/UX design</del>`, price: `50$` },
-    { name: `Web design`, price: `50$` },
-    { name: `Re-Design website`, price: `50$` },
-    { name: `Front-End development`, price: `50$` },
-    { name: `Static Websit (Reasonable price!)`, price: `50$` },
-    { name: `Photo/image to website`, price: `50$` },
-    { name: `Figma/Framer/Webflow to website`, price: `50$` }
+    { name: `<del>UI/UX design</del>`, price: `60$` },
+    { name: `Web design`, price: `60$` },
+    { name: `Re-Design website`, price: `60$` },
+    { name: `Front-End development`, price: `60$` },
+    { name: `Static Websit (Reasonable price!)`, price: `60$` },
+    { name: `Photo/image to website`, price: `60$` },
+    { name: `Figma/Framer/Webflow to website`, price: `60$` }
   ];
 
   const servicesSecondery = [
@@ -1072,7 +1072,7 @@ let myScript = () => {
      <h2>
       Services available in ${locationSecondary}.
      </h2>
-     <p>Static website development in Bangladesh typically costs between 75$ and 300$+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around 100$–150$, while professional, customized static websites with advanced layouts can exceed 300$. 
+     <p>[In 2026] Static website development in Bangladesh typically costs between 75$ and 300$+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around 100$–150$, while professional, customized static websites with advanced layouts can exceed 300$. 
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
         <ul class="list-style: none;">
@@ -1983,7 +1983,7 @@ class FooterSection extends HTMLElement {
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
-          <a class"txt-center" href="/cv">
+          <a class"txt-center flex items-center txt-center" href="/cv">
             CV/Resume ↓
           </a>
         </button>
@@ -2152,7 +2152,7 @@ class NavigationSection extends HTMLElement {
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
        ${navigations.map(navigation => `
-        <a style="block-size: stretch;" class="list-item" href="${navigation.link}" t>
+        <a style="block-size: stretch;" class="list-item flex items-center txt-center" href="${navigation.link}" t>
 ${navigation.name}
         </a>
        `).join('')}
@@ -2538,7 +2538,8 @@ customElements.define("t-section", TSection);
       photos?.forEach(el => {
         // el.style.aspectRatio = aspectRatio;
         el.setAttribute('alt', `Visual content`);
-        el.style = `height: 100%; width: 100%;`;
+        // el.style.height = `100%`;
+        // el.style.width = `100%`;
       });
       // video
       videos?.forEach(el => {
