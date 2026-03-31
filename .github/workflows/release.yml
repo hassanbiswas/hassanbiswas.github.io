@@ -1,0 +1,78 @@
+name: Refresh Release Assets
+
+on:
+  schedule:
+    # Monthly Schedule: Runs at 00:00 on day 1 of every month
+    - cron: '0 0 1 * *'
+  # push:
+  #   branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Ephemeral Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Set Version and Metadata
+        run: |
+          # Use your preferred YY.MM.DD format
+          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Automated Release - Stable Build" >> $GITHUB_ENV
+
+      - name: Process Assets and Release
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          echo "------------------------------------------------"
+          echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
+          echo "Data Attribute (Version): ${{ env.VERSION }}"
+          echo "------------------------------------------------"
+
+          # 1. Update Manifest Version (Cache-busting logic)
+          # Checking both root and app/assets for manifest files
+          find . -name "manifest.json" -exec sed -i "s/\"version\": \".*\"/\"version\": \"${{ env.VERSION }}\"/" {} +
+
+          # 2. Flattening Logic: Move contents if a single wrapper folder exists in app/assets
+          if [ -d "app/assets" ]; then
+            SUB_DIRS=$(ls -d app/assets/*/ 2>/dev/null | wc -l)
+            FILES=$(ls -p app/assets | grep -v / | wc -l)
+            
+            if [ "$SUB_DIRS" -eq 1 ] && [ "$FILES" -eq 0 ]; then
+              WRAPPER=$(ls -d app/assets/*/ | head -n 1)
+              echo "Flattening: Moving contents from $WRAPPER to app/assets/"
+              mv "$WRAPPER"* app/assets/
+              rmdir "$WRAPPER"
+            fi
+          fi
+
+          # 3. Tag Force-Delete: Cleanup to ensure "∞" tag is always fresh
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -d ∞ || true
+          git push origin :refs/tags/∞ || true
+
+          # 4. Remove existing release for clean overwrite
+          gh release delete ∞ --yes || true
+
+          # 5. Create Release: Title "V∞" with automated notes
+          # Logic Preservation: Uses app/README.md as primary source for notes
+          NOTES_CONTENT=$(cat app/README.md 2>/dev/null || echo "Monthly automated update")
+          
+          gh release create ∞ \
+            --title "V∞" \
+            --notes "Release Version: ${{ env.VERSION }} | ${{ env.COMMITTEE_MSG }} | Notes: $NOTES_CONTENT" \
+            app/assets/*
