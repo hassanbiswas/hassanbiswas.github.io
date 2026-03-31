@@ -2,7 +2,7 @@
  * Web Developer | Hassan Biswas
  * Automated Dynamic Versioning & Cache-Busting Logic (YY.MM.DD)
  */
-const VERSION = '26.03.30';
+const VERSION = '26.03.31';
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
 const OFFLINE_URL = '/index.html'; // offline.html
