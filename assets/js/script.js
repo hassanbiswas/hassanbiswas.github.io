@@ -867,7 +867,7 @@ let myScript = () => {
           <h1 class="txt-center d-non">${author.title}</h1>
           <p class="txt-center">${author.description}</p>
           <div class="button-group flex">
-            <a href="/cv"><buttton style="border: 2px solid currentColor; padding: 1em .5em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
+            <a href="/cv"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
             <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
           </div>
           </section>
@@ -1991,9 +1991,9 @@ class FooterSection extends HTMLElement {
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; background: rgba(0, 130, 0, .4); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
-        <span class="d-non">Install ↘</span>
+        <span style="line-height: 100%" class="d-non">Install ↘</span>
        </button>
 
       </div>
@@ -2060,7 +2060,7 @@ class FooterSection extends HTMLElement {
        
 
         <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 899; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 40)}"/>
+          <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 969; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 40)}"/>
         </a>
 
 
@@ -2082,7 +2082,7 @@ class FooterSection extends HTMLElement {
     &copy; ${new Date().getFullYear()} ${author.title}
    </p>
 
-   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee" scrollamount="7">
+   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee">
     <section class="svg-wrapper">
      <svg>
       <text class="copyright" y="95">
