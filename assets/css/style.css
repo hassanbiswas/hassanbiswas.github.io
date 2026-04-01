@@ -2156,9 +2156,9 @@
 
         /* for child */
         & > * {
-          scroll-snap-align: start;
+          scroll-snap-align: end;
           scroll-snap-stop: always;
-          scroll-margin: 0em; 
+          scroll-margin: var(--space-m); 
           /* if stiky navbar */
         }
       }
@@ -2372,7 +2372,7 @@
       /* #services */
       #services {
         color-scheme: light dark;
-        block-size: 100dvh;
+        /* block-size: 100dvh; */
         background: var(--bg-1);
         color: var(--txt-1);
       }

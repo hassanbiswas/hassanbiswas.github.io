@@ -1967,7 +1967,7 @@ class FooterSection extends HTMLElement {
    <section class="container-xl row gap-4 py-5">
     <section class="flex j-center">
       <form>
-        <label class="d-none" for="system-theme">Choose Theme:</label>
+        <label style="opacity: 0;" class="d-non" for="system-theme">Choose Theme:</label>
         <select id="system-theme" name="system-theme" class="pill btn-primary">
           <option value="default">Default</option>
           <option value="light">Light</option>
