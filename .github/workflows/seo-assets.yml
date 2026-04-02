@@ -51,7 +51,7 @@ jobs:
             };
 
             const INCLUSIONS = {
-              folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund-and-cancellation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
+              folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund_and_cancelation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
               extensions: ['.html']
             };
 
