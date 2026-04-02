@@ -1,13 +1,8 @@
 name: Monthly SEO Auto-Update
-
 on:
   schedule:
-    - cron: '0 0 1 * *' # Runs at midnight on the 1st of every month
-  push:
-    # Commented out push logic as per preference
-    paths:
-      - '**.html' 
-  workflow_dispatch: 
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
   workflow_run:
     workflows: ["compression.yml"]
     types:
@@ -17,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write 
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,7 +23,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Dependencies
-        run: pip install beautifulsoup4
+        run: pip install beautifulsoup4 lxml
 
       - name: Execute Logic Automation
         run: |
@@ -37,48 +32,42 @@ jobs:
           from datetime import datetime
           from bs4 import BeautifulSoup
 
-          # --- Zero Maintenance Configurations ---
           BRAND_BLUE = "hsl(240, 80%, 50%)"
           BASE_TITLE = "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture"
-          
-          # Mapping folder names to specific SEO intent
-          FOLDER_MAP = {
-              "services": ("Our Services", "Expert Figma to HTML/CSS/JS conversion and responsive web architecture."),
-              "portfolio": ("Portfolio", "Proof of work: High-performance, SEO-friendly digital experiences and UI/UX projects."),
-              "contact": ("Contact", "Let's build something great. Hire a UI/UX Designer and Front-End Expert for your next project."),
-              "resume": ("Resume", "Professional experience and technical stack of Hassan Biswas."),
-              "youtube": ("YouTube", "Video tutorials and web development insights from Hassan Biswas."),
-              "blog": ("Blog", "Articles on UI/UX trends, front-end logic, and web automation."),
-              "sitemap": ("Sitemap", "Directory of all pages and resources on hassanbiswas.github.io."),
-              "testimonials": ("Testimonials", "What clients and colleagues say about my front-end architecture and design work.")
-          }
 
           def update_html_seo(file_path):
-              # Determine folder context
+              # 1. Determine Folder/Page Context
               rel_path = os.path.relpath(file_path, ".")
-              folder_name = os.path.dirname(rel_path).split(os.sep)[0].lower()
-              file_name = os.path.basename(file_path).lower()
+              parts = rel_path.split(os.sep)
               
-              # Default values for root/index files
-              page_subject, description = ("", "Freelance Front-End Developer & Website Designer specializing in high-performance digital experiences.")
+              # Logic: {folder_name} | {base_title} or {file_name} if in root
+              if len(parts) > 1:
+                  folder_label = parts[0].replace("-", " ").title()
+              else:
+                  file_name = os.path.basename(file_path).replace(".html", "")
+                  folder_label = "Home" if file_name == "index" else file_name.replace("-", " ").title()
 
-              # Check if file is in a mapped folder
-              if folder_name in FOLDER_MAP:
-                  page_subject, description = FOLDER_MAP[folder_name]
-              elif file_name != "index.html" and folder_name == "":
-                  # Handle root files that aren't index
-                  page_subject = file_name.replace(".html", "").replace("-", " ").title()
-
-              current_month_year = datetime.now().strftime("%B %Y")
-              full_title = f"{page_subject} | {BASE_TITLE}"
-              full_desc = f"{description} Optimized for {current_month_year}."
+              full_title = f"{folder_label} | {BASE_TITLE}"
 
               with open(file_path, 'r', encoding='utf-8') as f:
-                  soup = BeautifulSoup(f, 'html.parser')
+                  soup = BeautifulSoup(f, 'lxml')
 
-              if not soup.head: return
+              if not soup.head:
+                  return
+
+              # 2. Extract unique content for SEO
+              # Try to find the first H1 or first Paragraph for a unique description
+              page_h1 = soup.find('h1')
+              first_p = soup.find('p')
               
-              # Update <title>
+              h1_text = page_h1.get_text(strip=True) if page_h1 else folder_label
+              snippet = first_p.get_text(strip=True)[:150] if first_p else "Expert UI/UX and Front-End Architecture."
+              
+              current_date = datetime.now().strftime("%B %Y")
+              unique_desc = f"{h1_text}: {snippet} Updated {current_date}."
+              unique_keys = f"Hassan Biswas, {folder_label}, {h1_text}, UI/UX, Front-End, Web Design, Bangladesh"
+
+              # 3. Update Title
               if soup.title:
                   soup.title.string = full_title
               else:
@@ -86,10 +75,10 @@ jobs:
                   new_title.string = full_title
                   soup.head.insert(0, new_title)
 
-              # Meta Data to Update
+              # 4. Meta Data Updates
               meta_updates = {
-                  "description": full_desc,
-                  "keywords": f"Hassan Biswas, {page_subject}, Web Developer, UI/UX, Front-End Architecture, Bangladesh",
+                  "description": unique_desc,
+                  "keywords": unique_keys,
                   "theme-color": BRAND_BLUE,
                   "author": "Hassan Biswas",
                   "robots": "index, follow"
@@ -103,16 +92,15 @@ jobs:
                       new_meta = soup.new_tag('meta', attrs={"name": name, "content": content})
                       soup.head.append(new_meta)
 
-              # Logic for H1 Update (Finds first H1 or adds one to body if requested)
-              h1_tag = soup.find('h1')
-              if h1_tag:
-                  h1_tag.string = page_subject
+              # 5. Ensure H1 matches the page subject if it exists
+              if page_h1:
+                  page_h1.string = h1_text
 
+              # Save changes
               with open(file_path, 'w', encoding='utf-8') as f:
-                  # Save with formatting preserved
                   f.write(soup.prettify())
 
-          # Process all HTML files
+          # Process every .html file in the repo
           for root, _, files in os.walk("."):
               for file in files:
                   if file.endswith(".html") and "node_modules" not in root:
@@ -123,11 +111,8 @@ jobs:
         run: |
           git config --global user.name 'Hassan Biswas'
           git config --global user.email 'hassanbiswas.github.io@gmail.com'
-          
-          # Use the requested YY.MM.DD versioning logic
           VERSION=$(date +'%y.%m.%d')
           COMMITTEE_MSG="Automated SEO Release - Stable Build $VERSION"
-          
           git add .
           git commit -m "$COMMITTEE_MSG" || exit 0
           git push
