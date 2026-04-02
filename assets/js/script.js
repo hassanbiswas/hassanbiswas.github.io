@@ -1119,7 +1119,7 @@ let myScript = () => {
       // Project data array for easy updates
       const projects = [
         {
-          date: `1-Jan-${thisYear}`,
+          date: `01-Jan-${thisYear}`,
           category: "Portfolio website",
           title: `${author.title}`,
           desc: `${author.description}`,
@@ -1725,7 +1725,7 @@ Reuse generic code snippets or libraries developed during the project.
 Payment Terms
 </h2>
 <p>
-Invoices are sent via the agreed-upon <a href="hassanbiswas.github.io/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
+Invoices are sent via the agreed-upon <a href="/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
 </p>
 </li>
 
@@ -1897,10 +1897,10 @@ class FooterSection extends HTMLElement {
 
     const navigations = [
       { name: `Home ↘`,link: `/` },
-      { name: `About ↘`,link: `/about` },
-      { name: `Services ↘`, link: `/services` },
-      { name: `Projects ↘`, link: `/projects` },
-      { name: `Contact ↘`, link: `/contact` },
+      { name: `About ↘`,link: `/#about` },
+      { name: `Services ↘`, link: `/#services` },
+      { name: `Projects ↘`, link: `/#projects` },
+      { name: `Contact ↘`, link: `/#contact` },
       { name: `Case Studies`, link: `/case-studies` },
       { name: `Templates`, link: `/templates` }
     ];
