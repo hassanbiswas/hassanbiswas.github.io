@@ -36,32 +36,6 @@ injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
 
 
 
-
-/* 
-
-      // 2. Identify if in WebView
-      const isWebView = navigator.userAgent.includes("HassanBiswasApp");
-      if (isWebView) {
-        document.body.classList.add('app-mode');
-        // console.log("App Mode Active");
-      }
-      
-
-
-
-   // 3. Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('https://hassanbiswas.github.io/sw.js')
-          // .then(reg => console.log('Service Worker Registered'))
-          // .catch(err => console.log('Service Worker Failed', err));
-        });
-      }
-
-*/
-
-
-
       // developed in mobile
 let myScript = () => {
 
@@ -1260,15 +1234,9 @@ let myScript = () => {
        Quotes from my clients
       </h2>
       <p>
-       <span class="text-revel-onscroll">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-                sint sed ad,
-        <a href="">
-         officia dolorem eligendi
-        </a>
-        quam culpa. Hic esse
-                fuga reiciendis, provident voluptas tempora.
-       </span>
+        <span class="text-revel-onscroll">
+          What clients and colleagues say about my front-end architecture and design work.
+        </span>
       </p>
      </div>
       <ul class="row">
@@ -1386,7 +1354,7 @@ let myScript = () => {
            <h2>
              Frequently Asked Questions
            </h2>
-           <p>
+           <p class="d-none">
              <span class="text-revel-onscroll">
                Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Adipisci rem magnam molestiae!
@@ -1966,7 +1934,7 @@ class FooterSection extends HTMLElement {
 <footer class="fluid-grid-system" id="footer">
    <section class="container-xl row gap-4 py-5">
     <section class="flex j-center">
-      <form>
+      <form class="flex">
         <label style="opacity: 1;" class="d-non" for="system-theme">Choose Theme:</label>
         <select id="system-theme" name="system-theme" class="pill btn-primary">
           <option value="default">Default</option>
