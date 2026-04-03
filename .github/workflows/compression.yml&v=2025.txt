@@ -1,0 +1,98 @@
+name: Compression Automation
+on:
+  push:
+    paths:
+      - '**.zip'
+      - '**.7z'
+      - '**.rar'
+      - '**.tar'
+      - '**.gz'
+  schedule:
+    # Monthly Schedule (per your preference)
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  extract-sync-delete:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Install Extraction Tools
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y p7zip-full rsync
+
+      - name: Process, Overwrite, and Remove Archives
+        run: |
+          # Logic Automation: Pure Bash Cache-busting using Date
+          VERSION=$(date +%d)
+          echo "Current Logic Version: $VERSION"
+
+          # Fallback Security: Safe temp workspace
+          TEMP_PARENT="/tmp/ext_assets"
+          mkdir -p "$TEMP_PARENT"
+
+          # Optimization: Find archives while ignoring app and system directories
+          find . -maxdepth 2 \( -name ".git" -o -name ".github" -o -name "node_modules" -o -name "app" \) -prune -o \
+          -type f \( -name "*.zip" -o -name "*.7z" -o -name "*.rar" -o -name "*.tar" -o -name "*.gz" \) \
+          -print0 | while IFS= read -r -d '' ARCHIVE; do
+
+            ARCHIVE_NAME=$(basename "$ARCHIVE")
+            # Create a clean directory name
+            DIR_NAME=$(echo "$ARCHIVE_NAME" | sed 's/[^a-zA-Z0-9]//g')
+            EXTRACT_DIR="$TEMP_PARENT/$DIR_NAME"
+            mkdir -p "$EXTRACT_DIR"
+
+            # Extract and Overwrite (-aoa)
+            if 7z x "$ARCHIVE" "-o$EXTRACT_DIR" -aoa; then
+              TARGET_PATH=$(dirname "$ARCHIVE")
+
+              # Flattening Logic: check if the archive has a single wrapper folder
+              ITEM_COUNT=$(ls -1 "$EXTRACT_DIR" | wc -l)
+              if [ "$ITEM_COUNT" -eq 1 ]; then
+                INNER_PATH=$(find "$EXTRACT_DIR" -maxdepth 1 -mindepth 1 -type d)
+                if [ -n "$INNER_PATH" ]; then
+                  echo "Flattening: Moving contents out of single wrapper folder..."
+                  mv "$INNER_PATH"/* "$EXTRACT_DIR/" 2>/dev/null || true
+                  mv "$INNER_PATH"/.* "$EXTRACT_DIR/" 2>/dev/null || true
+                  rmdir "$INNER_PATH"
+                fi
+              fi
+
+              # --- STRICT OVERWRITE & PRESERVATION LOGIC ---
+              rsync -avu \
+                --exclude='app/' \
+                --exclude='.git/' \
+                --exclude='.github/' \
+                --exclude='node_modules/' \
+                --exclude='package.json' \
+                --exclude='package-lock.json' \
+                --exclude='.env' \
+                --exclude='README.md' \
+                "$EXTRACT_DIR/" "$TARGET_PATH/"
+
+              # Automation: Delete source archive after successful sync
+              echo "Processed $ARCHIVE. Deleting source..."
+              rm "$ARCHIVE"
+            fi
+          done
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Automated extraction and sync: $(date +'%Y-%m-%d')"
+            git push
+          fi
+          

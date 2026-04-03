@@ -1,0 +1,67 @@
+name: Performance, Accessibility, Best Practices, SEO Audit
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 1 * *' # Monthly schedule as per your preference
+
+jobs:
+  lighthouse-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Environment
+        run: |
+          # Reusable Date for cache-busting logic
+          echo "VERSION=$(date +%d%m%Y)" >> $GITHUB_ENV
+          sudo apt-get update
+          sudo apt-get install -y jq
+
+      - name: Run Audit (Lighthouse CI)
+        id: lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://hassanbiswas.github.io/
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 3
+          # Removed invalid 'chromeFlags' to resolve syntax warning
+
+      - name: Generate Visual Job Summary
+        if: always()
+        run: |
+          # Logic Preservation: Extracting scores and applying 95% threshold
+          MANIFEST='${{ steps.lighthouse.outputs.manifest }}'
+          LINKS='${{ steps.lighthouse.outputs.links }}'
+          
+          echo "### 🚀 Lighthouse Audit Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Category | Score | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- | --- |" >> $GITHUB_STEP_SUMMARY
+
+          PERF=$(echo "$MANIFEST" | jq -r '.[0].summary.performance * 100 | floor')
+          ACC=$(echo "$MANIFEST" | jq -r '.[0].summary.accessibility * 100 | floor')
+          BP=$(echo "$MANIFEST" | jq -r '.[0].summary["best-practices"] * 100 | floor')
+          SEO=$(echo "$MANIFEST" | jq -r '.[0].summary.seo * 100 | floor')
+
+          # Brand Logic: Check against your high-performance goals (HSL(240, 80%, 50%))
+          echo "| ⚡ Performance | ${PERF}% | $( [ $PERF -ge 95 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| ♿ Accessibility | ${ACC}% | $( [ $ACC -ge 95 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🛠️ Best Practices | ${BP}% | $( [ $BP -ge 95 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🔍 SEO | ${SEO}% | $( [ $SEO -ge 100 ] && echo "✅" || echo "❌" ) |" >> $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          REPORT_URL=$(echo "$LINKS" | jq -r 'to_entries[0].value')
+          if [ "$REPORT_URL" != "null" ]; then
+            echo "🔗 [View Full Report]($REPORT_URL)" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Automation Log
+        run: echo "Audit completed for version ${{ env.VERSION }} on $(date)."
+        

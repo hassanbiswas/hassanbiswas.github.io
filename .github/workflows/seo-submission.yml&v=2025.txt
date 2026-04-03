@@ -1,0 +1,54 @@
+name: 🚀 Daily SEO & IndexNow Automation
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Monthly Schedule as per your preference: '0 0 1 * *'
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  seo-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📂 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔑 Generate Automation Version
+        # Using Date for cache-busting as per your requirements
+        run: |
+          VERSION=$(date +'%d')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Automation Day: $VERSION"
+
+      - name: 🌐 Submit to IndexNow (Bing/Yandex)
+        # Replaced with a valid, active repository to fix the "not found" error
+        uses: bojieyang/indexnow-action@v2
+        with:
+          sitemap-location: 'https://hassanbiswas.github.io/sitemap.xml'
+          key: ${{ secrets.INDEXNOW_KEY }}
+          # The action will verify against https://hassanbiswas.github.io/${{ secrets.INDEXNOW_KEY }}.txt
+
+      - name: 🔎 Ping Google Search Console
+        # Directly triggers Google to crawl your sitemap.xml
+        run: |
+          curl -I "https://www.google.com/ping?sitemap=https://hassanbiswas.github.io/sitemap.xml"
+
+      - name: 📡 Site Heartbeat
+        # Verifies site availability for SEO and accessibility standards
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://hassanbiswas.github.io/)
+          if [ $STATUS -eq 200 ]; then
+            echo "✅ Site is accessible. SEO Ping Successful."
+          else
+            echo "❌ Site returned $STATUS. SEO Ping failed."
+            exit 1
+          fi
+
+      - name: 🛠️ Logic Preservation Log
+        # Logs the specific run and version for your records
+        run: |
+          echo "SEO Automation for version ${{ env.VERSION }} completed successfully."
+          echo "Reference: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          

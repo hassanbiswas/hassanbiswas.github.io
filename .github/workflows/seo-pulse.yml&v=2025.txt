@@ -1,0 +1,42 @@
+name: SEO Pulse
+
+on:
+  schedule:
+    # Runs every 8 hours (00:00, 08:00, 16:00 UTC)
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Inject Versioning Logic
+        run: |
+          # Uses Date-based versioning for cache-busting as per your preference
+          VERSION=$(date +%d)
+          
+          # Update JS constants: const VERSION = [day];
+          sed -i "s/const VERSION = [0-9]\{1,2\};/const VERSION = $VERSION;/g" app/assets/js/*.js || true
+          
+          # Ensure SVG scaling for Chrome with sizes="any" and lazy loading
+          find . -name "*.html" -exec sed -i 's/<link rel="icon" href="[^"]*\.svg"/& sizes="any"/g' {} +
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "hassanbiswas"
+          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git add .
+          # Only commit if there are actual changes to avoid workflow errors
+          if ! git diff --cached --quiet; then
+            git commit -m "Pulse ${{ github.run_id }} - Version $(date +%d)"
+            git push
+          else
+            echo "No changes detected, skipping commit."
+          fi
+          
