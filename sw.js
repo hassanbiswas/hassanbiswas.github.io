@@ -4,10 +4,10 @@
  */
 
 // Automated version logic: YY.MM.DD
-const VERSION = '26.04.06';
+const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = '/index.html';
+const OFFLINE_URL = `/index.html`;
 
 const ASSETS_TO_CACHE = [
   '/',

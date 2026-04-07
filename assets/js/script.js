@@ -397,8 +397,9 @@ let myScript = () => {
       let i = 0;
       let isPageLoaded = document.readyState === 'complete';
 
+      // load 
       if (!isPageLoaded) {
-        window.addEventListener('load', () => { isPageLoaded = true; }, { once: true });
+        window.addEventListener('DOMContentLoaded', () => { isPageLoaded = true; }, { once: true });
       }
 
       // 2. Insert into DOM
