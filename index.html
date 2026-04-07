@@ -69,7 +69,7 @@
    {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "@id": "https://hassanbiswas.github.io/#localbusiness",
+  "@id": "https://hassanbiswas.github.io/#services",
   "name": "Hassan Biswas — UI/UX & Front-End Architecture",
   "image": "https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no",
   "url": "https://hassanbiswas.github.io",
@@ -95,17 +95,16 @@
       "Tuesday",
       "Wednesday",
       "Thursday",
-      "Friday",
       "Saturday",
       "Sunday"
     ],
-    "opens": "09:00",
-    "closes": "21:00"
+    "opens": "00:00",
+    "closes": "23:59"
   },
   "sameAs": [
     "https://github.com/hassanbiswas",
     "https://www.facebook.com/hassanbiswas.github.io",
-    "https://www.linkedin.com/in/hassanbiswas-github-io"
+    "https://www.instagram.com/hassanbiswas.github.io"
   ]
 }
   </script>
@@ -114,7 +113,7 @@
    {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "https://hassanbiswas.github.io/#about",
+  "@id": "https://hassanbiswas.github.io/#hero",
   "url": "https://hassanbiswas.github.io",
   "name": "Hassan Biswas — UI/UX & Front-End Architecture",
   "description": "High-performance front-end development and SEO-friendly digital experiences.",
@@ -158,8 +157,8 @@
     {
       "@type": "ListItem",
       "position": 4,
-      "name": "Contact",
-      "item": "https://hassanbiswas.github.io/#contact"
+      "name": "Projects",
+      "item": "https://hassanbiswas.github.io/#projects"
     }
   ]
 }
@@ -191,7 +190,7 @@
       "name": "Are your front-end architectures optimized for SEO?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Absolutely. I use semantic HTML5, optimize Core Web Vitals (LCP, FID, CLS), and implement structured JSON-LD data to ensure your website is easily crawlable and ranks higher on search engines like Google."
+        "text": "Absolutely. I use semantic HTML, optimize Core Web Vitals (LCP, FID, CLS), and implement structured data to ensure your website is easily crawlable and ranks higher on search engines like Google."
     }
     },
     {
@@ -205,22 +204,22 @@
   ]
 }
   </script>
-  <!-- <script type="speculationrules">
+  <script type="speculationrules">
       {
         "prerender": [
           {
-            "urls": ["/", "/assets/css/animation.css", "/assets/js/script.js"],
+            "urls": ["/", "/assets/css/style.css", "/assets/js/script.js"],
             "eagerness": "moderate"
           }
         ]
 
         "prefetch": [
           {
-            "urls": ["/", "/about"]
+            "urls": ["/", "/#about"]
           }
         ]
       }
-    </script> -->
+    </script> 
   <!-- scripts -->
   <!-- <div id="google_translate_element"></div> -->
   <!-- <script type="text/javascript">
@@ -238,7 +237,7 @@
     >
     </script> -->
   <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
-  <!-- 2026 Professional Meta Tags -->
+  <!-- Professional Meta Tags -->
   <title>
    Home | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
   </title>
@@ -274,14 +273,6 @@
   <!-- <link href="https://fonts.google.com/" /> -->
   <!-- G-drive style-sheet -->
   <!-- G-drive script-sheet -->
-  <script>
-   // 2. Identify if in WebView
-      const isWebView = navigator.userAgent.includes("HassanBiswasApp");
-      if (isWebView) {
-        document.body.classList.add('app-mode');
-        // console.log("App Mode Active");
-      }
-  </script>
  </head>
  <body onload="myScript()">
   <!-- class/id removed -->
@@ -301,10 +292,10 @@
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://hassanbiswas.github.io/#about",
+      "@id": "https://hassanbiswas.github.io/#contact",
       "name": "Hassan Biswas",
       "url": "https://hassanbiswas.github.io",
-      "jobTitle": "Web Developer | UI/UX & Front-End Architecture",
+      "jobTitle": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture",
       "description": "Freelance Front-End Developer specializing in transforming Figma designs into high-performance, SEO-friendly digital experiences using HTML, CSS, and JavaScript.",
       "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIGZpbGw9IiMxOTE5ZTYiLz48cGF0aCBkPSJNNjUuNDE3IDYzLjI0N2gtLjUxMmwtLjMyMy0uMzMuMjUyLjA5OS4xNzMtLjA0Yy0uMDk4LjAwNC0zMy40MTQtMzEuODE0LTMzLjQxNC0zMS44MTRoNjMuODE0VjMxYzM1LjkgMCA2NSAyOS4xMDEgNjUgNjVzLTI5LjEgNjUtNjUgNjV2LS43MzVsLTMwLjY4LTMxLjIxM2MtMS43MjMtMS40My05LjA2My04Ljg5My0xNi4yNTgtMTYuMTczLTguMTg1LTguMjktMTYuMzI1LTE2LjYxMi0xNi4zMjUtMTYuNjEydi0zMy4wMmgzMi43NjFsMzAuNTAyIDMwLjk5MXYzLjA4NmMtOC4zOTUtLjI3Ny0zMC44MzMtMS4xMzQtMzAuODMzLTEuMTM0LS4xODktLjE4MS40NDggMjkuMjA2LjUyNiAzMi43NDloMzAuMzA3di0uNDM1YzE3Ljk0OSAwIDMyLjUgMTQuNTQ4IDMyLjUtMzIuNXMtMTQuNTUxLTMyLjUtMzIuNS0zMi41di0uNDc1SDY0Ljg2NXptMzMuMTEgMzQuMTYyYzAgLjAxMy0xLjE5LS4wMjEtMy4xMi0uMDg4di0zLjA4NXoiIGZpbGw9IiMxOTE5ZTYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIi8+PC9zdmc+",
       "sameAs": [
@@ -330,7 +321,7 @@
       "@type": "WebDesignService",
       "@id": "https://hassanbiswas.github.io/#services",
       "name": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture",
-      "founder": { "@id": "https://hassanbiswas.github.io/#about" },
+      "founder": { "@id": "https://hassanbiswas.github.io/#contact" },
       "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgZmlsbD0ibm9uZSI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIGZpbGw9IiMxOTE5ZTYiLz48cGF0aCBkPSJNNjUuNDE3IDYzLjI0N2gtLjUxMmwtLjMyMy0uMzMuMjUyLjA5OS4xNzMtLjA0Yy0uMDk4LjAwNC0zMy40MTQtMzEuODE0LTMzLjQxNC0zMS44MTRoNjMuODE0VjMxYzM1LjkgMCA2NSAyOS4xMDEgNjUgNjVzLTI5LjEgNjUtNjUgNjV2LS43MzVsLTMwLjY4LTMxLjIxM2MtMS43MjMtMS40My05LjA2My04Ljg5My0xNi4yNTgtMTYuMTczLTguMTg1LTguMjktMTYuMzI1LTE2LjYxMi0xNi4zMjUtMTYuNjEydi0zMy4wMmgzMi43NjFsMzAuNTAyIDMwLjk5MXYzLjA4NmMtOC4zOTUtLjI3Ny0zMC44MzMtMS4xMzQtMzAuODMzLTEuMTM0LS4xODktLjE4MS40NDggMjkuMjA2LjUyNiAzMi43NDloMzAuMzA3di0uNDM1YzE3Ljk0OSAwIDMyLjUgMTQuNTQ4IDMyLjUtMzIuNXMtMTQuNTUxLTMyLjUtMzIuNS0zMi41di0uNDc1SDY0Ljg2NXptMzMuMTEgMzQuMTYyYzAgLjAxMy0xLjE5LS4wMjEtMy4xMi0uMDg4di0zLjA4NXoiIGZpbGw9IiMxOTE5ZTYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIzIi8+PC9zdmc+",
       "url": "https://hassanbiswas.github.io",
       "telephone": "+8801602873384",

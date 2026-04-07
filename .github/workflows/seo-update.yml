@@ -112,7 +112,7 @@ jobs:
           git config --global user.name 'Hassan Biswas'
           git config --global user.email 'hassanbiswas.github.io@gmail.com'
           VERSION=$(date +'%y.%m.%d')
-          COMMITTEE_MSG="Automated SEO Release - Stable Build $VERSION"
+          COMMITTEE_MSG="SEO Release - Stable Build $VERSION"
           git add .
           git commit -m "$COMMITTEE_MSG" || exit 0
           git push

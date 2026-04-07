@@ -71,7 +71,7 @@ jobs:
       - name: Automation Log
         run: |
           echo "------------------------------------------------"
-          echo "Committee Message: Automated Performance Audit"
+          echo "Committee Message: Performance Audit"
           echo "Data Attribute (Version): $VERSION"
           echo "Audit completed on $(date)."
           echo "------------------------------------------------"

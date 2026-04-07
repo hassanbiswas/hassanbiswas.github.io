@@ -25,7 +25,7 @@ jobs:
         # Logic: YY.MM.DD format for cache-busting and tracking
         run: |
           VERSION=$(date +'%y.%m.%d')
-          COMMITTEE_MSG="Automated SEO Release - Stable Build"
+          COMMITTEE_MSG="SEO Release - Stable Build"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
           
@@ -60,7 +60,7 @@ jobs:
       - name: 🛠️ Logic Preservation Log
         # Final log using the preferred VERSION logic
         run: |
-          echo "SEO Automation for version $VERSION completed successfully."
+          echo "SEO for version $VERSION completed successfully."
           echo "Message: $COMMITTEE_MSG"
           echo "Reference: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           
