@@ -2035,7 +2035,7 @@ class FooterSection extends HTMLElement {
        
 
         <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 969; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 40)}"/>
+          <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 969; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
         </a>
 
 
@@ -2130,7 +2130,7 @@ class NavigationSection extends HTMLElement {
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
        ${navigations.map(navigation => `
-        <a style="block-size: stretch;" class="list-item flex items-center txt-center" href="${navigation.link}" t>
+        <a style="block-size: stretch;" class="list-item flex items-center txt-center" href="/${navigation.link}" t>
 ${navigation.name}
         </a>
        `).join('')}
@@ -2364,7 +2364,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt)
       const navObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const id = entry.target.getAttribute('id');
-          const navLink = document.querySelector(`nav#header-nav-list a[href="#${id}"]`);
+          const navLink = document.querySelector(`nav#header-nav-list a[href="/#${id}"]`);
                                     
           if (entry.isIntersecting) {
             navLink?.classList.add('active');
