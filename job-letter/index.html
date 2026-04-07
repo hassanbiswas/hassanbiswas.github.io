@@ -3,10 +3,15 @@
  <head id="meta-container">
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="0; URL=job-letter.docx?v=${new Date().getDate()}" http-equiv="refresh"/>
+
   <script defer="">
    // Your updated logic automation: Changes once per day
       const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
+
+      const meta = document.createElement('meta');
+      meta.httpEquiv = "refresh";
+      meta.content = `0; URL=job-letter.docx?v=${VERSION}`;
+      document.head.appendChild(meta);
 
       const injectAsset = (type, path, media = 'all') => {
       const versionedPath = `${path}?v=${VERSION}`;
@@ -23,6 +28,9 @@
   </script>
   <link href="https://hassanbiswas.github.io/manifest.json" rel="manifest"/>
   <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
+  <noscript>
+    <meta content="0; URL=job-letter.docx" http-equiv="refresh"/>
+  </noscript>
   <title>
    Job Letter | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
   </title>

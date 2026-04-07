@@ -848,7 +848,7 @@ let myScript = () => {
           <h1 class="txt-center d-non">${author.title}</h1>
           <p class="txt-center">${author.description}</p>
           <div class="button-group flex">
-            <a href="/cv"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
+            <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
             <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
           </div>
           </section>
@@ -975,7 +975,7 @@ let myScript = () => {
           title: "Looking for opportunities",
           heading: "Junior Front-End Developer",
           desc: "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
-          link: `/cv`,
+          link: `/resume`,
           linkText: "Download Resume"
         }
       ];
@@ -1961,7 +1961,7 @@ class FooterSection extends HTMLElement {
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
-          <a class"txt-center flex items-center txt-center" href="/cv">
+          <a class"txt-center flex items-center txt-center" href="/resume">
             CV/Resume ↓
           </a>
         </button>
