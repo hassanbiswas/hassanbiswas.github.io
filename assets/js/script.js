@@ -181,7 +181,7 @@ let myScript = () => {
     
   // dribble, behance, etc.
 
-  const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', '你好', '안녕하세요', 'こんにちは', 'Bonjour', 'Здравствуйте', 'Olá', 'हेलो'];
+  const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', '你好', '안녕하세요', 'こんにちは', 'हेलो'];
 
   const heroStatus = [
     { name: `Available for projects`, value: `#`},
@@ -397,9 +397,9 @@ let myScript = () => {
       let i = 0;
       let isPageLoaded = document.readyState === 'complete';
 
-      // load 
+      // DOMContentLoaded | load 
       if (!isPageLoaded) {
-        window.addEventListener('DOMContentLoaded', () => { isPageLoaded = true; }, { once: true });
+        window.addEventListener('load', () => { isPageLoaded = true; }, { once: true });
       }
 
       // 2. Insert into DOM

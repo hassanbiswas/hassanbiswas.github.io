@@ -73,11 +73,9 @@
         min-height: 100dvh;
 
         background: var(--primary-50);
-                                                      
-        interpolate-size: allow-keywords; /* animate/transition: height/width */
-        transition-behavior: allow-discrete; /* opacity, display, overlay */
         content-visibility: auto;
 
+        scrollbar-gutter: stable;
       
         /* for text area */
         /* scrollbar-gutter: none;
@@ -112,6 +110,9 @@
       :root {
         /* 1. Required for light-dark() to function */
         color-scheme: light dark;
+                                                      
+        interpolate-size: allow-keywords; /* animate/transition: height/width */
+        transition-behavior: allow-discrete; /* opacity, display, overlay */
 
         /* --- Color System --- */                                   
         /* --color: light-dark(white, black); */
@@ -2055,7 +2056,7 @@
         color: var(--txt-2);
         background: var(--primary-50);
 
-        block-size: 100dvh;
+        block-size: 100svh; /* prevent jumping */
         /* border-radius: 0 0 var(--section-radius) var(--section-radius); */
         overflow-y: auto;
         overflow-x: clip; /* clip standalone-app */
