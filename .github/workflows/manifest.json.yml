@@ -30,7 +30,7 @@ jobs:
         run: |
           # Matches: YY.MM.DD
           echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
-          echo "COMMITTEE_MSG=Automated Release - Stable Build" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Release - Stable Build" >> $GITHUB_ENV
 
       - name: Create manifest.json
         run: |

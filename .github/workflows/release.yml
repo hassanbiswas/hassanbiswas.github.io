@@ -31,7 +31,7 @@ jobs:
         run: |
           # Use your preferred YY.MM.DD format
           echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
-          echo "COMMITTEE_MSG=Automated Release - Stable Build" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Release - Stable Build" >> $GITHUB_ENV
 
       - name: Process Assets and Release
         env:
@@ -70,7 +70,7 @@ jobs:
 
           # 5. Create Release: Title "V∞" with automated notes
           # Logic Preservation: Uses app/README.md as primary source for notes
-          NOTES_CONTENT=$(cat app/README.md 2>/dev/null || echo "Monthly automated update")
+          NOTES_CONTENT=$(cat app/README.md 2>/dev/null || echo "Monthly update")
           
           gh release create ∞ \
             --title "V∞" \

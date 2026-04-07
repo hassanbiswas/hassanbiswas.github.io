@@ -20,7 +20,7 @@ jobs:
         run: |
           # Logic: YY.MM.DD format for automated tracking
           VERSION=$(date +'%y.%m.%d')
-          COMMITTEE_MSG="Automated SEO Pulse - Stable Build"
+          COMMITTEE_MSG="SEO Pulse - Stable Build"
           
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
@@ -38,6 +38,6 @@ jobs:
             git commit -m "$COMMITTEE_MSG ($VERSION)"
             git push
           else
-            echo "No changes detected, skipping commit."
+            echo "No changes, skipping commit."
           fi
           

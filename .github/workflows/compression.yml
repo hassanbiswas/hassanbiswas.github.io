@@ -35,7 +35,7 @@ jobs:
         run: |
           # Logic Preservation: Standardized YY.MM.DD format
           echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
-          echo "COMMITTEE_MSG=Automated Asset Compression & Extraction" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Asset Compression & Extraction" >> $GITHUB_ENV
 
       - name: Install Extraction Tools
         run: |
