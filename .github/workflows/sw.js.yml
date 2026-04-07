@@ -1,0 +1,100 @@
+name: Generate Service Worker
+
+on:
+  # push:
+  #   branches: [ main ]
+  schedule:
+    - cron: '0 0 1,15 * *' # Runs on the 1st and 15th of every month
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  build-sw:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Generate sw.js with Dynamic Version
+        run: |
+          # Generate version in YY.MM.DD format
+          VERSION=$(date +'%y.%m.%d')
+          
+          cat <<EOF > sw.js
+          /**
+           * Web Developer | Hassan Biswas
+           * Automated Dynamic Versioning & Cache-Busting Logic (YY.MM.DD)
+           */
+
+          // Automated version logic: YY.MM.DD
+          const VERSION = '$VERSION';
+          const CACHE_NAME = \`hassan-biswas-v\${VERSION}\`;
+          const OFFLINE_URL = \`/index.html?v=\${VERSION}\`;
+
+          const ASSETS_TO_CACHE = [
+            '/',
+            '/index.html',
+            '/manifest.json',
+            '/assets/css/style.css',
+            '/assets/js/script.js',
+            OFFLINE_URL
+          ].map(url => {
+            // Apply cache-busting query string to assets, excluding the root and offline page
+            return (url === '/' || url === OFFLINE_URL) ? url : \`\${url}?v=\${VERSION}\`;
+          });
+
+          // Install Event - Caching assets
+          self.addEventListener('install', (event) => {
+            event.waitUntil(
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  return cache.addAll(ASSETS_TO_CACHE);
+                })
+                .catch((error) => {
+                  console.error('Pre-cache failed:', error);
+                })
+            );
+            self.skipWaiting();
+          });
+
+          // Activate Event - Cleaning up old caches automatically
+          self.addEventListener('activate', (event) => {
+            event.waitUntil(
+              caches.keys().then((cacheNames) => {
+                return Promise.all(
+                  cacheNames.map((cache) => {
+                    if (cache !== CACHE_NAME) {
+                      return caches.delete(cache);
+                    }
+                  })
+                );
+              }).then(() => self.clients.claim())
+            );
+          });
+
+          // Fetch Event - Network first, fallback to cache
+          self.addEventListener('fetch', (event) => {
+            if (event.request.method !== 'GET') return;
+            event.respondWith(
+              fetch(event.request)
+                .then((response) => {
+                  return response;
+                })
+                .catch(() => {
+                  return caches.match(event.request).then((response) => {
+                    return response || caches.match(OFFLINE_URL);
+                  });
+                })
+            );
+          });
+          EOF
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add sw.js
+          git commit -m "sw.js update - Version $(date +'%y.%m.%d')" || echo "No changes to commit"
+          git push
