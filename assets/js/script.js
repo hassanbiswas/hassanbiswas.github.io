@@ -411,7 +411,7 @@ let myScript = () => {
         i++;
 
         // Reset loop if we hit the end of the array
-        if (i >= greetings.length) {
+        // if (i >= greetings.length) {
         
           /**
            * The Exit Condition:
@@ -430,11 +430,17 @@ let myScript = () => {
               loader.remove();
             }, 400); // 400
 
-          } else {
-            // Keep looping if offline or still loading
+          } 
+          else if (i >= greetings.length) {
             i = 0;
           }
-        }
+          /* 
+          else {
+            // Keep looping if offline or still loading
+            i = 0;
+          } 
+          */
+        // }
 
       }, 180);
 
