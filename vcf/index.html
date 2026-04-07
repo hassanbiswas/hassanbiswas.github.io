@@ -4,10 +4,15 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <!-- <meta http-equiv="refresh" content="0; URL=https://drive.google.com/uc?export=download&id=1NdM9fh9rd-aSz4P9kKi7HX80H5Sde1-8" /> -->
-  <meta content="0; URL=hassanbiswas_vcf.vcf?v=${new Date().getDate()}" http-equiv="refresh"/>
+
   <script defer="">
    // Your updated logic automation: Changes once per day
       const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
+
+            const meta = document.createElement('meta');
+                  meta.httpEquiv = "refresh";
+                        meta.content = `0; URL=vcf.vcf?v=${VERSION}`;
+                              document.head.appendChild(meta);
 
       const injectAsset = (type, path, media = 'all') => {
       const versionedPath = `${path}?v=${VERSION}`;
@@ -24,6 +29,9 @@
   </script>
   <link href="https://hassanbiswas.github.io/manifest.json" rel="manifest"/>
   <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
+    <noscript>
+        <meta content="0; URL=vcf.vcf" http-equiv="refresh"/>
+          </noscript>
   <title>
    Vcf | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
   </title>
