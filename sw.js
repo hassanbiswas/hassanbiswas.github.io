@@ -1,5 +1,5 @@
 // Automated version logic: YY.MM.DD
-const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+const VERSION = '26.04.09';
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
 
