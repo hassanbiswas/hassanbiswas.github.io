@@ -1,24 +1,18 @@
-/**
- * Web Developer | Hassan Biswas
- * Automated Dynamic Versioning & Cache-Busting Logic (YY.MM.DD)
- */
-
 // Automated version logic: YY.MM.DD
-const VERSION = '26.04.07';
+const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = `/index.html?v=${VERSION}`;
 
+// Assets to cache (Removed offline.html)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/manifest.json',
   '/assets/css/style.css',
-  '/assets/js/script.js',
-  OFFLINE_URL
+  '/assets/js/script.js'
 ].map(url => {
-  // Apply cache-busting query string to assets, excluding the root and offline page
-  return (url === '/' || url === OFFLINE_URL) ? url : `${url}?v=${VERSION}`;
+  // Apply cache-busting query string to assets, excluding the root
+  return (url === '/') ? url : `${url}?v=${VERSION}`;
 });
 
 // Install Event - Caching assets
@@ -29,14 +23,14 @@ self.addEventListener('install', (event) => {
         return cache.addAll(ASSETS_TO_CACHE);
       })
       .catch((error) => {
-        // Fallback security: prevents service worker failure if one asset is missing
+        // Fallback Security: Logic Preservation
         console.error('Pre-cache failed:', error);
       })
   );
   self.skipWaiting();
 });
 
-// Activate Event - Cleaning up old caches automatically
+// Activate Event - Cleaning up old caches automatically (Zero Maintenance)
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -51,7 +45,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Network first, fallback to cache (best for SEO & performance)
+// Fetch Event - Network first, fallback to cache (Best for SEO & performance)
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests (like browser extensions or POST)
   if (event.request.method !== 'GET') return;
@@ -59,13 +53,14 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // If network is successful, potentially update cache here if needed
+        // If network is successful, return the fresh content
         return response;
       })
       .catch(() => {
-        // If network fails, look in cache
+        // If network fails (Offline), look in cache for the resource
         return caches.match(event.request).then((response) => {
-          return response || caches.match(OFFLINE_URL);
+          // Since no offline.html, we return the cached index.html as a generic fallback
+          return response || caches.match('/');
         });
       })
   );
