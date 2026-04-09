@@ -2056,7 +2056,7 @@
         color: var(--txt-2);
         background: var(--primary-50);
 
-        block-size: 100svh; /* prevent jumping */
+        block-size: 100dvh; /* svh prevent jumping */
         /* border-radius: 0 0 var(--section-radius) var(--section-radius); */
         overflow-y: auto;
         overflow-x: clip; /* clip standalone-app */
@@ -2083,8 +2083,8 @@
         position: fixed;
         inset: 0;
         z-index: 1000;
-        block-size: 100dvh;
-        inline-size: 100dvw;
+        block-size: 100vh;
+        inline-size: 100vw;
         margin: 0;
 
         > * { place-items: center; }
