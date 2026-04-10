@@ -8,8 +8,8 @@ on:
     types:
       - completed
   schedule:
-    # Runs at 00:00 on the 1st of every month
-    - cron: '0 0 1 * *'
+    # Runs every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 jobs:
