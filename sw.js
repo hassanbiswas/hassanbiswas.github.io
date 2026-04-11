@@ -1,5 +1,5 @@
 // Automated version logic: YY.MM.DD
-const VERSION = '26.04.10';
+const VERSION = '26.04.11';
 
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
 
