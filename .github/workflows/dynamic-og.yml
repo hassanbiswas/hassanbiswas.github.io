@@ -1,9 +1,9 @@
 name: Generate Dynamic OG Images
 
 on:
-  push:
-    branches:
-      - main
+  #push:
+    #branches:
+      #- main
   workflow_run:
     workflows: ["compression.yml", "deploy.yml"]
     types:
