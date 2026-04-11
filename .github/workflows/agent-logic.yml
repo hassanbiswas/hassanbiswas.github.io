@@ -1,11 +1,11 @@
 name: Agentic AI Automation
 
 on:
-  # push:           # Commented out as per your preference
+  # push:           # Commented out to prevent unnecessary runs
   #   branches: [ main ]
   schedule:
-    - cron: '0 0 1 * *'  # Monthly Execution
-  workflow_dispatch:      # Manual trigger from your Oppo A53
+    - cron: '0 0 1,15 * *'  # Runs on the 1st and 15th
+  workflow_dispatch:      # Manual trigger for testing from Oppo A53
 
 jobs:
   run-agent:
@@ -34,15 +34,20 @@ jobs:
 
       - name: Commit & Push Changes
         run: |
+          VERSION=$(date +'%y.%m.%d')
           git config --global user.name "Hassan-Agent-AI"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
           
-          # Force delete the infinity tag to prevent "Tag already exists" errors
+          # Force delete existing infinity tag to avoid conflicts
           git push origin :refs/tags/∞ || true
           
           git add .
-          git commit -m "Automated Release - Build $(date +'%y.%m.%d')" || echo "No changes to commit"
-          
-          git tag -f ∞
-          git push origin main --force --tags
+          # Check if there are changes before committing
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automated Release - Build $VERSION"
+            git tag -f ∞
+            git push origin main --force --tags
+          else
+            echo "No changes detected. Skipping push."
+          fi
           
