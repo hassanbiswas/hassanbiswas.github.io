@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
+    "agent": "node scripts/agent.js",
     "build:assets": "node generate-assets.js",
     "lint": "eslint js/*.js",
     "format": "prettier --write .",
@@ -16,6 +17,7 @@
     "prettier": "^3.4.2"
   },
   "dependencies": {
+    "@google/genai": "^1.0.0",
     "axios": "^1.13.6",
     "jsdom": "^26.1.0"
   }
