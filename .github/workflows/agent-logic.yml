@@ -2,7 +2,7 @@ name: Release Automation
 
 on:
   schedule:
-    - cron: '0 0 1,15 * *' # Monthly Schedule
+    - cron: '0 0 1,15 * *' # Schedule
   workflow_dispatch:
   # push: # Commented out as requested
 
