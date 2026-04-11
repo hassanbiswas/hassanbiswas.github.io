@@ -192,8 +192,8 @@
     },
     "material-icon-theme.saturation": 0,
     "vscode_custom_css.imports": [
-        "https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/.vscode/custom-vscode.css",
-        "https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/.vscode/vscode-script.js"
+        "custom-vscode.css",
+        "vscode-script.js"
     ],
     "workbench.colorTheme": "React Theme",
     "workbench.iconTheme": "eq-material-theme-icons-light",
