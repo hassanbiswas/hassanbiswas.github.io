@@ -1,53 +1,74 @@
-name: Agentic AI Automation
+name: Release Automation
 
 on:
-  # push:           # Commented out to prevent unnecessary runs
-  #   branches: [ main ]
   schedule:
-    - cron: '0 0 1,15 * *'  # Runs on the 1st and 15th
-  workflow_dispatch:      # Manual trigger for testing from Oppo A53
+    - cron: '0 0 1,15 * *' # Monthly Schedule
+  workflow_dispatch:
+  # push: # Commented out as requested
 
 jobs:
-  run-agent:
+  release-automation:
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Private Repository
         uses: actions/checkout@v4
+
+      - name: Generate Ephemeral Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
         with:
-          fetch-depth: 0
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: Set Version Logic
+        run: |
+          # Automation using your preferred date-based versioning
+          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "COMMITTEE_MSG=Automated Release - Stable Build" >> $GITHUB_ENV
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Execute Agentic Brain (No-Open Mode)
+        run: |
+          # Ensure Browsersync or similar tools do not hang the runner
+          # --no-open prevents it from trying to launch a browser
+          # --no-ui prevents the admin panel from starting
+          npx browser-sync start --server --no-open --no-ui --exit
 
-      - name: Execute Agentic Brain
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: npm start
+      - name: Flattening and Logic Preservation
+        run: |
+          # Check for single wrapper folder and move contents to root
+          if [ -d "app/assets" ]; then
+            cd app/assets
+            if [ $(ls -1 | wc -l) -eq 1 ] && [ -d */ ]; then
+              mv */* .
+              rmdir */
+            fi
+          fi
 
       - name: Commit & Push Changes
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          VERSION=$(date +'%y.%m.%d')
-          git config --global user.name "Hassan-Agent-AI"
-          git config --global user.email "hassanbiswas.github.io@gmail.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Force delete existing infinity tag to avoid conflicts
-          git push origin :refs/tags/∞ || true
-          
+          # Use your specific versioning for the commit and tag
           git add .
-          # Check if there are changes before committing
-          if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Automated Release - Build $VERSION"
-            git tag -f ∞
-            git push origin main --force --tags
-          else
-            echo "No changes detected. Skipping push."
-          fi
+          git commit -m "${{ env.COMMITTEE_MSG }} v${{ env.VERSION }}" || echo "No changes to commit"
+          
+          # Tag Force-Delete & Re-push logic
+          git tag -d ∞ || true
+          git push origin :refs/tags/∞ || true
+          git tag ∞
+          git push origin main --tags --force
+
+      - name: Display Release Information
+        run: |
+          echo "------------------------------------------------"
+          echo "Committee Message: ${{ env.COMMITTEE_MSG }}"
+          echo "Data Attribute (Version): ${{ env.VERSION }}"
+          echo "Status: Complete"
+          echo "------------------------------------------------"
           
