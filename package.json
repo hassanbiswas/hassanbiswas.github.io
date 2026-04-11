@@ -1,8 +1,8 @@
 {
-  "name": "hassanbiswas-portfolio",
+  "name": "hassan-agentic-ai",
   "version": "1.0.0",
   "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture.",
-  "main": "index.html",
+  "main": "scripts/agent.js",
   "scripts": {
     "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
     "agent": "node scripts/agent.js",
@@ -17,7 +17,7 @@
     "prettier": "^3.4.2"
   },
   "dependencies": {
-    "@google/genai": "^1.0.0",
+    "@google/generative-ai": "^0.21.0",
     "axios": "^1.13.6",
     "jsdom": "^26.1.0"
   }
