@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // Must Have Settings
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false,
+    "noUncheckedSideEffectImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+
+    // Optional but Highly Suggested
+    "noUncheckedIndexAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "verbatimModuleSyntax": true, // Often used for 'erasableSyntaxOnly' behavior
+
+    // Personal Preference
+    "noImplicitOverride": true,
+    "noErrorTruncation": false,
+    "exactOptionalPropertyTypes": true,
+
+    // JavaScript Settings
+    "allowJs": true,
+    "checkJs": false // Recommended to use // @ts-check per file instead
+  }
+}
