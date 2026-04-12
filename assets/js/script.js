@@ -824,7 +824,7 @@ let myScript = () => {
       <section id="hero" class="fluid-grid-system dark">
         <section class="container-md row">
 
-          <section style="padding: 0em; transform: scale(.7);" class="logo-marquee-wrapper stacking-container mask">
+          <section style="padding: 0em; transform: scale(.7); max-block-size: 40dvh;" class="logo-marquee-wrapper stacking-container mask">
             <section style="padding: 0em" class="brand-logo-container">
               <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
                 
@@ -844,13 +844,13 @@ let myScript = () => {
           </section>
 
           <section class="row items-center">
-          <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
-          <h1 class="txt-center d-non">${author.title}</h1>
-          <p class="txt-center">${author.description}</p>
-          <div class="button-group flex">
-            <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
-            <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
-          </div>
+            <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
+            <h1 class="txt-center d-non">${author.title}</h1>
+            <p class="txt-center">${author.description}</p>
+            <div class="button-group flex">
+              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
+              <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
+            </div>
           </section>
 
         </section>
