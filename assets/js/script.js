@@ -170,7 +170,7 @@ let myScript = () => {
     urlMobile = `tel:+8801602873384`,
     urlGmail = `mailto:hassanbiswas.github.io@gmail.com`,
     urlMeet = `https://meet.google.com/qjc-bvdp-azd`,
-    urlBkash = `bkash://sendmoney?recipient=01602873384`,
+    urlBkash = `/bkash`,
     urlInstagram = `https://www.instagram.com/hassanbiswas.github.io`,
     urlThreads = `https://www.threads.com/hassanbiswas.github.io`,
     urlX = `https://www.x.com/o1602873384`,
@@ -442,7 +442,7 @@ let myScript = () => {
           */
         // }
 
-      }, 180);
+      }, 200);
 
     }
   }
