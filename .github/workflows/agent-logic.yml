@@ -2,9 +2,9 @@ name: Release Automation
 
 on:
   schedule:
-    - cron: '0 0 1,15 * *' # Schedule
+    - cron: '0 0 1,15 * *' # Bi-monthly schedule
   workflow_dispatch:
-  # push: # Commented out as requested
+  # push: # Commented out on push logic
 
 jobs:
   release-automation:
@@ -15,6 +15,9 @@ jobs:
     steps:
       - name: Checkout Private Repository
         uses: actions/checkout@v4
+        with:
+          # Ensuring we fetch history for tagging
+          fetch-depth: 0
 
       - name: Generate Ephemeral Token
         id: app-token
@@ -25,26 +28,20 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          # Automation using your preferred date-based versioning
+          # Preferred YY.MM.DD format
           echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=Automated Release - Stable Build" >> $GITHUB_ENV
 
-      - name: Execute Agentic Brain (No-Open Mode)
-        run: |
-          # Ensure Browsersync or similar tools do not hang the runner
-          # --no-open prevents it from trying to launch a browser
-          # --no-ui prevents the admin panel from starting
-          npx browser-sync start --server --no-open --no-ui --exit
-
       - name: Flattening and Logic Preservation
         run: |
-          # Check for single wrapper folder and move contents to root
+          # Check for single wrapper folder and move contents to root app/assets
           if [ -d "app/assets" ]; then
             cd app/assets
             if [ $(ls -1 | wc -l) -eq 1 ] && [ -d */ ]; then
               mv */* .
               rmdir */
             fi
+            cd ../..
           fi
 
       - name: Commit & Push Changes
@@ -54,15 +51,23 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Use your specific versioning for the commit and tag
           git add .
+          # Logic Preservation: Only commit if changes exist
           git commit -m "${{ env.COMMITTEE_MSG }} v${{ env.VERSION }}" || echo "No changes to commit"
           
-          # Tag Force-Delete & Re-push logic
+          # Tag Force-Delete & Re-push logic for the ∞ tag
           git tag -d ∞ || true
-          git push origin :refs/tags/∞ || true
+          git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git :refs/tags/∞ || true
           git tag ∞
-          git push origin main --tags --force
+          git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git main --tags --force
+
+      - name: Deploy to Public Repository
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          # Since you deploy from the public repo, push the cleaned root to hassanbiswas.github.io
+          # Use the --force flag to keep the public repo synced with your private source logic
+          git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/hassanbiswas/hassanbiswas.github.io.git main:main --force
 
       - name: Display Release Information
         run: |
