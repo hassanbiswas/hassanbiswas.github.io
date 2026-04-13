@@ -1,9 +1,12 @@
-// Automated version logic: YY.MM.DD
-const VERSION = '26.04.13';
-
+/**
+ * Web Developer | Hassan Biswas
+ * Automated Dynamic Versioning & Cache-Busting Logic (YY.MM.DD)
+ */
+const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
+const OFFLINE_URL = '/index.html';
 
-// Assets to cache (Removed offline.html)
+// Assets to cache
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -11,8 +14,8 @@ const ASSETS_TO_CACHE = [
   '/assets/css/style.css',
   '/assets/js/script.js'
 ].map(url => {
-  // Apply cache-busting query string to assets, excluding the root
-  return (url === '/') ? url : `${url}?v=${VERSION}`;
+  // Apply cache-busting query string to assets, excluding the root and offline fallback
+  return (url === '/' || url === OFFLINE_URL) ? url : `${url}?v=${VERSION}`;
 });
 
 // Install Event - Caching assets
@@ -45,7 +48,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Network first, fallback to cache (Best for SEO & performance)
+// Fetch Event - Network first, fallback to cache, then to OFFLINE_URL
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests (like browser extensions or POST)
   if (event.request.method !== 'GET') return;
@@ -59,8 +62,8 @@ self.addEventListener('fetch', (event) => {
       .catch(() => {
         // If network fails (Offline), look in cache for the resource
         return caches.match(event.request).then((response) => {
-          // Since no offline.html, we return the cached index.html as a generic fallback
-          return response || caches.match('/');
+          // Return the cached resource or the dedicated OFFLINE_URL as a generic fallback
+          return response || caches.match(OFFLINE_URL);
         });
       })
   );
