@@ -39,27 +39,28 @@ jobs:
               # 1. Determine Folder/Page Context
               rel_path = os.path.relpath(file_path, ".")
               parts = rel_path.split(os.sep)
-              
-              # Logic: {folder_name} | {base_title} or {file_name} if in root
+
+              # Updated Logic: Replace both "-" and "_" with " "
               if len(parts) > 1:
-                  folder_label = parts[0].replace("-", " ").title()
+                  folder_label = parts[0].replace("-", " ").replace("_", " ").title()
               else:
                   file_name = os.path.basename(file_path).replace(".html", "")
-                  folder_label = "Home" if file_name == "index" else file_name.replace("-", " ").title()
+                  if file_name == "index":
+                      folder_label = "Home"
+                  else:
+                      folder_label = file_name.replace("-", " ").replace("_", " ").title()
 
               full_title = f"{folder_label} | {BASE_TITLE}"
 
               with open(file_path, 'r', encoding='utf-8') as f:
                   soup = BeautifulSoup(f, 'lxml')
-
+              
               if not soup.head:
                   return
 
               # 2. Extract unique content for SEO
-              # Try to find the first H1 or first Paragraph for a unique description
               page_h1 = soup.find('h1')
               first_p = soup.find('p')
-              
               h1_text = page_h1.get_text(strip=True) if page_h1 else folder_label
               snippet = first_p.get_text(strip=True)[:150] if first_p else "Expert UI/UX and Front-End Architecture."
               
