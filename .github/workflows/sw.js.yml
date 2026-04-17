@@ -33,9 +33,16 @@ jobs:
           const ASSETS_TO_CACHE = [
             '/',
             '/index.html',
+            '/404.html',
             '/manifest.json',
             '/assets/css/style.css',
-            '/assets/js/script.js'
+            '/assets/js/script.js',
+            '/#about',
+            '/#contact',
+            '/case-studies',
+            '/privacy-policy',
+            '/terms-of-service',
+            '/refund_and_cancelation-policy'
           ].map(url => {
             // Apply cache-busting query string to assets, excluding the root and offline fallback
             return (url === '/' || url === OFFLINE_URL) ? url : \`\${url}?v=\${VERSION}\`;
