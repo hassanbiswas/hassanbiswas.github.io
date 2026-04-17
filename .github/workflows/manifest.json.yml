@@ -1,9 +1,9 @@
-name: Generate Manifest
+Name: Generate Manifest
 
 on:
   schedule:
-    # Runs at 00:00 on the 1st of every month
-    - cron: '0 0 1,15 * *' # Runs on the 1st and 15th of every month
+    # Runs at 00:00 on the 1st and 15th of every month
+    - cron: '0 0 1,15 * *'
   workflow_dispatch:
   # push:
   #   branches:
@@ -17,11 +17,11 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: [actions/checkout@v4](https://github.com/actions/checkout)
 
       - name: Generate Ephemeral Token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: [actions/create-github-app-token@v1](https://github.com/actions/create-github-app-token)
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
@@ -34,7 +34,8 @@ jobs:
 
       - name: Create manifest.json
         run: |
-          cat <<EOF > manifest.json
+          # Using single quotes around EOF to prevent shell expansion of parentheses in HSL/SVG
+          cat <<'EOF' > manifest.json
           {
             "name": "UI/UX & Front-End Architecture",
             "short_name": "Web Developer",
@@ -56,7 +57,7 @@ jobs:
             "shortcuts": [
               {
                 "name": "Messenger",
-                "url": "m.me/hassanbiswas.github.io",
+                "url": "https://m.me/hassanbiswas.github.io",
                 "icons": [{ "src": "https://www.google.com/s2/favicons?domain=m.me&sz=32", "sizes": "96x96" }]
               },
               {
@@ -66,12 +67,14 @@ jobs:
               },
               {
                 "name": "Direction",
-                "url": "https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB",
+                "url": "https://www.google.com/maps",
                 "icons": [{ "src": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=32", "sizes": "96x96" }]
               }
             ]
           }
           EOF
+          # Replacing the env.VERSION placeholder manually because 'EOF' stops expansion
+          sed -i "s/\${{ env.VERSION }}/${{ env.VERSION }}/g" manifest.json
 
       - name: Commit and Push Changes
         env:
@@ -79,6 +82,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add [manifest.json](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/manifest.json)
+          git add manifest.json
           git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}] [skip ci]" || echo "No changes to commit"
           git push origin main
+          
