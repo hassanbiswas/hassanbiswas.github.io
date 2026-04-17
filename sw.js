@@ -2,7 +2,7 @@
  * Web Developer | Hassan Biswas
  * Automated Dynamic Versioning & Cache-Busting Logic (YY.MM.DD)
  */
-const VERSION = '26.04.17';
+const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
 const OFFLINE_URL = '/index.html';
 
@@ -10,9 +10,16 @@ const OFFLINE_URL = '/index.html';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/404.html',
   '/manifest.json',
   '/assets/css/style.css',
-  '/assets/js/script.js'
+  '/assets/js/script.js',
+  '/#about',
+  '/#contact',
+  '/case-studies',
+  '/privacy-policy',
+  '/terms-of-service',
+  '/refund_and_cancelation-policy'
 ].map(url => {
   // Apply cache-busting query string to assets, excluding the root and offline fallback
   return (url === '/' || url === OFFLINE_URL) ? url : `${url}?v=${VERSION}`;
