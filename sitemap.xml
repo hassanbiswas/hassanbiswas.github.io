@@ -31,6 +31,12 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://hassanbiswas.github.io/development.html/</loc>
+    <lastmod>2026-04-25</lastmod>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://hassanbiswas.github.io/facebook/</loc>
     <lastmod>2026-04-25</lastmod>
     <priority>0.5</priority>
