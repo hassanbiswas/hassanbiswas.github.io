@@ -2588,6 +2588,45 @@ customElements.define("t-section", TSection);
       });
 
 
+  
+  // v2026.04.25
+  let animes = document.querySelectorAll('.anime');
+  // animation 
+  const animeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle("show", entry.isIntersecting)
+      // if (entry.isIntetsecting) animeObserver.unobserve(entry.target)
+    },
+      {
+        threshold: 1,  // or rootMargin: "-100px",
+      })
+                                        
+  })
+
+  animes?.forEach(el => {
+    animeObserver.observe(el)
+  })
+  
+  
+      
+  // v2026.04.25
+  // remove lazy loading for screen media
+  const mediaObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                      entry.target.removeAttribute('loading', entry.isIntersecting)
+                            if (entry.isIntetsecting) mediaObserver.unobserve(entry.target)
+                                },
+                                    {
+                                          rootMargin: "150px",
+                                              })
+  })
+
+  medias?.forEach(el => {
+                                                      mediaObserver.observe(el)
+  })
+      
+
+  
 
 
 
