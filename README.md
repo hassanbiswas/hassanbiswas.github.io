@@ -17,22 +17,22 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
      
 ## Contact With Me
 
-    | Platform  | Link                                           |
-    |-----------|------------------------------------------------|
-    | Portfolio | hassanbiswas.github.io                         |    
-    |-----------|------------------------------------------------|
-    | Messenger | https://hassanbiswas.github.io/messenger       |
-    |-----------|------------------------------------------------|
-    | Phone     | (+880) 1602-873384                             |
-    |-----------|------------------------------------------------|
-    | WhatsApp  | (+880) 1602-873384                             |
+    | Platform  + Link                                          
+    |-----------------------------------------------------------|
+    | [Portfolio](hassanbiswas.github.io)                           
+    |-----------------------------------------------------------|
+    | [Messenger](https://hassanbiswas.github.io/messenger)     
+    |-----------------------------------------------------------|
+    | [Phone : (+880) 1602-873384](tel:+8801602873384)                             |
+    |-----------------------------------------------------------|
+    | [WhatsApp : (+880) 1602-873384](wa.me/8801602873384)                             |
 
   
  ## Follow My Work
-   * Facebook__: https://hassanbiswas.github.io/facebook
-   * Instagram_: https://hassanbiswas.github.io/instagram
-   * Threads___: https://hassanbiswas.github.io/threads
-   * Gmail_____: https://hassanbiswas.github.io/gmail
+   * [Facebook](https://hassanbiswas.github.io/facebook)
+   * [Instagram](https://hassanbiswas.github.io/instagram)
+   * [Threads](https://hassanbiswas.github.io/threads)
+   * [Gmail](https://hassanbiswas.github.io/gmail)
 
 
 ## Acknowledgements:
