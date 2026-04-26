@@ -2,6 +2,8 @@
 
 ![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
 
+[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_data_capsul.svg)](https://github.com/hiradEmami)
+
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Hassan%20Biswas&fontSize=70&animation=twinkling" />
 </p>
@@ -22,17 +24,14 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 </samp>
 </p>
 
-[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle_mirrored.svg)](https://github.com/hiradEmami)
-
 <br>
-
-[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_data_capsul.svg)](https://github.com/hiradEmami)
-
-[portfolio-website](github.com/topics/portfolio-website) [figma](github.com/topics/figma) [ui-ux-design](github.com/topics/ui-ux-design) [web-design](github.com/topics/web-design)
 
 [![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
 
 ## Tech Stack & Tools
+
+[portfolio-website](github.com/topics/portfolio-website) [figma](github.com/topics/figma) [ui-ux-design](github.com/topics/ui-ux-design) [web-design](github.com/topics/web-design)
+
   * Languages: HTML, CSS, JavaScript
   * UI/UX Design: Figma, Framer
   * No-Code/Low-Code: Figma, Webflow, Relume
@@ -76,7 +75,7 @@ I’m collaborating with:
 </td>
 
 <!-- right panel -->
-<td width="33%" valign="bottom">
+<td width="33%" valign="top">
      
 <h2>Contact With Me</h2>
 <ul>
@@ -115,4 +114,5 @@ Star ⭐ the repos if he helped you!
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&width=100"/>
 </p>
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+
+[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle_mirrored.svg)](https://github.com/hiradEmami)
