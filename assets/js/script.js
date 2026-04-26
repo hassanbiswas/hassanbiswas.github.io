@@ -845,7 +845,7 @@ let myScript = () => {
 
           <section class="row items-center">
             <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
-            <h1 class="txt-center d-non">${author.title}</h1>
+            <h1 class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
               <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
