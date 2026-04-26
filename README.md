@@ -4,9 +4,9 @@
 
 ![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
 
-Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
+<a>Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.</a>
 
-![portfolio-website](github.com/topics/portfolio-website) ![figma](github.com/topics/figma) ![ui-ux-design](github.com/topics/ui-ux-design) ![web-design](github.com/topics/web-design)
+[portfolio-website](github.com/topics/portfolio-website) [figma](github.com/topics/figma) [ui-ux-design](github.com/topics/ui-ux-design) [web-design](github.com/topics/web-design)
 
 ## Tech Stack & Tools
   * Languages: HTML, CSS, JavaScript
@@ -17,15 +17,10 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
      
 ## Contact With Me
 
-    | Platform  + Link                                          
-    |-----------------------------------------------------------|
-    | [Portfolio](hassanbiswas.github.io)                           
-    |-----------------------------------------------------------|
-    | [Messenger](https://hassanbiswas.github.io/messenger)     
-    |-----------------------------------------------------------|
-    | [Phone : (+880) 1602-873384](tel:+8801602873384)                             |
-    |-----------------------------------------------------------|
-    | [WhatsApp : (+880) 1602-873384](wa.me/8801602873384)                             |
+    [Portfolio](hassanbiswas.github.io)                          
+    [Messenger](https://hassanbiswas.github.io/messenger)     
+    [Phone : (+880) 1602-873384](tel:+8801602873384)             
+    [WhatsApp : (+880) 1602-873384](wa.me/8801602873384)                             
 
   
  ## Follow My Work
