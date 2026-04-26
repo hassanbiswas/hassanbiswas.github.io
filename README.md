@@ -1,4 +1,5 @@
-[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle_mirrored.svg)](https://github.com/hiradEmami)
+[![divider_arc_reactor](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle.svg)](https://github.com/hiradEmami)
+
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Hassan%20Biswas&fontSize=70&animation=twinkling" />
 </p>
@@ -18,7 +19,11 @@
     alt="Typing SVG"
   />
 </p>
+
+[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle_mirrored.svg)](https://github.com/hiradEmami)
+
 <br>
+
 ![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
 
 <a>Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.</a>
@@ -51,5 +56,80 @@ https://github.com/hiradEmami
 
 ## Acknowledgements:
    Serving clients worldwide.
-   
-https://github.com/hiradEmami
+   Thank's to <sup>https://github.com/hiradEmami</sup>
+
+
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+
+
+
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+<tr>
+
+<!-- LEFT: COLLAB -->
+<td width="33%" valign="top">
+
+<h2>🤝 Collaboration</h2>
+
+I’m looking collaborating with:
+
+<ul>
+  <li>Website projects</li>
+  <li>Back-End Developer</li>
+  <li>Website Design Agency</li>
+</ul>
+
+</td>
+
+<!-- MIDDLE: PANEL -->
+<td width="34%" align="center" valign="middle">
+    <a href="docs/COLLAB.md">
+        <img src="docs/img/collaboration_panel.svg" width="200px" />
+    </a>
+</td>
+
+<!-- RIGHT: CONTACT -->
+<td width="33%" valign="top" align="center">
+
+<h2>📫 Contact</h2>
+
+<br>
+
+<a href="https://hirademami.github.io/">GitHub
+</a>
+<br><br>
+
+<a href="mailto:hirad.alagha@outlook.com">Gmail
+</a>
+<br><br>
+
+<a href="https://www.linkedin.com/in/hirad-alagha/">LinkedIn
+</a>
+
+</td>
+
+</tr>
+</table>
+
+
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+
+
+<p align="center">
+⚡ Building scalable Websites & Developing
+</p>
+<p align="center">
+Star ⭐ the repos if he helped you!
+</p>
+
+<p align="center">
+    <a href="docs/hidden/easter_egg.md">
+        <img src="https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/icons/devops/icon_heartbeat_node.svg" width="20px">
+    </a>
+</p>
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&width=100"/>
+</p>
+
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
