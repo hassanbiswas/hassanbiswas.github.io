@@ -824,7 +824,7 @@ let myScript = () => {
       <section id="hero" class="fluid-grid-system dark">
         <section class="container-md row">
 
-          <section style="padding: 0em; transform: scale(.7); max-block-size: 40dvh;" class="logo-marquee-wrapper stacking-container mask">
+          <section style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
             <section style="padding: 0em" class="brand-logo-container">
               <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
                 
