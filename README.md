@@ -1,7 +1,7 @@
 # Hassan Biswas
 ### Web Developer | Hassan Biswas — UI/UX & Front-End Architecture
 ###### @hassanbiswas.github.io
-![Portoflio]([https://github.com/itsvijaysingh/My-Portfolio/blob/main/Developer%20Portolio%20Website.png](https://hassanbiswas.github.io/assets/og-images/og-main.png))
+![Portoflio]([https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png](https://hassanbiswas.github.io))
 Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
 https://github.com/topics/portfolio-website https://github.com/topics/figma https://github.com/topics/ui-ux-design
 
