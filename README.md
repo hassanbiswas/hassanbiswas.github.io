@@ -59,10 +59,10 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 I’m collaborating with:
 
 <ul>
-  <li>Website's projects</li>
+  <li>Website's project</li>
   <li>Front-End Developers</li>
   <li>Back-End Developers</li>
-  <li>Website Design Agencys</li>
+  <li>Website Design Agencies</li>
 </ul>
 
 </td>
@@ -80,7 +80,7 @@ I’m collaborating with:
 <h2>Contact With Me</h2>
 <ul>
 <li><a href="hassanbiswas.github.io/messenger">Messenger</a></li>    
-<li><a href="tel:+8801602873384">Phone</a></li>    
+<li>(+880) 1602-873384</li>    
 <li><a href="wa.me/8801602873384">WhatsApp</a></li>
 </ul>
 </td>
