@@ -1,12 +1,12 @@
 [![divider_arc_reactor](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle.svg)](https://github.com/hiradEmami)
 
-![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
-
-[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_data_capsul.svg)](https://github.com/hiradEmami)
-
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Hassan%20Biswas&fontSize=70&animation=twinkling" />
 </p>
+
+![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
+
+[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_data_capsul.svg)](https://github.com/hiradEmami)
 
 
 <br>
@@ -30,7 +30,7 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
 ## Tech Stack & Tools
 
-[portfolio-website](github.com/topics/portfolio-website) [figma](github.com/topics/figma) [ui-ux-design](github.com/topics/ui-ux-design) [web-design](github.com/topics/web-design)
+[portfolio-website](https://github.com/topics/portfolio-website) [ui-ux-design](https://github.com/topics/ui-ux-design) [github](https://github.com/topics/github) [javascript](https://github.com/topics/javascript) [css](https://github.com/topics/css) [html](https://github.com/topics/html) [bootstrap](https://github.com/topics/bootstrap) [website](https://github.com/topics/website) [web-development](https://github.com/topics/web-development) [css-animations](https://github.com/topics/css-animations) [vscode](https://github.com/topics/vscode) [css-grid](https://github.com/topics/css-grid) [web-design](https://github.com/topics/web-design) [figma](https://github.com/topics/figma) [framer](https://github.com/topics/framer) [webflow](https://github.com/topics/webflow) [front-end-development](https://github.com/topics/front-end-development) [css-flexbox](https://github.com/topics/css-flexbox)
 
   * Languages: HTML, CSS, JavaScript
   * UI/UX Design: Figma, Framer
@@ -43,7 +43,6 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
    * [Facebook](https://hassanbiswas.github.io/facebook)
    * [Instagram](https://hassanbiswas.github.io/instagram)
    * [Threads](https://hassanbiswas.github.io/threads)
-   * [Gmail](https://hassanbiswas.github.io/gmail)
 
 [![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
 
@@ -77,11 +76,12 @@ I’m collaborating with:
 <!-- right panel -->
 <td width="33%" valign="top">
      
-<h2>Contact With Me</h2>
+<h2>Contact</h2>
 <ul>
 <li><a href="hassanbiswas.github.io/messenger">Messenger</a></li>    
-<li>(+880) 1602-873384</li>    
-<li><a href="wa.me/8801602873384">WhatsApp</a></li>
+<li><a href="hassanbiswas.github.io/call">Call</a></li>    
+<li><a href="hassanbiswas.github.io/whatsapp">WhatsApp</a></li>
+<li><a href="hassanbiswas.github.io/gmail">Gmail</a></li>
 </ul>
 </td>
 
