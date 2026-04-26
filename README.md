@@ -10,16 +10,16 @@
 <br>
 
 <p align="center">
-<samp>
-Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
-</samp>
-</p>
-
-<p align="center">
   <img
     src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1200&color=36BCF7&center=true&vCenter=true&width=900&lines=Web+Developer;UI/UX;Front-End+Architecture"
     alt="Typing SVG"
   />
+</p>
+
+<p align="center">
+<samp>
+Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
+</samp>
 </p>
 
 [![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle_mirrored.svg)](https://github.com/hiradEmami)
@@ -38,15 +38,7 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
   * No-Code/Low-Code: Figma, Webflow, Relume
   * Deployment: GitHub Pages
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
-     
-## Contact With Me
-* [Portfolio](hassanbiswas.github.io)                          
-* [Messenger](hassanbiswas.github.io/messenger)     
-* [Phone](tel:+8801602873384)             
-* [WhatsApp](wa.me/8801602873384)                             
-
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)                         
   
  ## Follow My Work
    * [Facebook](https://hassanbiswas.github.io/facebook)
@@ -55,14 +47,6 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
    * [Gmail](https://hassanbiswas.github.io/gmail)
 
 [![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
-
-## Acknowledgements:
-   Serving clients worldwide.
-   Thank's to <sup>https://github.com/hiradEmami</sup>
-
-
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
-
 
 
 <table width="100%" border="0" cellspacing="10" cellpadding="0">
@@ -73,12 +57,13 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
 <h2>🤝 Collaboration</h2>
 
-I’m looking collaborating with:
+I’m collaborating with:
 
 <ul>
-  <li>Website projects</li>
-  <li>Back-End Developer</li>
-  <li>Website Design Agency</li>
+  <li>Website's projects</li>
+  <li>Front-End Developers</li>
+  <li>Back-End Developers</li>
+  <li>Website Design Agencys</li>
 </ul>
 
 </td>
@@ -90,12 +75,28 @@ I’m looking collaborating with:
     </a>
 </td>
 
+<!-- right panel -->
+<td width="33%" valign="bottom">
+     
+<h2>Contact With Me</h2>
+<ul>
+<li><a href="hassanbiswas.github.io/messenger">Messenger</a></li>    
+<li><a href="tel:+8801602873384">Phone</a></li>    
+<li><a href="wa.me/8801602873384">WhatsApp</a></li>
+</ul>
+</td>
+
 </tr>
 </table>
 
 
 [![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
 
+## Acknowledgements:
+   Serving clients worldwide.
+   Thank's to https://github.com/hiradEmami
+
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
 
 <p align="center">
 ⚡ Building scalable Websites & Developing
