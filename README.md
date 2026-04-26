@@ -1,21 +1,21 @@
-[![divider_arc_reactor](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle.svg)](https://github.com/hiradEmami)
+[![divider_arc_reactor](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_cyber_cycle.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 <p align="center">
   <img src="https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c...6e3d68656164657226746578743d48617373616e25323042697377617326666f6e7453697a653d373026616e696d6174696f6e3d7477696e6b6c696e67.svg" />
 </p>
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+[![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 ![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
 
-[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_data_capsul.svg)](https://github.com/hiradEmami)
+[![divider_moving_neon_gradient](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_data_capsul.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 
 <br>
 
 <p align="center">
   <img
-    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1200&color=36BCF7&center=true&vCenter=true&width=900&lines=Web+Developer;UI/UX;Front-End+Architecture"
+    src="https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/68747470733a2f2f726561646d652d747970696e672d7376672e6865726f6b756170702e636f6d3f666f6e743d466972612b436f64...75652677696474683d393030266c696e65733d5765622b446576656c6f7065723b55492f55583b46726f6e742d456e642b417263686974656374757265.svg"
     alt="Typing SVG"
   />
 </p>
@@ -28,7 +28,7 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
 <br>
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+[![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 ## Tech Stack & Tools
 
@@ -39,14 +39,14 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
   * No-Code/Low-Code: Figma, Webflow, Relume
   * Deployment: GitHub Pages
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)                         
+[![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)                         
   
  ## Follow My Work
    * [Facebook](https://hassanbiswas.github.io/facebook)
    * [Instagram](https://hassanbiswas.github.io/instagram)
    * [Threads](https://hassanbiswas.github.io/threads)
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+[![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 
 <table width="100%" border="0" cellspacing="10" cellpadding="0">
@@ -91,30 +91,30 @@ I’m collaborating with:
 </table>
 
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+[![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 ## Acknowledgements:
    Serving clients worldwide.
-   Thank's to https://github.com/hiradEmami
+   Thank's to <a href="https://github.com/hiradEmami">Hirad Emami</a>
 
-[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
+[![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 <p align="center">
-⚡ Building scalable Websites & Developing
+⚡ Building & Developing scalable Websites
 </p>
 <p align="center">
 Star ⭐ the repos if he helped you!
 </p>
 
 <p align="center">
-    <a href="docs/hidden/easter_egg.md">
-        <img src="https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/icons/devops/icon_heartbeat_node.svg" width="20px">
+    <a href="https://github.com/hassanbiswas/hassanbiswas.github.io">
+        <img src="https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/icon_heartbeat_node.svg" width="20px">
     </a>
 </p>
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer&width=100"/>
+  <img src="https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c6f723d6772616469656e74266865696768743d3130302673656374696f6e3d666f6f7465722677696474683d313030.svg"/>
 </p>
 
 
-[![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle_mirrored.svg)](https://github.com/hiradEmami)
+[![divider_moving_neon_gradient](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_cyber_cycle_mirrored.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
