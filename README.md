@@ -1,7 +1,7 @@
-[![divider_arc_reactor](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_cyber_cycle.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
+[![divider_arc_reactor](https://hassanbiswas.github.io/assets/img/public/divider_cyber_cycle.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
 <p align="center">
-  <img src="https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c...6e3d68656164657226746578743d48617373616e25323042697377617326666f6e7453697a653d373026616e696d6174696f6e3d7477696e6b6c696e67.svg" />
+  <img src="https://hassanbiswas.github.io/assets/img/public/68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c...6e3d68656164657226746578743d48617373616e25323042697377617326666f6e7453697a653d373026616e696d6174696f6e3d7477696e6b6c696e67.svg" />
 </p>
 
 [![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
