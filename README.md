@@ -6,7 +6,7 @@
 
 [![divider_twin_serpant](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_dual_energy_tracks.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
-![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
+[![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)](https://hassanbiswas.github.io)
 
 [![divider_moving_neon_gradient](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/divider_data_capsul.svg)](https://github.com/hassanbiswas/hassanbiswas.github.io)
 
