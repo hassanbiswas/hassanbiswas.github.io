@@ -1,5 +1,7 @@
 [![divider_arc_reactor](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_cyber_cycle.svg)](https://github.com/hiradEmami)
 
+![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
+
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=Hassan%20Biswas&fontSize=70&animation=twinkling" />
 </p>
@@ -9,13 +11,13 @@
 
 <p align="center">
 <samp>
-「 Lead ML Engineer building scalable AI systems, MLOps platforms, and distributed ML infrastructure 」  
+Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.
 </samp>
 </p>
 
 <p align="center">
   <img
-    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1200&color=36BCF7&center=true&vCenter=true&width=900&lines=Lead+Machine+Learning+Engineer;Web+Developer+|+Hassan+Biswas;UI/UX+&+Front-End+Architecture"
+    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=30&pause=1200&color=36BCF7&center=true&vCenter=true&width=900&lines=Web+Developer;UI/UX;Front-End+Architecture"
     alt="Typing SVG"
   />
 </p>
@@ -24,13 +26,11 @@
 
 <br>
 
-![Portoflio](https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/og-images/og-main.png)
-
-<a>Web Developer, Front-End Specialist & UI Designer. Focused on building responsive, high-performance websites. I bridge the gap between complex design systems and functional code, utilizing modern logic and clean UI principles.</a>
-
 [![divider_moving_neon_gradient](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/unique_effects/divider_data_capsul.svg)](https://github.com/hiradEmami)
 
 [portfolio-website](github.com/topics/portfolio-website) [figma](github.com/topics/figma) [ui-ux-design](github.com/topics/ui-ux-design) [web-design](github.com/topics/web-design)
+
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
 
 ## Tech Stack & Tools
   * Languages: HTML, CSS, JavaScript
@@ -38,21 +38,23 @@
   * No-Code/Low-Code: Figma, Webflow, Relume
   * Deployment: GitHub Pages
 
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
      
 ## Contact With Me
 * [Portfolio](hassanbiswas.github.io)                          
-* [Messenger](https://hassanbiswas.github.io/messenger)     
-* [Phone : (+880) 1602-873384](tel:+8801602873384)             
-* [WhatsApp : (+880) 1602-873384](wa.me/8801602873384)                             
+* [Messenger](hassanbiswas.github.io/messenger)     
+* [Phone](tel:+8801602873384)             
+* [WhatsApp](wa.me/8801602873384)                             
 
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
   
  ## Follow My Work
    * [Facebook](https://hassanbiswas.github.io/facebook)
    * [Instagram](https://hassanbiswas.github.io/instagram)
    * [Threads](https://hassanbiswas.github.io/threads)
    * [Gmail](https://hassanbiswas.github.io/gmail)
-   * 
-https://github.com/hiradEmami
+
+[![divider_twin_serpant](https://raw.githubusercontent.com/HiradEmami/readme-ux-kit/master/assets/dividers/animated/bars/divider_dual_energy_tracks.svg)](https://github.com/hiradEmami)
 
 ## Acknowledgements:
    Serving clients worldwide.
@@ -84,28 +86,8 @@ I’m looking collaborating with:
 <!-- MIDDLE: PANEL -->
 <td width="34%" align="center" valign="middle">
     <a href="docs/COLLAB.md">
-        <img src="docs/img/collaboration_panel.svg" width="200px" />
+        <img src="https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/assets/img/public/collaboration_panel.svg" width="200px" />
     </a>
-</td>
-
-<!-- RIGHT: CONTACT -->
-<td width="33%" valign="top" align="center">
-
-<h2>📫 Contact</h2>
-
-<br>
-
-<a href="https://hirademami.github.io/">GitHub
-</a>
-<br><br>
-
-<a href="mailto:hirad.alagha@outlook.com">Gmail
-</a>
-<br><br>
-
-<a href="https://www.linkedin.com/in/hirad-alagha/">LinkedIn
-</a>
-
 </td>
 
 </tr>
