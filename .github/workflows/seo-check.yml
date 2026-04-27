@@ -3,8 +3,8 @@ name: Performance, Accessibility, Best Practices, SEO Audit
 on:
   # push:
   #   branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  #pull_request:
+    #branches: [ main ]
   workflow_run:
     workflows: ["seo-assets.yml", "seo-update.yml"]
     types:

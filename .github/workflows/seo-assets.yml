@@ -5,8 +5,8 @@ on:
     # Automation: Runs every Sunday at 00:00 UTC (Weekly)
     - cron: '0 0 * * 0'
   workflow_dispatch: 
-  push:
-    branches: [ main ]
+  #push:
+    #branches: [ main ]
   workflow_run:
     workflows: ["compression.yml"]
     types:
