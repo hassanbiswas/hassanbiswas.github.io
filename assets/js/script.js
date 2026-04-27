@@ -1,6 +1,7 @@
 
 /* 
 
+        const rootUrl = `https://hassanbiswas.github.io/`;
  // Your updated logic automation: Changes once per day
 const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
 
@@ -197,25 +198,25 @@ let myScript = () => {
   ];
 
   const servicesPrimary = [
-    { name: `<del>UI/UX design</del>`, price: `60$` },
-    { name: `Web design`, price: `60$` },
-    { name: `Re-Design website`, price: `60$` },
-    { name: `Front-End development`, price: `60$` },
-    { name: `Static Websit (Reasonable price!)`, price: `60$` },
-    { name: `Photo/image to website`, price: `60$` },
-    { name: `Figma/Framer/Webflow to website`, price: `60$` }
+    { name: `<del>UI/UX design</del>`, price: `80$` },
+    { name: `Web design`, price: `100$` },
+    { name: `Re-Design website`, price: `80$` },
+    { name: `Front-End development`, price: `100$` },
+    { name: `Static Websit (Reasonable price!)`, price: `80$` },
+    { name: `Photo/image to website`, price: `180$` },
+    { name: `Figma/Framer/Webflow to website`, price: `80$` }
   ];
 
   const servicesSecondery = [
-    { name: `Custom QR code`, price: `0.5$` },
-    { name: `YouTube Channel ownership transfer`, price: `1.5$` }
+    { name: `Custom QR code`, price: `0.6$` },
+    { name: `YouTube Channel ownership transfer`, price: `1.6$` }
   ];
 
 
 
 
   // get essential favicon by domain name
-  let getFavicon = (domain, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
+  let getFavicon = (domain = `hassanbiswas.github.io`, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
 
 
   // Uses
