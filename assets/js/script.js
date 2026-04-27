@@ -1,12 +1,12 @@
 
 /* 
 
-        const rootUrl = `https://hassanbiswas.github.io/`;
+const rootUrl = `https://hassanbiswas.github.io/`;
  // Your updated logic automation: Changes once per day
 const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
 
 const injectAsset = (type, path, media = 'all') => {
-const versionedPath = `${path}?v=${VERSION}`;
+const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
 if (type === 'css') {
 document.write(`<link rel="stylesheet" href="${versionedPath}" media="${media}">`);
 } else {
@@ -14,24 +14,24 @@ document.write(`<link rel="stylesheet" href="${versionedPath}" media="${media}">
 }
 };
 
-injectAsset('js', 'https://hassanbiswas.github.io/components/loader-section.js');
-injectAsset('css', 'https://hassanbiswas.github.io/assets/css/style.css');
-injectAsset('css', 'https://hassanbiswas.github.io/assets/css/animation.css', '(prefers-reduced-motion: none)');
-injectAsset('js', 'https://hassanbiswas.github.io/components/design-system-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/notch-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/header-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/hero-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/about-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/clients-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/services-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/projects-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/testimonials-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/faqs-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/contact-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/footer-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/navigation-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/components/toast-section.js');
-injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
+injectAsset('js', 'components/loader-section.js');
+injectAsset('css', 'assets/css/style.css');
+injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
+injectAsset('js', 'components/design-system-section.js');
+injectAsset('js', 'components/notch-section.js');
+injectAsset('js', 'components/header-section.js');
+injectAsset('js', 'components/hero-section.js');
+injectAsset('js', 'components/about-section.js');
+injectAsset('js', 'components/clients-section.js');
+injectAsset('js', 'components/services-section.js');
+injectAsset('js', 'components/projects-section.js');
+injectAsset('js', 'components/testimonials-section.js');
+injectAsset('js', 'components/faqs-section.js');
+injectAsset('js', 'components/contact-section.js');
+injectAsset('js', 'components/footer-section.js');
+injectAsset('js', 'components/navigation-section.js');
+injectAsset('js', 'components/toast-section.js');
+injectAsset('js', 'assets/js/script.js');
 
 */
 
@@ -198,7 +198,7 @@ let myScript = () => {
   ];
 
   const servicesPrimary = [
-    { name: `<del>UI/UX design</del>`, price: `80$` },
+    { name: `UI/UX design`, price: `80$` },
     { name: `Web design`, price: `100$` },
     { name: `Re-Design website`, price: `80$` },
     { name: `Front-End development`, price: `100$` },
