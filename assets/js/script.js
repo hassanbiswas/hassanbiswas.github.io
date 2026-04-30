@@ -1220,10 +1220,10 @@ let myScript = () => {
     connectedCallback() {
 
       const personQuotes = [
-        { name: `${author.name}`, title: `Web Developer`, quote: `I always try to provide the best.`, link: `hassanbiswas.github.io`, photo: `${faviconAuthor}` },
-        { name: `Mariam`, title: `Student`, quote: `Hi ${author.name}, thank's a lot!`, link: `#`, photo: `${faviconAuthor}` },
-        { name: `Shamin`, title: `Businessman`, quote: `My website is faster than ever.`, link: `#`, photo: `${faviconAuthor}` },
-        { name: `Tanveer`, title: `Freelancer`, quote: `Hey! this is a great design, ${author.name}.`, link: `#`, photo: `${faviconAuthor}` }
+        { name: `${author.name}`, title: `Web Developer`, quote: `I always try to provide the best.`, link: `/`, photo: `${faviconAuthor}` },
+        { name: `Mariam`, title: `Student`, quote: `Hi ${author.name}, thank's a lot!`, link: `#`, photo: `${faviconFacebook}` },
+        { name: `Shamin`, title: `Businessman`, quote: `My website is faster than ever.`, link: `#`, photo: `${faviconFacebook}` },
+        { name: `Tanveer`, title: `Freelancer`, quote: `Hey! this is a great design, ${author.name}.`, link: `#`, photo: `${faviconFacebook}` }
       ];
 
       // 2. Create an off-screen Template
