@@ -69,7 +69,6 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // Optional: Update cache dynamically if online
         return networkResponse;
       })
       .catch(() => {
