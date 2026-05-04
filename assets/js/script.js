@@ -191,6 +191,11 @@ let myScript = () => {
     "हेलो",
   ];
 
+  const money = (value) => {
+    return value?.toLocaleString("en-US", { style: "currency", currency: "USD" }); // undefined
+    // return value?.toLocaleString(undefined);
+  }
+
   const heroStatus = [
     { name: `Available for projects`, value: `#` },
     { name: `Developed by OPPO A53`, value: `#` },
@@ -217,18 +222,18 @@ let myScript = () => {
   ];
 
   const servicesPrimary = [
-    { name: `UI/UX design`, price: `$80` },
-    { name: `Web design`, price: `$100` },
-    { name: `Re-Design website`, price: `$80` },
-    { name: `Front-End development`, price: `$100` },
-    { name: `Static Websit (Reasonable price!)`, price: `$80` },
-    { name: `Photo/image to website`, price: `$180` },
-    { name: `Figma/Framer/Webflow to website`, price: `$80` },
+    { name: `UI/UX design`, price: `${money(80)}` },
+    { name: `Web design`, price: `${money(100)}` },
+    { name: `Re-Design website`, price: `${money(80)}` },
+    { name: `Front-End development`, price: `${money(100)}` },
+    { name: `Static Websit (Reasonable price!)`, price: `${money(80)}` },
+    { name: `Photo/image to website`, price: `${money(180)}` },
+    { name: `Figma/Framer/Webflow to website`, price: `${money(80)}` },
   ];
 
   const servicesSecondery = [
-    { name: `Custom QR code`, price: `$0.6` },
-    { name: `YouTube Channel ownership transfer`, price: `$1.6` },
+    { name: `Custom QR code`, price: `${money(0.6)}` },
+    { name: `YouTube Channel ownership transfer`, price: `${money(1.6)}` },
   ];
 
   // get essential favicon by domain name
@@ -358,6 +363,27 @@ let myScript = () => {
   // Listen for the 'online' event
   window.addEventListener("online", handleConnectionChange);
 
+
+  // Corrected function with default 't' value of 3m
+  const timeout = (el, t = 3000) => { 
+    if (!el) return; // Guard clause if element is missing
+
+      // Outer delay before removing the 'show' class
+        setTimeout(() => { 
+            el.classList.remove('show');
+
+                // Inner delay to add it back after 't' milliseconds
+                    setTimeout(() => { 
+                          el.classList.add('show'); 
+                              }, t);
+
+                                }, Math.floor(t + 3000)); 
+                                }
+
+                                // Example usage: 
+                                // timeout(document.querySelector('.my-element'));
+
+
   // ### offline.html | Loading component ###
   // updated loader section
   /**
@@ -454,11 +480,12 @@ let myScript = () => {
 
       // 3. Define the HTML
 
+      // collapse
       template.innerHTML = `
-  <section class="container-sm collapse" id="notch">
+  <section class="container-sm" id="notch">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
-      This is a notch dialog!
+      This website is developed by 'OPPO A53'!
      </p>
      <button onclick="notch.classList.toggle('collapse')">
       ×
@@ -944,8 +971,8 @@ let myScript = () => {
        ${youtubers
          .map(
            (youtuber) => `
-         <li class="items-center" style="display: flex; gap: var(--space-2xs);">
-           <img src="${youtuber.photo}" alt="YouTube"/>
+         <li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
+           <img class="rounded-circle " style="max-width: 2rem; height: auto;" src="${youtuber.photo}" alt="YouTuber"/>
            <a href="${youtuber.link}">${youtuber.name}
            </a>
          </li>
@@ -1102,23 +1129,23 @@ let myScript = () => {
      <h2>
       Services available in ${locationSecondary}.
      </h2>
-     <p>[At 2026] Static website development in Bangladesh typically costs between $75 and $300+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around $100–$150, while professional, customized static websites with advanced layouts can exceed $300. 
+     <p>[At 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}. 
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
         <ul class="list-style: none;">
           <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
         <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
         <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
-        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from $30.</li>
+        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from ${money(30)}.</li>
         </ul>
       </p>
       <p>
        <p class="h6">Average Price Ranges (Approximate):</p>
        </br>
        <ul class="list-style: none;">
-       <li>Basic/Simple Site: $75 – $150 (Portfolio, Personal)</li>
-       <li>Business Website: $150 – $300 (Corporate, Small Business)</li>
-       <li>Customized Site: $300+ </li>
+       <li>Basic/Simple Site: ${money(75)} – ${money(150)} (Portfolio, Personal)</li>
+       <li>Business Website: ${money(150)} – ${money(300)} (Corporate, Small Business)</li>
+       <li>Customized Site: ${money(300)}+ </li>
       </ul>
       </p>
       <p class="p-sm"><span class="txt-primary">Note:</span> Prices are estimates and vary based on the web design company in Bangladesh.</p>
@@ -2811,5 +2838,19 @@ isDark.addEventListener('change', updateFavicon);
 
 
 window.addEventListener('focus', () => {
+  window.location.reload();
+});
+
+/*
+window.addEventListener('load', () => {
    window.location.reload();
 });
+
+window.addEventListener('online', () => {
+   window.location.reload();
+   });
+
+   window.addEventListener('offline', () => {
+      window.location.reload();
+      });
+*/
