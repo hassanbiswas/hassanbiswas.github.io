@@ -39,16 +39,13 @@ injectAsset('js', 'assets/js/script.js');
 
       // developed in mobile
 let myScript = () => {
-
-  // variable  
-  // function  
-  // execute 
-
+  // variable
+  // function
+  // execute
 
   // ###################
   // variables
   // ###################
-
 
   // dates functions
   const thisYear = new Date().getFullYear();
@@ -58,7 +55,11 @@ let myScript = () => {
   // Cache-busting for assets if needed
   // Use Date for a dynamic cache-busting version or release logic
   // Logic automation for versioning
-  const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+  const VERSION = new Date()
+    .toLocaleDateString("en-GB")
+    .split("/")
+    .reverse()
+    .join(".");
   // Results in YY.MM.DD format (e.g., 2026.03.06)
 
   // absolute path for components
@@ -78,12 +79,11 @@ let myScript = () => {
           <path d="M65.417 63.247h-.512l-.323-.33.252.099.173-.04c-.098.004-33.414-31.814-33.414-31.814h63.814V31c35.9 0 65 29.101 65 65s-29.1 65-65 65v-.735l-30.68-31.213c-1.723-1.43-9.063-8.893-16.258-16.173-8.185-8.29-16.325-16.612-16.325-16.612v-33.02h32.761l30.502 30.991v3.086c-8.395-.277-30.833-1.134-30.833-1.134-.189-.181.448 29.206.526 32.749h30.307v-.435c17.949 0 32.5-14.548 32.5-32.5s-14.551-32.5-32.5-32.5v-.475H64.865zm33.11 34.162c0 .013-1.19-.021-3.12-.088v-3.085z" fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
 
          </svg>`,
-     
+
     countryCode: `+880`,
     phone: `8801602873384`,
-    phoneText: `1602-873384`
+    phoneText: `1602-873384`,
   };
-
 
   // Cleaning the domain string for the display text (e.g., "example.com" instead of "https://example.com")
   author.domain = author.siteUrl.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "");
@@ -96,8 +96,8 @@ let myScript = () => {
   author.location = `/location`;
 
   // Replaces both literal " and URL-encoded %22 with '
-  author.faviconSvg = author.mainFaviconSvg.replace(/"|%22/g, '');
-  // same as above 
+  author.faviconSvg = author.mainFaviconSvg.replace(/"|%22/g, "");
+  // same as above
   /* 
   author.faviconSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E`;
       */
@@ -151,16 +151,15 @@ let myScript = () => {
 
   const root = document.documentElement;
 
-  const head = document.head || document.getElementsByTagName('head')[0];
-  const body = document.body || document.getElementsByTagName('body')[0];
+  const head = document.head || document.getElementsByTagName("head")[0];
+  const body = document.body || document.getElementsByTagName("body")[0];
 
   // 2. Get the computed style of the root
   const rootStyles = getComputedStyle(document.documentElement);
   let primaryColor = `hsl(240, 80%, 50%)`;
-    
 
   // <a href=""></a>
-  // review 
+  // review
   const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
   author.direction = `https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB`;
 
@@ -179,88 +178,93 @@ let myScript = () => {
     urlPinterest = `https://www.pinterest.com/hassanbiswas_github_io`,
     urlTiktok = `https://www.tiktok.com/@hassanbiswas.github.io`,
     urlLinkedin = `https://www.linkedin.com/in/hassanbiswas-github-io`;
-    
+
   // dribble, behance, etc.
 
-  const greetings = ['Hello', 'السَّلَامُ عَلَيْكُمْ', 'হ্যালো', '你好', '안녕하세요', 'こんにちは', 'हेलो'];
+  const greetings = [
+    "Hello",
+    "السَّلَامُ عَلَيْكُمْ",
+    "হ্যালো",
+    "你好",
+    "안녕하세요",
+    "こんにちは",
+    "हेलो",
+  ];
 
   const heroStatus = [
-    { name: `Available for projects`, value: `#`},
-    { name: `Developed by OPPO A53`, value: `#`}
-  ]
+    { name: `Available for projects`, value: `#` },
+    { name: `Developed by OPPO A53`, value: `#` },
+  ];
 
-  // key specializations & skills: 
+  // key specializations & skills:
   const specializing = [
-    { name: `Front-End Architecture`, value: `Designing scalable and efficient user interfaces.` },
-    { name: `UI/UX Design`, value: `Creating intuitive and engaging user experiences.` },
-    { name: `Web Technologies`, value: `Expertise in modern web development standards and performance optimization.` },
-    { name: `Performance Focus`, value: `Specializes in optimizing Core Web Vitals for speed.` }
+    {
+      name: `Front-End Architecture`,
+      value: `Designing scalable and efficient user interfaces.`,
+    },
+    {
+      name: `UI/UX Design`,
+      value: `Creating intuitive and engaging user experiences.`,
+    },
+    {
+      name: `Web Technologies`,
+      value: `Expertise in modern web development standards and performance optimization.`,
+    },
+    {
+      name: `Performance Focus`,
+      value: `Specializes in optimizing Core Web Vitals for speed.`,
+    },
   ];
 
   const servicesPrimary = [
-    { name: `UI/UX design`, price: `80$` },
-    { name: `Web design`, price: `100$` },
-    { name: `Re-Design website`, price: `80$` },
-    { name: `Front-End development`, price: `100$` },
-    { name: `Static Websit (Reasonable price!)`, price: `80$` },
-    { name: `Photo/image to website`, price: `180$` },
-    { name: `Figma/Framer/Webflow to website`, price: `80$` }
+    { name: `UI/UX design`, price: `$80` },
+    { name: `Web design`, price: `$100` },
+    { name: `Re-Design website`, price: `$80` },
+    { name: `Front-End development`, price: `$100` },
+    { name: `Static Websit (Reasonable price!)`, price: `$80` },
+    { name: `Photo/image to website`, price: `$180` },
+    { name: `Figma/Framer/Webflow to website`, price: `$80` },
   ];
 
   const servicesSecondery = [
-    { name: `Custom QR code`, price: `0.6$` },
-    { name: `YouTube Channel ownership transfer`, price: `1.6$` }
+    { name: `Custom QR code`, price: `$0.6` },
+    { name: `YouTube Channel ownership transfer`, price: `$1.6` },
   ];
 
-
-
-
   // get essential favicon by domain name
-  let getFavicon = (domain = `hassanbiswas.github.io`, size = 24) => `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
-
+  let getFavicon = (domain = `hassanbiswas.github.io`, size = 24) =>
+    `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
 
   // Uses
   const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
-
     faviconMessenger = getFavicon(`m.me`),
     faviconYoutube = getFavicon(`youtube.com`),
-
-    // wa.me 
+    // wa.me
     faviconMobile = getFavicon(`voice.google.com/regain`),
     faviconWhatsapp = getFavicon(`whatsapp.com`),
-
-    // https://mail.google.com/mail/u/0/#inbox 
+    // https://mail.google.com/mail/u/0/#inbox
     faviconGmail = getFavicon(`chat.google.com`),
     faviconMap = getFavicon(`maps.google.com`),
-
     faviconMeet = getFavicon(`meet.google.com`),
     faviconBkash = getFavicon(`bka.sh`),
-
     faviconFacebook = getFavicon(`facebook.com`),
     faviconInstagram = getFavicon(`instagram.com`),
-    faviconThreads = getFavicon(`threads.com`)
-  faviconX = getFavicon(`x.com`),
-
-    faviconAndroid = getFavicon(`developer.android.com`),
-
-
+    faviconThreads = getFavicon(`threads.com`);
+  ((faviconX = getFavicon(`x.com`)),
+    (faviconAndroid = getFavicon(`developer.android.com`)),
     // skills
-    faviconHtml = getFavicon(`developer.mozilla.org`),
-    faviconCss = getFavicon(`w3.org`),
-    faviconJs = getFavicon(`javascript.info`),
-      
+    (faviconHtml = getFavicon(`developer.mozilla.org`)),
+    (faviconCss = getFavicon(`w3.org`)),
+    (faviconJs = getFavicon(`javascript.info`)),
     // tools
-    faviconVscode = getFavicon(`code.visualstudio.com`),
-    faviconBootstrap = getFavicon(`getbootstrap.com`),
-    faviconFigma = getFavicon(`figma.com`),
-    faviconWebflow = getFavicon(`webflow.com`),
-    faviconFramer = getFavicon(`framer.com`),
-    faviconGithub = getFavicon(`github.com`);
+    (faviconVscode = getFavicon(`code.visualstudio.com`)),
+    (faviconBootstrap = getFavicon(`getbootstrap.com`)),
+    (faviconFigma = getFavicon(`figma.com`)),
+    (faviconWebflow = getFavicon(`webflow.com`)),
+    (faviconFramer = getFavicon(`framer.com`)),
+    (faviconGithub = getFavicon(`github.com`)));
 
-
-  const preferedLanguages = [
-    `English`, `Bangla (Advanced)`, `Hindi`
-  ]
+  const preferedLanguages = [`English`, `Bangla (Advanced)`, `Hindi`];
 
   /* 
   const metaKey = document.querySelector('meta[name="keywords"]');
@@ -269,10 +273,9 @@ let myScript = () => {
   }
   */
 
-
   let metaViewport = () => {
     const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.7";
-            
+
     // Attempt to find existing viewport meta tag
     let viewport = document.querySelector('meta[name="viewport"]');
 
@@ -282,78 +285,69 @@ let myScript = () => {
       viewport.setAttribute("data-version", VERSION);
     } else {
       // Create and inject new tag if missing
-      viewport = document.createElement('meta');
+      viewport = document.createElement("meta");
       viewport.name = "viewport";
       viewport.content = VIEWPORT_CONTENT;
       viewport.setAttribute("data-version", VERSION);
       document.head.appendChild(viewport);
     }
-
-  }
-  metaViewport()
-
+  };
+  metaViewport();
 
   // ###### JavaScript variables declear golobally above ######
-
-
 
   // ###################
   // methods & functions
   // ###################
 
-
-
   /**
    * Automated Asset Loader
    * Features: Base64 Injection, Cache-Busting, Logic Preservation
    *//**
-  * Injects SVG Favicons with automated versioning and responsive attributes.
-  * Version: 26.03.21 (Dynamic)
-  */
+   * Injects SVG Favicons with automated versioning and responsive attributes.
+   * Version: 26.03.21 (Dynamic)
+   */
+  /*
   const injectIcons = () => {
-    
     // Define icon configurations
     const icons = [
-      { rel: 'icon' },
-      { rel: 'apple-touch-icon' },
-      { rel: 'alternate icon' }
+      { rel: "icon" },
+      { rel: "apple-touch-icon" },
+      { rel: "alternate icon" },
     ];
 
-    icons.forEach(iconData => {
+    icons.forEach((iconData) => {
       // Search for existing link with the specific rel
       let link = document.querySelector(`link[rel='${iconData.rel}']`);
 
       if (!link) {
-        link = document.createElement('link');
+        link = document.createElement("link");
         link.rel = iconData.rel;
         head.appendChild(link);
       }
 
       // Apply high-performance & SEO attributes
-      link.type = 'image/svg+xml';
+      link.type = "image/svg+xml";
       link.href = `${author.faviconSvg}?v=${VERSION}`; // Cache-busting using date
-      link.setAttribute('sizes', 'any');
-      link.setAttribute('loading', 'lazy'); // Performance optimization
+      link.setAttribute("sizes", "any");
+      link.setAttribute("loading", "lazy"); // Performance optimization
       link.dataset.version = VERSION;
     });
   };
 
   injectIcons();
-
-
-
+  */
 
   const ogImg = document.querySelector('meta[property="og:image"]');
   if (ogImg) ogImg.content += `?v=${VERSION}`;
 
-  // index.html only 
+  // index.html only
   //document.title = `${author.title}`;
 
-
   /**
-     *  * Logic Automation: Auto-refresh on network restoration
-     * Integrated with your versioning constant
-     */
+   *  * Logic Automation: Auto-refresh on network restoration
+   * Integrated with your versioning constant
+   */
   const handleConnectionChange = () => {
     if (navigator.onLine) {
       // console.log(`Connection restored. Reloading version: ${VERSION}`);
@@ -362,9 +356,7 @@ let myScript = () => {
   };
 
   // Listen for the 'online' event
-  window.addEventListener('online', handleConnectionChange);
-
-
+  window.addEventListener("online", handleConnectionChange);
 
   // ### offline.html | Loading component ###
   // updated loader section
@@ -376,8 +368,7 @@ let myScript = () => {
 
   class LoaderSection extends HTMLElement {
     connectedCallback() {
-    
-      const template = document.createElement('template');
+      const template = document.createElement("template");
       template.innerHTML = `
       <section id="loader" aria-hidden="true" class="fluid-grid-system" data-version="${VERSION}">
        <section class="container-md content-center"> 
@@ -391,16 +382,22 @@ let myScript = () => {
     `;
 
       const content = template.content.cloneNode(true);
-      const sayHello = content.querySelector('#say-hello');
-      const loader = content.querySelector('#loader');
+      const sayHello = content.querySelector("#say-hello");
+      const loader = content.querySelector("#loader");
 
       // 1. Initial State Checks
       let i = 0;
-      let isPageLoaded = document.readyState === 'complete';
+      let isPageLoaded = document.readyState === "complete";
 
-      // DOMContentLoaded | load 
+      // DOMContentLoaded | load
       if (!isPageLoaded) {
-        window.addEventListener('load', () => { isPageLoaded = true; }, { once: true });
+        window.addEventListener(
+          "load",
+          () => {
+            isPageLoaded = true;
+          },
+          { once: true },
+        );
       }
 
       // 2. Insert into DOM
@@ -413,46 +410,36 @@ let myScript = () => {
 
         // Reset loop if we hit the end of the array
         // if (i >= greetings.length) {
-        
-          /**
-           * The Exit Condition:
-           * - Page must be fully loaded (isPageLoaded)
-           * - Browser must be online (navigator.onLine)
-           */
-          if (isPageLoaded) {
-            clearInterval(greetingInterval);
-          
-            // Smooth Exit Animation
-            loader.style.transition = 'opacity 0.4s ease, visibility 0.4s';
-            loader.style.opacity = '0';
-            loader.style.visibility = 'hidden';
-          
-            setTimeout(() => {
-              loader.remove();
-            }, 400); // 400
 
-          } 
-          else if (i >= greetings.length) {
-            i = 0;
-          }
-          /* 
+        /**
+         * The Exit Condition:
+         * - Page must be fully loaded (isPageLoaded)
+         * - Browser must be online (navigator.onLine)
+         */
+        if (isPageLoaded) {
+          clearInterval(greetingInterval);
+
+          // Smooth Exit Animation
+          loader.style.transition = "opacity 0.4s ease, visibility 0.4s";
+          loader.style.opacity = "0";
+          loader.style.visibility = "hidden";
+
+          setTimeout(() => {
+            loader.remove();
+          }, 400); // 400
+        } else if (i >= greetings.length) {
+          i = 0;
+        }
+        /* 
           else {
             // Keep looping if offline or still loading
             i = 0;
           } 
           */
         // }
-
-      }, 200);
-
+      }, 250);
     }
   }
-
-
-
-
-
-
 
   // updated notch section
   /**
@@ -463,9 +450,9 @@ let myScript = () => {
   class NotchSection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
-      // 3. Define the HTML 
+      const template = document.createElement("template");
+
+      // 3. Define the HTML
 
       template.innerHTML = `
   <section class="container-sm collapse" id="notch">
@@ -494,9 +481,9 @@ let myScript = () => {
   class ToastSection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
-      // 3. Define the HTML 
+      const template = document.createElement("template");
+
+      // 3. Define the HTML
 
       template.innerHTML = `
   <section class="container-sm collapse" id="toast">
@@ -516,9 +503,6 @@ let myScript = () => {
     }
   }
 
-
-
-
   // updated header section
   /**
    * HeaderSection Component
@@ -528,9 +512,9 @@ let myScript = () => {
   class HeaderSection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
-      // 3. Define the HTML 
+      const template = document.createElement("template");
+
+      // 3. Define the HTML
 
       template.innerHTML = `
       <header class="fluid-grid-system" id="header">
@@ -559,7 +543,6 @@ let myScript = () => {
     customElements.define("header-section", HeaderSection);
   }
 
-
   // updated design-system-section
   /**
    * DesignSystemSection Component
@@ -570,84 +553,84 @@ let myScript = () => {
     connectedCallback() {
       const colors = [
         {
-          property: `txt-1`
+          property: `txt-1`,
         },
         {
-          property: `txt-2`
+          property: `txt-2`,
         },
         {
-          property: `txt-3`
+          property: `txt-3`,
         },
         {
-          property: `txt-primary`
-        }
+          property: `txt-primary`,
+        },
       ];
       const backgrounds = [
         {
-          property: `bg-1`
+          property: `bg-1`,
         },
         {
-          property: `bg-2`
+          property: `bg-2`,
         },
         {
-          property: `bg-3`
+          property: `bg-3`,
         },
         {
-          property: `primary-40`
+          property: `primary-40`,
         },
         {
-          property: `primary-50`
+          property: `primary-50`,
         },
         {
-          property: `primary-60`
-        }
+          property: `primary-60`,
+        },
       ];
       const headings = [
         {
-          property: `h1`
+          property: `h1`,
         },
         {
-          property: `h2`
+          property: `h2`,
         },
         {
-          property: `h3`
+          property: `h3`,
         },
         {
-          property: `h4`
+          property: `h4`,
         },
         {
-          property: `h5`
+          property: `h5`,
         },
         {
-          property: `h6`
-        }
+          property: `h6`,
+        },
       ];
       const paragraphs = [
         {
-          property: `p`
+          property: `p`,
         },
         {
-          property: `p-sm`
+          property: `p-sm`,
         },
         {
-          property: `p-xsm`
-        }
+          property: `p-xsm`,
+        },
       ];
       const buttons = [
         {
-          property: `button`
+          property: `button`,
         },
         {
-          property: `btn-primary`
+          property: `btn-primary`,
         },
         {
-          property: `btn-secondary`
-        }
+          property: `btn-secondary`,
+        },
       ];
 
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -658,43 +641,63 @@ let myScript = () => {
        <div style="gap: var(--space-l);" class="col">
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${colors.map(color => `
+         ${colors
+           .map(
+             (color) => `
            <p style="flex: 1 1 23rem;" class=" ${color.property} ">
              ${color.property}: Started the journey into UI/UX and Front-End architecture through self-directed learning.
            </p>
-         `).join('')}
+         `,
+           )
+           .join("")}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${backgrounds.map(background => `
+         ${backgrounds
+           .map(
+             (background) => `
            <div style="flex: 1 1 23rem;" class=" ${background.property} ">
              ${background.property}
            </div>
-         `).join('')}
+         `,
+           )
+           .join("")}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${headings.map(heading => `
+         ${headings
+           .map(
+             (heading) => `
            <${heading.property} style="flex: 1 1 23rem;" class=" ${heading.property} ">
              ${heading.property}: Web Development.
            </${heading.property}>
-         `).join('')}
+         `,
+           )
+           .join("")}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${paragraphs.map(pragraph => `
+         ${paragraphs
+           .map(
+             (pragraph) => `
            <p style="flex: 1 1 23rem;" class=" ${pragraph.property} ">
              ${pragraph.property}: Started the journey into UI/UX and Front-End architecture through self-directed learning.
            </p>
-         `).join('')}
+         `,
+           )
+           .join("")}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${buttons.map(button => `
+         ${buttons
+           .map(
+             (button) => `
            <button style="flex: 1 1 23rem;" class=" ${button.property} ">
              ${button.property}
            </button>
-         `).join('')}
+         `,
+           )
+           .join("")}
         </div>
 
        </div>
@@ -706,7 +709,6 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <contact-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
 
@@ -749,53 +751,48 @@ let myScript = () => {
   
   */
 
-
-
   // Data array for easy updates
   const skills = [
     {
       name: `HTML`,
-      favicon: `${faviconHtml}`
+      favicon: `${faviconHtml}`,
     },
     {
       name: `CSS`,
-      favicon: `${faviconCss}`
+      favicon: `${faviconCss}`,
     },
     {
       name: `JavaScript`,
-      favicon: `${faviconJs}`
-    }
+      favicon: `${faviconJs}`,
+    },
   ];
 
   const tools = [
     {
       name: `VScode`,
-      favicon: `${faviconVscode}`
+      favicon: `${faviconVscode}`,
     },
     {
       name: `Bootstrap`,
-      favicon: `${faviconBootstrap}`
+      favicon: `${faviconBootstrap}`,
     },
     {
       name: `Figma`,
-      favicon: `${faviconFigma}`
+      favicon: `${faviconFigma}`,
     },
     {
       name: `Webflow`,
-      favicon: `${faviconWebflow}`
+      favicon: `${faviconWebflow}`,
     },
     {
       name: `Framer`,
-      favicon: `${faviconFramer}`
+      favicon: `${faviconFramer}`,
     },
     {
       name: `GitHub`,
-      favicon: `${faviconGithub}`
-    }
+      favicon: `${faviconGithub}`,
+    },
   ];
-
-
-
 
   // ### 404.html | Hero component ###
   // updated hero section
@@ -812,11 +809,11 @@ let myScript = () => {
         for (i = 0; i <= 10; i++) {
           // console.log('hello world')
         }
-      }
+      };
 
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -864,29 +861,75 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <contact-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
 
   // updated ClientsSection Component
   class ClientsSection extends HTMLElement {
     connectedCallback() {
+      const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
 
       const youtubers = [
-        { name: `Kevin Powell`, link: `#` },
-        { name: `DesignCourse`, link: `#` },
-        { name: `Flux Academy`, link: `#` },
-        { name: `Web Dev Simplified`, link: `#` },
-        { name: `Codex Community`, link: `#` },
-        { name: `Jesse Showalter`, link: `#` },
-        { name: `Olivier Larose`, link: `#` },
-        { name: `Design2GO`, link: `#` },
-        { name: `Arnau Ros`, link: `#` }
+        {
+          name: `Kevin Powell`,
+          photo: `${ytLogoBaseUrl}gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `DesignCourse`,
+          photo: `${ytLogoBaseUrl}ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Flux Academy`,
+          photo: `${ytLogoBaseUrl}D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Web Dev Simplified`,
+          photo: `${ytLogoBaseUrl}AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Codex Community`,
+          photo: `${ytLogoBaseUrl}ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Jesse Showalter`,
+          photo: `${ytLogoBaseUrl}cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Olivier Larose`,
+          photo: `${ytLogoBaseUrl}rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Bro Code`,
+          photo: `${ytLogoBaseUrl}AIdro_mPFVsxROj1dOtTWc9iNBwDYV4z42Q8LPokBSewiW9pCSg=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Arnau Ros`,
+          photo: `${ytLogoBaseUrl}cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `True Coder`,
+          photo: `${ytLogoBaseUrl}qZmPS2Kq4TLISM7z0NPZRlA2umZVbW2qfRK4P87YZJbkcCw4vkUHhMtee4LaHuhzi1jUF_n6=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
+        {
+          name: `Lukas | Web Dev`,
+          photo: `${ytLogoBaseUrl}dr8aIhorUkiEw381t158v3AWNgB7nhQbW4g68MjZDkPdq21L6lbE7AA-gl9DACGwE4HhWopIeA=s160-c-k-c0x00ffffff-no-rj`,
+          link: `#`,
+        },
       ];
 
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -898,13 +941,17 @@ let myScript = () => {
 
      <marquee behavior="smooth" class="gradient-mask" direction="left" scrollamount="3">
       <ul style="gap: var(--space-m);" class="flex no-wrap">
-       ${youtubers.map(youtuber => `
+       ${youtubers
+         .map(
+           (youtuber) => `
          <li class="items-center" style="display: flex; gap: var(--space-2xs);">
-           <img src="${faviconYoutube}" alt="YouTube"/>
-           <a href="${urlYoutube}">${youtuber.name}
+           <img src="${youtuber.photo}" alt="YouTube"/>
+           <a href="${youtuber.link}">${youtuber.name}
            </a>
          </li>
-       `).join('')}
+       `,
+         )
+         .join("")}
       </ul>
      </marquee>
 
@@ -916,16 +963,12 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <contact-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
-
-
 
   // updated  AboutSection Component
   class AboutSection extends HTMLElement {
     connectedCallback() {
-
       // Story data array for easy updates
       const stories = [
         {
@@ -934,7 +977,7 @@ let myScript = () => {
           heading: "Having mom, dad & small family.",
           desc: "Growing up with core values that shape my professional work ethic today.",
           link: `${author.location}`,
-          linkText: "View place"
+          linkText: "View place",
         },
         {
           date: "2022",
@@ -942,7 +985,7 @@ let myScript = () => {
           heading: "YouTube platform for design and development.",
           desc: "Started the journey into UI/UX and Front-End architecture through self-directed learning.",
           link: `${urlYoutube}`,
-          linkText: "View channels"
+          linkText: "View channels",
         },
         {
           date: "2024",
@@ -950,7 +993,7 @@ let myScript = () => {
           heading: "Diploma in Computer Science and Technology.",
           desc: "Formalized my technical foundation in software logic and system design.",
           link: "https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8",
-          linkText: "View institute"
+          linkText: "View institute",
         },
         {
           date: "",
@@ -959,7 +1002,7 @@ let myScript = () => {
           heading: "Utshob Technology Ltd.",
           desc: `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="utshabtech.com.bd">utshabtech.com.bd</a>`,
           link: "https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7",
-          linkText: "View place"
+          linkText: "View place",
           // linkText: "View certificate"
         },
         {
@@ -969,7 +1012,7 @@ let myScript = () => {
           heading: "Designing and developing website.",
           desc: `${author.description}`,
           link: `/projects`,
-          linkText: "View projects"
+          linkText: "View projects",
         },
         {
           date: `${thisYear}`,
@@ -977,13 +1020,13 @@ let myScript = () => {
           heading: "Junior Front-End Developer",
           desc: "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
           link: `/resume`,
-          linkText: "Download Resume"
-        }
+          linkText: "Download Resume",
+        },
       ];
 
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -1009,7 +1052,9 @@ let myScript = () => {
 
      <section style="gap: calc(var(--padding-inline) * 2);" class="row">
 
-          ${stories.map(story => `
+          ${stories
+            .map(
+              (story) => `
 
       <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-container">
        <div style="gap: .5em;" class="row">
@@ -1023,7 +1068,9 @@ let myScript = () => {
        </div>
       </section>
 
-          `).join('')}
+          `,
+            )
+            .join("")}
 
      </section>
 
@@ -1036,19 +1083,15 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <contact-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
-
-
 
   // updated ServicesSection Component
   class ServicesSection extends HTMLElement {
     connectedCallback() {
-
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -1059,23 +1102,23 @@ let myScript = () => {
      <h2>
       Services available in ${locationSecondary}.
      </h2>
-     <p>[In 2026] Static website development in Bangladesh typically costs between 75$ and 300$+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around 100$–150$, while professional, customized static websites with advanced layouts can exceed 300$. 
+     <p>[At 2026] Static website development in Bangladesh typically costs between $75 and $300+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around $100–$150, while professional, customized static websites with advanced layouts can exceed $300. 
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
         <ul class="list-style: none;">
           <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
         <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
         <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
-        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from 30$.</li>
+        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from $30.</li>
         </ul>
       </p>
       <p>
        <p class="h6">Average Price Ranges (Approximate):</p>
        </br>
        <ul class="list-style: none;">
-       <li>Basic/Simple Site: 75$ – 150$ (Portfolio, Personal)</li>
-       <li>Business Website: 150$ – 300$ (Corporate, Small Business)</li>
-       <li>Customized Site: 300$+ </li>
+       <li>Basic/Simple Site: $75 – $150 (Portfolio, Personal)</li>
+       <li>Business Website: $150 – $300 (Corporate, Small Business)</li>
+       <li>Customized Site: $300+ </li>
       </ul>
       </p>
       <p class="p-sm"><span class="txt-primary">Note:</span> Prices are estimates and vary based on the web design company in Bangladesh.</p>
@@ -1086,17 +1129,25 @@ let myScript = () => {
        </h5>
        <p class="p">** Discounted prices are showing **</p>
        <ul>
-         ${servicesPrimary.map(service => `
+         ${servicesPrimary
+           .map(
+             (service) => `
            <li>${service.name} (<b>${service.price}</b>)</li>
-         `).join('')}
+         `,
+           )
+           .join("")}
        </ul>
       </div>
       <div style="gap: var(--space-xs);" class="row">
        <h6>More services:</h6>
        <ul>
-         ${servicesSecondery.map(service => `
+         ${servicesSecondery
+           .map(
+             (service) => `
            <li>${service.name} (<b>${service.price}</b>)</li>
-        `).join('')}
+        `,
+           )
+           .join("")}
        </ul>
        </div>
      </section>
@@ -1115,15 +1166,12 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <contact-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
-
 
   // updated ProjectsSection Component
   class ProjectsSection extends HTMLElement {
     connectedCallback() {
-
       // Project data array for easy updates
       const projects = [
         {
@@ -1131,34 +1179,34 @@ let myScript = () => {
           category: "Portfolio website",
           title: `${author.title}`,
           desc: `${author.description}`,
-          link: `hassanbiswas.github.io`
+          link: `hassanbiswas.github.io`,
         },
         {
           date: "24-Nov-2025",
           category: "Design Agency website",
           title: "DEVAEC | Website Design & Front-End Development.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `/projects`
+          link: `/projects`,
         },
         {
           date: "13-May-2025",
           category: "E-commerce website",
           title: "TANUVL | Fashion & Clothing.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `/projects`
+          link: `/projects`,
         },
         {
           date: "09-Jul-2024",
           category: "Portfolio website",
           title: "Shamin Ahmed Choudhuri.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `/projects`
-        }
+          link: `/projects`,
+        },
       ];
 
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -1185,7 +1233,9 @@ let myScript = () => {
 
           <section style="gap: calc(var(--padding-inline) * 2);" class="row">
 
-          ${projects.map(project => `
+          ${projects
+            .map(
+              (project) => `
             <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-container">
               <div style="gap: .5em;" class="row">
                 <h6 class="fade-in-top">${project.date}</h6>
@@ -1197,7 +1247,9 @@ let myScript = () => {
                 <a target="_blank" class="fade-in-top" href="${project.link}" loading="lazy">View site ↘</a>
               </div>
             </section>
-          `).join('')}
+          `,
+            )
+            .join("")}
 
          </section>
 
@@ -1210,25 +1262,46 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <contact-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
-
 
   // updated TestimonialsSection Component
   class TestimonialsSection extends HTMLElement {
     connectedCallback() {
-
       const personQuotes = [
-        { name: `${author.name}`, title: `Web Developer`, quote: `I always try to provide the best.`, link: `/`, photo: `${faviconAuthor}` },
-        { name: `Mariam`, title: `Student`, quote: `Hi ${author.name}, thank's a lot!`, link: `#`, photo: `${faviconFacebook}` },
-        { name: `Shamin`, title: `Businessman`, quote: `My website is faster than ever.`, link: `#`, photo: `${faviconFacebook}` },
-        { name: `Tanveer`, title: `Freelancer`, quote: `Hey! this is a great design, ${author.name}.`, link: `#`, photo: `${faviconFacebook}` }
+        {
+          name: `${author.name}`,
+          title: `Web Developer`,
+          quote: `I always try to provide the best.`,
+          link: `/`,
+          photo: `${faviconAuthor}`,
+        },
+        {
+          name: `Mariam`,
+          title: `Student`,
+          quote: `Hi ${author.name}, thank's a lot!`,
+          link: `#`,
+          photo: `${faviconFacebook}`,
+        },
+        {
+          name: `Shamin`,
+          title: `Businessman`,
+          quote: `My website is faster than ever.`,
+          link: `#`,
+          photo: `${faviconFacebook}`,
+        },
+        {
+          name: `Tanveer`,
+          title: `Freelancer`,
+          quote: `Hey! this is a great design, ${author.name}.`,
+          link: `#`,
+          photo: `${faviconFacebook}`,
+        },
       ];
 
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -1248,7 +1321,9 @@ let myScript = () => {
       </p>
      </div>
       <ul class="row">
-        ${personQuotes.map(person => `
+        ${personQuotes
+          .map(
+            (person) => `
           <li class="items-center" style="display: flex; gap: var(--space-2xs);">
             <img src="${person.photo}"/>
 
@@ -1258,7 +1333,9 @@ let myScript = () => {
               <i class="h6">"${person.quote}"</i>
             </span>
           </li>
-        `).join('')}
+        `,
+          )
+          .join("")}
       </ul>
 
       <div class="flex j-end">
@@ -1294,39 +1371,35 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <*-section> with the contents of the template immediately.
       this.replaceWith(template.content);
-  
     }
   }
-
-
 
   // updated FaqsSection Component
   class FaqsSection extends HTMLElement {
     connectedCallback() {
-
       // faqs data array for easy updates
       const faqs = [
         {
           question: `Who am I?`,
-          answer: `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`
+          answer: `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`,
         },
         {
           question: `What do I do?`,
           answer: `
-          I usually <b> design </b> &amp; <b>develop</b> website<sup class="p-sm">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
+          I usually <b> design </b> &amp; <b>develop</b> website<sup class="p-sm">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`,
         },
         {
           question: `What is my design process?`,
-          answer: `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`
+          answer: `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`,
         },
         {
           question: `Do I provide custom JS functions?`,
-          answer: `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`
+          answer: `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`,
         },
         {
           question: `Am I available for hire?`,
           answer: `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
-          </sup>`
+          </sup>`,
         },
         {
           question: `What is my contact number?`,
@@ -1336,14 +1409,13 @@ let myScript = () => {
            <sup class="p-sm">24/7</sup> 
            </br></br>
            Whatsapp: (+880)
-           <a href="${urlWhatsapp}"><b>1602-873384</b></a>`
-        }
+           <a href="${urlWhatsapp}"><b>1602-873384</b></a>`,
+        },
       ];
 
-
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-    
+      const template = document.createElement("template");
+
       // 3. Define the HTML (Top-level element is now your grid section)
 
       // HTML
@@ -1386,7 +1458,9 @@ let myScript = () => {
 
       
        <div class="row">
-          ${faqs.map(faq => `
+          ${faqs
+            .map(
+              (faq) => `
         <details class="py-0" name="question">
          <summary>
           <h6 class="p py-1">
@@ -1397,7 +1471,9 @@ let myScript = () => {
           ${faq.answer}
          </p>
         </details>
-          `).join('')}
+          `,
+            )
+            .join("")}
        </div>
 
      </section>
@@ -1410,19 +1486,17 @@ let myScript = () => {
       // 4. THE MAGIC: Synchronous swap
       // Replaces <section> with the contents of the template immediately.
       this.replaceWith(template.content);
-      // Replace the custom element with the content 
+      // Replace the custom element with the content
     }
   }
-
-
 
   // updated privacy-policy-section component
   class PrivacyPolicySection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
+      const template = document.createElement("template");
 
-      // 3. Define the HTML 
+      // 3. Define the HTML
 
       template.innerHTML = `
 
@@ -1538,15 +1612,13 @@ Third-Party Services
     }
   }
 
-  
-
   // refund-and-cancelation-policy-section component
   class RefundAndCancelationPolicySection extends HTMLElement {
     connectedCallback() {
       // 2. Create an off-screen Template
-      const template = document.createElement('template');
-                  
-      // 3. Define the HTML 
+      const template = document.createElement("template");
+
+      // 3. Define the HTML
 
       template.innerHTML = `
 
@@ -1648,23 +1720,20 @@ I strive for 100% client satisfaction. If you are unhappy with the progress of y
 
 `;
 
-// 4. THE MAGIC: Synchronous swap
-this.replaceWith(template.content);
-}
-}
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
+  }
 
+  // updated terms-of-service-section
+  class TermsOfServiceSection extends HTMLElement {
+    connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement("template");
 
-  
+      // 3. Define the HTML
 
-// updated terms-of-service-section
-class TermsOfServiceSection extends HTMLElement {
-  connectedCallback() {
-  // 2. Create an off-screen Template
-const template = document.createElement('template');
-              
-// 3. Define the HTML 
-
-template.innerHTML = `
+      template.innerHTML = `
 
 <section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
 <div class="container-md">
@@ -1792,41 +1861,61 @@ For any legal inquiries regarding these terms, please reach out.
 
 `;
 
-// 4. THE MAGIC: Synchronous swap
- this.replaceWith(template.content);
- }
- }
+      // 4. THE MAGIC: Synchronous swap
+      this.replaceWith(template.content);
+    }
+  }
 
+  // updated ContactSection Component
+  class ContactSection extends HTMLElement {
+    connectedCallback() {
+      // 1. Data Source (Scalable: could be moved to a global config)
 
+      // Arry od Data ###
 
-  
+      const linksData = [
+        {
+          name: `(+880) 1602-873384`,
+          link: `${urlMobile}`,
+          title: `Mobile`,
+          favicon: `${faviconMobile}`,
+        },
+        {
+          name: `@hassanbiswas.github.io`,
+          link: `${urlMessenger}`,
+          title: `Messenger`,
+          favicon: `${faviconMessenger}`,
+        },
+        {
+          name: `hassanbiswas.github.io@gmail.com`,
+          link: `${urlGmail}`,
+          title: `Gmail`,
+          favicon: `${faviconGmail}`,
+        },
+        {
+          name: `${locationPrimary}`,
+          link: `${begaritola}`,
+          title: `Location`,
+          favicon: `${faviconMap}`,
+        },
+      ];
 
-// updated ContactSection Component
-class ContactSection extends HTMLElement {
-  connectedCallback() {
-    // 1. Data Source (Scalable: could be moved to a global config)
+      const buttons = [
+        {
+          name: `Get Direction ↘`,
+          link: `${author.direction}`,
+          classes: `btn-primary`,
+        },
+        { name: `View Reviews ↘`, link: `${urlFeedback}`, classes: `d-none` },
+      ];
 
-    // Arry od Data ###
+      // 2. Create an off-screen Template
+      const template = document.createElement("template");
 
-    const linksData = [
-      { name: `(+880) 1602-873384`, link: `${urlMobile}`, title: `Mobile`, favicon: `${faviconMobile}` },
-      { name: `@hassanbiswas.github.io`, link: `${urlMessenger}`, title: `Messenger`, favicon: `${faviconMessenger}` },
-      { name: `hassanbiswas.github.io@gmail.com`, link: `${urlGmail}`, title: `Gmail`, favicon: `${faviconGmail}` },
-      { name: `${locationPrimary}`, link: `${begaritola}`, title: `Location`, favicon: `${faviconMap}` }
-    ];
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    const buttons = [
-      { name: `Get Direction ↘`, link: `${author.direction}`, classes: `btn-primary` },
-      { name: `View Reviews ↘`, link: `${urlFeedback}`, classes: `d-none` }
-]
-
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
-    
-    // 3. Define the HTML (Top-level element is now your grid section)
-
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
     <section id="contact" class="fluid-grid-system py-5">
     <section class="container">
@@ -1845,19 +1934,27 @@ class ContactSection extends HTMLElement {
           <p class="p">${author.description}</p>
           <h6 class="p-sm">Prefered Languages:</h6>
           <ul style="list-style: none;" class="flex">
-            ${preferedLanguages.map(language => `
+            ${preferedLanguages
+              .map(
+                (language) => `
               <li>${language}</li>
-           `).join('')}
+           `,
+              )
+              .join("")}
           </ul>
       <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
-       ${linksData.map(data => `
+       ${linksData
+         .map(
+           (data) => `
        <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
         <img class="squar" alt="${data.title}" src="${data.favicon}"/>
         <a href="${data.link}" title="${data.title}">
          <p>${data.name}</p>
         </a>
        </div>
-       `).join('')}
+       `,
+         )
+         .join("")}
       </div>
         </div>
        </div>
@@ -1876,12 +1973,16 @@ class ContactSection extends HTMLElement {
        </iframe>
 
        <div class="flex">
-         ${buttons.map(button => `
+         ${buttons
+           .map(
+             (button) => `
            <button class=" ${button.classes} ">
              <a href="${button.link}">${button.name}
              </a>
            </button>
-         `).join('')}
+         `,
+           )
+           .join("")}
       </div>
      </div>
 
@@ -1892,52 +1993,77 @@ class ContactSection extends HTMLElement {
 
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
+    }
   }
-}
 
+  // updated FooterSection Component
+  class FooterSection extends HTMLElement {
+    connectedCallback() {
+      const navigations = [
+        { name: `Home ↘`, link: `/` },
+        { name: `About ↘`, link: `/#about` },
+        { name: `Services ↘`, link: `/#services` },
+        { name: `Projects ↘`, link: `/#projects` },
+        { name: `Contact ↘`, link: `/#contact` },
+        { name: `Case Studies`, link: `/case-studies` },
+        { name: `Templates`, link: `/templates` },
+      ];
 
-// updated FooterSection Component
-class FooterSection extends HTMLElement {
-  connectedCallback() {
+      const methods = [
+        {
+          name: `Meet`,
+          link: `${urlMeet}`,
+          title: `Video Conference`,
+          alt: `Google Meet`,
+          favicon: `${faviconMeet}`,
+        },
+        {
+          name: `bKash`,
+          link: `${urlBkash}`,
+          title: `Payment by bKash`,
+          alt: `bKash`,
+          favicon: `${faviconBkash}`,
+        },
+      ];
 
-    const navigations = [
-      { name: `Home ↘`,link: `/` },
-      { name: `About ↘`,link: `/#about` },
-      { name: `Services ↘`, link: `/#services` },
-      { name: `Projects ↘`, link: `/#projects` },
-      { name: `Contact ↘`, link: `/#contact` },
-      { name: `Case Studies`, link: `/case-studies` },
-      { name: `Templates`, link: `/templates` }
-    ];
+      const legals = [
+        { name: `Privacy Policy`, link: `/privacy-policy` },
+        { name: `Terms of Service`, link: `/terms-of-service` },
+        {
+          name: `Refund &amp; Cancelation Policy`,
+          link: `/refund_and_cancelation-policy`,
+        },
+      ];
 
-    const methods = [
-      { name: `Meet`, link: `${urlMeet}`, title: `Video Conference`, alt: `Google Meet`, favicon: `${faviconMeet}` },
-      { name: `bKash`, link: `${urlBkash}`, title: `Payment by bKash`, alt: `bKash`, favicon: `${faviconBkash}` }
-    ];
+      const socials = [
+        {
+          name: `Facebook`,
+          link: `${urlFacebook}`,
+          favicon: `${faviconFacebook}`,
+        },
+        {
+          name: `Instagram`,
+          link: `${urlInstagram}`,
+          favicon: `${faviconInstagram}`,
+        },
+        {
+          name: `Threads`,
+          link: `${urlThreads}`,
+          favicon: `${faviconThreads}`,
+        },
+        { name: `X (Twitter)`, link: `${urlX}`, favicon: `${faviconX}` },
+      ];
 
-    const legals = [
-      { name: `Privacy Policy`, link: `/privacy-policy` },
-      { name: `Terms of Service`, link: `/terms-of-service` },
-      { name: `Refund &amp; Cancelation Policy`, link: `/refund_and_cancelation-policy` }
-    ];
+      // 2. Create an off-screen Template
+      const template = document.createElement("template");
 
-    const socials = [
-      { name: `Facebook`, link: `${urlFacebook}`, favicon: `${faviconFacebook}` },
-      { name: `Instagram`, link: `${urlInstagram}`, favicon: `${faviconInstagram}` },
-      { name: `Threads`, link: `${urlThreads}`, favicon: `${faviconThreads}` },
-      { name: `X (Twitter)`, link: `${urlX}`, favicon: `${faviconX}` }
-    ];
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
-    
-    // 3. Define the HTML (Top-level element is now your grid section)
-
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
 <footer class="fluid-grid-system" id="footer">
    <section class="container-xl row gap-4 py-5">
@@ -1984,10 +2110,14 @@ class FooterSection extends HTMLElement {
        </h6>
        <div class="flex navigation-links">
 
-       ${navigations.map(navigation => `
+       ${navigations
+         .map(
+           (navigation) => `
          <a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
          </a>
-       `).join('')}
+       `,
+         )
+         .join("")}
 
        </div>
       </nav>
@@ -1998,11 +2128,15 @@ class FooterSection extends HTMLElement {
        </h6>
        <div class="flex methode-links">
 
-       ${methods.map(method => `
+       ${methods
+         .map(
+           (method) => `
         <a style="flex: 1; flex-basis: 5ch;" href="${method.link}" target="_blank" title="${method.title}">
          <img class="squar" alt="${method.alt}" loading="lazy" src="${method.favicon}"/>
         </a>
-       `).join('')}
+       `,
+         )
+         .join("")}
 
        </div>
       </nav>
@@ -2013,11 +2147,15 @@ class FooterSection extends HTMLElement {
        </h6>
        <div class="flex legal-links">
 
-       ${legals.map(legal => `
+       ${legals
+         .map(
+           (legal) => `
         <a style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
          ${legal.name}
         </a>
-       `).join('')}
+       `,
+         )
+         .join("")}
 
        </div>
       </nav>
@@ -2028,11 +2166,15 @@ class FooterSection extends HTMLElement {
        <div class="flex social-links">
         <!-- class = icon -->
 
-       ${socials.map(social => `
+       ${socials
+         .map(
+           (social) => `
         <a style="flex: 1; flex-basis: 5ch; z-index: 789;" class=”pill squar rounded" href="${social.link}" target="_blank" title="${social.name}">
          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/>
         </a>
-       `).join('')}
+       `,
+         )
+         .join("")}
        
 
         <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
@@ -2082,13 +2224,13 @@ class FooterSection extends HTMLElement {
 
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
 
-    // Cache elements from fragment before swapping
-    const content = template.content;
+      // Cache elements from fragment before swapping
+      const content = template.content;
 
-    /* 
+      /* 
     const installBtn = content.querySelector('#installApp');
     const themeSelect = content.querySelector('#theme-selector');
 
@@ -2100,41 +2242,44 @@ class FooterSection extends HTMLElement {
     });
     */
 
-    this.replaceWith(content);
-  
+      this.replaceWith(content);
+    }
   }
-}
-            
 
+  // updated NavigationSection Component
+  class NavigationSection extends HTMLElement {
+    connectedCallback() {
+      const navigations = [
+        {
+          name: `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}"/>Home</span>`,
+          link: `#hero`,
+        },
+        { name: `About`, link: `#about` },
+        { name: `Services`, link: `#services` },
+        { name: `Projects`, link: `#projects` },
+      ];
 
-// updated NavigationSection Component
-class NavigationSection extends HTMLElement {
-  connectedCallback() {
+      // 2. Create an off-screen Template
+      const template = document.createElement("template");
 
-    const navigations = [
-      { name: `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}"/>Home</span>`, link: `#hero` },
-      { name: `About`, link: `#about` },
-      { name: `Services`, link: `#services` },
-      { name: `Projects`, link: `#projects` }
-    ];
+      // 3. Define the HTML (Top-level element is now your grid section)
 
-    // 2. Create an off-screen Template
-    const template = document.createElement('template');
-    
-    // 3. Define the HTML (Top-level element is now your grid section)
-
-    // HTML
-    template.innerHTML = `
+      // HTML
+      template.innerHTML = `
 
   <section class="fluid-grid-system" id="bottom-navigation">
    <section style="overflow: visible;" class="container-sm row">
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
-       ${navigations.map(navigation => `
+       ${navigations
+         .map(
+           (navigation) => `
         <a style="block-size: stretch;" class="list-item flex items-center txt-center" href="/${navigation.link}" t>
 ${navigation.name}
         </a>
-       `).join('')}
+       `,
+         )
+         .join("")}
 
      <a class="list-item active-bg d-none" inert="">background</a>
 
@@ -2144,279 +2289,261 @@ ${navigation.name}
 
     `;
 
-    // 4. THE MAGIC: Synchronous swap
-    // Replaces <contact-section> with the contents of the template immediately.
-    this.replaceWith(template.content);
-  
+      // 4. THE MAGIC: Synchronous swap
+      // Replaces <contact-section> with the contents of the template immediately.
+      this.replaceWith(template.content);
+    }
   }
-}
 
+  // ###################
+  // inits custom elements
+  // ###################
 
+  // ***** defining custom elements *****
 
+  if (!customElements.get("loader-section")) {
+    customElements.define("loader-section", LoaderSection);
+  }
 
+  // Define the custom element
+  if (!customElements.get("notch-section")) {
+    customElements.define("notch-section", NotchSection);
+  }
 
-      // ###################
-      // inits custom elements
-      // ###################
+  // Define the custom element
+  if (!customElements.get("toast-section")) {
+    customElements.define("toast-section", ToastSection);
+  }
 
+  // Define the custom element
+  if (!customElements.get("design-system-section")) {
+    customElements.define("design-system-section", DesignSystemSection);
+  }
 
-// ***** defining custom elements *****
+  // Define the custom element
+  if (!customElements.get("hero-section")) {
+    customElements.define("hero-section", HeroSection);
+  }
 
-if (!customElements.get("loader-section")) {
-  customElements.define("loader-section", LoaderSection);
-}
+  // Define the custom element
+  if (!customElements.get("clients-section")) {
+    customElements.define("clients-section", ClientsSection);
+  }
 
-// Define the custom element
-if (!customElements.get("notch-section")) {
-  customElements.define("notch-section", NotchSection);
-}
+  // Define the custom element
+  if (!customElements.get("about-section")) {
+    customElements.define("about-section", AboutSection);
+  }
 
-// Define the custom element
-if (!customElements.get("toast-section")) {
-  customElements.define("toast-section", ToastSection);
-}
+  // Define the custom element
+  if (!customElements.get("services-section")) {
+    customElements.define("services-section", ServicesSection);
+  }
 
-// Define the custom element
-if (!customElements.get("design-system-section")) {
-  customElements.define("design-system-section", DesignSystemSection);
-}
+  // Define the custom element
+  if (!customElements.get("projects-section")) {
+    customElements.define("projects-section", ProjectsSection);
+  }
 
-// Define the custom element
-if (!customElements.get("hero-section")) {
-  customElements.define("hero-section", HeroSection);
-}
+  // Define the custom element
+  if (!customElements.get("testimonials-section")) {
+    customElements.define("testimonials-section", TestimonialsSection);
+  }
 
-// Define the custom element
-if (!customElements.get("clients-section")) {
-  customElements.define("clients-section", ClientsSection);
-}
+  // Define the custom element
+  if (!customElements.get("faqs-section")) {
+    customElements.define("faqs-section", FaqsSection);
+  }
 
-// Define the custom element
-if (!customElements.get("about-section")) {
-  customElements.define("about-section", AboutSection);
-}
-
-// Define the custom element
-if (!customElements.get("services-section")) {
-  customElements.define("services-section", ServicesSection);
-}
-
-// Define the custom element
-if (!customElements.get("projects-section")) {
-  customElements.define("projects-section", ProjectsSection);
-}
-
-// Define the custom element
-if (!customElements.get("testimonials-section")) {
-  customElements.define("testimonials-section", TestimonialsSection);
-}
-
-// Define the custom element
-if (!customElements.get("faqs-section")) {
-  customElements.define("faqs-section", FaqsSection);
-}
-  
-
-
-
-// Define the custom element
+  // Define the custom element
   if (!customElements.get("privacy-policy-section")) {
     customElements.define("privacy-policy-section", PrivacyPolicySection);
   }
-  
-// Define the custom element
+
+  // Define the custom element
   if (!customElements.get("terms-of-service-section")) {
     customElements.define("terms-of-service-section", TermsOfServiceSection);
   }
-  
-// Define the custom element
+
+  // Define the custom element
   if (!customElements.get("refund-and-cancelation-policy-section")) {
-    customElements.define("refund-and-cancelation-policy-section", RefundAndCancelationPolicySection);
+    customElements.define(
+      "refund-and-cancelation-policy-section",
+      RefundAndCancelationPolicySection,
+    );
   }
 
+  // Define the custom element
+  if (!customElements.get("contact-section")) {
+    customElements.define("contact-section", ContactSection);
+  }
 
+  // Define the custom element
+  if (!customElements.get("footer-section")) {
+    customElements.define("footer-section", FooterSection);
+  }
 
+  // Define the custom element
+  if (!customElements.get("navigation-section")) {
+    customElements.define("navigation-section", NavigationSection);
+  }
 
-// Define the custom element
-if (!customElements.get("contact-section")) {
-  customElements.define("contact-section", ContactSection);
-}
+  // ***** defining custom elements ends *****
 
-// Define the custom element
-if (!customElements.get("footer-section")) {
-  customElements.define("footer-section", FooterSection);
-}
-
-// Define the custom element
-if (!customElements.get("navigation-section")) {
-  customElements.define("navigation-section", NavigationSection);
-}
-
-
-// ***** defining custom elements ends *****
-
-
-const injectMetaTheme = () => {
-
+  const injectMetaTheme = () => {
     let metaTheme = document.querySelector('meta[name="theme-color"]');
 
     if (!metaTheme) {
-        metaTheme = document.createElement('meta');
-        metaTheme.setAttribute('name', 'theme-color');
-        head.appendChild(metaTheme);
+      metaTheme = document.createElement("meta");
+      metaTheme.setAttribute("name", "theme-color");
+      head.appendChild(metaTheme);
     }
 
     metaTheme.content = primaryColor;
-    metaTheme.setAttribute('data-version', VERSION);
-};
+    metaTheme.setAttribute("data-version", VERSION);
+  };
 
-
-// 5. Run it after the DOM is fully loaded to ensure CSS variables are ready
-// 4. Execution Logic: Run immediately or wait for DOM
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectMetaTheme);
-} else {
+  // 5. Run it after the DOM is fully loaded to ensure CSS variables are ready
+  // 4. Execution Logic: Run immediately or wait for DOM
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", injectMetaTheme);
+  } else {
     injectMetaTheme();
-}
-    // 3. Fallback logic: Ensure the value exists and isn't just an empty string
-primaryColor = rootStyles.getPropertyValue('--primary-50').trim() || 'hsl(240, 80%, 50%)';
-
-
-// detect if a user is running your web app as an installed PWA (standalone mode)
-window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
-  if (evt.matches) {
-    // console.log("Switched to Standalone Mode");
-    // Run your VERSION logic or reset UI
-    document.getElementsByTagName('body')[0].dataMode = 'standalone';
   }
-}); 
+  // 3. Fallback logic: Ensure the value exists and isn't just an empty string
+  primaryColor =
+    rootStyles.getPropertyValue("--primary-50").trim() || "hsl(240, 80%, 50%)";
 
-
-// scroll to top
-      function scrollTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        })
-      };
-
-
-
-    // *** before animation, init custom el ***
-
-      // #######################
-      // \\\\\ animation \\\\\\\
-      // #######################
-
-
-
-      document.querySelectorAll('animate').forEach(el => {
-        // get screen position
-        el.classList.add('animation');
-
-        // in CSS anything.animation { animation: ; }
-      })
-
-      // ======== Functions =========
-  
-      
-// while switching section : view transition
-      // view transition
-      function updateContent(newData) {
-        // Check for browser support
-        if (!document.startViewTransition) {
-          updateDOM(newData); // Fallback
-          return;
-        }
-
-        // With View Transition
-        document.startViewTransition(() => {
-          updateDOM(newData);
-        });
+  // detect if a user is running your web app as an installed PWA (standalone mode)
+  window
+    .matchMedia("(display-mode: standalone)")
+    .addEventListener("change", (evt) => {
+      if (evt.matches) {
+        // console.log("Switched to Standalone Mode");
+        // Run your VERSION logic or reset UI
+        document.getElementsByTagName("body")[0].dataMode = "standalone";
       }
-      updateContent()
-    
+    });
 
+  // scroll to top
+  function scrollTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 
-      // for revel animation 
-      const observerOptions = {
-        root: null, // use the viewport
-        // avoid 1
-        threshold: 0.15, // trigger when 15% of the element is visible
-        rootMargin: "0px 0px -50px 0px" // trigger slightly before it enters the view
-      };
+  // *** before animation, init custom el ***
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.setAttribute('data-visible', 'true');
-            // Optional: stop observing once it has appeared
-            // observer.unobserve(entry.target); 
-          }
-        });
-      }, observerOptions);
+  // #######################
+  // \\\\\ animation \\\\\\\
+  // #######################
 
-      // Select all elements you want to animate
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    
+  document.querySelectorAll("animate").forEach((el) => {
+    // get screen position
+    el.classList.add("animation");
 
+    // in CSS anything.animation { animation: ; }
+  });
 
-      // for navigation
-      const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const id = entry.target.getAttribute('id');
-          const navLink = document.querySelector(`nav#header-nav-list a[href="/#${id}"]`);
-                                    
-          if (entry.isIntersecting) {
-            navLink?.classList.add('active');
-          } else {
-            navLink?.classList.remove('active');
-          }
-        });
-      }, { threshold: 0.4 }); // Trigger when section is 60% visible, avoid 1
+  // ======== Functions =========
 
-      document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
+  // while switching section : view transition
+  // view transition
+  function updateContent(newData) {
+    // Check for browser support
+    if (!document.startViewTransition) {
+      updateDOM(newData); // Fallback
+      return;
+    }
 
+    // With View Transition
+    document.startViewTransition(() => {
+      updateDOM(newData);
+    });
+  }
+  updateContent();
 
+  // for revel animation
+  const observerOptions = {
+    root: null, // use the viewport
+    // avoid 1
+    threshold: 0.15, // trigger when 15% of the element is visible
+    rootMargin: "0px 0px -50px 0px", // trigger slightly before it enters the view
+  };
 
-      // ------ install app --------
-      let deferredPrompt;
-      const installBtn = document.getElementById('installApp');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.setAttribute("data-visible", "true");
+        // Optional: stop observing once it has appeared
+        // observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
 
-      window.addEventListener('beforeinstallprompt', (e) => {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        e.preventDefault();
-        // Stash the event so it can be triggered later
-        deferredPrompt = e;
-        // Update UI to notify the user they can install the PWA
-        installBtn.style.display = 'block';
+  // Select all elements you want to animate
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
-        installBtn.addEventListener('click', () => {
-        // Hide our custom install button
-        installBtn.style.display = 'none';
-        // Show the prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            // console.log('User accepted the install prompt');
-          } else {
-            // console.log('User dismissed the install prompt');
-          }
-          deferredPrompt = null;
-        });
+  // for navigation
+  const navObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute("id");
+        const navLink = document.querySelector(
+          `nav#header-nav-list a[href="/#${id}"]`,
+        );
+
+        if (entry.isIntersecting) {
+          navLink?.classList.add("active");
+        } else {
+          navLink?.classList.remove("active");
+        }
       });
-      }); // may be extra!
-    
+    },
+    { threshold: 0.4 },
+  ); // Trigger when section is 60% visible, avoid 1
 
-      // Logic to hide button if already installed
-      window.addEventListener('appinstalled', () => {
-        // console.log('PWA was installed');
-        installBtn.style.display = 'none';
+  document
+    .querySelectorAll("section[id]")
+    .forEach((section) => navObserver.observe(section));
+
+  // ------ install app --------
+  let deferredPrompt;
+  const installBtn = document.getElementById("installApp");
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    // Update UI to notify the user they can install the PWA
+    installBtn.style.display = "block";
+
+    installBtn.addEventListener("click", () => {
+      // Hide our custom install button
+      installBtn.style.display = "none";
+      // Show the prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          // console.log('User accepted the install prompt');
+        } else {
+          // console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
       });
+    });
+  }); // may be extra!
 
+  // Logic to hide button if already installed
+  window.addEventListener("appinstalled", () => {
+    // console.log('PWA was installed');
+    installBtn.style.display = "none";
+  });
 
-/* 
+  /* 
 
 class TSection extends HTMLElement {
   connectedCallback() {
@@ -2466,173 +2593,155 @@ class TSection extends HTMLElement {
 customElements.define("t-section", TSection);
 
 */
-// >> removed
+  // >> removed
 
+  // - 1. inject HTML element ##############
+  // - 2. get HTML element ###############
 
+  // ###### HTML dom goes above ######
 
+  // define custom elements before get dom element || seoMedia || function || call
 
-      // - 1. inject HTML element ##############
-      // - 2. get HTML element ###############
+  // ###### JavaScript function goes bellow ######
 
+  const seoMedia = () => {
+    let height = window.innerHeight,
+      width = window.innerWidth,
+      aspectRatio = width >= height ? `16/9` : `9/16`;
 
-
-
-    // ###### HTML dom goes above ######
-
-
-    // define custom elements before get dom element || seoMedia || function || call
-
-
-    // ###### JavaScript function goes bellow ######
-
-
-
-
-    const seoMedia = () => {
-
-      let height = window.innerHeight,
-        width = window.innerWidth,
-        aspectRatio = (width >= height) ? `16/9` : `9/16`;
-
-      const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
-      const links = document.querySelectorAll('a');
-      const photos = document.querySelectorAll('img, picture');
-      const videos = document.querySelectorAll('video');
-      const iframes = document.querySelectorAll('iframe');
-      const svgs = document.querySelectorAll('svg');
+    const medias = document.querySelectorAll(
+      "a, img, picture, svg, video, iframe",
+    );
+    const links = document.querySelectorAll("a");
+    const photos = document.querySelectorAll("img, picture");
+    const videos = document.querySelectorAll("video");
+    const iframes = document.querySelectorAll("iframe");
+    const svgs = document.querySelectorAll("svg");
 
     // medias a, img, picture, video, iframe, svg
-      medias?.forEach(el => {
-        el.setAttribute('loading', 'lazy');
-        el.setAttribute('draggable', 'false');
-      });
+    medias?.forEach((el) => {
+      el.setAttribute("loading", "lazy");
+      el.setAttribute("draggable", "false");
+    });
 
-      // a
-      /* 
+    // a
+    /* 
       links?.forEach(el => {
         el.setAttribute('target', '_blank');
       });
       */
-      // photo
-      photos?.forEach(el => {
-        // el.style.aspectRatio = aspectRatio;
-        el.setAttribute('alt', `Visual content`);
-        // el.style.height = `100%`;
-        // el.style.width = `100%`;
-      });
-      // video
-      videos?.forEach(el => {
-        el.setAttribute('muted');
-        el.setAttribute('loop');
-        el.setAttribute('autoplay');
-        el.setAttribute('playsinline');
-        // el.style.objectFit = `scale-down`;
-      });
-      // svg
-      svgs?.forEach(el => {
-        el.setAttribute('sizes', 'any');
-        el.style.objectFit = `scale-down`;
-      });
-    }
-    seoMedia();
+    // photo
+    photos?.forEach((el) => {
+      // el.style.aspectRatio = aspectRatio;
+      el.setAttribute("alt", `Visual content`);
+      // el.style.height = `100%`;
+      // el.style.width = `100%`;
+    });
+    // video
+    videos?.forEach((el) => {
+      el.setAttribute("muted");
+      el.setAttribute("loop");
+      el.setAttribute("autoplay");
+      el.setAttribute("playsinline");
+      // el.style.objectFit = `scale-down`;
+    });
+    // svg
+    svgs?.forEach((el) => {
+      el.setAttribute("sizes", "any");
+      el.style.objectFit = `scale-down`;
+    });
+  };
+  seoMedia();
 
-  
-//  Simple Accessibility Audit Helper
- 
+  //  Simple Accessibility Audit Helper
+
   const auditAccessibility = () => {
-    const images = document.querySelectorAll('img:not([alt])');
-    const buttons = document.querySelectorAll('button:not([aria-label])');
+    const images = document.querySelectorAll("img:not([alt])");
+    const buttons = document.querySelectorAll("button:not([aria-label])");
 
     /* 
     if (images.length || buttons.length) {
       console.warn(`[A11Y Audit] Found ${images.length} images missing alt and ${buttons.length} buttons missing labels.`);
     }
     */
-        
-    images?.forEach(el => {
-      el.setAttribute('alt', `Visual content`);
-    })  
-    buttons?.forEach(el => {
-      el.setAttribute('aria-label', `button`);
-    })
+
+    images?.forEach((el) => {
+      el.setAttribute("alt", `Visual content`);
+    });
+    buttons?.forEach((el) => {
+      el.setAttribute("aria-label", `button`);
+    });
   };
 
   auditAccessibility();
- 
 
+  const imageContainers = document.querySelectorAll(
+    "*:has(img, picture, video, iframe)",
+  );
 
-      const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
+  // color from image
+  imageContainers?.forEach((container) => {
+    let image = container.querySelector("img"),
+      width = image.innerWidth,
+      height = image.innerHeight,
+      canvas = container.createElement("canvas"),
+      ctx = canvas.getContext("2d");
 
-      // color from image
-      imageContainers?.forEach(container => {
-        let image = container.querySelector('img'),
-          width = image.innerWidth,
-          height = image.innerHeight,
-          canvas = container.createElement('canvas'),
-          ctx = canvas.getContext('2d');
+    canvas.setAttribute("inert");
+    canvas.setAttribute("aria-hidden", "true");
 
-        canvas.setAttribute('inert');
-        canvas.setAttribute('aria-hidden', 'true');
+    canvas.innerWidth = width;
+    canvas.innerHeight = height;
+    ctx.drawImage(image, 0, 0, width, height); // img
 
-        canvas.innerWidth = width;
-        canvas.innerHeight = height;
-        ctx.drawImage(image, 0, 0, width, height); // img
+    let imageData = ctx.getImageData(x, y, 1, 1).data,
+      r = imageData[0],
+      g = imageData[1],
+      b = imageData[2];
 
-        let imageData = ctx.getImageData(x, y, 1, 1).data,
-          r = imageData[0],
-          g = imageData[1],
-          b = imageData[2];
+    // convrt rgb to hex
+    let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+    container.style.setProperty(`--primary-50`, imageColor);
+  });
 
-        // convrt rgb to hex 
-        let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-        container.style.setProperty(`--primary-50`, imageColor);
-      });
-
-
-  
   // v2026.04.25
-  let animes = document.querySelectorAll('.anime');
-  // animation 
-  const animeObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      entry.target.classList.toggle("show", entry.isIntersecting)
-      // if (entry.isIntetsecting) animeObserver.unobserve(entry.target)
-    },
+  let animes = document.querySelectorAll(".anime");
+  // animation
+  const animeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(
+      (entry) => {
+        entry.target.classList.toggle("show", entry.isIntersecting);
+        // if (entry.isIntetsecting) animeObserver.unobserve(entry.target)
+      },
       {
-        threshold: 1,  // or rootMargin: "-100px",
-      })
-                                        
-  })
+        threshold: 1, // or rootMargin: "-100px",
+      },
+    );
+  });
 
-  animes?.forEach(el => {
-    animeObserver.observe(el)
-  })
-  
-  
-      
+  animes?.forEach((el) => {
+    animeObserver.observe(el);
+  });
+
   // v2026.04.25
   // remove lazy loading for screen media
-  const mediaObserver = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                      entry.target.removeAttribute('loading', entry.isIntersecting)
-                            if (entry.isIntetsecting) mediaObserver.unobserve(entry.target)
-                                },
-                                    {
-                                          rootMargin: "150px",
-                                              })
-  })
+  const mediaObserver = new IntersectionObserver((entries) => {
+    entries.forEach(
+      (entry) => {
+        entry.target.removeAttribute("loading", entry.isIntersecting);
+        if (entry.isIntetsecting) mediaObserver.unobserve(entry.target);
+      },
+      {
+        rootMargin: "150px",
+      },
+    );
+  });
 
-  medias?.forEach(el => {
-                                                      mediaObserver.observe(el)
-  })
-      
+  medias?.forEach((el) => {
+    mediaObserver.observe(el);
+  });
 
-  
-
-
-
-
-/*
+  /*
 
 const favicon = document.querySelector('link[rel="icon"]');
 const isDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -2646,45 +2755,35 @@ isDark.addEventListener('change', updateFavicon);
 
 */
 
+  const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-
-const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-// 1. Define the handler
-const handleThemeChange = (e) => {
+  // 1. Define the handler
+  const handleThemeChange = (e) => {
     const isDark = e.matches;
     syncThemeColor(isDark); // Pass the boolean for cleaner logic
-};
+  };
 
-// 2. Attach the listener
-darkModeMediaQuery.addEventListener('change', handleThemeChange);
+  // 2. Attach the listener
+  darkModeMediaQuery.addEventListener("change", handleThemeChange);
 
-// 3. Run once on load to set the initial state
-handleThemeChange(darkModeMediaQuery);
+  // 3. Run once on load to set the initial state
+  handleThemeChange(darkModeMediaQuery);
 
+  // ###### function calls bellow ######
 
+  // ###################
+  // inits & event listners
+  // ###################
 
+  // Identify if in WebView
+  const isWebView = navigator.userAgent.includes("HassanBiswasApp");
+  if (isWebView) {
+    document.body.classList.add("app-mode");
+    // console.log("App Mode Active");
+  }
 
-
-    // ###### function calls bellow ######
-
-      // ###################
-      // inits & event listners
-      // ###################
-
-
-
-      
-    // Identify if in WebView
-    const isWebView = navigator.userAgent.includes("HassanBiswasApp");
-    if (isWebView) {
-      document.body.classList.add('app-mode');
-      // console.log("App Mode Active");
-    }
-
-
-    // ######### Don't Go Bellow ⚠️ ##########
-    } // myScript() function ends here!
+  // ######### Don't Go Bellow ⚠️ ##########
+}; // myScript() function ends here!
 // scripts/functions ends here!
    myScript(); 
 
