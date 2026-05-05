@@ -3062,7 +3062,7 @@
 
 
       #heading {
-          opacity: 0; /* Hidden until UI.split runs */
+          /* opacity: 0; */ /* Hidden until UI.split runs */
             white-space: pre-wrap;
             }
 
