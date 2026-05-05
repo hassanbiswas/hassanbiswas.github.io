@@ -463,7 +463,7 @@ let myScript = () => {
           } 
           */
         // }
-      }, 250);
+      }, 230);
     }
   }
 
@@ -895,61 +895,62 @@ let myScript = () => {
   class ClientsSection extends HTMLElement {
     connectedCallback() {
       const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
+      const ytLogoSize = `=s48-c-k-c0x00ffffff-no-rj`;
 
       const youtubers = [
         {
           name: `Kevin Powell`,
-          photo: `${ytLogoBaseUrl}gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak`,
           link: `#`,
         },
         {
           name: `DesignCourse`,
-          photo: `${ytLogoBaseUrl}ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL`,
           link: `#`,
         },
         {
           name: `Flux Academy`,
-          photo: `${ytLogoBaseUrl}D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg`,
           link: `#`,
         },
         {
           name: `Web Dev Simplified`,
-          photo: `${ytLogoBaseUrl}AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `ytc/AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw`,
           link: `#`,
         },
         {
           name: `Codex Community`,
-          photo: `${ytLogoBaseUrl}ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ`,
           link: `#`,
         },
         {
           name: `Jesse Showalter`,
-          photo: `${ytLogoBaseUrl}cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg`,
           link: `#`,
         },
         {
           name: `Olivier Larose`,
-          photo: `${ytLogoBaseUrl}rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw`,
           link: `#`,
         },
         {
           name: `Bro Code`,
-          photo: `${ytLogoBaseUrl}AIdro_mPFVsxROj1dOtTWc9iNBwDYV4z42Q8LPokBSewiW9pCSg=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `ytc/AIdro_mPFVsxROj1dOtTWc9iNBwDYV4z42Q8LPokBSewiW9pCSg`,
           link: `#`,
         },
         {
           name: `Arnau Ros`,
-          photo: `${ytLogoBaseUrl}cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw`,
           link: `#`,
         },
         {
           name: `True Coder`,
-          photo: `${ytLogoBaseUrl}qZmPS2Kq4TLISM7z0NPZRlA2umZVbW2qfRK4P87YZJbkcCw4vkUHhMtee4LaHuhzi1jUF_n6=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `qZmPS2Kq4TLISM7z0NPZRlA2umZVbW2qfRK4P87YZJbkcCw4vkUHhMtee4LaHuhzi1jUF_n6`,
           link: `#`,
         },
         {
           name: `Lukas | Web Dev`,
-          photo: `${ytLogoBaseUrl}dr8aIhorUkiEw381t158v3AWNgB7nhQbW4g68MjZDkPdq21L6lbE7AA-gl9DACGwE4HhWopIeA=s160-c-k-c0x00ffffff-no-rj`,
+          photo: `dr8aIhorUkiEw381t158v3AWNgB7nhQbW4g68MjZDkPdq21L6lbE7AA-gl9DACGwE4HhWopIeA`,
           link: `#`,
         },
       ];
@@ -966,21 +967,21 @@ let myScript = () => {
 <section class="fluid-grid-system" id="youtubers">
     <section class="container-lg row">
 
-     <marquee behavior="smooth" class="gradient-mask" direction="left" scrollamount="3">
-      <ul style="gap: var(--space-m);" class="flex no-wrap">
+     <div behavior="smooth" class="gradient-mask infinite-scroller" data-direction="right/left" data-speed="fast/slow" direction="left" scrollamount="3">
+      <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
          .map(
            (youtuber) => `
          <li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
-           <img class="rounded-circle " style="max-width: 2rem; height: auto;" src="${youtuber.photo}" alt="YouTuber"/>
-           <a href="${youtuber.link}">${youtuber.name}
+           <img class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;" src="${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}" alt="YouTube: ${youtuber.name}"/>
+           <a href="${urlYoutube}">${youtuber.name}
            </a>
          </li>
        `,
          )
          .join("")}
       </ul>
-     </marquee>
+     </div>
 
     </section>
    </section>
@@ -2759,7 +2760,7 @@ customElements.define("t-section", TSection);
         if (entry.isIntetsecting) mediaObserver.unobserve(entry.target);
       },
       {
-        rootMargin: "150px",
+        rootMargin: "100px",
       },
     );
   });
@@ -2767,6 +2768,29 @@ customElements.define("t-section", TSection);
   medias?.forEach((el) => {
     mediaObserver.observe(el);
   });
+
+
+  const infiniteScrollers = document.querySelectorAll(".infinite-scroller");
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    infiniteScroll();
+    }
+
+  const infiniteScroll = () => {
+    infiniteScrollers.forEach(infiniteScroller => {
+      infiniteScroller.setAttribute("data-animation", true);
+
+            const infiniteScrollerInner = infiniteScroller.querySelector(".infinite-scroller_inner");
+              const infiniteScrollerContents = ArrayFrom(infiniteScrollerInner.children);
+
+      infiniteScrollerContents.forEach(content => {
+                        const duplicatedContent = content.cloneNode(true);
+                              duplicatedContent.setAttribute("aria-hidden", true);
+                                    infiniteScrollerInner.appendChild(duplicatedContent);
+      });
+
+    });
+  } // end
 
   /*
 
