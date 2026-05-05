@@ -2787,6 +2787,7 @@
 
         .fade-in-top-container {
 
+
           h2 {max-inline-size: 28ch;}
 
           *:is(h6, h2, p) {
@@ -2996,8 +2997,8 @@
  
 
       .infinite-scroller {
-        max-inline-size: 60rem;
-        /* overflow: clip; */
+        /* max-inline-size: 60rem; */
+        overflow: clip;
 
            ul {
            list-style: none;
@@ -3059,6 +3060,156 @@
                          
       }
 
+
+      #heading {
+          opacity: 0; /* Hidden until UI.split runs */
+            white-space: pre-wrap;
+            }
+
+            .card {
+              opacity: 0;
+                transform: translateY(20px);
+                  transition: opacity 0.6s ease, transform 0.6s ease;
+                  }
+
+                  .card.show {
+                    opacity: 1;
+                      transform: translateY(0);
+                      
+      }
+
+
+
+
+      @keyframes appear {
+          from { opacity:  0; scale: 0.5; }
+          }
+
+          .appear {
+            animation: appear linear;
+              animation-timeline: view();
+                animation-range: entry 0% cover 40%;
+                
+      }
+
+      /* v2 
+      @keyframes appear {
+          from {opacity: 0; clip-path: inset(100% 100% 0 0);}
+          
+      } */
+       /* v3 
+      @keyframes appear {
+          from {opacity: 0; transform: translateX(-50%);}
+          
+      } */
+
+      /* master */
+      @view-transition {
+          navigation: auto;
+          
+      }
+
+      #title {
+          view-transition-name: title;
+          }
+
+          ::view-transition-group(*) {
+            animation-duration: 0.5s;
+            }
+
+            /*
+            ::view-transition-group(root) {
+              animation: none;
+              }
+              */
+
+              #story-image,
+              #hero-image {
+                view-transition-name: picture;
+                }
+
+                ::view-transition-old(picture),
+                ::view-transition-new(picture) {
+                  animation: none;
+                    mix-blend-mode: normal;
+                      height: 100%;
+                        border-radius: 0 0 30px 30px;
+                        }
+
+                        #to::view-transition-new(picture) {
+                          object-fit: cover;
+                            overflow: hidden;
+                            }
+
+                            #from::view-transition-new(picture) {
+                              object-fit: contain;
+                              }
+
+                              #from::view-transition-old(picture) {
+                                object-fit: cover;
+                                  overflow: hidden;
+                                    border-radius: 20px;
+                                    
+      }
+
+      ::view-transition-old(title) {
+          opacity: 0;
+          }
+
+          ::view-transition-new(overlay) {
+            animation: 250ms cubic-bezier(0, 0, 0.3, 1) both fade-in;
+              animation-delay: 0.5s;
+              }
+
+              ::view-transition-old(overlay) {
+                animation: 250ms cubic-bezier(0, 0, 0.3, 1) both fade-out;
+                }
+
+                ::view-transition-group(overlay) {
+                  overflow: hidden;
+                  
+      }
+
+
+
+
+      /* slide only */
+
+      @keyframes slide-to-right {
+          to{transform: translateX(100vw);}
+          }
+
+          @keyframes slide-from-left {
+            from{transform: translateX(-100vw);}
+            }
+
+            ::view-transition-old(root) {
+              animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out, 250ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+              }
+
+              ::view-transition-new(root) {
+                animation: 250ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
+                
+      }
+
+      :active-view-transition-type(back)::view-transition-old(root) {
+          animation-name: fade-out, slide-to-right;
+          }
+
+          :active-view-transition-type(back)::view-transition-new(root) {
+            animation-name: slide-from-left;
+            
+      }
+
+      /* more */
+      ::view-transition-old(main) {
+          animation: 350ms ease both slide-and-fade-out;
+          }
+
+          ::view-transition-new(main) {
+            animation: 350ms ease both slide-and-fade-in;
+            
+      }
 
 
       /* ###### end of css ####### */
