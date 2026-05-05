@@ -1242,7 +1242,7 @@ let myScript = () => {
           title: "Powered by W3-School.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
           link: `https://mdezazulhassan2023.w3spaces.com`,
-        },
+        }
       ];
 
       // 2. Create an off-screen Template
