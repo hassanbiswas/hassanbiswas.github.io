@@ -1337,7 +1337,7 @@ let myScript = () => {
           quote: `Hey! this is a great design, ${author.name}.`,
           link: `#`,
           photo: `${faviconFacebook}`,
-        },
+        }
       ];
 
       // 2. Create an off-screen Template
@@ -2848,20 +2848,16 @@ customElements.define("t-section", TSection);
 
      // const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
+     /* 
      const UI = {
        version: VERSION,
 
-         /**
-            * Linear Interpolation (LERP)
-               * @param {number} a - Start value
-                  * @param {number} b - End value
-                     * @param {number} t - Progress (0 to 1)
-                        */
+    
                           lerp: (a, b, t) => a + (b - a) * t,
 
-                            /**
-                               * Split text into spans for character manipulation
-                                  */
+                          
+                               
+                                  
                                     splitText(selector) {
                                         const el = document.querySelector(selector);
                                             if (!el) return [];
@@ -2879,9 +2875,9 @@ customElements.define("t-section", TSection);
                                                                                                         });
                                                                                                           },
 
-                                                                                                            /**
-                                                                                                               * Core Animation Loop with LERP
-                                                                                                                  */
+                                                                                                            
+                                                                                                            
+                                                                                                                  
                                                                                                                     animate({ duration, draw, easing = (t) => t }) {
                                                                                                                         const start = performance.now();
 
@@ -2898,9 +2894,9 @@ customElements.define("t-section", TSection);
                                                                                                                                                                           });
                                                                                                                                                                             },
 
-                                                                                                                                                                              /**
-                                                                                                                                                                                 * GSAP-style reveal using LERP for position/opacity
-                                                                                                                                                                                    */
+                                                                                                                                                                              
+                                                                                                                                                                          
+                                                                                                                                                                                    
                                                                                                                                                                                       reveal(selector) {
                                                                                                                                                                                           const chars = this.splitText(selector);
                                                                                                                                                                                               
@@ -2942,7 +2938,7 @@ customElements.define("t-section", TSection);
                                                                                                                                                                                                                                                                                                                                                                                       if (heading) observer.observe(heading);
 
                                                                                                                                                                                                                                                                                                                                                                                       console.log(`UI Engine Active: v${UI.version}`);
-   
+   */
 
   const itemObserver = new IntersectionObserver( entries => {
     entries.forEach(entry => {
