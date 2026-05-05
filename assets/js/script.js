@@ -1048,7 +1048,7 @@ let myScript = () => {
           desc: "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
           link: `/resume`,
           linkText: "Download Resume",
-        },
+        }
       ];
 
       // 2. Create an off-screen Template
