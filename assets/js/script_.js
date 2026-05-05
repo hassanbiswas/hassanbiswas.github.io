@@ -424,38 +424,7 @@
 
     
     // <script>
-      function fadeInTop(){
-        let fadeInTop = document.querySelectorAll('.fade-in-top')
-
-        fadeInTop?.forEach(el => {
-          let rect = el.getBoundingClientRect(),
-            revelPosition = (rect.width / 2) + window.innerWidth,
-            revelPosition2 = (rect.width / 2);
-          (rect.right > revelPosition || revelPosition2 > rect.right) ? el.style = `transform: translateY(-100%); opacity: 0;` : el.style = `transform: translateY(0); opacity: 1;`
-        });
-      };
-
-      function textRevelOnscroll() {
-        let textRevelOnscroll = document.querySelectorAll('.text-revel-onscroll')
-
-        textRevelOnscroll?.forEach(revel => {
-          let rect = revel.getBoundingClientRect(),
-
-            revelPosition = window.innerHeight - rect.top + (rect.height / 2),
-            percentage = revelPosition / (rect.top) * 100;
-            revelPercentage = Math.min(Math.max(0, percentage), 100)
-
-          revel.animate({
-            backgroundSize: `${revelPercentage}% 100%`
-          }, {duration: 1200, fill: 'forwards'})
-        });
-      };
-
-      window.addEventListener('scroll', () => {
-        fadeInTop()
-        textRevelOnscroll()
-      });
-    // </script>
+      // </script>
 
     // <script>
       window.addEventListener('closed', () => {
