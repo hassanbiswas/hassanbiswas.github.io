@@ -855,22 +855,21 @@ let myScript = () => {
                 
                   ${author.logoOutlineSvg}
                 
-                
               </section>
             </section>
 
-            <marquee behavior="smooth" class="gradient-mask d-none" direction="left" id="brand-title" scrollamount="3">
-              <svg fill="none" height="192" viewBox="0 0 2000 192" width="2000">
+            <div aria-hidden="true" class="gradient-mask d-none infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="brand-title">
+              <svg class="infinite-scroller_inner" fill="none" height="192" viewBox="0 0 2000 192" width="2000">
                 <text fill="var(--txt-1)" font-family="var(--ffb)" font-size="50" font-weight="600" x="0" y="116">
                   ${author.title}
                 </text>
               </svg>
-            </marquee>
+            </div>
           </section>
 
           <section class="row items-center">
             <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
-            <h1 class="h3 txt-center d-non">${author.title}</h1>
+            <h1 id="heading" class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
               <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
@@ -967,7 +966,7 @@ let myScript = () => {
 <section class="fluid-grid-system" id="youtubers">
     <section class="container-lg row">
 
-     <div behavior="smooth" class="gradient-mask infinite-scroller" data-direction="right/left" data-speed="fast/slow" direction="left" scrollamount="3">
+     <div class="infinite-scroller" data-direction="right/left" data-speed="fast/slow">
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
          .map(
@@ -1229,6 +1228,20 @@ let myScript = () => {
           title: "Shamin Ahmed Choudhuri.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
           link: `/projects`,
+        },
+        {
+          date: "21-Fev-2023",
+          category: "Practical Design",
+          title: "Powered by Claudeflare.",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          link: `https://mdezazulhassan2023.pages.dev`,
+        },
+        {
+          date: "14-Jun-2022",
+          category: "Practical Design",
+          title: "Powered by W3School.",
+          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          link: `https://mdezazulhassan2023.w3spaces.com`,
         },
       ];
 
@@ -2228,8 +2241,8 @@ For any legal inquiries regarding these terms, please reach out.
     &copy; ${new Date().getFullYear()} ${author.title}
    </p>
 
-   <marquee behavior="smooth" class="container-lg mask" direction="left" id="footer-marquee">
-    <section class="svg-wrapper">
+   <div class="container-lg mask infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="footer-marquee">
+    <section class="svg-wrapper infinite-scroller_inner">
      <svg>
       <text class="copyright" y="95">
        &copy;
@@ -2246,7 +2259,7 @@ For any legal inquiries regarding these terms, please reach out.
       </text>
      </svg>
     </section>
-   </marquee>
+   </div>
 
   </footer>
 
@@ -2826,6 +2839,136 @@ customElements.define("t-section", TSection);
                                                                                                                                                                                                       });
                                                                                                                                                                                                                                 
   
+
+
+  /**
+   *  * UI Engine - Lerp & Logic Preservation
+    * Version: 2026.04.25
+     */
+
+     // const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+
+     const UI = {
+       version: VERSION,
+
+         /**
+            * Linear Interpolation (LERP)
+               * @param {number} a - Start value
+                  * @param {number} b - End value
+                     * @param {number} t - Progress (0 to 1)
+                        */
+                          lerp: (a, b, t) => a + (b - a) * t,
+
+                            /**
+                               * Split text into spans for character manipulation
+                                  */
+                                    splitText(selector) {
+                                        const el = document.querySelector(selector);
+                                            if (!el) return [];
+                                                const text = el.textContent;
+                                                    el.innerHTML = "";
+                                                        el.style.opacity = "1";
+                                                            
+                                                                return text.split("").map(char => {
+                                                                      const span = document.createElement("span");
+                                                                            span.textContent = char === " " ? "\u00A0" : char;
+                                                                                  span.style.display = "inline-block";
+                                                                                        span.style.willChange = "transform, opacity";
+                                                                                              el.appendChild(span);
+                                                                                                    return span;
+                                                                                                        });
+                                                                                                          },
+
+                                                                                                            /**
+                                                                                                               * Core Animation Loop with LERP
+                                                                                                                  */
+                                                                                                                    animate({ duration, draw, easing = (t) => t }) {
+                                                                                                                        const start = performance.now();
+
+                                                                                                                            requestAnimationFrame(function frame(time) {
+                                                                                                                                  let timeFraction = (time - start) / duration;
+                                                                                                                                        if (timeFraction > 1) timeFraction = 1;
+
+                                                                                                                                              // Apply easing to the time fraction
+                                                                                                                                                    const t = easing(timeFraction);
+                                                                                                                                                          
+                                                                                                                                                                draw(t);
+
+                                                                                                                                                                      if (timeFraction < 1) requestAnimationFrame(frame);
+                                                                                                                                                                          });
+                                                                                                                                                                            },
+
+                                                                                                                                                                              /**
+                                                                                                                                                                                 * GSAP-style reveal using LERP for position/opacity
+                                                                                                                                                                                    */
+                                                                                                                                                                                      reveal(selector) {
+                                                                                                                                                                                          const chars = this.splitText(selector);
+                                                                                                                                                                                              
+                                                                                                                                                                                                  chars.forEach((char, i) => {
+                                                                                                                                                                                                        setTimeout(() => {
+                                                                                                                                                                                                                this.animate({
+                                                                                                                                                                                                                          duration: 800,
+                                                                                                                                                                                                                                    // Using a sine-based smoothing for the progress 't'
+                                                                                                                                                                                                                                              easing: (progress) => (Math.sin(progress * Math.PI - Math.PI / 2) + 1) / 2,
+                                                                                                                                                                                                                                                        draw: (t) => {
+                                                                                                                                                                                                                                                                    // LERP from 20px to 0px (X) and -50% to 0% (Y)
+                                                                                                                                                                                                                                                                                const x = this.lerp(20, 0, t);
+                                                                                                                                                                                                                                                                                            const y = this.lerp(-50, 0, t);
+                                                                                                                                                                                                                                                                                                        const opacity = this.lerp(0, 1, t);
+
+                                                                                                                                                                                                                                                                                                                    char.style.opacity = opacity;
+                                                                                                                                                                                                                                                                                                                                char.style.transform = `translate3d(${x}px, ${y}%, 0)`;
+                                                                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                                                                                  });
+                                                                                                                                                                                                                                                                                                                                                        }, i * 50);
+                                                                                                                                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                                                                                                              };
+
+                                                                                                                                                                                                                                                                                                                                                              // --- Automation & Execution ---
+
+                                                                                                                                                                                                                                                                                                                                                              // Set-and-forget intersection trigger
+                                                                                                                                                                                                                                                                                                                                                              const observer = new IntersectionObserver((entries) => {
+                                                                                                                                                                                                                                                                                                                                                                entries.forEach(entry => {
+                                                                                                                                                                                                                                                                                                                                                                    if (entry.isIntersecting) {
+                                                                                                                                                                                                                                                                                                                                                                          UI.reveal(entry.target.id ? `#${entry.target.id}` : null);
+                                                                                                                                                                                                                                                                                                                                                                                observer.unobserve(entry.target);
+                                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                                      });
+                                                                                                                                                                                                                                                                                                                                                                                      }, { threshold: 0.1 });
+
+                                                                                                                                                                                                                                                                                                                                                                                      // Initialize for specific heading
+                                                                                                                                                                                                                                                                                                                                                                                      const heading = document.querySelector("#heading");
+                                                                                                                                                                                                                                                                                                                                                                                      if (heading) observer.observe(heading);
+
+                                                                                                                                                                                                                                                                                                                                                                                      console.log(`UI Engine Active: v${UI.version}`);
+   
+
+  const itemObserver = new IntersectionObserver( entries => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle("observing", entry.isIntersecting)
+      // if (entry.isIntetsecting) itemObserver.unobserve(entry.target)
+    },
+      {
+        threshold: 1,  // or rootMargin: "-100px",
+      })
+  })
+
+  const observingItems = document.querySelectorAll(".observing-item");
+  observingItems.forEach(item => {
+    itemObserver.observe(item)
+  })
+
+
+
+
+
+
+
+
+
+
+
 
   /*
 
