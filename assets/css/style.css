@@ -1359,7 +1359,8 @@
 
       /* #### F */
     
-      .tags {
+      .tags, 
+      .tag-container {
         display: flex;
         flex-wrap: wrap;
 
@@ -1370,10 +1371,13 @@
 
         gap: var(--space-s);
       
-        > * {
+        > *, .tag {
           flex-grow: 0;
           flex-shrink: 1;
           flex-basis: var(--flex-size, auto);
+          border-radius: var(--pill);
+          padding: var(--space-2xs) var(--space-s);
+          background: color-mix(in srgb, var(--primary-50) 50%, transparent 50%);
         }
         /* Don't force growth; stay natural size */
 
@@ -2092,8 +2096,8 @@
 
 
       header {
-        color-scheme: dark;
-        background: var(--bg-1);
+        /* color-scheme: dark; */
+        background: var(--bg-2);
         color: var(--txt-1);
         font-size: var(--p);
         
@@ -2781,7 +2785,7 @@
 
 
 
-        .fade-in-top-containe {
+        .fade-in-top-container {
 
           h2 {max-inline-size: 28ch;}
 
@@ -2807,7 +2811,7 @@
         }
 
 
-        .text-revel-onscrol {
+        .text-revel-onscroll {
 
           background-image: linear-gradient(
             90deg,
@@ -2979,7 +2983,7 @@
 
       @keyframes brand-logo-wrapper {
         100% {
-          transform: rotateZ(-360deg);
+          transform: rotateY(-360deg);
         }
       }
 
@@ -2990,5 +2994,71 @@
         filter: brightness(1);
       } 
  
+
+      .infinite-scroller {
+        max-inline-size: 60rem;
+        /* overflow: clip; */
+
+           ul {
+           list-style: none;
+               }
+
+                 .infinite-scroller_inner {
+                 padding-block: 1rem;
+                 display: flex;
+                 /* flex-wrap: wrap; */
+                 gap: 1rem;
+                   }
+                   }
+
+                   .infinite-scroller[data-animation="true"] {
+                   overflow: clip;
+                   -webkit-mask: linear-gradient(
+                   90deg,
+                   transparent,
+                   white 20%,
+                   white 80%,
+                   transparent
+                   );
+                   mask: linear-gradient(
+                   90deg,
+                   transparent,
+                   white 20%,
+                   white 80%,
+                   transparent
+                   );
+
+                     .infinite-scroller_inner {
+                     inline-size: max-content;
+                     flex-wrap: nowrap;
+                     animation: infinite-scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+                       }
+
+                       }
+
+                       .infinite-scroller[data-direction="left"] {
+                       --animation-direction: forwards;
+                       }
+
+                       .infinite-scroller[data-direction="right"] {
+                       --animation-direction: reverse;
+                       }
+                       .infinite-scroller[data-speed="fast"] {
+                       --animation-duration: 20s;
+                       }
+                       .infinite-scroller[data-speed="slow"] {
+                       --animation-duration: 120s;
+                       }
+
+
+
+                       @keyframes infinite-scroll {
+                         to {
+                         transform: translate(calc(-50% - 0.5rem));
+                         }
+                         
+      }
+
+
 
       /* ###### end of css ####### */
