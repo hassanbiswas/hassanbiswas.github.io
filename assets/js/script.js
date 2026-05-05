@@ -1239,7 +1239,7 @@ let myScript = () => {
         {
           date: "14-Jun-2022",
           category: "Practical Design",
-          title: "Powered by W3School.",
+          title: "Powered by W3-School.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
           link: `https://mdezazulhassan2023.w3spaces.com`,
         },
@@ -2790,11 +2790,11 @@ customElements.define("t-section", TSection);
   }
 
   const infiniteScroll = () => {
-    infiniteScrollers.forEach(infiniteScroller => {
+    infiniteScrollers?.forEach(infiniteScroller => {
       infiniteScroller.setAttribute("data-animation", true);
 
-            const infiniteScrollerInner = infiniteScroller.querySelector(".infinite-scroller_inner");
-              const infiniteScrollerContents = ArrayFrom(infiniteScrollerInner.children);
+            const infiniteScrollerInner = infiniteScroller?.querySelector(".infinite-scroller_inner");
+            const infiniteScrollerContents = ArrayFrom(infiniteScrollerInner?.children);
 
       infiniteScrollerContents.forEach(content => {
                         const duplicatedContent = content.cloneNode(true);
@@ -2955,7 +2955,7 @@ customElements.define("t-section", TSection);
   })
 
   const observingItems = document.querySelectorAll(".observing-item");
-  observingItems.forEach(item => {
+  observingItems?.forEach(item => {
     itemObserver.observe(item)
   })
 
