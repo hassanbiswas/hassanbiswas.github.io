@@ -1,18 +1,18 @@
 {
   // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
   "workbench.colorTheme": "Default High Contrast",
-  "workbench.iconTheme": "vs-minimal",
-  "workbench.activityBar.location": "default", // hidden | default
+  // "workbench.iconTheme": "vs-minimal",
+  "workbench.activityBar.location": "default", // hidden default
   // "window.menuBarVisibility": "classic",
   "workbench.statusBar.visible": true,
   "workbench.sideBar.location": "left",
   "workbench.editor.showTabs": "none",
   "workbench.startupEditor": "none",
-  "editor.minimap.enabled": false, // false
+  "editor.minimap.enabled": false,
   "editor.lineNumbers": "on",
-  "editor.guides.indentation": false,
+  
   "breadcrumbs.enabled": false,
-  "editor.stickyScroll.enabled": false,
+  
   "editor.renderLineHighlight": "none",
   "editor.occurrencesHighlight": "off",
   "editor.selectionHighlight": false,
@@ -55,10 +55,10 @@
   "editor.suggest.snippetsPreventQuickSuggestions": false,
 
   // --- FRONT-END SPECIFIC VISUALS ---
-  "editor.bracketPairColorization.enabled": true, // true
+  "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.cursorBlinking": "smooth",
-  "editor.cursorSmoothCaretAnimation": "on", // Smoother visual feel while typing
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.minimap.autohide": "mouseover",
   "editor.stickyScroll.enabled": true,
   "editor.colorDecorators": true,
@@ -120,7 +120,7 @@
     "/.vscode/custom-vscode.css",
     "/.vscode/custom-vscode.js"
   ],
-  "material-icon-theme.files.color": "#1a1ae6", // Using your brand blue
+  "material-icon-theme.files.color": "#1a1ae6",
   "codesnap.backgroundColor": "#1a1ae6",
   "codesnap.roundedCorners": true,
   "codesnap.showLineNumbers": false,
@@ -129,7 +129,7 @@
   "window.confirmBeforeClose": "always",
   "security.workspace.trust.untrustedFiles": "open",
   "explorer.confirmDelete": false,
-  "editor.accessibilitySupport": "off", // off | on
+  "editor.accessibilitySupport": "off",
 
 
   // settings.json_new.txt
@@ -147,9 +147,7 @@
     "window.nativeFullScreen": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "workbench.editor.showTabs": "none",
-    "editor.minimap.enabled": false,
-    "editor.lineNumbers": "off",
+    
     "editor.guides.indentation": false,
 
     // Silence the Noise
