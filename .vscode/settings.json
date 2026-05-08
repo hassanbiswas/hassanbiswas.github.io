@@ -4,15 +4,15 @@
   "workbench.iconTheme": "vs-minimal",
   "workbench.activityBar.location": "default", // hidden | default
   // "window.menuBarVisibility": "classic",
-  "workbench.statusBar.visible": true, // false | true
-  "workbench.sideBar.location": "left", // right | left
+  "workbench.statusBar.visible": true,
+  "workbench.sideBar.location": "left",
   "workbench.editor.showTabs": "none",
   "workbench.startupEditor": "none",
   "editor.minimap.enabled": false, // false
-  "editor.lineNumbers": "on", // off 
+  "editor.lineNumbers": "on",
   "editor.guides.indentation": false,
   "breadcrumbs.enabled": false,
-  "editor.stickyScroll.enabled": false, // false | true
+  "editor.stickyScroll.enabled": false,
   "editor.renderLineHighlight": "none",
   "editor.occurrencesHighlight": "off",
   "editor.selectionHighlight": false,
@@ -56,17 +56,17 @@
 
   // --- FRONT-END SPECIFIC VISUALS ---
   "editor.bracketPairColorization.enabled": true, // true
-  // "editor.guides.bracketPairs": "active",
-  // "editor.cursorBlinking": "smooth",
-  // "editor.cursorSmoothCaretAnimation": "on", // Smoother visual feel while typing
-  // "editor.minimap.autohide": "mouseover",
-  // "editor.stickyScroll.enabled": true,
-  // "editor.colorDecorators": true,
-  // "workbench.editorAssociations": {
-    // "*.zip": "default",
-  // },
-  // "editor.unicodeHighlight.invisibleCharacters": false,
-  // "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.guides.bracketPairs": "active",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on", // Smoother visual feel while typing
+  "editor.minimap.autohide": "mouseover",
+  "editor.stickyScroll.enabled": true,
+  "editor.colorDecorators": true,
+  "workbench.editorAssociations": {
+    "*.zip": "default",
+  },
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
   
   "editor.snippetSuggestions": "top",
   "editor.quickSuggestions": {
@@ -98,8 +98,8 @@
     "yaml": true
   },
   "github.copilot.editor.enableAutoCompletions": true,
-  // "inlineChat.mode": "live",
-  // "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "inlineChat.mode": "live",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "git.decorations.enabled": false,
   "scm.diffDecorations": "none",
 
@@ -134,23 +134,23 @@
 
   // settings.json_new.txt
 
-  // "editor.copyWithSyntaxHighlighting": false,
-    // "diffEditor.ignoreTrimWhitespace": false,
+  "editor.copyWithSyntaxHighlighting": false,
+    "diffEditor.ignoreTrimWhitespace": false,
     "editor.emptySelectionClipboard": false,
     "workbench.editor.enablePreview": false,
     "window.newWindowDimensions": "inherit",
     "editor.multiCursorModifier": "ctrlCmd",
-    // "files.trimTrailingWhitespace": true,
+    "files.trimTrailingWhitespace": true,
     "diffEditor.renderSideBySide": false,
-    // "editor.snippetSuggestions": "top",
-    // "editor.detectIndentation": false,
+    "editor.snippetSuggestions": "top",
+    "editor.detectIndentation": false,
     "window.nativeFullScreen": true,
-    // "files.insertFinalNewline": true,
-    // "files.trimFinalNewlines": true,
-    // "workbench.editor.showTabs": "none",
-    // "editor.minimap.enabled": false,
-    // "editor.lineNumbers": "off",
-    // "editor.guides.indentation": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "workbench.editor.showTabs": "none",
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "off",
+    "editor.guides.indentation": false,
 
     // Silence the Noise
     // "breadcrumbs.enabled": false,
