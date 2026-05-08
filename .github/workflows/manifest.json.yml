@@ -5,9 +5,9 @@ on:
     # Runs at 00:00 on the 1st and 15th of every month
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   release-automation:

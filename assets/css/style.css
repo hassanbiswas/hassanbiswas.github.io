@@ -4,42 +4,8 @@
       /* Loading Screen */                                                           
       /* Hide elements in App Mode */
 
-      /* view trasition api */
-      @view-transition {
-        navigation: auto;
-      }
-
-      .card:has(img) {
-        view-transition-name: hero-image;
-      }
-
-      .projects:has(img.banner) {
-        view-transition-name: hero-image;
-      }
-
-      /* Styling the overall transition */
-      ::view-transition-group(root) {
-        animation-duration: var(--duration-normal);
-        animation-timing-function: var(--bouncy);
-      }
-
-      /* Custom fade-out for the old page */
-      ::view-transition-old(root) {
-        animation: 400ms var(--ease-out) both fade-out;
-      }
-
-      /* Custom slide-in for the new page */
-      ::view-transition-new(root) {
-        animation: 400ms var(--ease-in) both slide-from-right;
-      }
-
-      @keyframes slide-from-right {
-        from { transform: translateX(100%); }
-      }
-
       /* Inter Variable Font (Headings) */
       @font-face {
-        /* font-family: "Inter"; */
         font-family: "Head";
         src: url("https://hassanbiswas.github.io/assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf") format("truetype-variations");
         /* Define the range of weights the file supports */
@@ -48,13 +14,12 @@
       }
 
       /* Montserrat Variable Font (Body) */
-      @font-face {
-        /* font-family: "Montserrat"; */
+      /* @font-face {
         font-family: "Body";
         src: url("https://hassanbiswas.github.io/assets/fonts/montserrat/Montserrat-VariableFont_wght.ttf") format("truetype-variations");
         font-weight: 100 900;
         font-display: swap;
-      }
+      } */
 
       /* it's default for html meta-theme */
       /* 1. Register Property for Smooth Transitions */
@@ -65,14 +30,18 @@
         initial-value: hsl(240 80% 50%); /* 240 80% 50% */
       }
 
+      html,
+      body {
+        min-block-size: 100dvh;
+        min-inline-size: 100dvw;
+        font-family: var(--ffb);
+        background: var(--primary-50);
+      }
+
       /* 2. Root Element - Accessibility & Base Units */
       html {
         font-size: 62.5%; /* 1rem = 10px */
       
-        /* Fix for mobile height issues */
-        min-height: 100dvh;
-
-        background: var(--primary-50);
         content-visibility: auto;
 
         scrollbar-gutter: stable;
@@ -223,7 +192,7 @@
         */
 
         --ffh: "Head", sans-serif;
-        --ffb: "Body", sans-serif;
+        --ffb: "Head", sans-serif; /* Body */
 
         /* fluidity min & max */
         --max-width: 140rem;  /* 1280px */
@@ -2054,13 +2023,11 @@
 
       body {
         color-scheme: light dark;
-        font-family: var(--ffb);
         font-size: var(--p-sm);
         line-height: 1.6;
         color: var(--txt-2);
-        background: var(--primary-50);
 
-        block-size: 100dvh; /* svh prevent jumping */
+        /* block-size: 100dvh; */ /* svh prevent jumping */
         /* border-radius: 0 0 var(--section-radius) var(--section-radius); */
         overflow-y: auto;
         overflow-x: clip; /* clip standalone-app */
@@ -2913,10 +2880,10 @@
       
         backface-visibility: visible;
         transform-origin: center;
-      }
+      } 
 
       .brand-logo-wrapper {
-        animation: brand-logo-wrapper 20s linear infinite;
+        animation: brand-logo-wrappe 20s linear infinite;
     
         aspect-ratio: 1/1;
       
@@ -3079,8 +3046,37 @@
       }
 
 
+      /* before 2026 */
 
 
+            /* view trasition api */
+                  @view-transition {
+                          navigation: auto;
+                                }
+
+                                      .card:has(img) {
+                                              view-transition-name: hero-image;
+                                                    }
+
+                                                          .projects:has(img.banner) {
+                                                                  view-transition-name: hero-image;
+                                                                        }
+
+                                                                              /* Styling the overall transition */
+                                                                                    /* ::view-transition-group(root) {
+                                                                                            animation-duration: var(--duration-normal);
+                                                                                                    animation-timing-function: var(--bouncy);
+                                                                                                          } */
+
+/* Custom slide-in for the new page */
+      
+
+
+                                                                                        
+
+      /* after 2026 */
+
+      /* 
       @keyframes appear {
           from { opacity:  0; scale: 0.5; }
           }
@@ -3090,7 +3086,7 @@
               animation-timeline: view();
                 animation-range: entry 0% cover 40%;
                 
-      }
+      } */
 
       /* v2 
       @keyframes appear {
@@ -3104,18 +3100,14 @@
       } */
 
       /* master */
-      @view-transition {
-          navigation: auto;
-          
-      }
 
       #title {
           view-transition-name: title;
           }
-
+/*
           ::view-transition-group(*) {
             animation-duration: 0.5s;
-            }
+            } */
 
             /*
             ::view-transition-group(root) {
@@ -3123,8 +3115,8 @@
               }
               */
 
-              #story-image,
-              #hero-image {
+              .story-image,
+              .hero-image {
                 view-transition-name: picture;
                 }
 
@@ -3150,7 +3142,7 @@
                                   overflow: hidden;
                                     border-radius: 20px;
                                     
-      }
+      } 
 
       ::view-transition-old(title) {
           opacity: 0;
