@@ -1,7 +1,7 @@
 {
   // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
-  "workbench.colorTheme": "React Theme", // Default High Contrast
-  "workbench.iconTheme": "eq-material-theme-icons-light", // "vs-minimal"
+  "workbench.colorTheme": "Default High Contrast",
+  "workbench.iconTheme": "vs-minimal",
   "workbench.activityBar.location": "default", // hidden | default
   // "window.menuBarVisibility": "classic",
   "workbench.statusBar.visible": true, // false | true
@@ -76,7 +76,7 @@
   // --- LANGUAGE SPECIFIC FORMATTERS ---
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[html]": {
-    "editor.defaultFormatter": "apility.beautify-blade"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -88,7 +88,7 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[php]": {
-    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
   // --- AI & GIT INTEGRATION ---
