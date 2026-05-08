@@ -1,29 +1,45 @@
 {
-  "workbench.colorTheme": "Default High Contrast",
-  "workbench.iconTheme": "vs-minimal",
-  "editor.accessibilitySupport": "on",
-  "window.confirmBeforeClose": "always",
-  "window.menuBarVisibility": "classic",
-  "workbench.statusBar.visible": true,
+  // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
+  "workbench.colorTheme": "React Theme",
+  "workbench.iconTheme": "eq-material-theme-icons-light",
+  "workbench.activityBar.location": "hidden",
+  "workbench.statusBar.visible": false,
+  "workbench.sideBar.location": "right",
+  "workbench.editor.showTabs": "none",
+  "workbench.startupEditor": "none",
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "off",
+  "editor.guides.indentation": false,
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "editor.renderLineHighlight": "none",
+  "editor.occurrencesHighlight": "off",
+  "editor.selectionHighlight": false,
+  "editor.lightbulb.enabled": "off",
+  "editor.links": true,
 
-  // --- SPEED & AUTOMATION (MODIFIED) ---
-  "editor.formatOnSave": true, // Changed to true for instant cleanup
+  // --- TYPOGRAPHY & SPACING ---
+  "editor.fontFamily": "Geist Mono, JetBrains Mono, Fira Code",
+  "editor.fontSize": 16,
+  "editor.lineHeight": 32,
+  "editor.fontWeight": "400",
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'calt', 'dlig'",
+  "editor.padding.top": 16,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+
+  // --- AUTOMATION & SPEED (SET-AND-FORGET) ---
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000, 
+  "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 10000, // Shorter delay for faster "Live Server" updates
-  "editor.linkedEditing": true, // Renaming an HTML tag renames its pair automatically
-
-  // --- AI INTEGRATION (COPILOT & GITLENS) ---
-  "github.copilot.enable": {
-    "*": true,
-    "markdown": true,
-    "yaml": true,
-  },
-  "github.copilot.editor.enableAutoCompletions": true,
-  "inlineChat.mode": "live",
-  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.linkedEditing": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 4,
 
   // --- EMMET & INTELLISENSE ---
   "emmet.triggerExpansionOnTab": true,
@@ -31,23 +47,70 @@
     "html": "html",
     "css": "css",
     "javascript": "javascript",
-    "wix": "html",
+    "blade": "html",
+    "vue": "html",
+    "wix": "html"
   },
   "editor.suggest.snippetsPreventQuickSuggestions": false,
-
-  // --- FRONT-END SPECIFIC VISUALS ---
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": "active",
-  "editor.cursorBlinking": "smooth",
-  "editor.cursorSmoothCaretAnimation": "on", // Smoother visual feel while typing
-  "editor.minimap.autohide": "mouseover",
-  "editor.stickyScroll.enabled": true,
-  "editor.colorDecorators": true,
-  "workbench.editorAssociations": {
-    "*.zip": "default",
+  "editor.snippetSuggestions": "top",
+  "editor.quickSuggestions": {
+    "strings": true
   },
-  "editor.unicodeHighlight.invisibleCharacters": false,
-  "editor.unicodeHighlight.ambiguousCharacters": false,
-  "security.workspace.trust.untrustedFiles": "open", // Shows color squares next to CSS hex codes
-  }
 
+  // --- LANGUAGE SPECIFIC FORMATTERS ---
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "apility.beautify-blade"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+
+  // --- AI & GIT INTEGRATION ---
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "yaml": true
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "git.decorations.enabled": false,
+  "scm.diffDecorations": "none",
+
+  // --- SEARCH & FILE EXCLUSIONS ---
+  "search.useIgnoreFiles": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/vendor": true,
+    "**/storage": true,
+    "**/.phpunit.result.cache": true,
+    "**/package-lock.json": true,
+    "**/composer.lock": true
+  },
+
+  // --- CUSTOM STYLING & BRANDING ---
+  "vscode_custom_css.imports": [
+    "https://hassanbiswas.github.io/.vscode/custom-vscode.css",
+    "https://hassanbiswas.github.io/.vscode/vscode-script.js"
+  ],
+  "material-icon-theme.files.color": "#1a1ae6", // Using your brand blue
+  "codesnap.backgroundColor": "#1a1ae6",
+  "codesnap.roundedCorners": true,
+  "codesnap.showLineNumbers": false,
+
+  // --- SYSTEM & SECURITY ---
+  "window.confirmBeforeClose": "always",
+  "security.workspace.trust.untrustedFiles": "open",
+  "explorer.confirmDelete": false,
+  "editor.accessibilitySupport": "off"
+}
+  
