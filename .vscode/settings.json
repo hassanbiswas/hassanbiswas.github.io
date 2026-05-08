@@ -125,8 +125,8 @@
 
   // --- CUSTOM STYLING & BRANDING ---
   "vscode_custom_css.imports": [
-    "/.vscode/custom-vscode.css",
-    "/.vscode/custom-vscode.js"
+    "https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/.vscode/custom-vscode.css",
+    "https://github.com/hassanbiswas/hassanbiswas.github.io/blob/main/.vscode/custom-vscode.js"
   ],
   "material-icon-theme.files.color": "#1a1ae6", 
   "codesnap.backgroundColor": "#1a1ae6",
