@@ -55,11 +55,7 @@ let myScript = () => {
   // Cache-busting for assets if needed
   // Use Date for a dynamic cache-busting version or release logic
   // Logic automation for versioning
-  const VERSION = new Date()
-    .toLocaleDateString("en-GB")
-    .split("/")
-    .reverse()
-    .join(".");
+  const VERSION = new Date().toLocaleDateString("en-GB").split("/").reverse().join(".");
   // Results in YY.MM.DD format (e.g., 2026.03.06)
 
   // absolute path for components
@@ -279,7 +275,7 @@ let myScript = () => {
   */
 
   let metaViewport = () => {
-    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.7";
+    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.8";
 
     // Attempt to find existing viewport meta tag
     let viewport = document.querySelector('meta[name="viewport"]');
@@ -463,7 +459,7 @@ let myScript = () => {
           } 
           */
         // }
-      }, 230);
+      }, 220);
     }
   }
 
@@ -485,7 +481,7 @@ let myScript = () => {
   <section class="container-sm" id="notch">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
-      This website is developed by 'OPPO A53'!
+      Developed in "OPPO A53" handset!
      </p>
      <button onclick="notch.classList.toggle('collapse')">
       ×
@@ -872,7 +868,7 @@ let myScript = () => {
             <h1 id="heading" class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
-              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">CV/Resume ↓</button></a>
+              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">Resume ↓</button></a>
               <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
             </div>
           </section>
@@ -1061,17 +1057,17 @@ let myScript = () => {
 
 <section class="fluid-grid-system" id="about">
     <section style="gap: 0em;" class="container-xxl row">
-     <h6 class="fade-in-top">
+     <h6 class="fade-in-to">
       About ${author.name}
      </h6>
      <div style="padding-block: 0em; row-gap: 0em;" class="col">
-      <h3 class="text-revel-onscroll row">
+      <h3 class="text-revel-onscrol row">
        At a galance
        2001 - ${thisYear}
       </h3>
       <div class="row" style="gap: var(--space-xs);">
        <p>${author.description}</p>
-       <a class="fade-in-top" href="#about">
+       <a class="fade-in-to" href="#about">
         View on fullscreen ↘
        </a>
       </div>
@@ -1085,15 +1081,15 @@ let myScript = () => {
 
       <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-container">
        <div style="gap: .5em;" class="row">
-        <h6 class="fade-in-top ${story.dateClass}">${story.date}</h6>
-        <h5 style="padding-block: 0em;" class="fade-in-top">${story.title}</h5>
+        <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
+        <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
        </div>
-       <h4 class="fade-in-top row">${story.heading}</h4>
+       <h4 class="fade-in-to row">${story.heading}</h4>
        <div style="gap: var(--space-xs);" class="row">
-        <p class="fade-in-top">${story.desc}</p>
-        <a target="_blank" class="fade-in-top" href="${story.link}" loading="lazy">${story.linkText} ↘</a>
+        <p class="fade-in-to">${story.desc}</p>
+        <a target="_blank" class="fade-in-to" href="${story.link}" loading="lazy">${story.linkText} ↘</a>
        </div>
-      </section>
+      </section> 
 
           `,
             )
@@ -1231,17 +1227,10 @@ let myScript = () => {
         },
         {
           date: "21-Fev-2023",
-          category: "Practical Design",
+          category: "Practical Design (Desktop View)",
           title: "Powered by Claudeflare.",
           desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
           link: `https://mdezazulhassan2023.pages.dev`,
-        },
-        {
-          date: "14-Jun-2022",
-          category: "Practical Design",
-          title: "Powered by W3-School.",
-          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `https://mdezazulhassan2023.w3spaces.com`,
         }
       ];
 
@@ -1255,19 +1244,19 @@ let myScript = () => {
 
       <section class="fluid-grid-system" id="projects">
         <section style="gap: 0em;" class="container-xl row">
-          <h6 class="fade-in-top">Projects</h6>
+          <h6 class="fade-in-to">Projects</h6>
           
           <div style="padding-block: 0em; row-gap: 0em;" class="col">
-            <h3 class="text-revel-onscroll row">
+            <h3 class="text-revel-onscrol row">
               Projects have done since 2023 - ${thisYear}
             </h3>
             <div class="row" style="gap: var(--space-xs);">
               <p>
-                <span class="text-revel-onscroll">
+                <span class="text-revel-onscrol">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sint sed ad, officia dolorem eligendi quam culpa.
                 </span>
               </p>
-              <a class="fade-in-top" href="#projects">View on fullscreen ↘</a>
+              <a class="fade-in-to" href="#projects">View on fullscreen ↘</a>
             </div>
           </div>
 
@@ -1279,13 +1268,13 @@ let myScript = () => {
               (project) => `
             <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-container">
               <div style="gap: .5em;" class="row">
-                <h6 class="fade-in-top">${project.date}</h6>
-                <h5 style="padding-block: 0em;" class="fade-in-top">${project.category}</h5>
+                <h6 class="fade-in-to">${project.date}</h6>
+                <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
               </div>
-              <h4 class="fade-in-top row">${project.title}</h4>
+              <h4 class="fade-in-to row">${project.title}</h4>
               <div style="gap: var(--space-xs);" class="row">
-                <p class="fade-in-top">${project.desc}</p>
-                <a target="_blank" class="fade-in-top" href="${project.link}" loading="lazy">View site ↘</a>
+                <p class="fade-in-to">${project.desc}</p>
+                <a target="_blank" class="fade-in-to" href="${project.link}" loading="lazy">View site ↘</a>
               </div>
             </section>
           `,
@@ -1352,11 +1341,11 @@ let myScript = () => {
 <section class="fluid-grid-system" id="testimonials">
     <section class="container-lg row">
      <div class="row">
-      <h2 class="text-revel-onscroll">
+      <h2 class="text-revel-onscrol">
        Quotes from my clients
       </h2>
       <p>
-        <span class="text-revel-onscroll">
+        <span class="text-revel-onscrol">
           What clients and colleagues say about my front-end architecture and design work.
         </span>
       </p>
@@ -2480,11 +2469,12 @@ ${navigation.name}
   // \\\\\ animation \\\\\\\
   // #######################
 
-  document.querySelectorAll("animate").forEach((el) => {
+  // view transition
+  document.querySelectorAll("animate")?.forEach((el) => {
     // get screen position
     el.classList.add("animation");
 
-    // in CSS anything.animation { animation: ; }
+    // in html animate.animation { css animation: ; }
   });
 
   // ======== Functions =========
