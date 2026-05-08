@@ -1,15 +1,15 @@
 {
   // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
   "workbench.colorTheme": "React Theme", // Default High Contrast
-  "workbench.iconTheme": "eq-material-theme-icons-light", // vs-minimal
+  "workbench.iconTheme": "vs-minimal" // "eq-material-theme-icons-light",
   "workbench.activityBar.location": "default", // hidden | default
   // "window.menuBarVisibility": "classic",
-  "workbench.statusBar.visible": false, // false | true
+  "workbench.statusBar.visible": true, // false | true
   "workbench.sideBar.location": "left", // right | left
   "workbench.editor.showTabs": "none",
   "workbench.startupEditor": "none",
-  "editor.minimap.enabled": true, // false
-  "editor.lineNumbers": "off",
+  "editor.minimap.enabled": false, // false
+  "editor.lineNumbers": "on", // off 
   "editor.guides.indentation": false,
   "breadcrumbs.enabled": false,
   "editor.stickyScroll.enabled": false, // false | true
@@ -55,7 +55,7 @@
   "editor.suggest.snippetsPreventQuickSuggestions": false,
 
   // --- FRONT-END SPECIFIC VISUALS ---
-  // "editor.bracketPairColorization.enabled": true,
+  "editor.bracketPairColorization.enabled": true, // true
   // "editor.guides.bracketPairs": "active",
   // "editor.cursorBlinking": "smooth",
   // "editor.cursorSmoothCaretAnimation": "on", // Smoother visual feel while typing
