@@ -3225,6 +3225,7 @@ from { transform: translateX(100%); }
       }
 
       /* more */
+      /*
       ::view-transition-old(main) {
           animation: 350ms ease both slide-and-fade-out;
           }
@@ -3232,7 +3233,7 @@ from { transform: translateX(100%); }
           ::view-transition-new(main) {
             animation: 350ms ease both slide-and-fade-in;
 
-      }
+      } */
 
 
       /* ###### end of css ####### */
