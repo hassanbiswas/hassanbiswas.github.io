@@ -1,7 +1,7 @@
 
    /* @import "style.css"; */ /* bad idea 💡 */
 
-      /* Loading Screen */                                                           
+      /* Loading Screen */
       /* Hide elements in App Mode */
 
       /* Inter Variable Font (Headings) */
@@ -9,7 +9,7 @@
         font-family: "Head";
         src: url("https://hassanbiswas.github.io/assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf") format("truetype-variations");
         /* Define the range of weights the file supports */
-        font-weight: 100 900; 
+        font-weight: 100 900;
         font-display: swap;
       }
 
@@ -23,7 +23,7 @@
 
       /* it's default for html meta-theme */
       /* 1. Register Property for Smooth Transitions */
-      
+
       @property --brand-color {
         syntax: "<color>";
         inherits: true;
@@ -41,21 +41,21 @@
       /* 2. Root Element - Accessibility & Base Units */
       html {
         font-size: 62.5%; /* 1rem = 10px */
-      
+
         content-visibility: auto;
 
         scrollbar-gutter: stable;
-      
+
         /* for text area */
         /* scrollbar-gutter: none;
         scrollbar-width: none; */
-                                                                                      
+
         /* for parrent */
         scroll-behavior: smooth;
         overscroll-behavior: contain;
         scroll-snap-type: y proximity;
         /* scroll-padding: 0em; */ /* for curossel paddin */
-                                                                                                                
+
         /* for child */
         & > * {
           scroll-snap-align: start;
@@ -70,26 +70,26 @@
           interpolate-size: allow-keywords;
         }
       }
-      
 
 
-      
+
+
 
       /* 3. Global Variables & Design Tokens */
       :root {
         /* 1. Required for light-dark() to function */
         color-scheme: light dark;
-                                                      
+
         interpolate-size: allow-keywords; /* animate/transition: height/width */
         transition-behavior: allow-discrete; /* opacity, display, overlay */
 
-        /* --- Color System --- */                                   
+        /* --- Color System --- */
         /* --color: light-dark(white, black); */
-        
+
         /* --- Primary Brand Scale --- */
         /* We use the base color but adjust lightness dynamically */
         /* low shades for text elements */
-        
+
         /* high-contrast text */
         --txt-1: light-dark(
           hsl(from var(--primary-50) h s 3%),
@@ -138,7 +138,7 @@
           hsl(from var(--primary-50) h s 98%),
           hsl(from var(--primary-50) h s 3%)
         );
-        
+
 
         /* --- UI Elements --- */
         --border-clr: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
@@ -149,13 +149,13 @@
 
         --black: #000;
         --white: #fff;
-        
+
         /* Base Hues (Adjust these to change the whole theme) */
         --h-success: 142; /* Green */
         --h-error: 0;     /* Red */
         --h-warning: 38;  /* Orange/Yellow */
         --h-info: 196;    /* Sky Blue (Better than pure yellow for info) */
-                                  
+
         /* Semantic Colors */
         --clr-success: hsl(var(--h-success), 70%, 45%);
         --clr-error:   hsl(var(--h-error), 72%, 50%);
@@ -165,16 +165,16 @@
         --success: hsl(140, 80%, 45%);
         --error:   hsl(0, 80%, 60%);
         --warning: hsl(45, 90%, 50%);
-                                                          
+
         /* Accent & Primary */
         /* Assuming --primary-50 is your brand's mid-tone */
         /* Semantic Accent Link */
         --clr-accent: var(--primary-50);
-                                                                          
+
         /* Interactive States (using your --scale logic for subtle shifts) */
         --clr-success-hover: hsl(var(--h-success), 70%, 35%);
         --clr-error-hover:   hsl(var(--h-error), 72%, 40%);
-        
+
         /* 10% Opacity versions for backgrounds/alerts */
         --clr-success-bg: hsla(var(--h-success), 70%, 45%, 0.1);
         --clr-error-bg:   hsla(var(--h-error), 72%, 50%, 0.1);
@@ -183,10 +183,10 @@
         /* Alpha/Surface variants for subtle alerts */
         --success-bg: light-dark(hsl(from var(--success) h s 95%), hsl(from var(--success) h s 15%));
         --error-bg:   light-dark(hsl(from var(--error) h s 95%), hsl(from var(--error) h s 15%));
-                        
+
 
         /* ====== font ====== */
-        /* 
+        /*
         --ffh: "Inter", sans-serif;
         --ffb: "Montserrat", sans-serif;
         */
@@ -227,97 +227,97 @@
         --h3: calc(var(--h4) * var(--scale));
         --h2: calc(var(--h3) * var(--scale));
         --h1: calc(var(--h2) * var(--scale));
-      
 
-    
-        /* - fluid spacing 
+
+
+        /* - fluid spacing
         - fluid design system + components */
 
-        /* related-elements, 
-          internal-gap, 
-          (icon+text/label+input), 
+        /* related-elements,
+          internal-gap,
+          (icon+text/label+input),
           button(icon-text) */
         --space-2xs: clamp(
           .4rem,
           calc(.4rem + (.8rem - .4rem) * var(--progress)),
           .8rem
-        ); 
+        );
 
-        /* button-b, 
-          heading-sub-heading, 
-          input-fields, 
-          padding+items-gap, 
-          (inset button, card, list), 
+        /* button-b,
+          heading-sub-heading,
+          input-fields,
+          padding+items-gap,
+          (inset button, card, list),
           p/sm-component-gap */
         --space-xs: clamp(
           .8rem,
           calc(.8rem + (1.6rem - .8rem) * var(--progress)),
           1.6rem
-        ); 
+        );
 
-        /* col-3-layout, 
-          sub-heading-body, 
-          gap-content, 
-          text-blocks, 
-          cards-containers, 
-          grid-gap, 
-          card-in-padding/button-lr-padding, 
+        /* col-3-layout,
+          sub-heading-body,
+          gap-content,
+          text-blocks,
+          cards-containers,
+          grid-gap,
+          card-in-padding/button-lr-padding,
           padding-inline */
         --space-s: clamp(
           1.6rem,
           calc(1.6rem + (2.4rem - 1.6rem) * var(--progress)),
           2.4rem
-        ); 
-        
-        /* button-i, 
-          body-cta, 
-          inset-card-container, 
-          (inset sections/large-cards), 
+        );
+
+        /* button-i,
+          body-cta,
+          inset-card-container,
+          (inset sections/large-cards),
           sm-section-gap/li spacing */
         --space-m: clamp(
           2.4rem,
           calc(2.4rem + (3.2rem - 2.4rem) * var(--progress)),
           3.2rem
-        ); 
+        );
 
-        /* separating-header-content-blocks, 
-          section-gap-i, 
-          group-gap, 
+        /* separating-header-content-blocks,
+          section-gap-i,
+          group-gap,
           content-block/md-card-padding */
         --space-l: clamp(
           3.2rem,
           calc(3.2rem + (4.8rem - 3.2rem) * var(--progress)),
           4.8rem
-        ); 
+        );
 
-        /* gap-layout, 
-          between rows/sections, 
-          (layout-sections), 
+        /* gap-layout,
+          between rows/sections,
+          (layout-sections),
           l-componemt-marging/mobile-section-padding */
         --space-xl: clamp(
           4.8rem,
           calc(4.8rem + (6.4rem - 4.8rem) * var(--progress)),
           6.4rem
-        ); 
+        );
 
-        /* section-gap-b, 
-          separet-big-ideas-gap, 
+        /* section-gap-b,
+          separet-big-ideas-gap,
           desktop-sections-gaps */
         --space-2xl: clamp(
           6.4rem,
           calc(6.4rem + (8rem - 6.4rem) * var(--progress)),
           8rem
-        ); 
-        
-        /* (hero section/landing page), 
-          hero-section-padding(awards), 
+        );
+
+        /* (hero section/landing page),
+          hero-section-padding(awards),
           section-spacing */
         --space-3xl: clamp(
           8rem,
           calc(8rem + (12.8rem - 8rem) * var(--progress)),
           12.8rem
         );
-  
+
         /* --- Bootstrap Breakpoint Definitions --- */
         /* Container Widths */
         --container-fluid: 100dvw;
@@ -330,7 +330,7 @@
 
 
         --col-md-1: 23rem; /* 23rem */
-        --col-md-2: calc(var(--col-md-1) / 2); /*  Result: Two columns of ~11.5rem each */ 
+        --col-md-2: calc(var(--col-md-1) / 2); /*  Result: Two columns of ~11.5rem each */
         --col-md-3: calc(var(--col-md-1) / 3);
 
         --padding-inline: var(--space-s); /* 1.6 to 3.2em  */
@@ -355,7 +355,7 @@
           1.6rem,
           calc(1.6rem + (2.4rem - 1.6rem) * var(--progress)),
           2.4rem
-        ); 
+        );
         */
         --padding-inline: var(--space-s); /* 1.6 to 3.2em */
 /* ends */
@@ -371,63 +371,63 @@
         --radius: 2rem;
         --pill: 100dvw;
 
-    
+
         --shadow-clr: light-dark(rgba(0,0,0,0.1), rgba(0,0,0,0.4));
         /* Shadow Levels */
         --shadow-sm: 0 2px 4px var(--shadow-clr);
         --shadow-md: 0 4px 12px var(--shadow-clr);
         --shadow-lg: 0 12px 24px var(--shadow-clr);
         --shadow-inset: inset 0 2px 4px var(--shadow-clr);
-                                  
+
         /* Neon/Glow effects (Adjust color based on your brand) */
         --glow-clr: light-dark(rgba(0, 100, 250, 0.2), rgba(0, 150, 255, 0.3));
         --shadow-glow: 0 0 20px var(--glow-clr);
-    
+
 
 
         /* Glass Effect */
         --glass-bg: light-dark(rgba(255, 255, 255, 0.7), rgba(15, 15, 15, 0.7));
         --glass-border: light-dark(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
         --blur: blur(12px);
-                              
+
         /* Contrast Overlay */
         --overlay: rgba(0, 0, 0, 0.5);
 
-        --surface-glass: light-dark(rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.3));                     
-        
+        --surface-glass: light-dark(rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.3));
+
 
         /* transition and animation */
-  
+
         --duration-instant: 100ms;
         --duration-fast: 200ms;
         --duration-normal: 300ms;
         --duration-slow: 500ms;
         --duration-v-slow: 1000ms;
-        
+
         /* Soft and smooth - great for opacity or scale */
         --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-                      
+
         /* Snappy - great for buttons and interactive elements */
         --ease-snappy: cubic-bezier(0.19, 1, 0.22, 1);
-                                  
+
         /* Anticipation - moves back slightly before moving forward */
         --ease-anticipate: cubic-bezier(0.36, 0.03, 0, 0.87);
-                                              
+
         /* Bouncy (Alternative to your current one) */
         --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                                                      
+
         --delay-short: 100ms;
         --delay-medium: 250ms;
         --delay-long: 500ms;
-        
+
         /* Example: Transition all with your custom bouncy feel */
         --transition-bouncy: all var(--duration-normal) var(--bouncy);
-                      
+
         /* Example: Standard fade transition */
         --transition-fade: opacity var(--duration-fast) var(--linear);
-                              
-        
-  
+
+
+
 
         --bouncy: cubic-bezier(.47,1.64,.41,.8);
         --linear: linear;
@@ -443,11 +443,11 @@
         --translate-z: 0rem;
         --paralax-scale: calc(1 + ((var(--translate-z) * -1) / var(--perspective)));
 
-  
+
         /* Scaling for hover effects */
         --scale-hover: scale(1.05);
         --scale-active: scale(0.95);
-                          
+
         /* Border Widths(.glass) */
         --border-thin: .1rem solid var(--glass-border);
         --border-thick: .2rem solid var(--glass-border);
@@ -458,11 +458,11 @@
 
       @media (inline-size < block-size) {
         :root {
-          --aspect-ratio: 9/16; 
+          --aspect-ratio: 9/16;
         }
       }
 
-      
+
       /* 4. Motion Accessibility */
       /* $no-animation */
       @media (prefers-reduced-motion: reduce) {
@@ -474,7 +474,7 @@
           transition: none !important;
           animation: none !important;
         }
-                                                        
+
         :root {
           /* Disable parallax scaling by forcing scale to 1 */
           --paralax-scale: 1 !important;
@@ -498,7 +498,7 @@
       }
 
       ::-webkit-scrollbar {
-        background: transparent;  
+        background: transparent;
 
         inline-size: .8rem;
         block-size: .8rem;
@@ -507,12 +507,12 @@
       }
 
       ::-webkit-scrollbar-track {
-        background: transparent;  
+        background: transparent;
         border-radius: var(--pill);
       }
 
       ::-webkit-scrollbar-thumb {
-        background: var(--bg-2);  
+        background: var(--bg-2);
         border-radius: var(--pill);
         /* border: 0.1em solid var(--bg-1); */
       }
@@ -535,11 +535,11 @@
 
         /* Interactive UI Colors */
         accent-color: var(--primary-50);
-        caret-color: var(--primary-50);  
+        caret-color: var(--primary-50);
 
         /* Typography & Layout */
         hanging-punctuation: first-last;
-                                          
+
         /* Performance & Rendering */
         isolation: isolate; /* Prevents z-index issues */
         backface-visibility: hidden; /* Fixes flickering in 3D transforms */
@@ -553,7 +553,7 @@
   .install-banner {
     display: none;
   }
-}  
+}
 
       /* Apply field-sizing only to inputs for better control */
       /* button, */
@@ -564,8 +564,8 @@
       /* Optimized Transitions (Targeted instead of Global) */
       /* Moving transition off '*' prevents lag during initial page render */
       a, button, .interactive {
-        transition: 
-          transform var(--duration-normal) var(--ease-snappy), 
+        transition:
+          transform var(--duration-normal) var(--ease-snappy),
           translate var(--duration-normal) var(--ease-snappy),
           background-color var(--duration-fast) var(--linear)
         ;
@@ -576,9 +576,9 @@
         display: block;
         max-width: 100%;
       }
-    
+
       /* $component */
-      
+
 
       /* ============ a ============ */
       a {
@@ -592,8 +592,8 @@
       }
 
       /* =========== ul li ============ */
-      
-      #services 
+
+      #services
       ul {
         padding-inline-start: var(--gap-1);
 
@@ -608,10 +608,10 @@
 
       /* Component: Modern Button */
       /* The Component Card (Relume Style) */
-      
+
 
       /* 2. Design System Components */
-      
+
 
       img,
       picture,
@@ -622,15 +622,15 @@
         height: auto; /* Maintains natural proportions by default */
 
         transition: filter .3s ease;
-                      
+
         /* Responsive behavior */
         object-fit: cover;
         object-position: center center; /* for animation perpose */
         /* aspect-ratio: 16 / 9; */
-                                      
+
         /* Placeholder background while loading */
         /* background: color-mix(in hsl, var(--primary-50), transparent 95%); */
-                                                  
+
         /* Performance */
         content-visibility: auto;
       }
@@ -680,7 +680,7 @@
 
       details {
         overflow: clip;
-        transition: 
+        transition:
           block-size 400ms linear,
           content-visibility 400ms linear
         ;
@@ -730,7 +730,7 @@
         border: 0px solid var(--clr-error);
         border-radius: calc(var(--gap-1) / var(--scale)); /* Scaled rounding */
       }
-      
+
 
       /* ============= font ================== */
       h1, h2, h3, h4, h5, h6 {
@@ -792,7 +792,7 @@
       .space-xl { gap: var(--space-xl); }
       .gap-7,
       .space-2xl { gap: var(--space-2xl); }
-    
+
       /* carousel */
       .curousel {
         overflow-x: auto;
@@ -828,14 +828,14 @@
 
         > * {
           color: var(--primary-50);
-          background: color-mix(in hsl, var(--primary-50), transparent 40%); 
+          background: color-mix(in hsl, var(--primary-50), transparent 40%);
         }
       }
 
-      
 
 
-                          
+
+
 
 
 
@@ -853,20 +853,20 @@
         #color-palate {
 
           * {
-            padding-block: var(--space-s); 
+            padding-block: var(--space-s);
           }
         }
       }
 
-      
+
 
       /* ### Design System - Components */
       /* ### 1. Button hierarchy & types */
 
 
 /* ============= button ================ */
-      
-        
+
+
       /* [class*="button btn"], */
       button,
       .button,
@@ -891,7 +891,7 @@
         transition: all 400ms linear;
 
         padding: var(--space-s) var(--space-m);
-                                                
+
         /* Golden Mean Rounding */
         /* border-radius: calc(var(--space-2xs) * var(--scale)); */
 
@@ -912,7 +912,7 @@
       }
 
       /* main call-to-action with bold background. e.g. hire me, submit */
-      
+
       .btn-primary {
         /* Color Scale */
         background-color: var(--primary-50);
@@ -920,12 +920,12 @@
         color: var(--white);
 
         transition: all 0.3s ease, background-color 0.3s ease;
-                                                                        
+
         &:hover {
           background-color: var(--primary-60);
         }
       }
-      
+
 
       .btn-outline {
         color: var(--primary-50);
@@ -979,7 +979,7 @@
         .theme-toggler { border: 0px solid; }
       }
 
-      .hero { 
+      .hero {
 
         .title { border: 0px solid; }
 
@@ -1006,7 +1006,7 @@
       /* ### 3. Content & Information Display */
 
       /* for project thumbnails, blog posts, services */
-      
+
       .card {
         display: flex;
         flex-direction: column;
@@ -1016,7 +1016,7 @@
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         border: 0px solid #eee;
 
-        transition: transform var(--duration-normal) var(--bouncy), 
+        transition: transform var(--duration-normal) var(--bouncy),
           box-shadow var(--duration-fast) var(--ease)
         ;
 
@@ -1045,7 +1045,7 @@
           display: flex;
           flex-direction: column;
           gap: var(--space-xs);
-          
+
           .description {
             font-size: var(--p); /* 16px */
             color: #666;
@@ -1053,7 +1053,7 @@
           }
         }
         .card_title {
-          
+
           font-weight: 700;
           margin: 0;
         }
@@ -1066,7 +1066,7 @@
         .image-wrapper {
           aspect-ratio: 16 / 9;
           overflow: hidden;
-                                
+
           .img {
             width: 100%;
             height: 100%;
@@ -1137,11 +1137,11 @@
         z-index: 798;
         block-size: auto;
         overflow: clip;
-        transition: 
+        transition:
           block-size 400ms var(--ease),
           transform 400ms var(--bouncy)
         ;
-        
+
         /* delete */
         .dialog-wrapper {
           display: grid;
@@ -1157,13 +1157,13 @@
           gap: var(--space-2xs);
           overflow: clip;
           padding-block: 0em; /* var(--space-2xs) */
-    
-          border-radius: var(--pill); 
+
+          border-radius: var(--pill);
           /* ends */
-          
+
           .flex {
                display: flex;
-               flex-wrap: wrap; 
+               flex-wrap: wrap;
                /* place-items: center; */
 
                align-items: center;
@@ -1171,12 +1171,12 @@
                gap: var(--space-2xs);
 
                overflow: clip;
-               padding-block: var(--space-xs); 
+               padding-block: var(--space-xs);
             }
 
-          * { 
+          * {
             background: var(--bg-2);
-            color: var(--txt-2); 
+            color: var(--txt-2);
           }
 
           p {
@@ -1246,7 +1246,7 @@
       .back-to-top { border: 0px solid; }
 
 
-      
+
 
 
 
@@ -1261,7 +1261,7 @@
       /* ===================== container grid & grid end ======================== */
 
 
-      /* #### global style ### shorting A to Z (group name) #### */ 
+      /* #### global style ### shorting A to Z (group name) #### */
 
       /* #### A */
 
@@ -1297,7 +1297,7 @@
         background: var(--bg-3);
         border-radius: 1em;
 
-        box-shadow: 
+        box-shadow:
           calc(-1 * var(--x)) calc(-1 * var(--y)) var(--z) var(--blur) var(--shadow-clr),
           var(--shadow)
         ;
@@ -1327,8 +1327,8 @@
       /* #### E */
 
       /* #### F */
-    
-      .tags, 
+
+      .tags,
       .tag-container {
         display: flex;
         flex-wrap: wrap;
@@ -1339,7 +1339,7 @@
         text-align: center;
 
         gap: var(--space-s);
-      
+
         > *, .tag {
           flex-grow: 0;
           flex-shrink: 1;
@@ -1352,23 +1352,23 @@
 
         /* Grow to fill space, shrink if needed, with a 300px base */
       }
-      
+
       /* for carousel */
       .fade-out,
       .gradient-mask,
       .mask {
         mask-image: linear-gradient(
           to var(--direction, right),
-          transparent, 
-          black 15%, 
-          black 85%, 
+          transparent,
+          black 15%,
+          black 85%,
           transparent
-        );  
+        );
       }
 
       /* #### G */
       /* 1. The Grid & Layout */
-      /* 
+      /*
       - .container: Centers your content and provides padding.
 
       - .row: Wraps columns and ensures proper alignment.
@@ -1386,7 +1386,7 @@
 
 
       /* 3. Flexbox Power Tools */
-      /* 
+      /*
       - d-flex
       - justify-content-between
       - align-items-center
@@ -1408,9 +1408,9 @@
       .fluid-grid-system,
       body,
 
-      header, 
+      header,
       main,
-      footer, 
+      footer,
       .container-fluid
       {
         inline-size: 100dvw;
@@ -1420,7 +1420,7 @@
         /* Grid Template with Bootstrap Named Breakpoints */
         grid-template-columns:
           [container-fluid-start]
-          minmax(var(--padding-inline), 1fr) 
+          minmax(var(--padding-inline), 1fr)
 
             [container-xxl-start]
             minmax(0, var(--container-xxl-size))
@@ -1471,16 +1471,16 @@
       /* 100dvw inline */
       /* remove fluid-grid-system */
       .fluid-grid-system,
-      header, 
+      header,
       main,
-      footer, 
-      .container-fluid { 
+      footer,
+      .container-fluid {
         grid-column: container-fluid;
 
         display: grid;
         /* grid-template-columns: inherit; */
         /* margin-inline?, padding-inline */
-        /* 
+        /*
         margin-inline: calc(-1 * var(--padding-inline));
         padding-inline: var(--padding-inline);
         */
@@ -1491,17 +1491,17 @@
       }
 
       /* 1400px */
-      .container-xxl { 
+      .container-xxl {
         grid-column: container-xxl;
       }
 
       /* 1280px */
-      .container-xl { 
+      .container-xl {
         grid-column: container-xl;
       }
 
       /* 1024px */
-      .container-lg { 
+      .container-lg {
         grid-column: container-lg;
       }
 
@@ -1516,12 +1516,12 @@
       }
 
       /* 640px */
-      .container-sm { 
+      .container-sm {
         grid-column: container-sm;
       }
 
       /* 375px */
-      .container-xsm { 
+      .container-xsm {
         grid-column: container-xsm;
       }
 
@@ -1529,7 +1529,7 @@
       [class*="container"] {
         border: 0px dashed red;
           container-type: inline-size; /* Enables your fluid --h1 units */
-        
+
         /* margin-inline?, padding-inline */
         margin-inline: calc(-1 * var(--padding-inline));
         padding-inline: var(--padding-inline);
@@ -1537,14 +1537,14 @@
         /* Bootstrap my5 mx-auto px-1em */
         /* padding-block: var(--space-l); */
         /* default alignment N/A */
-        
+
         display: grid;
         grid-auto-flow: row;
         grid-auto-rows: auto;
         grid-template-columns: 1fr;
         gap: 0;
 
-        place-content: center; 
+        place-content: center;
       }
 
       .auto-fill { --type: auto-fill; }
@@ -1554,12 +1554,12 @@
       /* The responsive columns: no media queries needed */
 
       /* auto-col-genarator */
-      .col { 
-        border: 0px dotted white; 
+      .col {
+        border: 0px dotted white;
 
         display: grid;
         grid-template-columns: repeat(
-          var(--type, auto-fit), 
+          var(--type, auto-fit),
           minmax(min(100% - (var(--padding-inline, 1.6em) * 2), var(--col-size, 26rem)), 1fr)
         ); /* 23/30 */
 
@@ -1575,7 +1575,7 @@
 
         position: relative;
 
-        /* > * { 
+        /* > * {
           border: 0px solid var(--txt-1);
         } */
       }
@@ -1595,7 +1595,7 @@
     .col-12 { grid-column: var(--col-12); }
 
 
-      /* 
+      /*
 - col- (extra small devices)
 - col-sm- (small devices/tablets)
 - col-md- (medium devices/laptops)
@@ -1614,8 +1614,8 @@
       /* 2. Optimized Auto-Responsive Row */
       .even-row { --row-size: 1fr; }
 
-      .row { 
-        border: 0px dotted black; 
+      .row {
+        border: 0px dotted black;
 
         display: grid;
         grid-auto-flow: row;
@@ -1638,7 +1638,7 @@
 
         position: relative;
 
-        /* > * { 
+        /* > * {
           border: 0px solid var(--txt-1);
         } */
       }
@@ -1647,14 +1647,14 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        
+
         align-items: center;
         justify-content: start;
         gap: var(--space-xs);
-      } 
-      
-      .flex.even-col { 
-      
+      }
+
+      .flex.even-col {
+
           > * {
           flex: 1;
           /* flex-basis: 23rem; */
@@ -1672,7 +1672,7 @@
 
       .flex-col { flex-direction: column; > * { flex: 0;} }
       .flex-row { flex-direction: row; }
-      
+
       /* bs */
 .align-items-start { align-items: start;}
 .align-items-center { align-items: center;}
@@ -1723,13 +1723,13 @@
 
       .wrap { flex-wrap: wrap; }
       .no-wrap { flex-wrap: nowrap; }
-      
+
       .grow > * { flex: 1; }
       .grow-double { flex: 2; }
       .no-grow { flex: 0; }
 
       /* grid dense start */
-      .dense-container { 
+      .dense-container {
         /* aspect-ratio: 16 / 9; */ /* golden rato */
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -1759,7 +1759,7 @@
         justify-content: center;
         /* place-items: center; */
 
-        > * { 
+        > * {
           /* grid-area: stack; */
           grid-area: 1 / 1;
         }
@@ -1796,7 +1796,7 @@
           inline-size: 2rem;
           aspect-ratio: 1;
       }
-      
+
       img.square {
         aspect-ratio: 1/1;
 
@@ -1808,7 +1808,7 @@
 
       .image-container-scaleY:has(img) {
         aspect-ratio: 16/9;
-      
+
         img {
           aspect-ratio: 16/9;
           transform: scaleY(1);
@@ -1818,7 +1818,7 @@
         &:hover img {
           transform: scaleY(1); /* animate */
         }
-      } 
+      }
 
       /* Specific handling for iframes (like YouTube) */
       iframe {
@@ -1858,7 +1858,7 @@
         background: var(--bg-3);
         border-radius: 1em;
 
-        box-shadow: 
+        box-shadow:
           inset calc(-1 * var(--x)) calc(-1 * var(--y)) var(--z) var(--blur) var(--shadow-clr),
           inset var(--shadow)
         ;
@@ -1933,12 +1933,12 @@
       .txt-bg-primary-fluid {
         /* box-shadow: 0 0 0 100vmax var(--primary-50);
         clip-path: inset(0 -100vmax); */
-  
+
         /* Using 100vw ensures it covers the full viewport width */
         box-shadow: 0 0 0 100vw var(--primary-50);
         clip-path: inset(0 -100vw);
-        transition: 
-          background 0.3s ease, 
+        transition:
+          background 0.3s ease,
           box-shadow 0.3s ease
         ;
       }
@@ -1956,8 +1956,8 @@
         /* Using 100vw ensures it covers the full viewport width */
         box-shadow: 0 0 0 100vw var(--bg-1);
         clip-path: inset(0 -100vw);
-        transition: 
-          background 0.3s ease, 
+        transition:
+          background 0.3s ease,
           box-shadow 0.3s ease
         ;
       }
@@ -1979,7 +1979,7 @@
 
       /* #### Z */
 
-      /* #### global style ends #### */ 
+      /* #### global style ends #### */
 
 
       .border { border: 0px solid currentColor; }
@@ -1998,7 +1998,7 @@
         mix-blend-mode: difference;
         pointer-events: none;
         transform: translateX(0) translateY(0);
-        transition: 
+        transition:
           transform 400ms var(--ease),
           block-size 400ms var(--ease),
           inline-size 400ms var(--ease)
@@ -2031,16 +2031,16 @@
         /* border-radius: 0 0 var(--section-radius) var(--section-radius); */
         overflow-y: auto;
         overflow-x: clip; /* clip standalone-app */
-        
-        /* position: relative; */ 
+
+        /* position: relative; */
 
         /* -webkit-text-size-adjust: 100%; */ /* Prevents font scaling in iOS */
-        /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */ /* Removes tap highlight */ 
+        /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */ /* Removes tap highlight */
      }
 
       :has([value="light"]:checked) body {color-scheme: light;}
       :has([value="dark"]:checked) body {color-scheme: dark;}
-     
+
       @media (prefers-color-scheme: light) {
        :is([value="light"]) { display: none;}
       }
@@ -2067,7 +2067,7 @@
         background: var(--bg-2);
         color: var(--txt-1);
         font-size: var(--p);
-        
+
         .col {
           --col-size: 15rem;
           justify-content: space-between;
@@ -2077,7 +2077,7 @@
             text-decoration: none;
           }
 
-          :last-child { 
+          :last-child {
             text-align: right; /* removed */
           }
         }
@@ -2089,7 +2089,7 @@
       }
 
       /* #body removed */
-      body, 
+      body,
       main {
         display: grid;
         grid-auto-flow: row;
@@ -2097,7 +2097,7 @@
         grid-template-columns: 1fr;
         grid-auto-rows: auto;
         overflow-x: clip;
-        position: relative;     
+        position: relative;
 
         /* for parrent */
         overscroll-behavior: contain;
@@ -2120,17 +2120,17 @@
         overflow-x: auto; /* clip */
         overscroll-behavior: contain;
         scroll-snap-type: y proximity;
-        contain-intrinsic-size: auto 5rem; 
+        contain-intrinsic-size: auto 5rem;
         /* prevent section jumping */
 
-        scroll-padding: 0em; 
+        scroll-padding: 0em;
         /* for curossel paddin */
 
         /* for child */
         & > * {
           scroll-snap-align: end;
           scroll-snap-stop: always;
-          scroll-margin: var(--space-m); 
+          scroll-margin: var(--space-m);
           /* if stiky navbar */
         }
       }
@@ -2140,18 +2140,18 @@
         > * {
           padding-block: var(--space-2xl);
         }
-      } 
+      }
 
 
       /* Container Setup */
       .hero-container {
         color-scheme: dark;
         transition: background 0.3s ease;
-      
+
 
         .hero-content {
           text-align: center;
-  
+
           display: grid;
           place-items: center; /**/
         }
@@ -2213,7 +2213,7 @@
         /*
         top: 0;
         left: 0;
-        right: 0; 
+        right: 0;
         */
         /* block-size: 100dvh; */
         overflow: clip; /* hidden */
@@ -2239,7 +2239,7 @@
             border-radius: .5em;
             block-size: 2em;
           }
-      
+
           &:hover img {
             transform: scaleX(1); /* animate */
           }
@@ -2249,7 +2249,7 @@
       #hero-transparent {
         display: none;
         min-block-size: 60dvh;
-                  
+
         background: linear-gradient(
           to bottom,
           transparent,
@@ -2261,10 +2261,10 @@
         background: var(--bg-1);
         padding-block: var(--space-s);
 
-        /* 
+        /*
 
         :is([class^="container"]).row {
-          gap: var(--space-s); 
+          gap: var(--space-s);
         }
 
         .flex-wrapper {
@@ -2274,17 +2274,17 @@
           );
           place-items: center;
 
-          > * { 
+          > * {
             flex-basis: 8rem;
             flex-grow: 1;
 
-            > * { 
+            > * {
               flex-basis: 8rem;
               flex-grow: 1;
             }
-          } 
-        } 
-          
+          }
+        }
+
 
         .col { gap: var(--space-2xs); }
         .row { gap: var(--space-2xs); }
@@ -2294,13 +2294,13 @@
           place-items: center;
         }
           */
-        
+
 
         ul { list-style: none; }
 
-        li { 
+        li {
           list-style: none;
-          white-space: nowrap; 
+          white-space: nowrap;
           text-align: center;
           background: var(--bg-1);
           display: block;
@@ -2308,10 +2308,10 @@
           border-radius: .4rem;
         }
 
-        a { 
-          text-decoration: underline; 
+        a {
+          text-decoration: underline;
           color: var(--txt-1);
-          padding: var(--space-2xs); 
+          padding: var(--space-2xs);
         }
 
         :has(details).col {
@@ -2321,7 +2321,7 @@
         details {
 
           summary {
-            padding: var(--space-xs); 
+            padding: var(--space-xs);
           }
 
           ul {
@@ -2348,12 +2348,12 @@
         background: var(--bg-1);
         color: var(--txt-1);
       }
-                  
+
       #projects {
         color-scheme: dark;
 
         background: var(--primary-50);
-        
+
         a:link { color: var(--txt-1); }
       }
 
@@ -2377,7 +2377,7 @@
 
           p {
             padding-block-start: var(--space-xs);
-      
+
             transition: transform var(--duration-normal) var(--transition-fade);
           }
 
@@ -2389,27 +2389,27 @@
 
       /* #contact */
       /* i want dark scheme */
-      #contact { 
+      #contact {
         background: var(--bg-1);
-      } 
-      
+      }
+
       #footer-transparent {
         display: none;
 
         min-block-size: 100dvh;
-        
+
         background: linear-gradient(
           to bottom,
           var(--primary-50),
           transparent 90%
         );
-        
+
         pointer-events: none;
         user-select: none;
       }
 
 
-      footer {  
+      footer {
         /* color-scheme: light dark; */
         /* background: black; v2 */
         border-radius: 0 0 var(--section-radius) var(--section-radius);
@@ -2425,8 +2425,8 @@
 
         > * { grid-column: container-xl; }
 
-        select { 
-            padding: 1em; 
+        select {
+            padding: 1em;
             background: transparent;
         }
 
@@ -2453,7 +2453,7 @@
           display: grid;
           align-items: center;
 
-          .svg-wrapper { 
+          .svg-wrapper {
             /* min-block-size: 30dvh; */
             inline-size: 210rem;
             padding-block: 0;
@@ -2501,7 +2501,7 @@
           }
         }
       }/* #footer ends */
-        
+
 
       /* for fluid nav with large center */
       #bottom-navigation {
@@ -2524,7 +2524,7 @@
           overflow: clip;
 
           /* padding-block: 0;
-          padding-block-end: var(--space-s); 
+          padding-block-end: var(--space-s);
           */
 
           #header-nav-list {
@@ -2535,13 +2535,13 @@
             gap: 0;
             border-radius: var(--pill);
             overflow: clip;
-        
+
             padding: var(--space-xs);
             /*
             background: linear-gradient(
               to bottom,
               color-mix(
-              var(--primary-50), 
+              var(--primary-50),
               transparent 70%),
               var(--primary-50)
             );
@@ -2550,7 +2550,7 @@
             */
 
             background: var(--bg-3);
-              
+
             a {
               border-radius: var(--pill);
               flex: 1;
@@ -2569,7 +2569,7 @@
 
               block-size: stretch;
             }
-                    
+
             .active{
               flex: 0;
               opacity: 1;
@@ -2578,7 +2578,7 @@
 
               anchor-name: --active-link;
             }
-                            
+
             .active-bg {
               background: var(--bg-1);
               /* border-radius: var(--pill); */
@@ -2594,14 +2594,14 @@
           }
         }
       }/* #nav-list-item */
-       
+
 
       svg text.outline {
           fill: transparent;
             stroke: var(--white);
               stroke-width: 1px;
       }
-      
+
       .marquee-wrapper {
           overflow: hidden;
             width: 100%;
@@ -2625,7 +2625,7 @@
         width: auto;
         padding-right: 50px; /* Space between the clones */
       }
-      
+
 
 
 
@@ -2640,11 +2640,11 @@
       .reveal {
         opacity: 0;
         translate: 0 30px;
-        transition: 
+        transition:
         opacity var(--duration-slow) var(--ease),
         translate var(--duration-slow) var(--bouncy);
         /* Prevents layout shift */
-        content-visibility: auto; 
+        content-visibility: auto;
 
         &[data-visible="true"] {
           opacity: 1;
@@ -2659,18 +2659,18 @@
       /* @import "assets/css/animation.css" */
         .animation {
           animation:
-            var(--name, fadeIn) 
-            var(--duration, 0.5s) 
-            var(--function, ease-out) 
-            var(--delay, 0s) 
-            var(--count, 1) 
-            var(--direction, normal) 
-            var(--mode, both) 
+            var(--name, fadeIn)
+            var(--duration, 0.5s)
+            var(--function, ease-out)
+            var(--delay, 0s)
+            var(--count, 1)
+            var(--direction, normal)
+            var(--mode, both)
             var(--state, running)
           ;
           /* animation-timeline: scroll(); */
-        } /* cubic-bezier(.47,1.64,.41,.8) */ 
-        
+        } /* cubic-bezier(.47,1.64,.41,.8) */
+
         @keyframes slideUp {
           from {
             opacity: 0;
@@ -2697,11 +2697,11 @@
           0%, 100% { transform: scale(1); }
           50% { transform: scale(1.05); }
         }
-         
 
-        /* 
+
+        /*
         start before screen.
-        skeleton loading txt/bg same color, 
+        skeleton loading txt/bg same color,
         animate with delay until offset mid 0 view
 
         */
@@ -2821,7 +2821,7 @@
         }
 
         @media (prefers-color-scheme: light) {
-            
+
           @keyframes bg-theme {
             0% {
               background-position: 100%;
@@ -2833,7 +2833,7 @@
         }
         /*   != light theme   */
         @media (prefers-color-scheme: dark) {
-          
+
           @keyframes bg-theme {
             0% {
               background-position: 100%;
@@ -2872,21 +2872,21 @@
 
         position: relative;
       }
-      
+
       .brand-logo-container {
 
-        transform: rotateY(0deg) translateZ(0rem); /* 60deg 5rem */
+        transform: rotateY(60deg) translateZ(5rem); /* 60deg 5rem */
         transform-style: preserve-3d;
-      
+
         backface-visibility: visible;
         transform-origin: center;
-      } 
+      }
 
       .brand-logo-wrapper {
         animation: brand-logo-wrappe 20s linear infinite;
-    
+
         aspect-ratio: 1/1;
-      
+
         backface-visibility: visible;
 
         position: relative;
@@ -2899,54 +2899,54 @@
       .brand-logo {
         opacity: 1;
         transform: translateX(4rem);
-        position: absolute; 
+        position: absolute;
         inset: 0;
         perspective: 50rem;
-        transform-style: preserve-3d; 
+        transform-style: preserve-3d;
         border: 0px solid red;
 
         transform: scale(2);
         margin: auto;
-      } 
+      }
       .brand-logo-2 {
         opacity: .9;
         transform: translateX(3rem);
-  
-      } 
+
+      }
       .brand-logo-3 {
         opacity: .8;
         transform: translateX(2rem);
-  
-      } 
+
+      }
       .brand-logo-4 {
         opacity: .7;
         transform: translateX(1rem);
-  
+
       }
       .brand-logo-5 {
         opacity: .6;
         transform: translateX(0rem);
-      
+
       }
       .brand-logo-6 {
         opacity: .5;
         transform: translateX(-1rem);
-    
+
       }
       .brand-logo-7 {
         opacity: .4;
         transform: translateX(-2rem);
-    
+
       }
       .brand-logo-8 {
         opacity: .3;
         transform: translateX(-3rem);
-    
+
       }
       .brand-logo-9 {
         opacity: .2;
         transform: translateX(-4rem);
-    
+
       }
 
       @keyframes brand-logo-wrapper {
@@ -2958,10 +2958,10 @@
       #brand-title {
         transform: scale(2.4);
         transform-style: preserve-3d;
-    
+
         filter: brightness(1);
-      } 
- 
+      }
+
 
       .infinite-scroller {
         /* max-inline-size: 60rem; */
@@ -3024,7 +3024,7 @@
                          to {
                          transform: translate(calc(-50% - 0.5rem));
                          }
-                         
+
       }
 
 
@@ -3042,7 +3042,7 @@
                   .card.show {
                     opacity: 1;
                       transform: translateY(0);
-                      
+
       }
 
 
@@ -3050,90 +3050,64 @@
 
 
             /* view trasition api */
-                  @view-transition {
-                          navigation: auto;
-                                }
+@view-transition {
+navigation: auto;
+}
 
-                                      .card:has(img) {
-                                              view-transition-name: hero-image;
+.card:has(img) {
+view-transition-name: hero-image;
                                                     }
 
-                                                          .projects:has(img.banner) {
-                                                                  view-transition-name: hero-image;
-                                                                        }
+.projects:has(img.banner) {
+view-transition-name: hero-image;
+}
 
-                                                                              /* Styling the overall transition */
-                                                                                    /* ::view-transition-group(root) {
-                                                                                            animation-duration: var(--duration-normal);
-                                                                                                    animation-timing-function: var(--bouncy);
-                                                                      } */
 
-                                                                       /* Custom slide-in for the new page */
-                                                                             /* Styling the overall transition */
-                                                                                   ::view-transition-group(root) {
-                                                                                           animation-duration: var(--duration-normal);
-                                                                                                   animation-timing-function: var(--bouncy);
-                                                                                                         }
+/* Styling the overall transition */
+::view-transition-group(root) {
+animation-duration: var(--duration-normal);
+animation-timing-function: var(--bouncy);
+}
 
-                                                                                                               /* Custom fade-out for the old page */
-                                                                                                                     ::view-transition-old(root) {
-                                                                                                                             animation: 400ms var(--ease-out) both fade-out;
-                                                                                                                                   }
+/* Custom fade-out for the old page */
+::view-transition-old(root) {
+animation: 400ms var(--ease-out) both fade-out;
+}
 
                                                                                                                                          /* Custom slide-in for the new page */
-                                                                                                                                               ::view-transition-new(root) {
-                                                                                                                                                       animation: 400ms var(--ease-in) both slide-from-right;
-                                                                                                                                                             }
+/*
+::view-transition-new(root) {
+animation: 400ms var(--ease-in) both slide-from-right;
+}
 
-                                                                                                                                                                   @keyframes slide-from-right {
-                                                                                                                                                                           from { transform: translateX(100%); }
-                                                                                                                                                                                 }
-                                                                                                                                                                                       /* Styling the overall transition */
-                                                                                                                                                                                             ::view-transition-group(root) {
-                                                                                                                                                                                                     animation-duration: var(--duration-normal);
-                                                                                                                                                                                                             animation-timing-function: var(--bouncy);
-                                                                                                                                                                                                                   }
+@keyframes slide-from-right {
+from { transform: translateX(100%); }
+} */
+/* Styling the overall transition */
 
-                                                                                                                                                                                                                         /* Custom fade-out for the old page */
-                                                                                                                                                                                                                               ::view-transition-old(root) {
-                                                                                                                                                                                                                                       animation: 400ms var(--ease-out) both fade-out;
-                                                                                                                                                                                                                                             }
-
-                                                                                                                                                                                                                                                   /* Custom slide-in for the new page */
-                                                                                                                                                                                                                                                         ::view-transition-new(root) {
-                                                                                                                                                                                                                                                                 animation: 400ms var(--ease-in) both slide-from-right;
-                                                                                                                                                                                                                                                                       }
-
-                                                                                                                                                                                                                                                                             @keyframes slide-from-right {
-                                                                                                                                                                                                                                                                                     from { transform: translateX(100%); }
-                                                                                                                                                                                                                                                                             }
-      
-      /* Styling the overall transition */
-            ::view-transition-group(root) {
-                    animation-duration: var(--duration-normal);
-                            animation-timing-function: var(--bouncy);
-                                  }
-
-                                        /* Custom fade-out for the old page */
-                                              ::view-transition-old(root) {
-                                                      animation: 400ms var(--ease-out) both fade-out;
-                                                            }
-
-                                                                  /* Custom slide-in for the new page */
-                                                                        ::view-transition-new(root) {
-                                                                                animation: 400ms var(--ease-in) both slide-from-right;
-                                                                                      }
-
-                                                                                            @keyframes slide-from-right {
-                                                                                                    from { transform: translateX(100%); }
-                                                                                                          }
+/* Custom fade-out for the old page */
+/*
+::view-transition-old(root) {
+animation: 400ms var(--ease-out) both fade-out;
+} */
 
 
-                                                                                        
+/* Custom slide-in for the new page */
+/*
+::view-transition-new(root) {
+animation: 400ms var(--ease-in) both slide-from-right;
+} */
+
+@keyframes slide-from-right {
+from { transform: translateX(100%); }
+}
+
+
+
 
       /* after 2026 */
 
-      /* 
+      /*
       @keyframes appear {
           from { opacity:  0; scale: 0.5; }
           }
@@ -3142,18 +3116,18 @@
             animation: appear linear;
               animation-timeline: view();
                 animation-range: entry 0% cover 40%;
-                
+
       } */
 
-      /* v2 
+      /* v2
       @keyframes appear {
           from {opacity: 0; clip-path: inset(100% 100% 0 0);}
-          
+
       } */
-       /* v3 
+       /* v3
       @keyframes appear {
           from {opacity: 0; transform: translateX(-50%);}
-          
+
       } */
 
       /* master */
@@ -3198,8 +3172,8 @@
                                 object-fit: cover;
                                   overflow: hidden;
                                     border-radius: 20px;
-                                    
-      } 
+
+      }
 
       ::view-transition-old(title) {
           opacity: 0;
@@ -3216,7 +3190,7 @@
 
                 ::view-transition-group(overlay) {
                   overflow: hidden;
-                  
+
       }
 
 
@@ -3238,7 +3212,7 @@
 
               ::view-transition-new(root) {
                 animation: 250ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-right;
-                
+
       }
 
       :active-view-transition-type(back)::view-transition-old(root) {
@@ -3247,7 +3221,7 @@
 
           :active-view-transition-type(back)::view-transition-new(root) {
             animation-name: slide-from-left;
-            
+
       }
 
       /* more */
@@ -3257,7 +3231,7 @@
 
           ::view-transition-new(main) {
             animation: 350ms ease both slide-and-fade-in;
-            
+
       }
 
 
