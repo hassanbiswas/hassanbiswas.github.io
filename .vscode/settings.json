@@ -1,17 +1,18 @@
 {
   // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
-  "workbench.colorTheme": "React Theme",
-  "workbench.iconTheme": "eq-material-theme-icons-light",
+  "workbench.colorTheme": "React Theme", // Default High Contrast
+  "workbench.iconTheme": "eq-material-theme-icons-light", // vs-minimal
   "workbench.activityBar.location": "hidden",
-  "workbench.statusBar.visible": false,
-  "workbench.sideBar.location": "right",
+  // "window.menuBarVisibility": "classic",
+  "workbench.statusBar.visible": true, // false | true
+  "workbench.sideBar.location": "right", // right | left
   "workbench.editor.showTabs": "none",
   "workbench.startupEditor": "none",
-  "editor.minimap.enabled": false,
+  "editor.minimap.enabled": true, // false
   "editor.lineNumbers": "off",
   "editor.guides.indentation": false,
   "breadcrumbs.enabled": false,
-  "editor.stickyScroll.enabled": false,
+  "editor.stickyScroll.enabled": false, // false | true
   "editor.renderLineHighlight": "none",
   "editor.occurrencesHighlight": "off",
   "editor.selectionHighlight": false,
@@ -52,6 +53,21 @@
     "wix": "html"
   },
   "editor.suggest.snippetsPreventQuickSuggestions": false,
+
+  // --- FRONT-END SPECIFIC VISUALS ---
+  // "editor.bracketPairColorization.enabled": true,
+  // "editor.guides.bracketPairs": "active",
+  // "editor.cursorBlinking": "smooth",
+  // "editor.cursorSmoothCaretAnimation": "on", // Smoother visual feel while typing
+  // "editor.minimap.autohide": "mouseover",
+  // "editor.stickyScroll.enabled": true,
+  // "editor.colorDecorators": true,
+  // "workbench.editorAssociations": {
+    // "*.zip": "default",
+  // },
+  // "editor.unicodeHighlight.invisibleCharacters": false,
+  // "editor.unicodeHighlight.ambiguousCharacters": false,
+  
   "editor.snippetSuggestions": "top",
   "editor.quickSuggestions": {
     "strings": true
@@ -82,6 +98,8 @@
     "yaml": true
   },
   "github.copilot.editor.enableAutoCompletions": true,
+  // "inlineChat.mode": "live",
+  // "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "git.decorations.enabled": false,
   "scm.diffDecorations": "none",
 
@@ -111,6 +129,6 @@
   "window.confirmBeforeClose": "always",
   "security.workspace.trust.untrustedFiles": "open",
   "explorer.confirmDelete": false,
-  "editor.accessibilitySupport": "off"
+  "editor.accessibilitySupport": "off" // off | on
 }
   
