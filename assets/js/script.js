@@ -1,9 +1,9 @@
 
-/* 
+/*
 
 const rootUrl = `https://hassanbiswas.github.io/`;
  // Your updated logic automation: Changes once per day
-const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.'); 
+const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
 const injectAsset = (type, path, media = 'all') => {
 const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
@@ -94,7 +94,7 @@ let myScript = () => {
   // Replaces both literal " and URL-encoded %22 with '
   author.faviconSvg = author.mainFaviconSvg.replace(/"|%22/g, "");
   // same as above
-  /* 
+  /*
   author.faviconSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E`;
       */
 
@@ -138,11 +138,11 @@ let myScript = () => {
   const worldwide = `<a href="${asia}">Asia</a>, <a href="${africa}">Africa</a>, <a href="${northAmerica}">North America</a>, <a href="${southAmerica}">South America</a>, <a href="${europe}">Europe</a>, <a href="${oceania}">Oceania</a>`;
 
   const locationPrimary = `
-          <a href="${jashore}">Jashore</a> 
-          <a href="${khulna}">Khulna</a> 
+          <a href="${jashore}">Jashore</a>
+          <a href="${khulna}">Khulna</a>
           <a href="${bangladesh}">Bangladesh</a>`;
   const locationSecondary = `
-          <a href="${dhaka}">Dhaka</a>, 
+          <a href="${dhaka}">Dhaka</a>,
           <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
 
   const root = document.documentElement;
@@ -267,7 +267,7 @@ let myScript = () => {
 
   const preferedLanguages = [`English`, `Bangla (Advanced)`, `Hindi`];
 
-  /* 
+  /*
   const metaKey = document.querySelector('meta[name="keywords"]');
   if (metaKey) {
     // console.log(metaKey.getAttribute('content'));
@@ -361,22 +361,22 @@ let myScript = () => {
 
 
   // Corrected function with default 't' value of 3m
-  const timeout = (el, t = 3000) => { 
+  const timeout = (el, t = 3000) => {
     if (!el) return; // Guard clause if element is missing
 
       // Outer delay before removing the 'show' class
-        setTimeout(() => { 
+        setTimeout(() => {
             el.classList.remove('show');
 
                 // Inner delay to add it back after 't' milliseconds
-                    setTimeout(() => { 
-                          el.classList.add('show'); 
+                    setTimeout(() => {
+                          el.classList.add('show');
                               }, t);
 
-                                }, Math.floor(t + 3000)); 
+                                }, Math.floor(t + 3000));
                                 }
 
-                                // Example usage: 
+                                // Example usage:
                                 // timeout(document.querySelector('.my-element'));
 
 
@@ -393,7 +393,7 @@ let myScript = () => {
       const template = document.createElement("template");
       template.innerHTML = `
       <section id="loader" aria-hidden="true" class="fluid-grid-system" data-version="${VERSION}">
-       <section class="container-md content-center"> 
+       <section class="container-md content-center">
         <div class="col items-center">
           <h3 class="greeting txt-center flex">
             &lt;<span id="say-hello">Hello</span>/&gt;
@@ -452,11 +452,11 @@ let myScript = () => {
         } else if (i >= greetings.length) {
           i = 0;
         }
-        /* 
+        /*
           else {
             // Keep looping if offline or still loading
             i = 0;
-          } 
+          }
           */
         // }
       }, 220);
@@ -544,8 +544,8 @@ let myScript = () => {
        <section class="container-md">
         <nav style="padding-block: var(--space-xs)" class="col">
          <span title="address">
-          <a href="https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9">Jashore</a> 
-          <a href="https://maps.app.goo.gl/FM6vxDsAPLaQErnd6">Khulna</a> 
+          <a href="https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9">Jashore</a>
+          <a href="https://maps.app.goo.gl/FM6vxDsAPLaQErnd6">Khulna</a>
           <a href="https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9">Bangladesh</a>
          </span>
          <a title="messenger" href="${urlMessenger}" target="_blank">
@@ -735,9 +735,9 @@ let myScript = () => {
     }
   }
 
-  /* 
-  
-  
+  /*
+
+
        <div class="flex dark">
         <span class="html">
          HTML 5
@@ -770,8 +770,8 @@ let myScript = () => {
          GSAP
         </span>
        </div>
-  
-  
+
+
   */
 
   // Data array for easy updates
@@ -848,9 +848,9 @@ let myScript = () => {
           <section style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
             <section style="padding: 0em" class="brand-logo-container">
               <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
-                
+
                   ${author.logoOutlineSvg}
-                
+
               </section>
             </section>
 
@@ -875,9 +875,9 @@ let myScript = () => {
 
         </section>
       </section>
-    
 
-    
+
+
     `;
 
       // 4. THE MAGIC: Synchronous swap
@@ -1079,7 +1079,7 @@ let myScript = () => {
             .map(
               (story) => `
 
-      <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-container">
+      <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-containe">
        <div style="gap: .5em;" class="row">
         <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
         <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
@@ -1089,7 +1089,7 @@ let myScript = () => {
         <p class="fade-in-to">${story.desc}</p>
         <a target="_blank" class="fade-in-to" href="${story.link}" loading="lazy">${story.linkText} ↘</a>
        </div>
-      </section> 
+      </section>
 
           `,
             )
@@ -1100,7 +1100,7 @@ let myScript = () => {
     </section>
    </section>
 
-    
+
     `;
 
       // 4. THE MAGIC: Synchronous swap
@@ -1125,14 +1125,14 @@ let myScript = () => {
      <h2>
       Services available in ${locationSecondary}.
      </h2>
-     <p>[At 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}. 
+     <p>[At 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}.
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
         <ul class="list-style: none;">
           <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
         <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
         <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
-        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from ${money(30)}.</li>
+        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from ${money(300)}.</li>
         </ul>
       </p>
       <p>
@@ -1148,7 +1148,7 @@ let myScript = () => {
      <section class="col">
       <div style="gap: var(--space-xs);" class="row">
        <h5>
-        My primary Services: 
+        My primary Services:
        </h5>
        <p class="p">** Discounted prices are showing **</p>
        <ul>
@@ -1183,7 +1183,7 @@ let myScript = () => {
     </section>
    </section>
 
-    
+
     `;
 
       // 4. THE MAGIC: Synchronous swap
@@ -1245,7 +1245,7 @@ let myScript = () => {
       <section class="fluid-grid-system" id="projects">
         <section style="gap: 0em;" class="container-xl row">
           <h6 class="fade-in-to">Projects</h6>
-          
+
           <div style="padding-block: 0em; row-gap: 0em;" class="col">
             <h3 class="text-revel-onscrol row">
               Projects have done since 2023 - ${thisYear}
@@ -1266,7 +1266,7 @@ let myScript = () => {
           ${projects
             .map(
               (project) => `
-            <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-container">
+            <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-containe">
               <div style="gap: .5em;" class="row">
                 <h6 class="fade-in-to">${project.date}</h6>
                 <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
@@ -1376,27 +1376,27 @@ let myScript = () => {
            <a href="${urlFeedback}" title="Send Review" target="_blank">Add your review ↘</a>
          </button>
       </div>
-    
+
     </section>
    </section>
 
     `;
       /*
-            
+
             let quote = document.querySelector('.quote'),
               quotePerson = document.querySelector('.quote-person'),
               quoteButtons = document.querySelectorAll('.quote-button'),
-      
+
             // quotes
             quoteButtons?.forEach(button => {
               let random = Math.flore(Math.random() * personQuotes.lenth);
-      
+
               button.addEventListener('click', () => {
                 quote?.innerText = personQuotes[random].quote;
                 quotePerson?.innerText = personQuotes[random].name
               });
             });
-      
+
       */
       // 4. THE MAGIC: Synchronous swap
       // Replaces <*-section> with the contents of the template immediately.
@@ -1433,10 +1433,10 @@ let myScript = () => {
         },
         {
           question: `What is my contact number?`,
-          answer: ` 
+          answer: `
            Mobile: (+880)
            <a href="${urlMobile}"><b>1602-873384</b></a>
-           <sup class="p-sm">24/7</sup> 
+           <sup class="p-sm">24/7</sup>
            </br></br>
            Whatsapp: (+880)
            <a href="${urlWhatsapp}"><b>1602-873384</b></a>`,
@@ -1486,7 +1486,7 @@ let myScript = () => {
 
       </div>
 
-      
+
        <div class="row">
           ${faqs
             .map(
@@ -1510,7 +1510,7 @@ let myScript = () => {
     </section>
    </section>
 </section>
-    
+
     `;
 
       // 4. THE MAGIC: Synchronous swap
@@ -1678,9 +1678,9 @@ Thank you for choosing my services
  </h2>
  <p>
  Most projects require an initial deposit (typically
- <mark>
+ <b>
 30% to 50%
-</mark>
+</b>
 ) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
 <strong>
  Deposits are non-refundable
@@ -1952,7 +1952,7 @@ For any legal inquiries regarding these terms, please reach out.
 
      <div class="row">
        <h2 class="h4">
-        Contact with ${author.title}
+        Contact with ${author.name}
        </h2>
        <div class="flex no-wrap items-start">
          <div class="row">
@@ -1964,9 +1964,7 @@ For any legal inquiries regarding these terms, please reach out.
           <p class="p">${author.description}</p>
           <h6 class="p-sm">Prefered Languages:</h6>
           <ul style="list-style: none;" class="flex">
-            ${preferedLanguages
-              .map(
-                (language) => `
+            ${preferedLanguages.map((language) => `
               <li>${language}</li>
            `,
               )
@@ -1992,7 +1990,7 @@ For any legal inquiries regarding these terms, please reach out.
 
       <div class="flex j-end">
         <a target="_blank" href="${urlMessenger}">Start Chat ↘</a>
-         
+
         <button style="" class="btn-primary">
           <a href="/vcf">Download VCF</a>
         </button>
@@ -2199,13 +2197,13 @@ For any legal inquiries regarding these terms, please reach out.
        ${socials
          .map(
            (social) => `
-        <a style="flex: 1; flex-basis: 5ch; z-index: 789;" class=”pill squar rounded" href="${social.link}" target="_blank" title="${social.name}">
-         <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/>
+        <a style="flex: 1; flex-basis: 5ch; z-index: 789; display: flex; align-items: center; gap: 0.5rem;" href="${social.link}" target="_blank" title="${social.name}">
+         <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/> ${social.name}
         </a>
        `,
          )
          .join("")}
-       
+
 
         <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
           <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 969; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
@@ -2260,7 +2258,7 @@ For any legal inquiries regarding these terms, please reach out.
       // Cache elements from fragment before swapping
       const content = template.content;
 
-      /* 
+      /*
     const installBtn = content.querySelector('#installApp');
     const themeSelect = content.querySelector('#theme-selector');
 
@@ -2315,7 +2313,7 @@ ${navigation.name}
 
     </nav>
    </section>
-  </section>     
+  </section>
 
     `;
 
@@ -2574,7 +2572,7 @@ ${navigation.name}
     installBtn.style.display = "none";
   });
 
-  /* 
+  /*
 
 class TSection extends HTMLElement {
   connectedCallback() {
@@ -2656,7 +2654,7 @@ customElements.define("t-section", TSection);
     });
 
     // a
-    /* 
+    /*
       links?.forEach(el => {
         el.setAttribute('target', '_blank');
       });
@@ -2690,7 +2688,7 @@ customElements.define("t-section", TSection);
     const images = document.querySelectorAll("img:not([alt])");
     const buttons = document.querySelectorAll("button:not([aria-label])");
 
-    /* 
+    /*
     if (images.length || buttons.length) {
       console.warn(`[A11Y Audit] Found ${images.length} images missing alt and ${buttons.length} buttons missing labels.`);
     }
@@ -2827,8 +2825,8 @@ customElements.define("t-section", TSection);
                                                                                                                                                                                                               fadeInTop()
                                                                                                                                                                                                         textRevelOnscroll()
                                                                                                                                                                                                       });
-                                                                                                                                                                                                                                
-  
+
+
 
 
   /**
@@ -2838,23 +2836,23 @@ customElements.define("t-section", TSection);
 
      // const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
-     /* 
+     /*
      const UI = {
        version: VERSION,
 
-    
+
                           lerp: (a, b, t) => a + (b - a) * t,
 
-                          
-                               
-                                  
+
+
+
                                     splitText(selector) {
                                         const el = document.querySelector(selector);
                                             if (!el) return [];
                                                 const text = el.textContent;
                                                     el.innerHTML = "";
                                                         el.style.opacity = "1";
-                                                            
+
                                                                 return text.split("").map(char => {
                                                                       const span = document.createElement("span");
                                                                             span.textContent = char === " " ? "\u00A0" : char;
@@ -2865,9 +2863,9 @@ customElements.define("t-section", TSection);
                                                                                                         });
                                                                                                           },
 
-                                                                                                            
-                                                                                                            
-                                                                                                                  
+
+
+
                                                                                                                     animate({ duration, draw, easing = (t) => t }) {
                                                                                                                         const start = performance.now();
 
@@ -2877,19 +2875,19 @@ customElements.define("t-section", TSection);
 
                                                                                                                                               // Apply easing to the time fraction
                                                                                                                                                     const t = easing(timeFraction);
-                                                                                                                                                          
+
                                                                                                                                                                 draw(t);
 
                                                                                                                                                                       if (timeFraction < 1) requestAnimationFrame(frame);
                                                                                                                                                                           });
                                                                                                                                                                             },
 
-                                                                                                                                                                              
-                                                                                                                                                                          
-                                                                                                                                                                                    
+
+
+
                                                                                                                                                                                       reveal(selector) {
                                                                                                                                                                                           const chars = this.splitText(selector);
-                                                                                                                                                                                              
+
                                                                                                                                                                                                   chars.forEach((char, i) => {
                                                                                                                                                                                                         setTimeout(() => {
                                                                                                                                                                                                                 this.animate({
@@ -3000,7 +2998,7 @@ isDark.addEventListener('change', updateFavicon);
   // ######### Don't Go Bellow ⚠️ ##########
 }; // myScript() function ends here!
 // scripts/functions ends here!
-   myScript(); 
+   myScript();
 
 
 
