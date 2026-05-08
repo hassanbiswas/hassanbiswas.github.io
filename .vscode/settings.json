@@ -2,10 +2,10 @@
   // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
   "workbench.colorTheme": "React Theme", // Default High Contrast
   "workbench.iconTheme": "eq-material-theme-icons-light", // vs-minimal
-  "workbench.activityBar.location": "hidden",
+  "workbench.activityBar.location": "default", // hidden | default
   // "window.menuBarVisibility": "classic",
-  "workbench.statusBar.visible": true, // false | true
-  "workbench.sideBar.location": "right", // right | left
+  "workbench.statusBar.visible": false, // false | true
+  "workbench.sideBar.location": "left", // right | left
   "workbench.editor.showTabs": "none",
   "workbench.startupEditor": "none",
   "editor.minimap.enabled": true, // false
