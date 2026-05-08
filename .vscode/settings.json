@@ -135,7 +135,7 @@
   // settings.json_new.txt
 
   // "editor.copyWithSyntaxHighlighting": false,
-    "diffEditor.ignoreTrimWhitespace": false,
+    // "diffEditor.ignoreTrimWhitespace": false,
     "editor.emptySelectionClipboard": false,
     "workbench.editor.enablePreview": false,
     "window.newWindowDimensions": "inherit",
