@@ -275,7 +275,7 @@ let myScript = () => {
   */
 
   let metaViewport = () => {
-    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.8";
+    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.85";
 
     // Attempt to find existing viewport meta tag
     let viewport = document.querySelector('meta[name="viewport"]');
@@ -962,7 +962,7 @@ let myScript = () => {
 <section class="fluid-grid-system" id="youtubers">
     <section class="container-lg row">
 
-     <div class="infinite-scroller" data-direction="right/left" data-speed="fast/slow">
+     <div class="infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
          .map(
@@ -2117,11 +2117,11 @@ For any legal inquiries regarding these terms, please reach out.
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
           <a class"txt-center flex items-center txt-center" href="/resume">
-            CV/Resume ↓
+            Resume ↓
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span style="line-height: 100%" class="d-non">Install ↘</span>
        </button>
@@ -2159,8 +2159,8 @@ For any legal inquiries regarding these terms, please reach out.
        ${methods
          .map(
            (method) => `
-        <a style="flex: 1; flex-basis: 5ch;" href="${method.link}" target="_blank" title="${method.title}">
-         <img class="squar" alt="${method.alt}" loading="lazy" src="${method.favicon}"/>
+        <a style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}" target="_blank" title="${method.title}">
+         <img class="squar" alt="${method.alt}" loading="lazy" src="${method.favicon}"/> ${method.name}
         </a>
        `,
          )
@@ -2197,7 +2197,7 @@ For any legal inquiries regarding these terms, please reach out.
        ${socials
          .map(
            (social) => `
-        <a style="flex: 1; flex-basis: 5ch; z-index: 789; display: flex; align-items: center; gap: 0.5rem;" href="${social.link}" target="_blank" title="${social.name}">
+        <a style="flex: 1; flex-basis: 10ch; z-index: 789; display: flex; align-items: center; gap: 0.5em;" href="${social.link}" target="_blank" title="${social.name}">
          <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/> ${social.name}
         </a>
        `,
