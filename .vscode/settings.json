@@ -143,10 +143,7 @@
     "files.trimTrailingWhitespace": true,
     "diffEditor.renderSideBySide": false,
     "editor.snippetSuggestions": "top",
-    "editor.detectIndentation": false,
     "window.nativeFullScreen": true,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
     
     "editor.guides.indentation": false,
 
