@@ -1,0 +1,116 @@
+{
+  // --- UI & DISTRACTION-FREE (OPTIMIZED FOR MOBILE) ---
+  "workbench.colorTheme": "React Theme",
+  "workbench.iconTheme": "eq-material-theme-icons-light",
+  "workbench.activityBar.location": "hidden",
+  "workbench.statusBar.visible": false,
+  "workbench.sideBar.location": "right",
+  "workbench.editor.showTabs": "none",
+  "workbench.startupEditor": "none",
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "off",
+  "editor.guides.indentation": false,
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "editor.renderLineHighlight": "none",
+  "editor.occurrencesHighlight": "off",
+  "editor.selectionHighlight": false,
+  "editor.lightbulb.enabled": "off",
+  "editor.links": true,
+
+  // --- TYPOGRAPHY & SPACING ---
+  "editor.fontFamily": "Geist Mono, JetBrains Mono, Fira Code",
+  "editor.fontSize": 16,
+  "editor.lineHeight": 32,
+  "editor.fontWeight": "400",
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'calt', 'dlig'",
+  "editor.padding.top": 16,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120,
+
+  // --- AUTOMATION & SPEED (SET-AND-FORGET) ---
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000, 
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.linkedEditing": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 4,
+
+  // --- EMMET & INTELLISENSE ---
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "html": "html",
+    "css": "css",
+    "javascript": "javascript",
+    "blade": "html",
+    "vue": "html",
+    "wix": "html"
+  },
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.snippetSuggestions": "top",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  // --- LANGUAGE SPECIFIC FORMATTERS ---
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[html]": {
+    "editor.defaultFormatter": "apility.beautify-blade"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+
+  // --- AI & GIT INTEGRATION ---
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "yaml": true
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "git.decorations.enabled": false,
+  "scm.diffDecorations": "none",
+
+  // --- SEARCH & FILE EXCLUSIONS ---
+  "search.useIgnoreFiles": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/vendor": true,
+    "**/storage": true,
+    "**/.phpunit.result.cache": true,
+    "**/package-lock.json": true,
+    "**/composer.lock": true
+  },
+
+  // --- CUSTOM STYLING & BRANDING ---
+  "vscode_custom_css.imports": [
+    "https://hassanbiswas.github.io/.vscode/custom-vscode.css",
+    "https://hassanbiswas.github.io/.vscode/vscode-script.js"
+  ],
+  "material-icon-theme.files.color": "#1a1ae6", // Using your brand blue
+  "codesnap.backgroundColor": "#1a1ae6",
+  "codesnap.roundedCorners": true,
+  "codesnap.showLineNumbers": false,
+
+  // --- SYSTEM & SECURITY ---
+  "window.confirmBeforeClose": "always",
+  "security.workspace.trust.untrustedFiles": "open",
+  "explorer.confirmDelete": false,
+  "editor.accessibilitySupport": "off"
+}
+  
