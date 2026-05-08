@@ -129,7 +129,7 @@
   "window.confirmBeforeClose": "always",
   "security.workspace.trust.untrustedFiles": "open",
   "explorer.confirmDelete": false,
-  "editor.accessibilitySupport": "off" // off | on
+  "editor.accessibilitySupport": "off", // off | on
 
 
   // settings.json_new.txt
