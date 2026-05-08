@@ -57,7 +57,7 @@
   // --- FRONT-END SPECIFIC VISUALS ---
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
-  "editor.cursorBlinking": "smooth",
+  "editor.cursorBlinking": "smooth", //solid
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.minimap.autohide": "mouseover",
   "editor.stickyScroll.enabled": true,
@@ -140,7 +140,7 @@
     "workbench.editor.enablePreview": false,
     "window.newWindowDimensions": "inherit",
     "editor.multiCursorModifier": "ctrlCmd",
-    "files.trimTrailingWhitespace": true,
+    
     "diffEditor.renderSideBySide": false,
     "editor.snippetSuggestions": "top",
     "window.nativeFullScreen": true,
@@ -148,20 +148,20 @@
     "editor.guides.indentation": false,
 
     // Silence the Noise
-    // "breadcrumbs.enabled": false,
-    // "scm.diffDecorations": "none",
+    "breadcrumbs.enabled": false,
+    "scm.diffDecorations": "none",
     "editor.hover.delay": 1500,
     "editor.hover.enabled": "on", // true
     "editor.matchBrackets": "never",
     "workbench.tips.enabled": false,
-    "editor.colorDecorators": false,
-    // "git.decorations.enabled": false,
-    // "workbench.startupEditor": "none",
-    // "editor.lightbulb.enabled": "off",
-    // "editor.selectionHighlight": false,
+    
+    "git.decorations.enabled": false,
+    "workbench.startupEditor": "none",
+    "editor.lightbulb.enabled": "off",
+    "editor.selectionHighlight": false,
     "editor.overviewRulerBorder": false,
-    // "editor.renderLineHighlight": "none",
-    // "editor.occurrencesHighlight": "off",
+    "editor.renderLineHighlight": "none",
+    "editor.occurrencesHighlight": "off",
     "problems.decorations.enabled": false,
     "editor.renderControlCharacters": false,
     "editor.hideCursorInOverviewRuler": true,
@@ -173,39 +173,39 @@
     "editor.gotoLocation.multipleTypeDefinitions": "goto",
 
     // Typography
-    // "editor.fontFamily": "Geist Mono, JetBrains Mono, Fira Code",
+    "editor.fontFamily": "Geist Mono, JetBrains Mono, Fira Code",
     "editor.suggestFontSize": 16,
     "editor.suggestLineHeight": 30,
     "terminal.integrated.lineHeight": 1.5,
     "terminal.integrated.fontSize": 16,
 
-    // "search.useIgnoreFiles": false,
-    // "search.exclude": {
+    "search.useIgnoreFiles": false,
+    "search.exclude": {
         // Hide everything in /vendor, except the "laravel" and "livewire" folder.
- //        "**/vendor/{[^l],?[^ai]}*": true,
+        "**/vendor/{[^l],?[^ai]}*": true,
         // Hide everything in /public, except "index.php"
- //        "**/public/{[^i],?[^n]}*": true,
- //        "**/node_modules": true,
- //        "**/dist": true,
- //        "**/_ide_helper.php": true,
- //        "**/composer.lock": true,
- //        "**/package-lock.json": true,
- //        "storage": true,
- //        ".phpunit.result.cache": true
- //    },
+        "**/public/{[^i],?[^n]}*": true,
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/_ide_helper.php": true,
+        "**/composer.lock": true,
+        "**/package-lock.json": true,
+        "storage": true,
+        ".phpunit.result.cache": true
+    },
 
     /**
     * Code
     **/
     // Include "-" in word selection.
     "editor.wordSeparators": "`~!@#%^&*()=+[{]}\\|;:'\",.<>/?",
-    // "emmet.includeLanguages": {
-        // "blade": "html",
-        // "vue-html": "html",
-        // "vue": "html",
-        // "react": "html",
-        // "javascript": "html"
-    // },
+    "emmet.includeLanguages": {
+        "blade": "html",
+        "vue-html": "html",
+        "vue": "html",
+        "react": "html",
+        "javascript": "html"
+    },
     "files.associations": {
         ".php_cs": "php",
         ".php_cs.dist": "php"
@@ -295,7 +295,6 @@
     // "codesnap.showLineNumbers": false,
     // "codesnap.roundedCorners": true,
     // "editor.padding.top": 16,
-    "editor.cursorBlinking": "solid",
     // "editor.stickyScroll.enabled": false,
     // "editor.lineHeight": 32,
 
