@@ -2027,7 +2027,7 @@
         line-height: 1.6;
         color: var(--txt-2);
 
-        /* block-size: 100dvh; */ /* svh prevent jumping */
+        block-size: 100dvh; /* svh prevent jumping */
         /* border-radius: 0 0 var(--section-radius) var(--section-radius); */
         overflow-y: auto;
         overflow-x: clip; /* clip standalone-app */
@@ -2875,7 +2875,7 @@
       
       .brand-logo-container {
 
-        transform: rotateY(60deg) translateZ(5rem);
+        transform: rotateY(0deg) translateZ(0rem); /* 60deg 5rem */
         transform-style: preserve-3d;
       
         backface-visibility: visible;
@@ -3066,10 +3066,67 @@
                                                                                     /* ::view-transition-group(root) {
                                                                                             animation-duration: var(--duration-normal);
                                                                                                     animation-timing-function: var(--bouncy);
-                                                                                                          } */
+                                                                      } */
 
-/* Custom slide-in for the new page */
+                                                                       /* Custom slide-in for the new page */
+                                                                             /* Styling the overall transition */
+                                                                                   ::view-transition-group(root) {
+                                                                                           animation-duration: var(--duration-normal);
+                                                                                                   animation-timing-function: var(--bouncy);
+                                                                                                         }
+
+                                                                                                               /* Custom fade-out for the old page */
+                                                                                                                     ::view-transition-old(root) {
+                                                                                                                             animation: 400ms var(--ease-out) both fade-out;
+                                                                                                                                   }
+
+                                                                                                                                         /* Custom slide-in for the new page */
+                                                                                                                                               ::view-transition-new(root) {
+                                                                                                                                                       animation: 400ms var(--ease-in) both slide-from-right;
+                                                                                                                                                             }
+
+                                                                                                                                                                   @keyframes slide-from-right {
+                                                                                                                                                                           from { transform: translateX(100%); }
+                                                                                                                                                                                 }
+                                                                                                                                                                                       /* Styling the overall transition */
+                                                                                                                                                                                             ::view-transition-group(root) {
+                                                                                                                                                                                                     animation-duration: var(--duration-normal);
+                                                                                                                                                                                                             animation-timing-function: var(--bouncy);
+                                                                                                                                                                                                                   }
+
+                                                                                                                                                                                                                         /* Custom fade-out for the old page */
+                                                                                                                                                                                                                               ::view-transition-old(root) {
+                                                                                                                                                                                                                                       animation: 400ms var(--ease-out) both fade-out;
+                                                                                                                                                                                                                                             }
+
+                                                                                                                                                                                                                                                   /* Custom slide-in for the new page */
+                                                                                                                                                                                                                                                         ::view-transition-new(root) {
+                                                                                                                                                                                                                                                                 animation: 400ms var(--ease-in) both slide-from-right;
+                                                                                                                                                                                                                                                                       }
+
+                                                                                                                                                                                                                                                                             @keyframes slide-from-right {
+                                                                                                                                                                                                                                                                                     from { transform: translateX(100%); }
+                                                                                                                                                                                                                                                                             }
       
+      /* Styling the overall transition */
+            ::view-transition-group(root) {
+                    animation-duration: var(--duration-normal);
+                            animation-timing-function: var(--bouncy);
+                                  }
+
+                                        /* Custom fade-out for the old page */
+                                              ::view-transition-old(root) {
+                                                      animation: 400ms var(--ease-out) both fade-out;
+                                                            }
+
+                                                                  /* Custom slide-in for the new page */
+                                                                        ::view-transition-new(root) {
+                                                                                animation: 400ms var(--ease-in) both slide-from-right;
+                                                                                      }
+
+                                                                                            @keyframes slide-from-right {
+                                                                                                    from { transform: translateX(100%); }
+                                                                                                          }
 
 
                                                                                         
