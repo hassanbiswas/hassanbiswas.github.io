@@ -868,7 +868,7 @@ let myScript = () => {
             <h1 id="heading" class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
-              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em; text-decoration: none;" class="btn btn-primary pill txt-1 bg-1">Resume ↓</button></a>
+              <a style="text-decoration: none;" href="/resume"><buttton style="border: 2px solid var(--bg-1); padding: 1em;" class="btn btn-primary pill txt-1 bg-1">Resume ↘</button></a>
               <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
             </div>
           </section>
@@ -959,7 +959,7 @@ let myScript = () => {
       template.innerHTML = `
 
 
-<section class="fluid-grid-system bg-primary dark" id="youtubers">
+<section class="fluid-grid-system bg-1" id="youtubers">
     <section class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
 
 
@@ -998,7 +998,7 @@ let myScript = () => {
           date: "2001",
           title: "Birth of mine",
           heading: "Having mom, dad & small family.",
-          desc: "Growing up with core values that shape my professional work ethic today.",
+          desc: `I'm ${new Date().getFullYear() - 2001} years old & growing up with core values that shape my professional work ethic today.`,
           link: `${author.location}`,
           linkText: "View place",
         },
@@ -1128,7 +1128,7 @@ let myScript = () => {
      <p>[At 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}.
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
-        <ul class="list-style: none;">
+        <ul style="list-style: none;">
           <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
         <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
         <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
@@ -1138,7 +1138,7 @@ let myScript = () => {
       <p>
        <p class="h6">Average Price Ranges (Approximate):</p>
        </br>
-       <ul class="list-style: none;">
+       <ul style="list-style: none;">
        <li>Basic/Simple Site: ${money(75)} – ${money(150)} (Portfolio, Personal)</li>
        <li>Business Website: ${money(150)} – ${money(300)} (Corporate, Small Business)</li>
        <li>Customized Site: ${money(300)}+ </li>
@@ -1253,7 +1253,7 @@ let myScript = () => {
             <div class="row" style="gap: var(--space-xs);">
               <p>
                 <span class="text-revel-onscrol">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sint sed ad, officia dolorem eligendi quam culpa.
+                  With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide. I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
                 </span>
               </p>
               <a class="fade-in-to" href="#projects">View on fullscreen ↘</a>
@@ -2117,11 +2117,11 @@ For any legal inquiries regarding these terms, please reach out.
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
           <a class"txt-center flex items-center txt-center" href="/resume">
-            Resume ↓
+            Resume ↘
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: non; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span style="line-height: 100%" class="d-non">Install ↘</span>
        </button>
