@@ -868,7 +868,7 @@ let myScript = () => {
             <h1 id="heading" class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
-              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill txt-1 bg-1">Resume ↓</button></a>
+              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em; text-decoration: none;" class="btn btn-primary pill txt-1 bg-1">Resume ↓</button></a>
               <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
             </div>
           </section>
@@ -959,7 +959,7 @@ let myScript = () => {
       template.innerHTML = `
 
 
-<section class="fluid-grid-system" id="youtubers">
+<section class="fluid-grid-system bg-primary dark" id="youtubers">
     <section class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
 
 
@@ -1079,7 +1079,7 @@ let myScript = () => {
             .map(
               (story) => `
 
-      <section style="padding-block: 0em; row-gap: 0em; border: 1px solid currentColor;" class="col fade-in-top-containe bg-1">
+      <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
        <div style="gap: .5em;" class="row">
         <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
         <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
@@ -1266,7 +1266,7 @@ let myScript = () => {
           ${projects
             .map(
               (project) => `
-            <section style="padding-block: 0em; row-gap: 0em; border: 1px solid currentColor;" class="col fade-in-top-containe bg-1">
+            <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
               <div style="gap: .5em;" class="row">
                 <h6 class="fade-in-to">${project.date}</h6>
                 <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
