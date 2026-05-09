@@ -1,2 +1,0 @@
-const VERSION = 19;
-
