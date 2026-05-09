@@ -868,7 +868,7 @@ let myScript = () => {
             <h1 id="heading" class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
-              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill">Resume ↓</button></a>
+              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill txt-primary bg-1">Resume ↓</button></a>
               <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
             </div>
           </section>
@@ -960,9 +960,9 @@ let myScript = () => {
 
 
 <section class="fluid-grid-system" id="youtubers">
-    <section class="container-lg row">
+    <section class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
 
-     <div class="infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
+
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
          .map(
@@ -976,7 +976,7 @@ let myScript = () => {
          )
          .join("")}
       </ul>
-     </div>
+
 
     </section>
    </section>
@@ -1055,8 +1055,8 @@ let myScript = () => {
       // HTML
       template.innerHTML = `
 
-<section class="fluid-grid-system" id="about">
-    <section style="gap: 0em;" class="container-xxl row">
+<section class="fluid-grid-system bg-2" id="about">
+    <section style="gap: 0em;" class="container-xl row">
      <h6 class="fade-in-to">
       About ${author.name}
      </h6>
@@ -1079,7 +1079,7 @@ let myScript = () => {
             .map(
               (story) => `
 
-      <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-containe">
+      <section style="padding-block: 0em; row-gap: 0em; border: 1px solid currentColor;" class="col fade-in-top-containe bg-1">
        <div style="gap: .5em;" class="row">
         <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
         <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
@@ -1242,7 +1242,7 @@ let myScript = () => {
       // HTML
       template.innerHTML = `
 
-      <section class="fluid-grid-system" id="projects">
+      <section class="fluid-grid-system bg-2" id="projects">
         <section style="gap: 0em;" class="container-xl row">
           <h6 class="fade-in-to">Projects</h6>
 
@@ -1266,7 +1266,7 @@ let myScript = () => {
           ${projects
             .map(
               (project) => `
-            <section style="padding-block: 0em; row-gap: 0em; border: 1px solid var(--primary-60);" class="col fade-in-top-containe">
+            <section style="padding-block: 0em; row-gap: 0em; border: 1px solid currentColor;" class="col fade-in-top-containe bg-1">
               <div style="gap: .5em;" class="row">
                 <h6 class="fade-in-to">${project.date}</h6>
                 <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
@@ -1465,7 +1465,7 @@ let myScript = () => {
              Frequently Asked Questions
            </h2>
            <p class="d-none">
-             <span class="text-revel-onscroll">
+             <span class="text-revel-onscrol">
                Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Adipisci rem magnam molestiae!
              </span>
@@ -1491,7 +1491,7 @@ let myScript = () => {
           ${faqs
             .map(
               (faq) => `
-        <details class="py-0" name="question">
+        <details class="py-0 bg-1" name="question">
          <summary>
           <h6 class="p py-1">
            ${faq.question}
@@ -2121,10 +2121,10 @@ For any legal inquiries regarding these terms, please reach out.
           </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: non; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span style="line-height: 100%" class="d-non">Install ↘</span>
-       </button>
+       </button> 
 
       </div>
       </div>
