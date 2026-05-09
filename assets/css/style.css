@@ -2334,8 +2334,8 @@
 
       #about {
         --col-size: 24rem; /* 23rem */
-        color-scheme: dark;
-        background: var(--primary-50);
+        /* color-scheme: dark;
+        background: var(--primary-50); */
         min-block-size: 100dvh;
 
         a:link { color: var(--txt-1); }
@@ -2350,9 +2350,9 @@
       }
 
       #projects {
-        color-scheme: dark;
+        /* color-scheme: dark;
 
-        background: var(--primary-50);
+        background: var(--primary-50); */
 
         a:link { color: var(--txt-1); }
       }

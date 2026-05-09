@@ -868,7 +868,7 @@ let myScript = () => {
             <h1 id="heading" class="h3 txt-center d-non">${author.title}</h1>
             <p class="txt-center">${author.description}</p>
             <div class="button-group flex">
-              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill txt-primary bg-1">Resume ↓</button></a>
+              <a href="/resume"><buttton style="border: 2px solid currentColor; padding: 1em;" class="btn btn-primary pill txt-1 bg-1">Resume ↓</button></a>
               <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
             </div>
           </section>
@@ -2124,7 +2124,7 @@ For any legal inquiries regarding these terms, please reach out.
        <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: non; color: var(--txt-1);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span style="line-height: 100%" class="d-non">Install ↘</span>
-       </button> 
+       </button>
 
       </div>
       </div>
