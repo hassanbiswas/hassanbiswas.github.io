@@ -4,6 +4,7 @@
       /* Loading Screen */
       /* Hide elements in App Mode */
 
+
       /* Inter Variable Font (Headings) */
       @font-face {
         font-family: "Head";
@@ -12,6 +13,7 @@
         font-weight: 100 900;
         font-display: swap;
       }
+
 
       /* Montserrat Variable Font (Body) */
       /* @font-face {
