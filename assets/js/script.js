@@ -339,6 +339,7 @@ let myScript = () => {
   injectIcons();
   */
 
+
   const ogImg = document.querySelector('meta[property="og:image"]');
   if (ogImg) ogImg.content += `?v=${VERSION}`;
 
@@ -349,6 +350,7 @@ let myScript = () => {
    *  * Logic Automation: Auto-refresh on network restoration
    * Integrated with your versioning constant
    */
+
   const handleConnectionChange = () => {
     if (navigator.onLine) {
       // console.log(`Connection restored. Reloading version: ${VERSION}`);
