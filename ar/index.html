@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AR Experience | Hassan Biswas</title>
+  
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
+
+  <style>
+    :root {
+      --brand-color: hsl(240, 80%, 50%);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .ar-ui-overlay {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      background: rgba(10, 10, 15, 0.75);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .ar-ui-overlay::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin-right: 8px;
+      background-color: var(--brand-color);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.4; transform: scale(0.9); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ar-ui-overlay" id="ar-status">Point camera at QR Code</div>
+
+  <a-scene 
+    id="ar-scene"
+    mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;" 
+    color-space="sRGB" 
+    renderer="colorManagement: true, physicallyCorrectLights: true" 
+    vr-mode-ui="enabled: false" 
+    device-orientation-permission-ui="enabled: false">
+
+    <a-assets id="ar-assets">
+      </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <a-entity id="ar-target" mindar-image-target="targetIndex: 0">
+      </a-entity>
+
+  </a-scene>
+
+  <script>
+    /**
+     * CENTRAL AR CONFIGURATION
+     * Modify these variables to change models or behavior seamlessly.
+     */
+    const CONFIG = {
+      // 3D Model source URL (.glb / .gltf)
+      modelUrl: 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Flamingo.glb',
+      
+      // Target Compiled File (.mind)
+      mindTargetUrl: './targets.mind',
+      
+      // Transform settings for the model relative to QR target
+      transform: {
+        position: '0 0.2 0',     // X Y Z
+        scale: '0.003 0.003 0.003', // Scale factor
+        rotation: '0 180 0'       // Pitch Yaw Roll (Degrees)
+      },
+      
+      // Animation parameters
+      animation: {
+        clip: '*',                // '*' for all/first clip, or specific name like 'Fly'
+        loop: 'repeat',
+        timeScale: 1.0            // Speed multiplier
+      }
+    };
+
+    // Versioning logic for dynamic assets/cache management
+    const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+    console.log(`[AR Controller] Engine Version: ${VERSION}`);
+
+    // AR Initialization Handler
+    document.addEventListener('DOMContentLoaded', () => {
+      const assetsEl = document.querySelector('#ar-assets');
+      const targetEl = document.querySelector('#ar-target');
+      const statusEl = document.querySelector('#ar-status');
+
+      // 1. Inject Asset Item dynamically with version query
+      const assetItem = document.createElement('a-asset-item');
+      assetItem.setAttribute('id', 'dynamic-model');
+      assetItem.setAttribute('src', `${CONFIG.modelUrl}?v=${VERSION}`);
+      assetsEl.appendChild(assetItem);
+
+      // 2. Inject Model Entity into Target Anchor
+      const modelEntity = document.createElement('a-gltf-model');
+      modelEntity.setAttribute('src', '#dynamic-model');
+      modelEntity.setAttribute('position', CONFIG.transform.position);
+      modelEntity.setAttribute('scale', CONFIG.transform.scale);
+      modelEntity.setAttribute('rotation', CONFIG.transform.rotation);
+      modelEntity.setAttribute('animation-mixer', `clip: ${CONFIG.animation.clip}; loop: ${CONFIG.animation.loop}; timeScale: ${CONFIG.animation.timeScale}`);
+      
+      targetEl.appendChild(modelEntity);
+
+      // 3. Status UI Event Listeners
+      targetEl.addEventListener('targetFound', () => {
+        statusEl.textContent = 'Tracking Active';
+        statusEl.style.borderColor = 'hsl(240, 80%, 50%)';
+      });
+
+      targetEl.addEventListener('targetLost', () => {
+        statusEl.textContent = 'Point camera at QR Code';
+        statusEl.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+      });
+    });
+  </script>
+</body>
+</html>
