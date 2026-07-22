@@ -4,16 +4,16 @@
 
 # --- System & Device (Oppo A53 / Android / Linux) ---
 # .DS_Store
-Thumbs.db
-.thumbnails/
-.cache/
-*.log
-*.tmp
-.studio/
-.idea/
+# Thumbs.db
+# .thumbnails/
+# .cache/
+# *.log
+# *.tmp
+# .studio/
+# .idea/
 # .vscode/
-*.swp
-*~
+# *.swp
+# *~
 
 # --- Dependency Management ---
 node_modules/
