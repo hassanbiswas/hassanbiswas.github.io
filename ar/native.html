@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Native AR Redirect</title>
+  <style>
+    :root {
+      --brand-color: hsl(240, 80%, 50%);
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0f0f12;
+      color: #ffffff;
+      text-align: center;
+    }
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: var(--brand-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    a.ios-ar-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 24px;
+      background-color: var(--brand-color);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="loader"></div>
+  <p id="status-message">Opening native 3D camera...</p>
+
+  <script>
+    // System Config
+    const CONFIG = {
+      glbUrl: 'https://hassanbiswas.github.io/ar/model.glb',
+      usdzUrl: 'https://hassanbiswas.github.io/ar/model.usdz'
+    };
+
+    // Cache-busting logic
+    const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+    console.log(`[AR System Log] Executing Version: ${VERSION}`);
+
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const statusMsg = document.getElementById('status-message');
+
+    // 1. Android Detection -> Scene Viewer via Intent Protocol
+    if (/android/i.test(userAgent)) {
+      const intentUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(CONFIG.glbUrl)}&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;end;`;
+      window.location.href = intentUrl;
+    } 
+    // 2. iOS Detection -> Native Quick Look Anchor
+    else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      statusMsg.textContent = 'Tap below to launch AR Camera';
+      
+      const arAnchor = document.createElement('a');
+      arAnchor.setAttribute('rel', 'ar');
+      arAnchor.setAttribute('href', `${CONFIG.usdzUrl}?v=${VERSION}`);
+      arAnchor.className = 'ios-ar-btn';
+      arAnchor.innerHTML = '<img id="ar-img" style="display:none;" /> View in AR';
+
+      document.body.appendChild(arAnchor);
+      
+      // Auto-trigger for iOS Safari
+      setTimeout(() => {
+        arAnchor.click();
+      }, 300);
+    } 
+    // 3. Fallback for Desktop / Unsupported Devices
+    else {
+      statusMsg.textContent = 'Please scan this QR code using a mobile device (Android or iOS).';
+    }
+  </script>
+</body>
+</html>
