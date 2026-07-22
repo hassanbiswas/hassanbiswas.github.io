@@ -1,6 +1,6 @@
 # Step 1: Generate your QR Code Image
 Go to any free QR code generator (e.g., qr-code-generator.com).
-Set the destination URL to your deployed page (e.g., https://hassanbiswas.github.io/ar-bird).
+Set the destination URL to your deployed page (e.g., https://hassanbiswas.github.io/ar).
 Download the generated QR code image as target-qr.png.
 
 # Step 2: Compile the Image Target File (targets.mind)
