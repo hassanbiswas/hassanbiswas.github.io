@@ -3,7 +3,7 @@
 # Last Updated: 2026-03-04 (Auto-logic: const VERSION = 04;)
 
 # --- System & Device (Oppo A53 / Android / Linux) ---
-.DS_Store
+# .DS_Store
 Thumbs.db
 .thumbnails/
 .cache/
@@ -11,7 +11,7 @@ Thumbs.db
 *.tmp
 .studio/
 .idea/
-.vscode/
+# .vscode/
 *.swp
 *~
 
