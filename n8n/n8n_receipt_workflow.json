@@ -1,122 +1,214 @@
 {
-"name": "WhatsApp Receipt Scanner & Google Sheets Logger",
-"nodes": [
-{
-"parameters": {
-"updates": [
-"messages"
-]
-},
-"id": "node-1",
-"name": "Message Received",
-"type": "n8n-nodes-base.whatsAppTrigger",
-"typeVersion": 1,
-"position": [
-100,
-300
-]
-},
-{
-"parameters": {
-"operation": "downloadMedia",
-"mediaId": "={{ $json.body.entry[0].changes[0].value.messages[0].image.id }}"
-},
-"id": "node-2",
-"name": "Grab Receipt",
-"type": "n8n-nodes-base.whatsApp",
-"typeVersion": 1,
-"position": [
-320,
-300
-]
-},
-{
-"parameters": {
-"url": "={{ $json.mediaUrl }}"
-},
-"id": "node-3",
-"name": "Receipt Link",
-"type": "n8n-nodes-base.httpRequest",
-"typeVersion": 4.1,
-"position": [
-540,
-300
-]
-},
-{
-"parameters": {
-"operation": "upload",
-"name": "={{ 'Receipt_' + $now.format('yyyy-MM-dd_HH-mm-ss') + '.jpg' }}",
-"driveId": {
-"__rl": true,
-"mode": "list"
-},
-"folderId": {
-"__rl": true,
-"mode": "list"
+  "name": "WhatsApp Receipt Scanner & Google Sheets Logger",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["messages"]
+      },
+      "id": "node-1",
+      "name": "Message Received",
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "operation": "downloadMedia",
+        "mediaId": "={{ $json.body.entry[0].changes[0].value.messages[0].image.id }}"
+      },
+      "id": "node-2",
+      "name": "Grab Receipt",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [320, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.mediaUrl }}"
+      },
+      "id": "node-3",
+      "name": "Receipt Link",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [540, 300]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "name": "={{ 'Receipt_' + $now.format('yyyy-MM-dd_HH-mm-ss') + '.jpg' }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list"
+        }
+      },
+      "id": "node-4",
+      "name": "Move to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [760, 300]
+    },
+    {
+      "parameters": {
+        "operation": "share",
+        "fileId": "={{ $json.id }}",
+        "permissions": {
+          "role": "reader",
+          "type": "anyone"
+        }
+      },
+      "id": "node-5",
+      "name": "Share Receipt",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [980, 300]
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": "={{ $json.id }}"
+      },
+      "id": "node-6",
+      "name": "Grab from Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "messages": {
+          "values": [
+            {
+              "content": "Analyze this receipt image. Extract store name, transaction date, category (Food, Travel, Supplies, Utilities, etc.), tax amount, and total amount. Return strict JSON without markdown formatting."
+            }
+          ]
+        }
+      },
+      "id": "node-7",
+      "name": "Scan Receipt",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [320, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.message?.content || '{}';\nconst cleaned = raw.replace(/```json\\n?|```\\n?/g, '').trim();\nreturn { extractedData: JSON.parse(cleaned) };"
+      },
+      "id": "node-8",
+      "name": "Parse Receipt Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [540, 500]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "spreadsheetId": {
+          "__rl": true,
+          "mode": "list"
+        },
+        "range": "Sheet1",
+        "values": "={{ [[$json.extractedData.storeName, $json.extractedData.transactionDate, $json.extractedData.category, $json.extractedData.taxAmount, $json.extractedData.totalAmount, $json.extractedData.driveLink]] }}"
+      },
+      "id": "node-9",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [760, 500]
+    }
+  ],
+  "connections": {
+    "Message Received": {
+      "main": [
+        [
+          {
+            "node": "Grab Receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grab Receipt": {
+      "main": [
+        [
+          {
+            "node": "Receipt Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Receipt Link": {
+      "main": [
+        [
+          {
+            "node": "Move to Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move to Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Share Receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Share Receipt": {
+      "main": [
+        [
+          {
+            "node": "Grab from Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grab from Drive": {
+      "main": [
+        [
+          {
+            "node": "Scan Receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scan Receipt": {
+      "main": [
+        [
+          {
+            "node": "Parse Receipt Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Receipt Data": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
 }
-},
-"id": "node-4",
-"name": "Move to Google Drive",
-"type": "n8n-nodes-base.googleDrive",
-"typeVersion": 3,
-"position": [
-760,
-300
-]
-},
-{
-"parameters": {
-"operation": "share",
-"fileId": "={{ $json.id }}",
-"permissions": {
-"role": "reader",
-"type": "anyone"
-}
-},
-"id": "node-5",
-"name": "Share Receipt",
-"type": "n8n-nodes-base.googleDrive",
-"typeVersion": 3,
-"position": [
-980,
-300
-]
-},
-{
-"parameters": {
-"operation": "download",
-"fileId": "={{ $json.id }}"
-},
-"id": "node-6",
-"name": "Grab from Drive",
-"type": "n8n-nodes-base.googleDrive",
-"typeVersion": 3,
-"position": [
-1200,
-300
-]
-},
-{
-"parameters": {
-"model": "gpt-4o",
-"messages": {
-"values": [
-{
-"content": "Analyze this receipt image. Extract store name, transaction date, category (Food, Travel, Supplies, Utilities, etc.), tax amount, and total amount. Return strict JSON without markdown formatting."
-}
-]
-}
-},
-"id": "node-7",
-"name": "Scan Receipt",
-"type": "n8n-nodes-base.openAi",
-"typeVersion": 1,
-"position": [
-320,
-500
-]
-},
-{
-"parameters": {
-"jsCode": "const raw = $input.first().json.message?.content || '{}';\nconst cleaned = raw.replace(/
