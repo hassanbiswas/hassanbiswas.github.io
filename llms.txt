@@ -1,13 +1,25 @@
-# Hassan Biswas — Web Developer & Front-End Architect
+# Web Developer | Hassan Biswas — UI/UX & Front-End Architecture
 
-> Freelance Front-End Developer & Website Designer specializing in high-performance, SEO-friendly digital experiences.
+> Freelance Front-End Developer & Website Designer specializing in transforming Figma, Framer, and Webflow designs into high-performance, accessible, and SEO-friendly digital experiences.
 
-## Core Capabilities
-- Web Development (HTML, CSS, JavaScript)
-- Custom Web Components
-- Responsive Design & UI/UX Integration
+Hassan Biswas is a Web Developer based in Jashore, Khulna, Bangladesh with 3+ years of experience in front-end development, custom Web Components, zero-dependency lightweight architectures, and modern web performance optimization.
 
-## Projects & Links
-- [Portfolio Homepage](https://hassanbiswas.github.io/)
-- [GitHub Profile](https://github.com/hassanbiswas)
-- [LinkedIn Profile](https://www.linkedin.com/in/hassanbiswas-github-io)
+## Core Services & Specializations
+
+- **UI/UX & Web Design:** Transforming Figma, Framer, and Webflow concepts into clean, pixel-perfect user interfaces.
+- **Front-End Development:** High-performance, responsive web architectures built with vanilla HTML, CSS, and modern JavaScript.
+- **Figma/Design-to-Code Conversion:** Fast, SEO-optimized static sites built with Awwwards-inspired aesthetics.
+- **Automation & CI/CD:** GitHub Actions automation, zero-maintenance site deployments, and release workflows.
+
+## Key Links & Resources
+
+- [Portfolio Homepage](https://hassanbiswas.github.io/): Complete portfolio showcase, service list, client testimonials, and interactive web elements.
+- [About Hassan Biswas](https://hassanbiswas.github.io/#about): Experience, education background, and milestone timeline from 2022 to present.
+- [Services & Pricing](https://hassanbiswas.github.io/#services): Detailed breakdown of UI/UX design, web engineering, and static site build offerings.
+- [Projects Showcase](https://hassanbiswas.github.io/#projects): Collection of front-end projects, custom UI components, and design systems.
+- [Contact & Inquiry](https://hassanbiswas.github.io/#contact): Direct contact options including email (hassanbiswas.github.io@gmail.com), mobile, and social links.
+
+## Official Profiles
+
+- [GitHub Profile](https://github.com/hassanbiswas): Source code, repositories, custom scripts, and automation workflows.
+- [LinkedIn Profile](https://www.linkedin.com/in/hassanbiswas-github-io): Professional work history and client networking.
