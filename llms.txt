@@ -1,0 +1,13 @@
+# Hassan Biswas — Web Developer & Front-End Architect
+
+> Freelance Front-End Developer & Website Designer specializing in high-performance, SEO-friendly digital experiences.
+
+## Core Capabilities
+- Web Development (HTML, CSS, JavaScript)
+- Custom Web Components
+- Responsive Design & UI/UX Integration
+
+## Projects & Links
+- [Portfolio Homepage](https://hassanbiswas.github.io/)
+- [GitHub Profile](https://github.com/hassanbiswas)
+- [LinkedIn Profile](https://www.linkedin.com/in/hassanbiswas-github-io)
