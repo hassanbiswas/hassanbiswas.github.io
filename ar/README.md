@@ -1,9 +1,11 @@
 # AR+QR
 
 
+
 hassanbiswas.github.io/
 
 └── ar/
+
     ├── index.html     (The Masterpiece script above)
     
     ├── model.glb      (3D model for Android & WebAR)
@@ -13,6 +15,7 @@ hassanbiswas.github.io/
     └── targets.mind   (Target tracking file generated from your QR code)
     
     
+
 
 # Step 1: Generate your QR Code Image
 Go to any free QR code generator (e.g., qr-code-generator.com).
