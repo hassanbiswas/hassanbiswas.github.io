@@ -2,11 +2,16 @@
 
 
 hassanbiswas.github.io/
+
 └── ar/
     ├── index.html     (The Masterpiece script above)
+    
     ├── model.glb      (3D model for Android & WebAR)
+    
     ├── model.usdz     (3D model for iOS Quick Look)
+    
     └── targets.mind   (Target tracking file generated from your QR code)
+    
     
 
 # Step 1: Generate your QR Code Image
