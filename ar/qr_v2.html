@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AR Experience | Hassan Biswas</title>
-  
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <title>
+   Ar | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
+  </title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js">
+  </script>
   <style>
-    :root {
+   :root {
       --brand-color: hsl(240, 80%, 50%);
     }
     * {
@@ -97,31 +100,33 @@
       font-weight: 600;
     }
   </style>
-</head>
-<body>
-
+  <meta content="Ar: Initializing 3D Camera... Updated August 2026." name="description"/>
+  <meta content="Hassan Biswas, Ar, Ar, UI/UX, Front-End, Web Design, Bangladesh" name="keywords"/>
+  <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
+  <meta content="Hassan Biswas" name="author"/>
+  <meta content="index, follow" name="robots"/>
+ </head>
+ <body>
   <div class="redirect-container" id="redirect-screen">
-    <div class="loader"></div>
-    <p id="status-message">Initializing 3D Camera...</p>
+   <div class="loader">
+   </div>
+   <p id="status-message">
+    Initializing 3D Camera...
+   </p>
   </div>
-
-  <div class="ar-ui-overlay" id="ar-status" style="display: none;">Point camera at QR Code</div>
-
-  <a-scene 
-    id="ar-scene"
-    mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;" 
-    color-space="sRGB" 
-    renderer="colorManagement: true, physicallyCorrectLights: true" 
-    vr-mode-ui="enabled: false" 
-    device-orientation-permission-ui="enabled: false">
-
-    <a-assets id="ar-assets"></a-assets>
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-    <a-entity id="ar-target" mindar-image-target="targetIndex: 0"></a-entity>
+  <div class="ar-ui-overlay" id="ar-status" style="display: none;">
+   Point camera at QR Code
+  </div>
+  <a-scene color-space="sRGB" device-orientation-permission-ui="enabled: false" id="ar-scene" mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;" renderer="colorManagement: true, physicallyCorrectLights: true" vr-mode-ui="enabled: false">
+   <a-assets id="ar-assets">
+   </a-assets>
+   <a-camera look-controls="enabled: false" position="0 0 0">
+   </a-camera>
+   <a-entity id="ar-target" mindar-image-target="targetIndex: 0">
+   </a-entity>
   </a-scene>
-
   <script>
-    /**
+   /**
      * MASTER AR CONFIGURATION
      */
     const CONFIG = {
@@ -224,6 +229,5 @@
       }
     });
   </script>
-</body>
-  </html>
-  
+ </body>
+</html>
