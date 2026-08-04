@@ -346,7 +346,7 @@ let myScript = () => {
   // index.html only
   //document.title = `${author.title}`;
 
-  /**
+  /** class="done"
    *  * Logic Automation: Auto-refresh on network restoration
    * Integrated with your versioning constant
    */
@@ -1157,7 +1157,7 @@ let myScript = () => {
          ${servicesPrimary
            .map(
              (service) => `
-           <li>${service.name} (<b>${service.price}</b>)</li>
+           <li class="done">${service.name} (<b>${service.price}</b>)</li>
          `,
            )
            .join("")}
@@ -1169,7 +1169,7 @@ let myScript = () => {
          ${servicesSecondery
            .map(
              (service) => `
-           <li>${service.name} (<b>${service.price}</b>)</li>
+           <li class="done">${service.name} (<b>${service.price}</b>)</li>
         `,
            )
            .join("")}
@@ -2207,8 +2207,8 @@ For any legal inquiries regarding these terms, please reach out.
          .join("")}
 
 
-        <a style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img style="position: fixed; right: var(--space-s); bottom: 12rem; z-index: 969; inline-size: 7rem; border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
+        <a id="chat-bubble" style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
+          <img class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
         </a>
 
 
@@ -2281,8 +2281,8 @@ For any legal inquiries regarding these terms, please reach out.
     connectedCallback() {
       const navigations = [
         {
-          name: `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}"/>Home</span>`,
-          link: `#hero`,
+          name: `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}" alt="Home"/>Home</span>`,
+            link: `#hero`,
         },
         { name: `About`, link: `#about` },
         { name: `Services`, link: `#services` },
@@ -2304,14 +2304,14 @@ For any legal inquiries regarding these terms, please reach out.
        ${navigations
          .map(
            (navigation) => `
-        <a style="block-size: stretch;" class="list-item flex items-center txt-center" href="/${navigation.link}" t>
+        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="/${navigation.link}" t>
 ${navigation.name}
         </a>
        `,
          )
          .join("")}
 
-     <a class="list-item active-bg d-none" inert="">background</a>
+        <a class="list-item active-bg" inert=""></a>
 
     </nav>
    </section>
@@ -2662,12 +2662,12 @@ customElements.define("t-section", TSection);
       });
       */
     // photo
-    photos?.forEach((el) => {
+    // photos?.forEach((el) => {
       // el.style.aspectRatio = aspectRatio;
-      el.setAttribute("alt", `Visual content`);
+      // el.setAttribute("alt", `Visual content`);
       // el.style.height = `100%`;
       // el.style.width = `100%`;
-    });
+    // });
     // video
     videos?.forEach((el) => {
       el.setAttribute("muted");
@@ -2805,13 +2805,13 @@ customElements.define("t-section", TSection);
                                                       revelPosition2 = (rect.width / 2);
                                                                 (rect.right > revelPosition || revelPosition2 > rect.right) ? el.style = `transform: translateY(-100%); opacity: 0;` : el.style = `transform: translateY(0); opacity: 1;`
                                                                         });
-                                                                              };
+};
 
                                                                                     function textRevelOnscroll() {
                                                                                             let textRevelOnscroll = document.querySelectorAll('.text-revel-onscroll')
 
                                                                                                     textRevelOnscroll?.forEach(revel => {
-                                                                                                              let rect = revel.getBoundingClientRect(),
+let rect = revel.getBoundingClientRect(),
 
                                                                                                                           revelPosition = window.innerHeight - rect.top + (rect.height / 2),
                                                                                                                                       percentage = revelPosition / (rect.top) * 100;

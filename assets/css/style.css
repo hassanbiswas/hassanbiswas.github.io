@@ -26,11 +26,11 @@
       /* it's default for html meta-theme */
       /* 1. Register Property for Smooth Transitions */
 
-      @property --brand-color {
+@property --brand-color {
         syntax: "<color>";
         inherits: true;
         initial-value: hsl(240 80% 50%); /* 240 80% 50% */
-      }
+}
 
       html,
       body {
@@ -599,7 +599,9 @@
       ul {
         padding-inline-start: var(--gap-1);
 
-        li::marker {
+        li { list-style-type: disc; }
+
+        li.done::marker {
           content: '✓';
           color: inherit;
         }
@@ -2504,18 +2506,27 @@
         }
       }/* #footer ends */
 
+      #chat-bubble img {
+        position: absolute;
+        z-index: 969;
+        inline-size: 7rem; border: 100px solid red;
+        border-radius: var(--pill);
+        overflow: clip;
+
+        position-anchor: --chat-bubble;
+        left: anchor(right);
+        bottom: anchor(top);
+      }
 
       /* for fluid nav with large center */
       #bottom-navigation {
         position: fixed;
         top: auto;
         left: 0;
-        /* bottom: var(--space-xs); */
         bottom: 0;
         right: 0;
         z-index: 789;
-        /* padding-block-end: var(--space-m); */
-        transition: transform .4s linear;
+        transition: transform 400ms linear;
 
         &.scroll { transform: translateY(-200%); }
 
@@ -2525,73 +2536,55 @@
           justify-content: center;
           overflow: clip;
 
-          /* padding-block: 0;
-          padding-block-end: var(--space-s);
-          */
-
           #header-nav-list {
-            display: flex; /* grid for equal + liquid animation*/
+            display: flex; /* grid for equal + liquid animation */
             align-items: center;
             justify-content: center;
             flex-wrap: nowrap;
             gap: 0;
             border-radius: var(--pill);
             overflow: clip;
-
-            padding: var(--space-xs);
-            /*
-            background: linear-gradient(
-              to bottom,
-              color-mix(
-              var(--primary-50),
-              transparent 70%),
-              var(--primary-50)
-            );
-            backdrop-filter: blur(.5rem);
-            -webkit-backdrop-filter: blur(.5rem);
-            */
-
+            padding: .5em;
             background: var(--bg-3);
+
+            anchor-name: --chat-bubble;
 
             a {
               border-radius: var(--pill);
               flex: 1;
-              opacity: .8;
+              place-content: center;
 
               color: var(--txt-1);
               text-transform: uppercase;
               font-weight: bold;
-              letter-spacing: .05em;
+              letter-spacing: .06em;
 
-              transition: all .4s var(--transition-bouncy);
+              transition: all 400ms linear;
 
               text-decoration: none;
               text-align: center;
-              padding: var(--space-s) var(--space-m);
-
+              padding: 1em 1.5em;
               block-size: stretch;
+              overflow: clip;
             }
 
-            .active{
-              flex: 0;
-              opacity: 1;
-              overflow: clip;
-              background: var(--bg-1);
-
+            a:is(:hover, :focus-visible),
+            a.active,
+            a:not(.active):nth-child(1) {
               anchor-name: --active-link;
             }
 
             .active-bg {
               background: var(--bg-1);
-              /* border-radius: var(--pill); */
               z-index: -1;
               pointer-events: none;
               position: absolute;
-              transition: transform 400ms var(--bouncy);
 
               position-anchor: --active-link;
-              left: anchore-left;
-              top: anchore-top;
+              left: anchor(left);
+              right: anchor(right);
+              top: anchor(top);
+              bottom: anchor(bottom);
             }
           }
         }
