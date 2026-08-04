@@ -8,7 +8,7 @@
   "workbench.sideBar.location": "left",
   "workbench.editor.showTabs": "none",
   "workbench.startupEditor": "none",
-  "editor.minimap.enabled": false,
+  "editor.minimap.enabled": true,
   "editor.lineNumbers": "on",
   
   "breadcrumbs.enabled": false,
@@ -30,7 +30,7 @@
 
   // --- AUTOMATION & SPEED (SET-AND-FORGET) ---
   "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 1000, 
+  "files.autoSaveDelay": 100000, 
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
