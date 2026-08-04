@@ -777,46 +777,29 @@ let myScript = () => {
   */
 
   // Data array for easy updates
-  const skills = [
-    {
-      name: `HTML`,
-      favicon: `${faviconHtml}`,
-    },
-    {
-      name: `CSS`,
-      favicon: `${faviconCss}`,
-    },
-    {
-      name: `JavaScript`,
-      favicon: `${faviconJs}`,
-    },
+function DevSkill(name, favicon, link = '#') {
+    this.name = name;
+    this.favicon = favicon;
+    this.link = link;
+}
+const skills = [
+    new DevSkill(`HTML`,`${faviconHtml}`),
+    new DevSkill(`CSS`, `${faviconCss}`),
+    new DevSkill(`JavaScript`, `${faviconJs}`),
   ];
 
-  const tools = [
-    {
-      name: `VScode`,
-      favicon: `${faviconVscode}`,
-    },
-    {
-      name: `Bootstrap`,
-      favicon: `${faviconBootstrap}`,
-    },
-    {
-      name: `Figma`,
-      favicon: `${faviconFigma}`,
-    },
-    {
-      name: `Webflow`,
-      favicon: `${faviconWebflow}`,
-    },
-    {
-      name: `Framer`,
-      favicon: `${faviconFramer}`,
-    },
-    {
-      name: `GitHub`,
-      favicon: `${faviconGithub}`,
-    },
+  function DevTool(name, favicon, link = '#') {
+    this.name = name;
+    this.favixon = favicon;
+    this.link = link;
+  }
+const tools = [
+    new DevTool(`VScode`, `${faviconVscode}`),
+    new DevTool(`Bootstrap`, `${faviconBootstrap}`),
+    new DevTool(`Figma`, `${faviconFigma}`),
+    new DevTool(`Webflow`, `${faviconWebflow}`),
+    new DevTool(`Framer`, `${faviconFramer}`),
+    new DevTool(`GitHub`, `${faviconGithub}`),
   ];
 
   // ### 404.html | Hero component ###
@@ -894,63 +877,24 @@ let myScript = () => {
       const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
       const ytLogoSize = `=s48-c-k-c0x00ffffff-no-rj`;
 
-      const youtubers = [
-        {
-          name: `Kevin Powell`,
-          photo: `gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak`,
-          link: `#`,
-        },
-        {
-          name: `DesignCourse`,
-          photo: `ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL`,
-          link: `#`,
-        },
-        {
-          name: `Flux Academy`,
-          photo: `D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg`,
-          link: `#`,
-        },
-        {
-          name: `Web Dev Simplified`,
-          photo: `ytc/AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw`,
-          link: `#`,
-        },
-        {
-          name: `Codex Community`,
-          photo: `ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ`,
-          link: `#`,
-        },
-        {
-          name: `Jesse Showalter`,
-          photo: `cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg`,
-          link: `#`,
-        },
-        {
-          name: `Olivier Larose`,
-          photo: `rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw`,
-          link: `#`,
-        },
-        {
-          name: `Bro Code`,
-          photo: `ytc/AIdro_mPFVsxROj1dOtTWc9iNBwDYV4z42Q8LPokBSewiW9pCSg`,
-          link: `#`,
-        },
-        {
-          name: `Arnau Ros`,
-          photo: `cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw`,
-          link: `#`,
-        },
-        {
-          name: `True Coder`,
-          photo: `qZmPS2Kq4TLISM7z0NPZRlA2umZVbW2qfRK4P87YZJbkcCw4vkUHhMtee4LaHuhzi1jUF_n6`,
-          link: `#`,
-        },
-        {
-          name: `Lukas | Web Dev`,
-          photo: `dr8aIhorUkiEw381t158v3AWNgB7nhQbW4g68MjZDkPdq21L6lbE7AA-gl9DACGwE4HhWopIeA`,
-          link: `#`,
-        },
-      ];
+    function YouTuber(name, photo, link = `${urlYoutube}`) {
+        this.name = name;
+        this.photo = photo;
+        this.link = link;
+    }
+    const youtubers = [
+        new YouTuber(`Kevin Powell`, `gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak`),
+        new YouTuber(`DesignCourse`, `ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL`),
+        new YouTuber(`Flux Academy`, `D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg`),
+        new YouTuber(`Web Dev Simplified`, `ytc/AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw`),
+        new YouTuber(`Codex Community`, `ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ`),
+        new YouTuber(`Jesse Showalter`, `cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg`),
+        new YouTuber(`Olivier Larose`, `rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw`),
+        new YouTuber(`Bro Code`,`ytc/AIdro_mPFVsxROj1dOtTWc9iNBwDYV4z42Q8LPokBSewiW9pCSg`),
+        new YouTuber(`Arnau Ros`, `cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw`),
+        new YouTuber(`True Coder`, `qZmPS2Kq4TLISM7z0NPZRlA2umZVbW2qfRK4P87YZJbkcCw4vkUHhMtee4LaHuhzi1jUF_n6`),
+        new YouTuber(`Lukas | Web Dev`, `dr8aIhorUkiEw381t158v3AWNgB7nhQbW4g68MjZDkPdq21L6lbE7AA-gl9DACGwE4HhWopIeA`),
+    ];
 
       // 2. Create an off-screen Template
       const template = document.createElement("template");
@@ -971,7 +915,7 @@ let myScript = () => {
            (youtuber) => `
          <li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
            <img class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;" src="${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}" alt="YouTube: ${youtuber.name}"/>
-           <a href="${urlYoutube}">${youtuber.name}
+           <a href="${youtuber.link}">${youtuber.name}
            </a>
          </li>
        `,
@@ -994,60 +938,68 @@ let myScript = () => {
   // updated  AboutSection Component
   class AboutSection extends HTMLElement {
     connectedCallback() {
-      // Story data array for easy updates
-      const stories = [
-        {
-          date: "2001",
-          title: "Birth of mine",
-          heading: "Having mom, dad & small family.",
-          desc: `I'm ${new Date().getFullYear() - 2001} years old & growing up with core values that shape my professional work ethic today.`,
-          link: `${author.location}`,
-          linkText: "View place",
-        },
-        {
-          date: "2022",
-          title: "Learning web design",
-          heading: "YouTube platform for design and development.",
-          desc: "Started the journey into UI/UX and Front-End architecture through self-directed learning.",
-          link: `${urlYoutube}`,
-          linkText: "View channels",
-        },
-        {
-          date: "2024",
-          title: "Graduated at",
-          heading: "Diploma in Computer Science and Technology.",
-          desc: "Formalized my technical foundation in software logic and system design.",
-          link: "https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8",
-          linkText: "View institute",
-        },
-        {
-          date: "",
-          dateClass: `d-none`,
-          title: "Certified from",
-          heading: "Utshob Technology Ltd.",
-          desc: `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="utshabtech.com.bd">utshabtech.com.bd</a>`,
-          link: "https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7",
-          linkText: "View place",
-          // linkText: "View certificate"
-        },
-        {
-          // FIXED: Used backticks to allow double quotes in the HTML string
-          date: `2025 - ${thisYear}`,
-          title: "Being a developer",
-          heading: "Designing and developing website.",
-          desc: `${author.description}`,
-          link: `/projects`,
-          linkText: "View projects",
-        },
-        {
-          date: `${thisYear}`,
-          title: "Looking for opportunities",
-          heading: "Junior Front-End Developer",
-          desc: "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
-          link: `/resume`,
-          linkText: "Download Resume",
+        // Story data array for easy updates
+        function StoriesItem(date, title, heading, desc, link, linkText, dateClass) {
+            this.date = date;
+            this.title = title;
+            this.heading = heading;
+            this.desc = desc;
+            this.link = link;
+            this.linkText = linkText;
+            this.dateClass = dateClass;
         }
-      ];
+        const stories = [
+            new StoriesItem(
+                "2001",
+                "Birth of mine",
+                "Having mom, dad & small family.",
+                `I'm ${new Date().getFullYear() - 2001} years old & growing up with core values that shape my professional work ethic today.`,
+                `${author.location}`,
+                "View place",
+            ),
+            new StoriesItem(
+                "2022",
+                "Learning web design",
+                "YouTube platform for design and development.",
+                "Started the journey into UI/UX and Front-End architecture through self-directed learning.",
+                `${urlYoutube}`,
+                "View channels",
+            ),
+            new StoriesItem(
+                "2024",
+                "Graduated at",
+                "Diploma in Computer Science and Technology.",
+                "Formalized my technical foundation in software logic and system design.",
+                "https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8",
+                "View institute",
+            ),
+            new StoriesItem(
+                "",
+                "Certified from",
+                "Utshob Technology Ltd.",
+                `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="utshabtech.com.bd">utshabtech.com.bd</a>`,
+                "https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7",
+                "View place",
+                `d-none`,
+            ),
+            new StoriesItem(
+          // FIXED: Used backticks to allow double quotes in the HTML string
+                `2025 - ${thisYear}`,
+                "Being a developer",
+                "Designing and developing website.",
+                `${author.description}`,
+                `/projects`,
+                "View projects",
+            ),
+            new StoriesItem(
+                `${thisYear}`,
+                "Looking for opportunities",
+                "Junior Front-End Developer",
+                "Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.",
+                `/resume`,
+                "Download Resume",
+            )
+    ];
 
       // 2. Create an off-screen Template
       const template = document.createElement("template");
@@ -1127,7 +1079,7 @@ let myScript = () => {
      <h2>
       Services available in ${locationSecondary}.
      </h2>
-     <p>[At 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}.
+     <p>[Years 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}.
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
         <ul style="list-style: none;">
@@ -1197,43 +1149,51 @@ let myScript = () => {
   // updated ProjectsSection Component
   class ProjectsSection extends HTMLElement {
     connectedCallback() {
-      // Project data array for easy updates
-      const projects = [
-        {
-          date: `01-Jan-${thisYear}`,
-          category: "Portfolio website",
-          title: `${author.title}`,
-          desc: `${author.description}`,
-          link: `hassanbiswas.github.io`,
-        },
-        {
-          date: "24-Nov-2025",
-          category: "Design Agency website",
-          title: "DEVAEC | Website Design & Front-End Development.",
-          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `/projects`,
-        },
-        {
-          date: "13-May-2025",
-          category: "E-commerce website",
-          title: "TANUVL | Fashion & Clothing.",
-          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `/projects`,
-        },
-        {
-          date: "09-Jul-2024",
-          category: "Portfolio website",
-          title: "Shamin Ahmed Choudhuri.",
-          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `/projects`,
-        },
-        {
-          date: "21-Fev-2023",
-          category: "Practical Design (Desktop View)",
-          title: "Powered by Claudeflare.",
-          desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
-          link: `https://mdezazulhassan2023.pages.dev`,
+        // Project data array for easy updates
+        function ProjectsItem(date, category, title, desc, link) {
+            this.date = date;
+            this.category = category;
+            this.title = title;
+            this.desc = desc;
+            this.link = link;
         }
+
+       const projects = [
+        new ProjectsItem(
+          `01-Jan-${thisYear}`,
+          "Portfolio website",
+          `${author.title}`,
+          `${author.description}`,
+          `hassanbiswas.github.io`,
+           ),
+           new ProjectsItem(
+          "24-Nov-2025",
+          "Design Agency website",
+          "DEVAEC | Website Design & Front-End Development.",
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          `/projects`,
+           ),
+        new ProjectsItem(
+          "13-May-2025",
+          "E-commerce website",
+          "TANUVL | Fashion & Clothing.",
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          `/projects`,
+        ),
+        new ProjectsItem(
+          "09-Jul-2024",
+          "Portfolio website",
+          "Shamin Ahmed Choudhuri.",
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          `/projects`,
+        ),
+        new ProjectsItem(
+          "21-Fev-2023",
+          "Practical Design (Desktop View)",
+          "Powered by Claudeflare.",
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.",
+          `https://mdezazulhassan2023.pages.dev`,
+        )
       ];
 
       // 2. Create an off-screen Template
@@ -1299,36 +1259,43 @@ let myScript = () => {
 
   // updated TestimonialsSection Component
   class TestimonialsSection extends HTMLElement {
-    connectedCallback() {
-      const personQuotes = [
-        {
-          name: `${author.name}`,
-          title: `Web Developer`,
-          quote: `I always try to provide the best.`,
-          link: `/`,
-          photo: `${faviconAuthor}`,
-        },
-        {
-          name: `Mariam`,
-          title: `Student`,
-          quote: `Hi ${author.name}, thank's a lot!`,
-          link: `#`,
-          photo: `${faviconFacebook}`,
-        },
-        {
-          name: `Shamin`,
-          title: `Businessman`,
-          quote: `My website is faster than ever.`,
-          link: `#`,
-          photo: `${faviconFacebook}`,
-        },
-        {
-          name: `Tanveer`,
-          title: `Freelancer`,
-          quote: `Hey! this is a great design, ${author.name}.`,
-          link: `#`,
-          photo: `${faviconFacebook}`,
+      connectedCallback() {
+        function QuotesItem(name, title, quote, link, photo) {
+            this.name = name;
+            this.title = title;
+            this.quote = quote;
+            this.link = link;
+            this.photo = photo;
         }
+      const personQuotes = [
+        new QuotesItem(
+          `${author.name}`,
+          `Web Developer`,
+          `I always try to provide the best.`,
+          `/`,
+          `${faviconAuthor}`,
+        ),
+        new QuotesItem(
+          `Mariam`,
+          `Student`,
+          `Hi ${author.name}, thank's a lot!`,
+          `#`,
+          `${faviconFacebook}`,
+        ),
+        new QuotesItem(
+          `Shamin`,
+          `Businessman`,
+          `My website is faster than ever.`,
+          `#`,
+          `${faviconFacebook}`,
+        ),
+        new QuotesItem(
+          `Tanveer`,
+          `Freelancer`,
+          `Hey! this is a great design, ${author.name}.`,
+          `#`,
+          `${faviconFacebook}`,
+        )
       ];
 
       // 2. Create an off-screen Template
@@ -1409,40 +1376,42 @@ let myScript = () => {
   // updated FaqsSection Component
   class FaqsSection extends HTMLElement {
     connectedCallback() {
-      // faqs data array for easy updates
+        // faqs data array for easy updates
+        function FaqsItem(question, answer) {
+            this.question = question;
+            this.answer = answer;
+        }
       const faqs = [
-        {
-          question: `Who am I?`,
-          answer: `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`,
-        },
-        {
-          question: `What do I do?`,
-          answer: `
-          I usually <b> design </b> &amp; <b>develop</b> website<sup class="p-sm">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`,
-        },
-        {
-          question: `What is my design process?`,
-          answer: `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`,
-        },
-        {
-          question: `Do I provide custom JS functions?`,
-          answer: `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`,
-        },
-        {
-          question: `Am I available for hire?`,
-          answer: `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
+        new FaqsItem(
+          `Who am I?`,
+          `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`,
+        ),
+        new FaqsItem(
+          `What do I do?`,
+          `I usually <b> design </b> &amp; <b>develop</b> website<sup class="p-sm">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`,
+        ),
+        new FaqsItem(
+          `What is my design process?`,
+           `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`,
+        ),
+        new FaqsItem(
+          `Do I provide custom JS functions?`,
+          `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`,
+        ),
+        new FaqsItem(
+          `Am I available for hire?`,
+          `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
           </sup>`,
-        },
-        {
-          question: `What is my contact number?`,
-          answer: `
-           Mobile: (+880)
+        ),
+        new FaqsItem(
+          `What is my contact number?`,
+          `Mobile: (+880)
            <a href="${urlMobile}"><b>1602-873384</b></a>
            <sup class="p-sm">24/7</sup>
            </br></br>
            Whatsapp: (+880)
            <a href="${urlWhatsapp}"><b>1602-873384</b></a>`,
-        },
+        ),
       ];
 
       // 2. Create an off-screen Template
@@ -1900,46 +1869,30 @@ For any legal inquiries regarding these terms, please reach out.
 
   // updated ContactSection Component
   class ContactSection extends HTMLElement {
-    connectedCallback() {
-      // 1. Data Source (Scalable: could be moved to a global config)
+      connectedCallback() {
+          // 1. Data Source (Scalable: could be moved to a global config)
+        function LinksDataItem(name, link, title, favicon) {
+            this.name = name;
+            this.link = link;
+            this.title = title;
+            this.favicon = favicon;
+        }
+        const linksData = [
+            new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`, `${faviconMobile}`),
+            new LinksDataItem(`@hassanbiswas.github.io`, `${urlMessenger}`, `Messenger`, `${faviconMessenger}`),
+            new LinksDataItem(`hassanbiswas.github.io@gmail.com`, `${urlGmail}`, `Gmail`, `${faviconGmail}`),
+            new LinksDataItem(`${locationPrimary}`, `${begaritola}`, `Location`, `${faviconMap}`),
+        ]
 
-      // Arry od Data ###
-
-      const linksData = [
-        {
-          name: `(+880) 1602-873384`,
-          link: `${urlMobile}`,
-          title: `Mobile`,
-          favicon: `${faviconMobile}`,
-        },
-        {
-          name: `@hassanbiswas.github.io`,
-          link: `${urlMessenger}`,
-          title: `Messenger`,
-          favicon: `${faviconMessenger}`,
-        },
-        {
-          name: `hassanbiswas.github.io@gmail.com`,
-          link: `${urlGmail}`,
-          title: `Gmail`,
-          favicon: `${faviconGmail}`,
-        },
-        {
-          name: `${locationPrimary}`,
-          link: `${begaritola}`,
-          title: `Location`,
-          favicon: `${faviconMap}`,
-        },
-      ];
-
-      const buttons = [
-        {
-          name: `Get Direction ↘`,
-          link: `${author.direction}`,
-          classes: `btn-primary`,
-        },
-        { name: `View Reviews ↘`, link: `${urlFeedback}`, classes: `d-none` },
-      ];
+        function ButtonsItem(name, link, classes) {
+            this.name = name;
+            this.link = link;
+            this.classes = classes;
+        }
+        const buttons = [
+            new ButtonsItem(`Get Direction ↘`, `${author.direction}`, `btn-primary`),
+            new ButtonsItem(`View Reviews ↘`, `${urlFeedback}`, `d-none` ),
+        ];
 
       // 2. Create an off-screen Template
       const template = document.createElement("template");
@@ -2032,59 +1985,56 @@ For any legal inquiries regarding these terms, please reach out.
   // updated FooterSection Component
   class FooterSection extends HTMLElement {
     connectedCallback() {
+
+        // Constructor Function
+        function NavItem(name, link) {
+            this.name = name;
+            this.link = link;
+        }
+
+         // Clean & readable initialization
       const navigations = [
-        { name: `Home ↘`, link: `/` },
-        { name: `About ↘`, link: `/#about` },
-        { name: `Services ↘`, link: `/#services` },
-        { name: `Projects ↘`, link: `/#projects` },
-        { name: `Contact ↘`, link: `/#contact` },
-        { name: `Case Studies`, link: `/case-studies` },
-        { name: `Templates`, link: `/templates` },
+        new NavItem(`Home ↘`, `/` ),
+        new NavItem(`About ↘`, `/#about` ),
+        new NavItem(`Services ↘`, `/#services` ),
+        new NavItem(`Projects ↘`, `/#projects` ),
+        new NavItem(`Contact ↘`, `/#contact` ),
+        new NavItem(`Case Studies`, `/case-studies` ),
+        new NavItem(`Templates`, `/templates` ),
       ];
 
-      const methods = [
-        {
-          name: `Meet`,
-          link: `${urlMeet}`,
-          title: `Video Conference`,
-          alt: `Google Meet`,
-          favicon: `${faviconMeet}`,
-        },
-        {
-          name: `bKash`,
-          link: `${urlBkash}`,
-          title: `Payment by bKash`,
-          alt: `bKash`,
-          favicon: `${faviconBkash}`,
-        },
+        function MethodsItem(name, link, title, alt, favicon) {
+            this.name = name;
+            this.link = link;
+            this.title = title;
+            this.alt = alt;
+            this.favicon = favicon;
+        }
+        const methods = [
+        new MethodsItem(`Meet`, `${urlMeet}`, `Video Conference`, `Google Meet`, `${faviconMeet}`),
+        new MethodsItem(`bKash`, `${urlBkash}`, `Payment by bKash`, `bKash`, `${faviconBkash}`),
       ];
 
-      const legals = [
-        { name: `Privacy Policy`, link: `/privacy-policy` },
-        { name: `Terms of Service`, link: `/terms-of-service` },
-        {
-          name: `Refund &amp; Cancelation Policy`,
-          link: `/refund_and_cancelation-policy`,
-        },
+        function LegalsItem(name, link) {
+            this.name = name;
+            this.link = link;
+        }
+        const legals = [
+            new LegalsItem(`Privacy Policy`, `/privacy-policy`),
+            new LegalsItem(`Terms of Service`, `/terms-of-service`),
+            new LegalsItem(`Refund &amp; Cancelation Policy`, `/refund_and_cancelation-policy`),
       ];
 
-      const socials = [
-        {
-          name: `Facebook`,
-          link: `${urlFacebook}`,
-          favicon: `${faviconFacebook}`,
-        },
-        {
-          name: `Instagram`,
-          link: `${urlInstagram}`,
-          favicon: `${faviconInstagram}`,
-        },
-        {
-          name: `Threads`,
-          link: `${urlThreads}`,
-          favicon: `${faviconThreads}`,
-        },
-        { name: `X (Twitter)`, link: `${urlX}`, favicon: `${faviconX}` },
+        function SocialsItem(name, link, favicon) {
+            this.name = name;
+            this.link = link;
+            this.favicon = favicon;
+        }
+        const socials = [
+            new SocialsItem(`Facebook`, `${urlFacebook}`, `${faviconFacebook}`),
+            new SocialsItem(`Instagram`, `${urlInstagram}`, `${faviconInstagram}`),
+            new SocialsItem(`Threads`, `${urlThreads}`, `${faviconThreads}`),
+            new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
       ];
 
       // 2. Create an off-screen Template
@@ -2279,15 +2229,19 @@ For any legal inquiries regarding these terms, please reach out.
   // updated NavigationSection Component
   class NavigationSection extends HTMLElement {
     connectedCallback() {
-      const navigations = [
-        {
-          name: `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}" alt="Home"/>Home</span>`,
-            link: `#hero`,
-        },
-        { name: `About`, link: `#about` },
-        { name: `Services`, link: `#services` },
-        { name: `Projects`, link: `#projects` },
-      ];
+        // Navigation Constructor Function
+        function NavItem(name, link) {
+            this.name = name;
+            this.link = link;
+        }
+
+         // Clean & readable initialization
+        const navigations = [
+            new NavItem(`<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}" alt="Home"/>Home</span>`, '#hero'),
+            new NavItem('About', '#about'),
+            new NavItem('Services', '#services'),
+            new NavItem('Projects', '#projects')
+        ];
 
       // 2. Create an off-screen Template
       const template = document.createElement("template");
