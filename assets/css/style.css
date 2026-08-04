@@ -2509,7 +2509,7 @@
       #chat-bubble img {
         position: absolute;
         z-index: 969;
-        inline-size: 7rem; border: 100px solid red;
+        inline-size: 7rem; border: 10px solid red;
         border-radius: var(--pill);
         overflow: clip;
 
