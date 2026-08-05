@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: write
-  workflows: write
 
 jobs:
   format:
@@ -47,8 +46,32 @@ jobs:
             exit 0
           fi
 
+          # Show changed files for debugging
+          CHANGED_FILES=$(git diff --cached --name-only)
+          echo "Changed files:\n$CHANGED_FILES"
+
+          # If only workflow files (.github/workflows/*) changed, skip push to avoid needing extra permissions
+          ONLY_WORKFLOW=true
+          for f in $CHANGED_FILES; do
+            if [[ ! "$f" =~ ^.github/workflows/ ]]; then
+              ONLY_WORKFLOW=false
+              break
+            fi
+          done
+
+          if [ "$ONLY_WORKFLOW" = true ]; then
+            echo "Only workflow files changed; skipping push from workflow run to avoid permissions issues."
+            exit 0
+          fi
+
           # Commit and push changes
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -m "chore: format repository with Prettier"
-          git push
+
+          # Try to push; if push fails (for example due to workflows permission) do not fail the job
+          if ! git push; then
+            echo "Push failed (possibly due to insufficient permissions to update workflow files)."
+            echo "This workflow will exit without failing so it can be made 'set-and-forget'."
+            exit 0
+          fi
