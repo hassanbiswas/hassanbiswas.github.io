@@ -16,23 +16,23 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 async function runAgenticCycle() {
     console.log(`[Agent] Start Cycle: ${VERSION}`);
 
-    const model = ai.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
+    const model = ai.getGenerativeModel({
+        model: 'gemini-1.5-flash',
         systemInstruction: `You are Hassan's Site Manager. 
         - Primary Brand Color: ${BRAND_COLOR}. 
         - Deployment Domain: hassanbiswas.github.io.
-        - Rules: Always use 'loading="lazy"' for images and 'sizes="any"' for SVGs.`
+        - Rules: Always use 'loading="lazy"' for images and 'sizes="any"' for SVGs.`,
     });
 
     // --- FUNCTION 1: SEO & Accessibility Audit ---
     const htmlContent = fs.readFileSync('./index.html', 'utf8');
     const seoPrompt = `Analyze this HTML and return ONLY the fixed HTML if it misses alt tags, lazy loading, or meta descriptions: ${htmlContent}`;
-    
+
     const seoResult = await model.generateContent(seoPrompt);
     const updatedHtml = seoResult.response.text();
     if (updatedHtml.includes('<!DOCTYPE html>')) {
         fs.writeFileSync('./index.html', updatedHtml);
-        console.log("[Success] SEO Audit & Fix applied.");
+        console.log('[Success] SEO Audit & Fix applied.');
     }
 
     // --- FUNCTION 2: Brand & CSS Enforcement ---
@@ -43,7 +43,7 @@ async function runAgenticCycle() {
         if (brandRegex.test(cssContent)) {
             cssContent = cssContent.replace(brandRegex, BRAND_COLOR);
             fs.writeFileSync('./style.css', cssContent);
-            console.log("[Success] Brand consistency enforced.");
+            console.log('[Success] Brand consistency enforced.');
         }
     }
 
@@ -56,11 +56,11 @@ export const SITE_VERSION = "${VERSION}";
 export const BRAND_CONFIG = { color: "${BRAND_COLOR}", mode: "automation" };
     `;
     fs.writeFileSync('./assets/js/version.js', versionLogic);
-    
+
     console.log(`[Agent] Cycle Complete. All logic preserved.`);
 }
 
 runAgenticCycle().catch(err => {
-    console.error("Agent logic failure:", err);
+    console.error('Agent logic failure:', err);
     process.exit(1);
 });

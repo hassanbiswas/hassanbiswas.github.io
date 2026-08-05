@@ -1,24 +1,24 @@
 {
-  "name": "hassan-agentic-ai",
-  "version": "1.0.0",
-  "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture.",
-  "main": "scripts/agent.js",
-  "scripts": {
-    "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
-    "agent": "node scripts/agent.js",
-    "build:assets": "node generate-assets.js",
-    "lint": "eslint js/*.js",
-    "format": "prettier --write .",
-    "version:auto": "node -e \"const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); const d = new Date(); pkg.version = `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));\""
-  },
-  "devDependencies": {
-    "browser-sync": "^3.0.3",
-    "eslint": "^9.19.0",
-    "prettier": "^3.4.2"
-  },
-  "dependencies": {
-    "@google/generative-ai": "^0.21.0",
-    "axios": "^1.13.6",
-    "jsdom": "^26.1.0"
-  }
+    "name": "hassan-agentic-ai",
+    "version": "1.0.0",
+    "description": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture.",
+    "main": "scripts/agent.js",
+    "scripts": {
+        "start": "browser-sync start --server --files '*.html, css/*.css, js/*.js'",
+        "agent": "node scripts/agent.js",
+        "build:assets": "node generate-assets.js",
+        "lint": "eslint js/*.js",
+        "format": "prettier --write .",
+        "version:auto": "node -e \"const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); const d = new Date(); pkg.version = `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));\""
+    },
+    "devDependencies": {
+        "browser-sync": "^3.0.3",
+        "eslint": "^9.19.0",
+        "prettier": "^3.4.2"
+    },
+    "dependencies": {
+        "@google/generative-ai": "^0.21.0",
+        "axios": "^1.13.6",
+        "jsdom": "^26.1.0"
+    }
 }

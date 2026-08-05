@@ -1,228 +1,251 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-  <title>
-   Ar | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture
-  </title>
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js">
-  </script>
-  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js">
-  </script>
-  <style>
-   :root {
-      --brand-color: hsl(240, 80%, 50%);
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      overflow: hidden;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #0f0f12;
-      color: #ffffff;
-    }
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+            name="viewport"
+        />
+        <title>Ar | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture</title>
+        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.js"></script>
+        <style>
+            :root {
+                --brand-color: hsl(240, 80%, 50%);
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                overflow: hidden;
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    'Segoe UI',
+                    Roboto,
+                    sans-serif;
+                background-color: #0f0f12;
+                color: #ffffff;
+            }
 
-    /* WebAR Status Overlay */
-    .ar-ui-overlay {
-      position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      background: rgba(10, 10, 15, 0.75);
-      backdrop-filter: blur(8px);
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: 500;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      pointer-events: none;
-      text-align: center;
-      white-space: nowrap;
-    }
-    .ar-ui-overlay::before {
-      content: '';
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin-right: 8px;
-      background-color: var(--brand-color);
-      border-radius: 50%;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { opacity: 0.4; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.2); }
-      100% { opacity: 0.4; transform: scale(0.9); }
-    }
+            /* WebAR Status Overlay */
+            .ar-ui-overlay {
+                position: fixed;
+                top: 16px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 9999;
+                background: rgba(10, 10, 15, 0.75);
+                backdrop-filter: blur(8px);
+                color: #ffffff;
+                padding: 10px 20px;
+                border-radius: 30px;
+                font-size: 14px;
+                font-weight: 500;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+                pointer-events: none;
+                text-align: center;
+                white-space: nowrap;
+            }
+            .ar-ui-overlay::before {
+                content: '';
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                margin-right: 8px;
+                background-color: var(--brand-color);
+                border-radius: 50%;
+                animation: pulse 1.5s infinite;
+            }
+            @keyframes pulse {
+                0% {
+                    opacity: 0.4;
+                    transform: scale(0.9);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
+                100% {
+                    opacity: 0.4;
+                    transform: scale(0.9);
+                }
+            }
 
-    /* Native Redirection Loader UI */
-    .redirect-container {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #0f0f12;
-      text-align: center;
-      padding: 20px;
-    }
-    .loader {
-      width: 48px;
-      height: 48px;
-      border: 4px solid rgba(255, 255, 255, 0.1);
-      border-left-color: var(--brand-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    a.ios-ar-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 24px;
-      background-color: var(--brand-color);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 600;
-    }
-  </style>
-  <meta content="Ar: Initializing 3D Camera... Updated August 2026." name="description"/>
-  <meta content="Hassan Biswas, Ar, Ar, UI/UX, Front-End, Web Design, Bangladesh" name="keywords"/>
-  <meta content="hsl(240, 80%, 50%)" name="theme-color"/>
-  <meta content="Hassan Biswas" name="author"/>
-  <meta content="index, follow" name="robots"/>
- </head>
- <body>
-  <div class="redirect-container" id="redirect-screen">
-   <div class="loader">
-   </div>
-   <p id="status-message">
-    Initializing 3D Camera...
-   </p>
-  </div>
-  <div class="ar-ui-overlay" id="ar-status" style="display: none;">
-   Point camera at QR Code
-  </div>
-  <a-scene color-space="sRGB" device-orientation-permission-ui="enabled: false" id="ar-scene" mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;" renderer="colorManagement: true, physicallyCorrectLights: true" vr-mode-ui="enabled: false">
-   <a-assets id="ar-assets">
-   </a-assets>
-   <a-camera look-controls="enabled: false" position="0 0 0">
-   </a-camera>
-   <a-entity id="ar-target" mindar-image-target="targetIndex: 0">
-   </a-entity>
-  </a-scene>
-  <script>
-   /**
-     * MASTER AR CONFIGURATION
-     */
-    const CONFIG = {
-      // Direct asset endpoints
-      glbUrl: 'https://hassanbiswas.github.io/ar/model.glb',
-      usdzUrl: 'https://hassanbiswas.github.io/ar/model.usdz',
-      mindTargetUrl: './targets.mind',
-      
-      // Transform settings for MindAR WebAR Mode
-      transform: {
-        position: '0 0.2 0',
-        scale: '0.003 0.003 0.003',
-        rotation: '0 180 0'
-      },
-      
-      // Animation parameters
-      animation: {
-        clip: '*',
-        loop: 'repeat',
-        timeScale: 1.0
-      },
+            /* Native Redirection Loader UI */
+            .redirect-container {
+                position: fixed;
+                inset: 0;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: #0f0f12;
+                text-align: center;
+                padding: 20px;
+            }
+            .loader {
+                width: 48px;
+                height: 48px;
+                border: 4px solid rgba(255, 255, 255, 0.1);
+                border-left-color: var(--brand-color);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin-bottom: 20px;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            a.ios-ar-btn {
+                display: inline-block;
+                margin-top: 15px;
+                padding: 12px 24px;
+                background-color: var(--brand-color);
+                color: #ffffff;
+                text-decoration: none;
+                border-radius: 25px;
+                font-weight: 600;
+            }
+        </style>
+        <meta content="Ar: Initializing 3D Camera... Updated August 2026." name="description" />
+        <meta
+            content="Hassan Biswas, Ar, Ar, UI/UX, Front-End, Web Design, Bangladesh"
+            name="keywords"
+        />
+        <meta content="hsl(240, 80%, 50%)" name="theme-color" />
+        <meta content="Hassan Biswas" name="author" />
+        <meta content="index, follow" name="robots" />
+    </head>
+    <body>
+        <div class="redirect-container" id="redirect-screen">
+            <div class="loader"></div>
+            <p id="status-message">Initializing 3D Camera...</p>
+        </div>
+        <div class="ar-ui-overlay" id="ar-status" style="display: none">
+            Point camera at QR Code
+        </div>
+        <a-scene
+            color-space="sRGB"
+            device-orientation-permission-ui="enabled: false"
+            id="ar-scene"
+            mindar-image="imageTargetSrc: ./targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;"
+            renderer="colorManagement: true, physicallyCorrectLights: true"
+            vr-mode-ui="enabled: false"
+        >
+            <a-assets id="ar-assets"> </a-assets>
+            <a-camera look-controls="enabled: false" position="0 0 0"> </a-camera>
+            <a-entity id="ar-target" mindar-image-target="targetIndex: 0"> </a-entity>
+        </a-scene>
+        <script>
+            /**
+             * MASTER AR CONFIGURATION
+             */
+            const CONFIG = {
+                // Direct asset endpoints
+                glbUrl: 'https://hassanbiswas.github.io/ar/model.glb',
+                usdzUrl: 'https://hassanbiswas.github.io/ar/model.usdz',
+                mindTargetUrl: './targets.mind',
 
-      // Set to true to force native intent on mobile scans, false to force WebAR MindAR tracking
-      enableNativeRedirect: true
-    };
+                // Transform settings for MindAR WebAR Mode
+                transform: {
+                    position: '0 0.2 0',
+                    scale: '0.003 0.003 0.003',
+                    rotation: '0 180 0',
+                },
 
-    // Cache-busting logic
-    const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
-    console.log(`[AR Master Controller] Engine Version: ${VERSION}`);
+                // Animation parameters
+                animation: {
+                    clip: '*',
+                    loop: 'repeat',
+                    timeScale: 1.0,
+                },
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const redirectScreen = document.getElementById('redirect-screen');
-      const statusMsg = document.getElementById('status-message');
-      const arStatusUI = document.getElementById('ar-status');
+                // Set to true to force native intent on mobile scans, false to force WebAR MindAR tracking
+                enableNativeRedirect: true,
+            };
 
-      const isAndroid = /android/i.test(userAgent);
-      const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+            // Cache-busting logic
+            const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+            console.log(`[AR Master Controller] Engine Version: ${VERSION}`);
 
-      if (CONFIG.enableNativeRedirect && (isAndroid || isIOS)) {
-        // --- NATIVE MODE EXECUTION ---
-        if (isAndroid) {
-          statusMsg.textContent = 'Launching Android Scene Viewer...';
-          const intentUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(CONFIG.glbUrl)}&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;end;`;
-          window.location.href = intentUrl;
-        } else if (isIOS) {
-          statusMsg.textContent = 'Tap to launch iOS AR View';
-          
-          const arAnchor = document.createElement('a');
-          arAnchor.setAttribute('rel', 'ar');
-          arAnchor.setAttribute('href', `${CONFIG.usdzUrl}?v=${VERSION}`);
-          arAnchor.className = 'ios-ar-btn';
-          arAnchor.innerHTML = '<img id="ar-img" style="display:none;" /> Launch AR Camera';
+            document.addEventListener('DOMContentLoaded', () => {
+                const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                const redirectScreen = document.getElementById('redirect-screen');
+                const statusMsg = document.getElementById('status-message');
+                const arStatusUI = document.getElementById('ar-status');
 
-          redirectScreen.appendChild(arAnchor);
-          
-          setTimeout(() => {
-            arAnchor.click();
-          }, 300);
-        }
-      } else {
-        // --- WEBAR / MINDAR MODE EXECUTION ---
-        redirectScreen.style.display = 'none';
-        arStatusUI.style.display = 'block';
+                const isAndroid = /android/i.test(userAgent);
+                const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
-        const assetsEl = document.querySelector('#ar-assets');
-        const targetEl = document.querySelector('#ar-target');
+                if (CONFIG.enableNativeRedirect && (isAndroid || isIOS)) {
+                    // --- NATIVE MODE EXECUTION ---
+                    if (isAndroid) {
+                        statusMsg.textContent = 'Launching Android Scene Viewer...';
+                        const intentUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(CONFIG.glbUrl)}&mode=ar_only#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;end;`;
+                        window.location.href = intentUrl;
+                    } else if (isIOS) {
+                        statusMsg.textContent = 'Tap to launch iOS AR View';
 
-        // Dynamically inject GLTF Asset
-        const assetItem = document.createElement('a-asset-item');
-        assetItem.setAttribute('id', 'dynamic-model');
-        assetItem.setAttribute('src', `${CONFIG.glbUrl}?v=${VERSION}`);
-        assetsEl.appendChild(assetItem);
+                        const arAnchor = document.createElement('a');
+                        arAnchor.setAttribute('rel', 'ar');
+                        arAnchor.setAttribute('href', `${CONFIG.usdzUrl}?v=${VERSION}`);
+                        arAnchor.className = 'ios-ar-btn';
+                        arAnchor.innerHTML =
+                            '<img id="ar-img" style="display:none;" /> Launch AR Camera';
 
-        // Dynamically inject 3D Entity
-        const modelEntity = document.createElement('a-gltf-model');
-        modelEntity.setAttribute('src', '#dynamic-model');
-        modelEntity.setAttribute('position', CONFIG.transform.position);
-        modelEntity.setAttribute('scale', CONFIG.transform.scale);
-        modelEntity.setAttribute('rotation', CONFIG.transform.rotation);
-        modelEntity.setAttribute('animation-mixer', `clip: ${CONFIG.animation.clip}; loop: ${CONFIG.animation.loop}; timeScale: ${CONFIG.animation.timeScale}`);
-        
-        targetEl.appendChild(modelEntity);
+                        redirectScreen.appendChild(arAnchor);
 
-        // Event Listeners for Tracking UI
-        targetEl.addEventListener('targetFound', () => {
-          arStatusUI.textContent = 'Tracking Active';
-          arStatusUI.style.borderColor = 'hsl(240, 80%, 50%)';
-        });
+                        setTimeout(() => {
+                            arAnchor.click();
+                        }, 300);
+                    }
+                } else {
+                    // --- WEBAR / MINDAR MODE EXECUTION ---
+                    redirectScreen.style.display = 'none';
+                    arStatusUI.style.display = 'block';
 
-        targetEl.addEventListener('targetLost', () => {
-          arStatusUI.textContent = 'Point camera at QR Code';
-          arStatusUI.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-        });
-      }
-    });
-  </script>
- </body>
+                    const assetsEl = document.querySelector('#ar-assets');
+                    const targetEl = document.querySelector('#ar-target');
+
+                    // Dynamically inject GLTF Asset
+                    const assetItem = document.createElement('a-asset-item');
+                    assetItem.setAttribute('id', 'dynamic-model');
+                    assetItem.setAttribute('src', `${CONFIG.glbUrl}?v=${VERSION}`);
+                    assetsEl.appendChild(assetItem);
+
+                    // Dynamically inject 3D Entity
+                    const modelEntity = document.createElement('a-gltf-model');
+                    modelEntity.setAttribute('src', '#dynamic-model');
+                    modelEntity.setAttribute('position', CONFIG.transform.position);
+                    modelEntity.setAttribute('scale', CONFIG.transform.scale);
+                    modelEntity.setAttribute('rotation', CONFIG.transform.rotation);
+                    modelEntity.setAttribute(
+                        'animation-mixer',
+                        `clip: ${CONFIG.animation.clip}; loop: ${CONFIG.animation.loop}; timeScale: ${CONFIG.animation.timeScale}`
+                    );
+
+                    targetEl.appendChild(modelEntity);
+
+                    // Event Listeners for Tracking UI
+                    targetEl.addEventListener('targetFound', () => {
+                        arStatusUI.textContent = 'Tracking Active';
+                        arStatusUI.style.borderColor = 'hsl(240, 80%, 50%)';
+                    });
+
+                    targetEl.addEventListener('targetLost', () => {
+                        arStatusUI.textContent = 'Point camera at QR Code';
+                        arStatusUI.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    });
+                }
+            });
+        </script>
+    </body>
 </html>
