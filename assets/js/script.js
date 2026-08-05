@@ -197,39 +197,51 @@ let myScript = () => {
     { name: `Developed by OPPO A53`, value: `#` },
   ];
 
-  // key specializations & skills:
-  const specializing = [
-    {
-      name: `Front-End Architecture`,
-      value: `Designing scalable and efficient user interfaces.`,
-    },
-    {
-      name: `UI/UX Design`,
-      value: `Creating intuitive and engaging user experiences.`,
-    },
-    {
-      name: `Web Technologies`,
-      value: `Expertise in modern web development standards and performance optimization.`,
-    },
-    {
-      name: `Performance Focus`,
-      value: `Specializes in optimizing Core Web Vitals for speed.`,
-    },
+    // key specializations & skills:
+    function SpecializingItem(name, value) {
+        this.name = name;
+        this.value = value;
+    }
+    const specializing = [
+        new SpecializingItem(
+            `Front-End Architecture`,
+            `Designing scalable and efficient user interfaces.`
+    ),
+        new SpecializingItem(
+            `UI/UX Design`,
+            `Creating intuitive and engaging user experiences.`
+    ),
+        new SpecializingItem(
+            `Web Technologies`,
+            `Expertise in modern web development standards and performance optimization.`
+    ),
+        new SpecializingItem(
+            `Performance Focus`,
+            `Specializes in optimizing Core Web Vitals for speed.`
+    ),
   ];
 
-  const servicesPrimary = [
-    { name: `UI/UX design`, price: `${money(80)}` },
-    { name: `Web design`, price: `${money(100)}` },
-    { name: `Re-Design website`, price: `${money(80)}` },
-    { name: `Front-End development`, price: `${money(100)}` },
-    { name: `Static Websit (Reasonable price!)`, price: `${money(80)}` },
-    { name: `Photo/image to website`, price: `${money(180)}` },
-    { name: `Figma/Framer/Webflow to website`, price: `${money(80)}` },
+    function ServicesPrimaryItem(name, price) {
+        this.name = name;
+        this.price = money(price);
+    }
+    const servicesPrimary = [
+    new ServicesPrimaryItem(`UI/UX design`, 80),
+    new ServicesPrimaryItem(`Web design`, 100),
+    new ServicesPrimaryItem(`Re-Design website`, 80),
+    new ServicesPrimaryItem(`Front-End development`, 100),
+    new ServicesPrimaryItem(`Static Websit (Reasonable price!)`, 80),
+    new ServicesPrimaryItem(`Photo/image to website`, 180),
+    new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 80),
   ];
 
+    function ServicesSeconderyItem(name, price) {
+        this.name = name;
+        this.price = money(price);
+    }
   const servicesSecondery = [
-    { name: `Custom QR code`, price: `${money(0.6)}` },
-    { name: `YouTube Channel ownership transfer`, price: `${money(1.6)}` },
+    new ServicesSeconderyItem(`Custom QR code`, 0.6),
+    new ServicesSeconderyItem(`YouTube Channel ownership transfer`, 1.6),
   ];
 
   // get essential favicon by domain name
@@ -275,7 +287,7 @@ let myScript = () => {
   */
 
   let metaViewport = () => {
-    const VIEWPORT_CONTENT = "width=device-width, initial-scale=0.85";
+    const VIEWPORT_CONTENT = "width=device-width, initial-scale=1";
 
     // Attempt to find existing viewport meta tag
     let viewport = document.querySelector('meta[name="viewport"]');
@@ -306,7 +318,6 @@ let myScript = () => {
    * Features: Base64 Injection, Cache-Busting, Logic Preservation
    *//**
    * Injects SVG Favicons with automated versioning and responsive attributes.
-   * Version: 26.03.21 (Dynamic)
    */
   /*
   const injectIcons = () => {
@@ -387,7 +398,6 @@ let myScript = () => {
   /**
    * LoaderSection Component
    * Focus: Performance, SEO, and Clean Logic
-   * Build: 2026-03-02
    */
 
   class LoaderSection extends HTMLElement {
@@ -469,7 +479,6 @@ let myScript = () => {
   /**
    * NotchSection Component
    * Focus: Performance, SEO, and Clean Logic
-   * Build: 2026-03-24
    */
   class NotchSection extends HTMLElement {
     connectedCallback() {
@@ -501,7 +510,6 @@ let myScript = () => {
   /**
    * ToastSection Component
    * Focus: Performance, SEO, and Clean Logic
-   * Build: 2026-03-24
    */
   class ToastSection extends HTMLElement {
     connectedCallback() {
@@ -532,7 +540,6 @@ let myScript = () => {
   /**
    * HeaderSection Component
    * Focus: Performance, SEO, and Clean Logic
-   * Build: 2026-03-02
    */
   class HeaderSection extends HTMLElement {
     connectedCallback() {
@@ -544,7 +551,7 @@ let myScript = () => {
       template.innerHTML = `
       <header class="fluid-grid-system" id="header">
        <section class="container-md">
-        <nav style="padding-block: var(--space-xs)" class="col">
+        <nav style="padding-block: .5em" class="col">
          <span title="address">
           <a href="https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9">Jashore</a>
           <a href="https://maps.app.goo.gl/FM6vxDsAPLaQErnd6">Khulna</a>
@@ -572,85 +579,43 @@ let myScript = () => {
   /**
    * DesignSystemSection Component
    * Focus: Performance, SEO, and Clean Logic
-   * Build: 2026-03-02
    */
   class DesignSystemSection extends HTMLElement {
-    connectedCallback() {
-      const colors = [
-        {
-          property: `txt-1`,
-        },
-        {
-          property: `txt-2`,
-        },
-        {
-          property: `txt-3`,
-        },
-        {
-          property: `txt-primary`,
-        },
+      connectedCallback() {
+          function UiItem(property) {
+              this.property = property;
+          }
+          const colors = [
+        new UiItem(`txt-1`),
+        new UiItem(`txt-2`),
+        new UiItem(`txt-3`),
+        new UiItem(`txt-primary`),
       ];
       const backgrounds = [
-        {
-          property: `bg-1`,
-        },
-        {
-          property: `bg-2`,
-        },
-        {
-          property: `bg-3`,
-        },
-        {
-          property: `primary-40`,
-        },
-        {
-          property: `primary-50`,
-        },
-        {
-          property: `primary-60`,
-        },
+        new UiItem(`bg-1`),
+        new UiItem(`bg-2`),
+        new UiItem(`bg-3`),
+        new UiItem(`primary-40`),
+        new UiItem(`primary-50`),
+        new UiItem(`primary-60`),
       ];
       const headings = [
-        {
-          property: `h1`,
-        },
-        {
-          property: `h2`,
-        },
-        {
-          property: `h3`,
-        },
-        {
-          property: `h4`,
-        },
-        {
-          property: `h5`,
-        },
-        {
-          property: `h6`,
-        },
+        new UiItem(`h1`),
+        new UiItem(`h2`),
+        new UiItem(`h3`),
+        new UiItem(`h4`),
+        new UiItem(`h5`),
+        new UiItem(`h6`),
       ];
       const paragraphs = [
-        {
-          property: `p`,
-        },
-        {
-          property: `p-sm`,
-        },
-        {
-          property: `p-xsm`,
-        },
+        new UiItem(`p`),
+        new UiItem(`p-sm`),
+        new UiItem(`p-xsm`),
       ];
       const buttons = [
-        {
-          property: `button`,
-        },
-        {
-          property: `btn-primary`,
-        },
-        {
-          property: `btn-secondary`,
-        },
+        new UiItem(`button`),
+        new UiItem(`btn-primary`),
+        new UiItem(`btn-secondary`),
       ];
 
       // 2. Create an off-screen Template
@@ -786,7 +751,7 @@ const skills = [
     new DevSkill(`HTML`,`${faviconHtml}`),
     new DevSkill(`CSS`, `${faviconCss}`),
     new DevSkill(`JavaScript`, `${faviconJs}`),
-  ];
+];
 
   function DevTool(name, favicon, link = '#') {
     this.name = name;
@@ -807,7 +772,6 @@ const tools = [
   /**
    * HeroSection Component
    * Focus: Performance, SEO, and Clean Logic
-   * Build: 2026-03-02
    */
 
   class HeroSection extends HTMLElement {
