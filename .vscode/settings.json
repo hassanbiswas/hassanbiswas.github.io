@@ -30,7 +30,7 @@
 
   // --- AUTOMATION & SPEED (SET-AND-FORGET) ---
   "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 100000, 
+  "files.autoSaveDelay": 1000000, 
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
