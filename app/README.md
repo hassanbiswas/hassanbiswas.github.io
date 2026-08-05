@@ -1,13 +1,17 @@
 # Web Developer | Hassan Biswas — UI/UX & Front-End Architecture APK
+
 @hassanbiswas.github.io
 
 [![Portoflio](https://hassanbiswas.github.io/assets/og-images/og-main.png)](https://hassanbiswas.github.io)
 
 ## Webview Application
+
 ## Overview
+
 This app allows user & client to stay connected with Web developer | Hassan Biswas.
 
 ## Installation
+
 - download the app from https://hassanbiswas.github.io/app
 - or
 - visit https://hassanbiswas.github.io & you will get prompt to install app
@@ -15,13 +19,15 @@ This app allows user & client to stay connected with Web developer | Hassan Bisw
 - visit https://hassanbiswas.github.io & from your browsers > menu > cast, save, share > install page as app.
 
 ## Usage:
- - Install & open the app
- - Browse products
- - Choose product
- - Contact me
- - Buy product
+
+- Install & open the app
+- Browse products
+- Choose product
+- Contact me
+- Buy product
 
 ## Features
+
 - Easier connection & access
 - Multiple browser support
 - Multiple devices support

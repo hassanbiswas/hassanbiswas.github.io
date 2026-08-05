@@ -10,7 +10,6 @@
 
 [![divider_moving_neon_gradient](https://hassanbiswas.github.io/assets/img/public/divider_data_capsul.svg)](https://hassanbiswas.github.io)
 
-
 <br>
 
 <p align="center">
@@ -34,20 +33,20 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
 [portfolio-website](https://github.com/topics/portfolio-website) [ui-ux-design](https://github.com/topics/ui-ux-design) [github](https://github.com/topics/github) [javascript](https://github.com/topics/javascript) [css](https://github.com/topics/css) [html](https://github.com/topics/html) [bootstrap](https://github.com/topics/bootstrap) [website](https://github.com/topics/website) [web-development](https://github.com/topics/web-development) [css-animations](https://github.com/topics/css-animations) [vscode](https://github.com/topics/vscode) [css-grid](https://github.com/topics/css-grid) [web-design](https://github.com/topics/web-design) [figma](https://github.com/topics/figma) [framer](https://github.com/topics/framer) [webflow](https://github.com/topics/webflow) [front-end-development](https://github.com/topics/front-end-development) [css-flexbox](https://github.com/topics/css-flexbox)
 
-  * Languages: HTML, CSS, JavaScript
-  * UI/UX Design: Figma, Framer
-  * No-Code/Low-Code: Figma, Webflow, Relume
-  * Deployment: GitHub Pages
-
-[![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)                         
-  
- ## Follow My Work
-   * [Facebook](https://hassanbiswas.github.io/facebook)
-   * [Instagram](https://hassanbiswas.github.io/instagram)
-   * [Threads](https://hassanbiswas.github.io/threads)
+- Languages: HTML, CSS, JavaScript
+- UI/UX Design: Figma, Framer
+- No-Code/Low-Code: Figma, Webflow, Relume
+- Deployment: GitHub Pages
 
 [![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)
 
+## Follow My Work
+
+- [Facebook](https://hassanbiswas.github.io/facebook)
+- [Instagram](https://hassanbiswas.github.io/instagram)
+- [Threads](https://hassanbiswas.github.io/threads)
+
+[![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)
 
 <table width="100%" border="0" cellspacing="10" cellpadding="0">
 <tr>
@@ -77,7 +76,7 @@ I’m collaborating with:
 
 <!-- right panel -->
 <td width="33%" valign="top">
-     
+
 <h2>Contact</h2>
 <ul>
 <li><a href="hassanbiswas.github.io/messenger">Messenger</a></li>    
@@ -90,12 +89,12 @@ I’m collaborating with:
 </tr>
 </table>
 
-
 [![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)
 
 ## Acknowledgements:
-   Serving clients worldwide.
-   Thank's to <a href="https://github.com/hiradEmami">Hirad Emami</a>
+
+Serving clients worldwide.
+Thank's to <a href="https://github.com/hiradEmami">Hirad Emami</a>
 
 [![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)
 
@@ -115,6 +114,5 @@ Star ⭐ the repos if he helped you!
 <p align="center">
   <img src="https://hassanbiswas.github.io/assets/img/public/68747470733a2f2f63617073756c652d72656e6465722e76657263656c2e6170702f6170693f747970653d776176696e6726636f6c6f723d6772616469656e74266865696768743d3130302673656374696f6e3d666f6f7465722677696474683d313030.svg"/>
 </p>
-
 
 [![divider_moving_neon_gradient](https://hassanbiswas.github.io/assets/img/public/divider_cyber_cycle_mirrored.svg)](https://hassanbiswas.github.io)

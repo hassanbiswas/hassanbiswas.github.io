@@ -1,14 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const checkElement = setInterval(() => {
-        const commandDialog = document.querySelector(".quick-input-widget");
+        const commandDialog = document.querySelector('.quick-input-widget');
         if (commandDialog) {
-          // Apply the blur effect immediately if the command dialog is visible
-          if (commandDialog.style.display !== "none") {
-            runMyScript();
-          }
+            // Apply the blur effect immediately if the command dialog is visible
+            if (commandDialog.style.display !== 'none') {
+                runMyScript();
+            }
             // Create an DOM observer to 'listen' for changes in element's attribute.
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(mutation => {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
                         if (commandDialog.style.display === 'none') {
                             handleEscape();
@@ -26,12 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Clear the interval once the observer is set
             clearInterval(checkElement);
         } else {
-            console.log("Command dialog not found yet. Retrying...");
+            console.log('Command dialog not found yet. Retrying...');
         }
     }, 500); // Check every 500ms
 
     // Execute when command palette was launched.
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if ((event.metaKey || event.ctrlKey) && event.key === 'p') {
             event.preventDefault();
             runMyScript();
@@ -42,24 +42,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Ensure the escape key event listener is at the document level
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' || event.key === 'Esc') {
-            handleEscape();
-        }
-    }, true);
+    document.addEventListener(
+        'keydown',
+        function (event) {
+            if (event.key === 'Escape' || event.key === 'Esc') {
+                handleEscape();
+            }
+        },
+        true
+    );
 
     function runMyScript() {
-        const targetDiv = document.querySelector(".monaco-workbench");
+        const targetDiv = document.querySelector('.monaco-workbench');
 
         // Remove existing element if it already exists
-        const existingElement = document.getElementById("command-blur");
+        const existingElement = document.getElementById('command-blur');
         existingElement && existingElement.remove();
 
         // Create and configure the new element
-        const newElement = document.createElement("div");
+        const newElement = document.createElement('div');
         newElement.setAttribute('id', 'command-blur');
 
-        newElement.addEventListener('click', function() {
+        newElement.addEventListener('click', function () {
             newElement.remove();
         });
 
@@ -67,29 +71,29 @@ document.addEventListener('DOMContentLoaded', function() {
         targetDiv.appendChild(newElement);
 
         // Hide the sticky widget
-        const widgets = document.querySelectorAll(".sticky-widget");
-        widgets.forEach((widget) => {
+        const widgets = document.querySelectorAll('.sticky-widget');
+        widgets.forEach(widget => {
             widget.style.opacity = 0;
         });
 
         // Hide the tree sticky widget
-        const treeWidget = document.querySelector(".monaco-tree-sticky-container");
+        const treeWidget = document.querySelector('.monaco-tree-sticky-container');
         treeWidget && (treeWidget.style.opacity = 0);
     }
 
     // Remove the backdrop blur from the DOM when esc key is pressed.
     function handleEscape() {
-        const element = document.getElementById("command-blur");
+        const element = document.getElementById('command-blur');
         element && element.click();
 
         // Show the sticky widget
-        const widgets = document.querySelectorAll(".sticky-widget");
-        widgets.forEach((widget) => {
+        const widgets = document.querySelectorAll('.sticky-widget');
+        widgets.forEach(widget => {
             widget.style.opacity = 1;
         });
 
         // Show the tree sticky widget
-        const treeWidget = document.querySelector(".monaco-tree-sticky-container");
+        const treeWidget = document.querySelector('.monaco-tree-sticky-container');
         treeWidget && (treeWidget.style.opacity = 1);
     }
 });
