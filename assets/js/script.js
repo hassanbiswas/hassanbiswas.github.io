@@ -277,7 +277,7 @@ let myScript = () => {
     (faviconFramer = getFavicon(`framer.com`)),
     (faviconGithub = getFavicon(`github.com`)));
 
-  const preferedLanguages = [`English`, `Bangla (Advanced)`, `Hindi`];
+  const preferedLanguages = [`English(Native)`, `Bangla (Advanced)`, `Hindi(Conversation)`];
 
   /*
   const metaKey = document.querySelector('meta[name="keywords"]');
@@ -372,6 +372,13 @@ let myScript = () => {
   // Listen for the 'online' event
   window.addEventListener("online", handleConnectionChange);
 
+  //  Constractor for listing
+    function LinkList(name, link = '#', favicon = null) {
+        this.name = name;
+        this.class = name.toLowercase();
+        this.link = link;
+        this.favicon = favicon;
+    }
 
   // Corrected function with default 't' value of 3m
   const timeout = (el, t = 3000) => {
@@ -492,7 +499,7 @@ let myScript = () => {
   <section class="container-sm" id="notch">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
-      Developed in "OPPO A53" handset!
+      Developing in "OPPO A53" handset!
      </p>
      <button onclick="notch.classList.toggle('collapse')">
       ×
@@ -702,51 +709,70 @@ let myScript = () => {
     }
   }
 
-  /*
+  /**
+   * Component
+   * Focus: Performance, SEO, and Clean Logic
+   */
 
+    class ExampleSection extends HTMLElement {
+        connectedCallback() {
+            // Configuration for easy updates
 
-       <div class="flex dark">
-        <span class="html">
-         HTML 5
-        </span>
-        <span class="css">
-         CSS 3
-        </span>
-        <span class="javascript">
-         JavaScript ES6
-        </span>
-        <span class="bootstrap">
-         Bootstrap 5
-        </span>
-        <span class="figma">
-         Figma
-        </span>
-        <span class="webflow">
-         Webflow
-        </span>
-        <span class="frammer">
-         Framer
-        </span>
-        <span class="vscode">
-         VScode
-        </span>
-        <span class="github">
-         GitHub
-        </span>
-        <span class="disable" disable="">
-         GSAP
-        </span>
+                const devLanguages = [
+                    new LinkList(`HTML`),
+                    new LinkList(`CSS`),
+                    new LinkList(`JavaScript`),
+                ]
+                const devLibraries = [
+                    new LinkList(`Bootstrap`),
+                    new LinkList(`GSAP`),
+                ]
+                const designTools = [
+                    new LinkList(`Figma`),
+                    new LinkList(`Webflow`),
+                    new LinkList(`Frammer`),
+                ]
+                const devIdes = [
+                    new LinkList(`VScode`),
+                    new LinkList(`Antigravity`),
+                    new LinkList(`Claude`),
+                ]
+                const aiModels = [
+                    new LinkList(`Gemini`),
+                    new LinkList(`Gemma`),
+                ]
+                const versionControlls = [
+                    new LinkList(`GitHub`),
+                ]
+
+            // 2. Create an off-screen Template
+            const template = document.createElement("template");
+
+            // 3. Define the HTML (Top-level element is now your grid section)
+
+            // HTML
+            template.innerHTML = `
+
+          <div class="flex dark">
+${devLangiages.map(lang => `
+    <span class="${lang.class}">${lang.name}</span>
+`)}
        </div>
 
+    `;
 
-  */
+            // 4. THE MAGIC: Synchronous swap
+            // Replaces <contact-section> with the contents of the template immediately.
+            this.replaceWith(template.content);
+        }
+    }
 
   // Data array for easy updates
-function DevSkill(name, favicon, link = '#') {
+    /* function DevSkill(name, favicon, link = '#') {
     this.name = name;
     this.favicon = favicon;
     this.link = link;
-}
+    }
 const skills = [
     new DevSkill(`HTML`,`${faviconHtml}`),
     new DevSkill(`CSS`, `${faviconCss}`),
@@ -765,11 +791,11 @@ const tools = [
     new DevTool(`Webflow`, `${faviconWebflow}`),
     new DevTool(`Framer`, `${faviconFramer}`),
     new DevTool(`GitHub`, `${faviconGithub}`),
-  ];
+  ]; */
 
   // ### 404.html | Hero component ###
   // updated hero section
-  /**
+  /*
    * HeroSection Component
    * Focus: Performance, SEO, and Clean Logic
    */
@@ -779,7 +805,7 @@ const tools = [
       // Configuration for easy updates
       const brandLogo = () => {
         for (i = 0; i <= 10; i++) {
-          // console.log('hello world')
+            console.log(`Brand Logo of ${i}`);
         }
       };
 
@@ -2552,6 +2578,27 @@ customElements.define("t-section", TSection);
   // define custom elements before get dom element || seoMedia || function || call
 
   // ###### JavaScript function goes bellow ######
+
+  /**
+   *  * Concise ES6 Path Extractor & Dynamic Heading
+    */
+    (() => {
+      // 1. Extract path keyword and set heading tag
+        const path = window.location.pathname.split('/').filter(Boolean)[0]?.toLowerCase() || '';
+        const headingTag = path ? 'h1' : 'h2';
+
+            // 2. Create heading element
+        const heading = document.createElement(headingTag);
+            // 3. Find leaf elements or attributes matching the path string
+        const matchedElements = path ? [...document.querySelectorAll('body *:not(script):not(style)')].filter(el =>
+        (!el.children.length && el.textContent.toLowerCase().includes(path)) || [...el.attributes].some(a => a.value.toLowerCase().includes(path))
+        )
+        : [];
+
+        console.log(`Tag: <${headingTag}>, Path: "${path}"`, matchedElements);
+    })();
+
+
 
   const seoMedia = () => {
     let height = window.innerHeight,
