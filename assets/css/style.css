@@ -7,21 +7,13 @@
 
       /* Inter Variable Font (Headings) */
       @font-face {
-        font-family: "Head";
-        src: url("https://hassanbiswas.github.io/assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf") format("truetype-variations");
+        font-family: "Custom-Font";
+        src: url("assets/fonts/inter/Inter-VariableFont_wght.ttf") format("truetype-variations");
         /* Define the range of weights the file supports */
         font-weight: 100 900;
         font-display: swap;
       }
 
-
-      /* Montserrat Variable Font (Body) */
-      /* @font-face {
-        font-family: "Body";
-        src: url("https://hassanbiswas.github.io/assets/fonts/montserrat/Montserrat-VariableFont_wght.ttf") format("truetype-variations");
-        font-weight: 100 900;
-        font-display: swap;
-      } */
 
       /* it's default for html meta-theme */
       /* 1. Register Property for Smooth Transitions */
@@ -36,7 +28,7 @@
       body {
         min-block-size: 100dvh;
         min-inline-size: 100dvw;
-        font-family: var(--ffb);
+        font-family: var(--custom-font);
         background: var(--primary-50);
       }
 
@@ -188,16 +180,11 @@
 
 
         /* ====== font ====== */
-        /*
-        --ffh: "Inter", sans-serif;
-        --ffb: "Montserrat", sans-serif;
-        */
 
-        --ffh: "Head", sans-serif;
-        --ffb: "Head", sans-serif; /* Body */
+        --custom-font: "Custom-Font", sans-serif;
 
         /* fluidity min & max */
-        --max-width: 140rem;  /* 1280px */
+        --max-width: 128rem;  /* 1280px */
         --min-width: 37.5rem; /* 375px */
 
         /* Progress ratio: 0 at min-width, 1 at max-width */
@@ -738,7 +725,6 @@
 
       /* ============= font ================== */
       h1, h2, h3, h4, h5, h6 {
-        font-family: var(--ffh);
         font-weight: 700;
         letter-spacing: -0.022em;
         color: var(--txt-1);
@@ -2228,7 +2214,6 @@
           grid-auto-rows: auto;
 
           text {
-            font-family: var(--ffh);
             font-size: 104px;
             font-weight: 900;
             /* fill: var(--txt-1); */
@@ -2478,7 +2463,6 @@
           }
 
           text {
-            font-family: var(--ffh);
             font-size: calc(var(--h1) * 1.5);
             font-weight: 700;
             fill: var(--txt-1);

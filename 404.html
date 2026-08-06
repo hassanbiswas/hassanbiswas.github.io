@@ -69,96 +69,146 @@
                     window.location.replace(errorMapping[path]);
                 } else {
                     // Default fallback if no match
-                    window.location.replace('/');
+                    window.location.replace('/404.html');
                 }
             })();
         </script>
-        <script defer="">
+
+        <link
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.[...]"
+        />
+        <link
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.[...]"
+        />
+        <link
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.[...]"
+        />
+
+        <script defer>
+            const rootUrl = `/`;
+
             // Your updated logic automation: Changes once per day
             const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
             const injectAsset = (type, path, media = 'all') => {
-                const versionedPath = `${path}?v=${VERSION}`;
+                const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
                 if (type === 'css') {
                     document.write(
                         `<link rel="stylesheet" href="${versionedPath}" media="${media}">`
                     );
                 } else {
-                    document.write(`<script defer src="${versionedPath}"><\/script>`);
+                    document.write(`<script type="module" defer src="${versionedPath}"><\/script>`);
                 }
             };
 
-            injectAsset('css', 'https://hassanbiswas.github.io/assets/css/style.css');
-            injectAsset(
-                'css',
-                'https://hassanbiswas.github.io/assets/css/animation.css',
-                '(prefers-reduced-motion: none)'
-            );
-            injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
+            injectAsset('css', 'assets/css/style.css');
+            injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
+            injectAsset('js', 'assets/js/script.js');
+            injectAsset('js', 'components/loader-section.js');
+            injectAsset('js', 'components/notch-section.js');
+            injectAsset('js', 'components/header-section.js');
+            injectAsset('js', 'components/hero-section.js');
+            injectAsset('js', 'components/footer-section.js');
+            injectAsset('js', 'components/navigation-section.js');
+            injectAsset('js', 'components/toast-section.js');
         </script>
-        <link
-            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E"
-            loading="lazy"
-            rel="icon"
-            sizes="any"
-            type="image/svg+xml"
-        />
-        <link
-            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E"
-            loading="lazy"
-            rel="apple-touch-icon"
-            sizes="any"
-            type="image/svg+xml"
-        />
-        <link
-            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E"
-            loading="lazy"
-            rel="alternate icon"
-            sizes="any"
-            type="image/svg+xml"
-        />
-        <link href="https://hassanbiswas.github.io/manifest.json" rel="manifest" />
+
+        <link href="/manifest.json" rel="manifest" />
+
+        <meta content="3; URL=/" http-equiv="refresh" />
+
+        <script type="speculationrules">
+            {
+                "prerender": [
+                    {
+                        "where": {
+                            "href_matches": "/*"
+                        },
+                        "eagerness": "moderate"
+                    }
+                ],
+
+                "prefetch": [
+                    {
+                        "urls": ["/", "/#projects"]
+                    }
+                ]
+            }
+        </script>
+        <!-- scripts -->
+        <!-- <div id="google_translate_element"></div> -->
+        <!-- <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          { pageLanguage: "en" },
+          "google_translate_element"
+        );
+      }
+    </script>
+    <script
+      defer
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></script> -->
+
         <meta content="hsl(240, 80%, 50%)" name="theme-color" />
+
+        <!-- Professional Meta Tags -->
         <title>404 | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture</title>
-        <meta content="404 | Hassan Biswas — UI/UX &amp; Front-End Architecture" name="title" />
         <meta
-            content="404: Expert UI/UX and Front-End Architecture. Updated August 2026."
+            content="404 | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture"
+            name="title"
+        />
+        <meta content="Website Designer" name="subtitle" />
+        <meta
+            content="404 | Expert UI/UX and Front-End Architecture. Updated August 2026."
             name="description"
         />
         <meta
-            content="Hassan Biswas, 404, 404, UI/UX, Front-End, Web Design, Bangladesh"
+            content="404, Hassan Biswas, Home, Home, UI/UX, Front-End, Web Design, Bangladesh"
             name="keywords"
         />
         <meta content="Hassan Biswas" name="author" />
+
+        <!-- /// social preview card -->
+        <!-- Create a 1200 x 630 pixel image. Place it in /assets/ folder and name it assets/og-images/og-main.png. used https://hassanbiswas.github.io/... for image path. Social platforms cannot read relat[...] -->
+        <meta content="website" property="og:type" />
+
+        <!-- social preview card /// -->
         <meta content="index, follow" name="robots" />
     </head>
-    <body onload="myScript()">
+
+    <body>
         <!--/// body starts here! -->
         <!--/// #loader starts here! -->
-        <loader-section> </loader-section>
+        <loader-section></loader-section>
         <!-- loader ends ///-->
         <!--/// #notch starts here! -->
-        <notch-section> </notch-section>
+        <notch-section></notch-section>
         <!-- notch ends ///-->
         <!--/// #header starts here! -->
-        <header-section> </header-section>
+        <header-section></header-section>
         <!-- header ends ///-->
         <!--/// #main starts here! -->
         <main>
             <!--/// #hero starts here! -->
-            <hero-section> </hero-section>
+
+            <hero-section
+                heading="404 : Page not found!"
+                description="Check your connection and try again."
+            ></hero-section>
+
             <!-- hero ends ///-->
         </main>
         <!-- main ends ///-->
         <!--/// #footer starts here! -->
-        <footer-section> </footer-section>
+        <footer-section></footer-section>
         <!-- footer ends ///-->
         <!-- navigation menu -->
-        <navigation-section> </navigation-section>
+        <navigation-section></navigation-section>
         <!--/// #toast starts here! -->
-        <toast-section> </toast-section>
+        <toast-section></toast-section>
         <!-- toast ends ///-->
         <!-- body ends ///-->
-        <!--  ----------- js code goes here! ------------ -->
     </body>
 </html>

@@ -18,28 +18,22 @@
     ],
     "shortcuts": [
         {
-            "name": "About",
-            "url": "#about",
+            "name": "Messenger",
+            "url": "https://m.me/hassanbiswas.github.io",
             "icons": [
-                {
-                    "src": "https://www.google.com/s2/favicons?domain=m.me&sz=32",
-                    "sizes": "96x96"
-                }
+                { "src": "https://www.google.com/s2/favicons?domain=m.me&sz=32", "sizes": "96x96" }
             ]
         },
         {
-            "name": "Projects",
-            "url": "#projects",
+            "name": "Call",
+            "url": "tel:+8801602873384",
             "icons": [
-                {
-                    "src": "https://www.google.com/s2/favicons?domain=wa.me&sz=32",
-                    "sizes": "96x96"
-                }
+                { "src": "https://www.google.com/s2/favicons?domain=wa.me&sz=32", "sizes": "96x96" }
             ]
         },
         {
-            "name": "Contact",
-            "url": "#contact",
+            "name": "Direction",
+            "url": "https://www.google.com/maps",
             "icons": [
                 {
                     "src": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=32",
