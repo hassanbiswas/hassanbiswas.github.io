@@ -54,18 +54,18 @@ jobs:
             ],
             "shortcuts": [
               {
-                "name": "Messenger",
-                "url": "https://m.me/hassanbiswas.github.io",
+                "name": "About",
+                "url": "#about",
                 "icons": [{ "src": "https://www.google.com/s2/favicons?domain=m.me&sz=32", "sizes": "96x96" }]
               },
               {
-                "name": "Call",
-                "url": "tel:+8801602873384",
+                "name": "Projects",
+                "url": "#projects",
                 "icons": [{ "src": "https://www.google.com/s2/favicons?domain=wa.me&sz=32", "sizes": "96x96" }]
               },
               {
-                "name": "Direction",
-                "url": "https://www.google.com/maps",
+                "name": "Contact",
+                "url": "#contact",
                 "icons": [{ "src": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=32", "sizes": "96x96" }]
               }
             ]
