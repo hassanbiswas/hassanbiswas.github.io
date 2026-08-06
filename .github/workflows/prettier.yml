@@ -1,6 +1,12 @@
 name: Prettier
 
 on:
+  schedule:
+    # Monthly Schedule: Runs at 00:00 on the 1st of every month
+    - cron: '0 0 1 * *'
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       prettier-version:
