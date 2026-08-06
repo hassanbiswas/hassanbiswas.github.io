@@ -6,17 +6,10 @@
 
 const VERSION = '26.08.01';
 const CACHE_NAME = `hassan-biswas-v${VERSION}`;
-const OFFLINE_URL = '/index.html';
+const OFFLINE_URL = '/404.html';
 
 // Assets to cache
-const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/404.html',
-    '/manifest.json',
-    '/assets/css/style.css',
-    '/assets/js/script.js',
-];
+const ASSETS_TO_CACHE = ['/', '/index.html', '/404.html'];
 
 // Install Event - Caching assets with cache-busting during download
 self.addEventListener('install', event => {
