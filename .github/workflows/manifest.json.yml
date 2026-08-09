@@ -55,18 +55,15 @@ jobs:
             "shortcuts": [
               {
                 "name": "About",
-                "url": "#about",
-                "icons": [{ "src": "https://www.google.com/s2/favicons?domain=m.me&sz=32", "sizes": "96x96" }]
+                "url": "#about"
               },
               {
                 "name": "Projects",
-                "url": "#projects",
-                "icons": [{ "src": "https://www.google.com/s2/favicons?domain=wa.me&sz=32", "sizes": "96x96" }]
+                "url": "#projects"
               },
               {
                 "name": "Contact",
-                "url": "#contact",
-                "icons": [{ "src": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=32", "sizes": "96x96" }]
+                "url": "#contact"
               }
             ]
           }

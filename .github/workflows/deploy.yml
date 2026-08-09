@@ -7,7 +7,7 @@ on:
     paths:
       - '**'
   workflow_run:
-    workflows: ["compression.yml", "seo-assets.yml", "seo-pulse.yml", "seo-update.yml", "version-sync.yml", "dynamic-og.yml"]
+    workflows: ["compression.yml", "seo-assets.yml", "seo-pulse.yml", "seo-update.yml", "version-sync.yml", "dynamic-og.yml", "prettier.yml"]
     types:
       - completed
   schedule:
@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     # Logic Preservation: Only runs if push/schedule/dispatch OR successful compression
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
-    
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -51,4 +51,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
