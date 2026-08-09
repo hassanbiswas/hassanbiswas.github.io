@@ -8,15 +8,12 @@
 // ###################
 
 // dates functions
-const thisYear = new Date().getFullYear();
-const thisMonth = new Date().getMonth() + 1; // january = 0
-const thisDay = new Date().getDate();
-
-// Cache-busting for assets if needed
-// Use Date for a dynamic cache-busting version or release logic
-// Logic automation for versioning
-const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
-// Results in YY.MM.DD format (e.g., 2026.03.06)
+const thisYear = new Date().getFullYear(),
+    thisMonth = new Date().getMonth() + 1, // january = 0
+    thisDay = new Date().getDate(),
+    // Cache-busting & Logic automation for versioning
+    VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+// Results in YY.MM.DD format (e.g., xxxx.xx.xx)
 
 // absolute path for components
 
@@ -31,24 +28,24 @@ const author = {
     logoBase64v2: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzaXplcz0iYW55IiBsb2FkaW5nPSJsYXp5IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikhhc3NhbiBCaXN3YXMgTG9nbyIgc3R5bGU9IndpZHRoOiAxMDAlOyBoZWlnaHQ6IGF1dG87IGRpc3BsYXk6IGJsb2NrOyI+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBkPSJNMCAwaDE5MnYxOTJIMHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgZD0iTTY2LjQ4MSA2NC41MTloLS40OTNsLS4zMDgtLjMxOS4yNDQuMDkzLjE1NC0uMDQ2Yy0uMDkgMC0zMi4zNTItMzAuNTk5LTMyLjM1Mi0zMC41OTloNjEuODE1VjMzLjVjMzQuNzY5IDAgNjIuOTU5IDI3Ljk4OSA2Mi45NTkgNjIuNDk5IDAgMzQuNTE2LTI4LjE5IDYyLjUwMS02Mi45NTkgNjIuNTAxdi0uNzFsLTMwLjA4NC0zMC42NjJjLTEuNjkzLTEuNDA5LTguODktOC43NDAtMTUuOTQ3LTE1Ljg5MS04LjAyNy04LjE0NS0xNi4wMS0xNi4zMi0xNi4wMS0xNi4zMlY2NC41MTloMzIuMTNsMjkuOTExIDMwLjQ0OXYzLjAzMWMtOC4yMzMtLjI3NS0zMC4yMzYtMS4xMTUtMzAuMjM2LTEuMTE1LS4xODYtLjE3OC40MzkgMjguNjkwLjUxNSAzMi4xNzVoMjkuNzIxdi0uNDI4YzE3LjYwNSAwIDMxLjg3Mi0xNC4yOTQgMzEuODcyLTMxLjkzcy0xNC4yNjctMzEuOTI5LTMxLjg3Mi0zMS45Mjl2LS40NjVINTYuOTQ1ek05OC41NjYgOTcuMzVjMCAuMDI3LTEuMTU4LS4wMjEtMy4wMjUtLjA3di0yLjk3OHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PC9zdmc+`,
     logoOutlineSvg: `<svg class="logo brand-logo" fill="none" height="192" viewbox="0 0 192 192" width="192" xmlns="http://www.w3.org/2000/svg">
 
-          <path d="M0 0h192v192H0z" fill="transparent" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M65.417 63.247h-.512l-.323-.33.252.099.173-.04c-.098.004-33.414-31.814-33.414-31.814h63.814V31c35.9 0 65 29.101 65 65s-29.1 65-65 65v-.735l-30.68-31.213c-1.723-1.43-9.063-8.893-16.258-16.173-8.185-8.29-16.325-16.612-16.325-16.612v-33.02h32.761l30.502 30.991v3.086c-8.395-.277-30.833-1.134-30.833-1.134-.189-.181.448 29.206.526 32.749h30.307v-.435c17.949 0 32.5-14.548 32.5-32.5s-14.551-32.5-32.5-32.5v-.475H64.865zm33.11 34.162c0 .013-1.19-.021-3.12-.088v-3.085z" fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+ <path d="M0 0h192v192H0z" fill="transparent" stroke-linecap="round" stroke-linejoin="round"></path>
+ <path d="M65.417 63.247h-.512l-.323-.33.252.099.173-.04c-.098.004-33.414-31.814-33.414-31.814h63.814V31c35.9 0 65 29.101 65 65s-29.1 65-65 65v-.735l-30.68-31.213c-1.723-1.43-9.063-8.893-16.258-16.173-8.185-8.29-16.325-16.612-16.325-16.612v-33.02h32.761l30.502 30.991v3.086c-8.395-.277-30.833-1.134-30.833-1.134-.189-.181.448 29.206.526 32.749h30.307v-.435c17.949 0 32.5-14.548 32.5-32.5s-14.551-32.5-32.5-32.5v-.475H64.865zm33.11 34.162c0 .013-1.19-.021-3.12-.088v-3.085z" fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
 
-         </svg>`,
+</svg>`,
 
     countryCode: `+880`,
     phone: `8801602873384`,
     phoneText: `1602-873384`,
 };
 
-// Cleaning the domain string for the display text (e.g., "example.com" instead of "https://example.com")
+// Cleaning the domain string for the display text (e.g., "example.com" instead of "example.com")
 author.domain = author.siteUrl.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
 // Now safely add the dynamic title
 author.title = `Web Developer | ${author.name} — UI/UX & Front-End Architecture`;
-author.subTitle = `${author.name}`;
+author.subTitle = `Website Designer`;
 // maps.app.goo.gl/LPouGF9mtLHFjcDJ7
-// https://maps.app.goo.gl/ibD4URe7LHMcNtPaA
+// maps.app.goo.gl/ibD4URe7LHMcNtPaA
 author.location = `/location`;
 
 // Replaces both literal " and URL-encoded %22 with '
@@ -58,107 +55,102 @@ author.faviconSvg = author.mainFaviconSvg.replace(/"|%22/g, '');
   author.faviconSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z' fill='%231a1ae6' stroke='%231a1ae6'/%3E%3C/svg%3E`;
       */
 
-author.iframeHome = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff134bb81a3bb7%3A0xe2dd7732283d1db1!2sWeb%20Developer%20%7C%20Responsive%20Website%20Design%20%26%20Front-End%20Development!5e0!3m2!1sen!2sbd!4v1770707284182!5m2!1sen!2sbd`;
-author.iframeVillage = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff13bb28c63d57%3A0x266a14a438c0bb8f!2zQmVnYXJpdG9sYSBCYXphciB8IOCmrOCnh-Cml-CmvuCmsOCmv-CmpOCmsuCmviDgpqzgpr7gppzgpr7gprA!5e0!3m2!1sen!2sbd!4v1770707187851!5m2!1sen!2sbd`;
+author.iframeHome = `https://google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff134bb81a3bb7%3A0xe2dd7732283d1db1!2sWeb%20Developer%20%7C%20Responsive%20Website%20Design%20%26%20Front-End%20Development!5e0!3m2!1sen!2sbd!4v1770707284182!5m2!1sen!2sbd`;
+author.iframeVillage = `https://google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff13bb28c63d57%3A0x266a14a438c0bb8f!2zQmVnYXJpdG9sYSBCYXphciB8IOCmrOCnh-Cml-CmvuCmsOCmv-CmpOCmsuCmviDgpqzgpr7gppzgpr7gprA!5e0!3m2!1sen!2sbd!4v1770707187851!5m2!1sen!2sbd`;
+
+// author.subscriptions = `https://youtube.com/`;
+// authore.subscrib = `https://youtube.com/`;
 
 // Village *****
-const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`;
-
-// Sub-District *****
-const monirampur = `https://maps.app.goo.gl/hNNSLwWyrDv4WgfbA`;
-
-// District *****
-const jashore = `https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9`;
-
-// Divition *****
-const khulna = `https://maps.app.goo.gl/FM6vxDsAPLaQErnd6`;
-const dhaka = `https://maps.app.goo.gl/epey14ek8i1j2dyv5`;
-
-// Country *****
-const bangladesh = `https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9`;
-const india = `https://maps.app.goo.gl/pMs2qXFPBE9mSnRP6`;
-const pakistan = `https://maps.app.goo.gl/Jni2cwJ5fni58ACg9`;
-const china = `https://maps.app.goo.gl/qG5xJbk1CwURQ8uZ9`;
-const japan = `https://maps.app.goo.gl/yoYtyEydmeEZP7Sp6`;
-
-// States *****
-const uae = `https://maps.app.goo.gl/VwchnJgZWWYs8KHR9`;
-const uk = `https://maps.app.goo.gl/NVBYjcfqJ2w6tkAe8`;
-const us = `https://maps.app.goo.gl/p3BBmD8JYCpqPt3i9`;
-
-// Continent *****
-const asia = `https://maps.app.goo.gl/eMssXoAjXHkpfcry8`;
-const africa = `https://maps.app.goo.gl/tenD5kgxxPRemmHy9`;
-const northAmerica = `https://maps.app.goo.gl/Z7oSTNzY7TETsesz7`;
-const southAmerica = `https://maps.app.goo.gl/pmqqPp2w7RF2ve9KA`;
-const antarctica = `https://maps.app.goo.gl/3gspcf93bA8qZRD69`;
-const europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`;
-const oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
+const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`,
+    // Sub-District *****
+    monirampur = `https://maps.app.goo.gl/hNNSLwWyrDv4WgfbA`,
+    // District *****
+    jashore = `https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9`,
+    // Divition *****
+    khulna = `https://maps.app.goo.gl/FM6vxDsAPLaQErnd6`,
+    dhaka = `https://maps.app.goo.gl/epey14ek8i1j2dyv5`,
+    // Country *****
+    bangladesh = `https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9`,
+    india = `https://maps.app.goo.gl/pMs2qXFPBE9mSnRP6`,
+    pakistan = `https://maps.app.goo.gl/Jni2cwJ5fni58ACg9`,
+    china = `https://maps.app.goo.gl/qG5xJbk1CwURQ8uZ9`,
+    japan = `https://maps.app.goo.gl/yoYtyEydmeEZP7Sp6`,
+    // States *****
+    uae = `https://maps.app.goo.gl/VwchnJgZWWYs8KHR9`,
+    uk = `https://maps.app.goo.gl/NVBYjcfqJ2w6tkAe8`,
+    us = `https://maps.app.goo.gl/p3BBmD8JYCpqPt3i9`,
+    // Continent *****
+    asia = `https://maps.app.goo.gl/eMssXoAjXHkpfcry8`,
+    africa = `https://maps.app.goo.gl/tenD5kgxxPRemmHy9`,
+    northAmerica = `https://maps.app.goo.gl/Z7oSTNzY7TETsesz7`,
+    southAmerica = `https://maps.app.goo.gl/pmqqPp2w7RF2ve9KA`,
+    antarctica = `https://maps.app.goo.gl/3gspcf93bA8qZRD69`,
+    europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`,
+    oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
 
 const worldwide = `<a href="${asia}">Asia</a>, <a href="${africa}">Africa</a>, <a href="${northAmerica}">North America</a>, <a href="${southAmerica}">South America</a>, <a href="${europe}">Europe</a>, <a href="${oceania}">Oceania</a>`;
 
 const locationPrimary = `
-          <a href="${jashore}">Jashore</a>
-          <a href="${khulna}">Khulna</a>
-          <a href="${bangladesh}">Bangladesh</a>`;
-const locationSecondary = `
-          <a href="${dhaka}">Dhaka</a>,
-          <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
+<a href="${jashore}">Jashore</a>
+<a href="${khulna}">Khulna</a>
+<a href="${bangladesh}">Bangladesh</a>`,
+    locationSecondary = `
+    <a href="${dhaka}">Dhaka</a>,
+    <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
 
-const root = document.documentElement;
+const root = document.documentElement,
+    head = document.head || document.getElementsByTagName('head')[0],
+    body = document.body || document.getElementsByTagName('body')[0],
+    // 2. Get the computed style of the root
+    styleSheet = getComputedStyle(document.documentElement);
 
-const head = document.head || document.getElementsByTagName('head')[0];
-const body = document.body || document.getElementsByTagName('body')[0];
-
-// 2. Get the computed style of the root
-const rootStyles = getComputedStyle(document.documentElement);
 let primaryColor = `hsl(240, 80%, 50%)`;
 
 // <a href=""></a>
 // review
 const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
-author.direction = `https://www.google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB`;
 
-const urlGithub = `https://github.com/hassanbiswas`,
-    urlFacebook = `https://www.facebook.com/hassanbiswas.github.io`,
+author.direction = `https://google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB`;
+
+export const urlGithub = `https://github.com/hassanbiswas`,
+    urlFacebook = `https://facebook.com/hassanbiswas.github.io`,
     urlMessenger = `https://m.me/hassanbiswas.github.io`,
     urlWhatsapp = `https://wa.me/8801602873384`,
     urlMobile = `tel:+8801602873384`,
     urlGmail = `mailto:hassanbiswas.github.io@gmail.com`,
     urlMeet = `https://meet.google.com/qjc-bvdp-azd`,
     urlBkash = `/bkash`,
-    urlInstagram = `https://www.instagram.com/hassanbiswas.github.io`,
-    urlThreads = `https://www.threads.com/hassanbiswas.github.io`,
-    urlX = `https://www.x.com/o1602873384`,
-    urlYoutube = `https://www.youtube.com/@hassanbiswas-github-io`,
-    urlPinterest = `https://www.pinterest.com/hassanbiswas_github_io`,
-    urlTiktok = `https://www.tiktok.com/@hassanbiswas.github.io`,
-    urlLinkedin = `https://www.linkedin.com/in/hassanbiswas-github-io`;
+    urlInstagram = `https://instagram.com/hassanbiswas.github.io`,
+    urlThreads = `https://threads.com/hassanbiswas.github.io`,
+    urlX = `https://x.com/o1602873384`,
+    urlYoutube = `https://youtube.com/@hassanbiswas-github-io`,
+    urlPinterest = `https://pinterest.com/hassanbiswas_github_io`,
+    urlTiktok = `https://tiktok.com/@hassanbiswas.github.io`,
+    urlLinkedin = `https://linkedin.com/in/hassanbiswas-github-io`;
 
 // dribble, behance, etc.
 
-const greetings = [
-    'Hello',
-    'السَّلَامُ عَلَيْكُمْ',
-    'হ্যালো',
-    '你好',
-    '안녕하세요',
-    'こんにちは',
-    'हेलो',
-];
-
-const money = value => {
-    return value?.toLocaleString('en-US', { style: 'currency', currency: 'USD' }); // undefined
-    // return value?.toLocaleString(undefined);
-};
-
-const heroStatus = [
-    { name: `Available for projects`, value: `#` },
-    { name: `Developed by OPPO A53`, value: `#` },
-];
+export const greetings = [
+        'Hello',
+        'السَّلَامُ عَلَيْكُمْ',
+        'হ্যালো',
+        '你好',
+        '안녕하세요',
+        'こんにちは',
+        'हेलो',
+    ],
+    money = value => {
+        return value?.toLocaleString('en-US', { style: 'currency', currency: 'USD' }); // undefined
+        // return value?.toLocaleString(undefined);
+    },
+    heroStatus = [
+        { name: `Available for projects`, value: `#` },
+        { name: `Developed by OPPO A53`, value: `#` },
+    ];
 
 // key specializations & skills:
-function SpecializingItem(name, value) {
+export function SpecializingItem(name, value) {
     this.name = name;
     this.value = value;
 }
@@ -178,7 +170,7 @@ const specializing = [
     ),
 ];
 
-function ServicesPrimaryItem(name, price) {
+export function ServicesPrimaryItem(name, price) {
     this.name = name;
     this.price = money(price);
 }
@@ -192,7 +184,7 @@ const servicesPrimary = [
     new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 80),
 ];
 
-function ServicesSeconderyItem(name, price) {
+export function ServicesSeconderyItem(name, price) {
     this.name = name;
     this.price = money(price);
 }
@@ -212,7 +204,7 @@ const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
     // wa.me
     faviconMobile = getFavicon(`voice.google.com/regain`),
     faviconWhatsapp = getFavicon(`whatsapp.com`),
-    // https://mail.google.com/mail/u/0/#inbox
+    // mail.google.com/mail/u/0/#inbox
     faviconGmail = getFavicon(`chat.google.com`),
     faviconMap = getFavicon(`maps.google.com`),
     faviconMeet = getFavicon(`meet.google.com`),
@@ -308,7 +300,8 @@ metaViewport();
   */
 
 const ogImg = document.querySelector('meta[property="og:image"]');
-if (ogImg) ogImg.content += `?v=${VERSION}`;
+// Remove everything after .png and append ?v=${VERSION}
+if (ogImg) ogImg.content = ogImg.content.replace(/\.png.*/i, `.png?v=${VERSION}`);
 
 // index.html only
 //document.title = `${author.title}`;
@@ -329,7 +322,7 @@ const handleConnectionChange = () => {
 window.addEventListener('online', handleConnectionChange);
 
 //  Constractor for listing
-function LinkList(name, link = '#', favicon = null) {
+export function LinkList(name, link = '#', favicon = null) {
     this.name = name;
     this.class = name.toLowercase();
     this.link = link;
@@ -371,9 +364,9 @@ class LoaderSection extends HTMLElement {
       <section id="loader" aria-hidden="true" class="fluid-grid-system" data-version="${VERSION}">
        <section class="container-md content-center">
         <div class="col items-center">
-          <h3 class="greeting txt-center flex">
-            &lt;<span id="say-hello">Hello</span>/&gt;
-          </h3>
+ <h3 class="greeting txt-center flex">
+   &lt;<span id="say-hello">Hello</span>/&gt;
+ </h3>
         </div>
        </section>
       </section>
@@ -429,13 +422,13 @@ class LoaderSection extends HTMLElement {
                 i = 0;
             }
             /*
-          else {
-            // Keep looping if offline or still loading
-            i = 0;
-          }
-          */
+ else {
+   // Keep looping if offline or still loading
+   i = 0;
+ }
+ */
             // }
-        }, 220);
+        }, 200);
     }
 }
 
@@ -453,7 +446,7 @@ class NotchSection extends HTMLElement {
 
         // collapse
         template.innerHTML = `
-  <section class="container-sm" id="notch">
+  <section class="container-sm" id="notch" data-version="${VERSION}">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
       Developing in "OPPO A53" handset!
@@ -483,7 +476,7 @@ class ToastSection extends HTMLElement {
         // 3. Define the HTML
 
         template.innerHTML = `
-  <section class="container-sm collapse" id="toast">
+  <section class="container-sm collapse" id="toast" data-version="${VERSION}">
     <div class="col dialog" id="toastDialog">
      <p class="notification">
       This is a toast dialog!
@@ -513,17 +506,17 @@ class HeaderSection extends HTMLElement {
         // 3. Define the HTML
 
         template.innerHTML = `
-      <header class="fluid-grid-system" id="header">
+      <header class="fluid-grid-system" id="header" data-version="${VERSION}">
        <section class="container-md">
         <nav style="padding-block: .5em" class="col">
-         <span title="address">
-          <a href="https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9">Jashore</a>
-          <a href="https://maps.app.goo.gl/FM6vxDsAPLaQErnd6">Khulna</a>
-          <a href="https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9">Bangladesh</a>
-         </span>
-         <a title="messenger" href="${urlMessenger}" target="_blank">
-          @hassanbiswas.github.io
-         </a>
+<span title="address">
+ <a href="https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9">Jashore</a>
+ <a href="https://maps.app.goo.gl/FM6vxDsAPLaQErnd6">Khulna</a>
+ <a href="https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9">Bangladesh</a>
+</span>
+<a title="messenger" href="${urlMessenger}" target="_blank">
+ @hassanbiswas.github.io
+</a>
         </nav>
        </section>
       </header>
@@ -537,6 +530,50 @@ class HeaderSection extends HTMLElement {
 // Define the custom element
 if (!customElements.get('header-section')) {
     customElements.define('header-section', HeaderSection);
+}
+
+/*
+ * Components
+ * Focus: Performance, SEO, and Clean Logic
+ */
+export class HeadingTag extends HTMLElement {
+    connectedCallback() {
+        const id = this.getAttribute('id') || 'id',
+            classes = this.getAttribute('class') || 'class',
+            style = this.getAttribute('style') || 'style',
+            text = this.innerText || this.textContent || 'insert text';
+
+        const parentOne = this.parentElement,
+            parentTwo = parentOne.parentElement,
+            target = parentTwo.parentElement,
+            parent = document.querySelector('main') || target.parentElement,
+            index = grandParent ? Array.from(parent.children).indexOf(target) : 0,
+            h = index === 0 ? 0 : 1,
+            // 2. Safely clamp tag level between 1 and 6
+            tagLevel = Math.min(h + 1, 6);
+
+        // 2. Create an off-screen Template
+        const template = document.createElement('template');
+        template.innerHTML = `
+
+            <h${h + 1} ${id} ${classes} ${style}>${text}</h${h + 1}>
+
+                    `;
+        this.replaceWith(template.content);
+    }
+}
+if (!customElements.get('heading-tag')) {
+    customElements.define('heading-tag', HeadingTag);
+}
+// <heading onload="lavel(1)">This is a heading!</heading>
+
+// Global Constructor Function for Section Data
+export function SectionData(element) {
+    this.heading = element.getAttribute('heading') || 'attribute: heading';
+    this.description = element.getAttribute('description') || 'attribute: description';
+    this.link = element.getAttribute('link') || 'attribute: link';
+    this.linkText = element.getAttribute('linkText') || 'attribute: linkText';
+    this.img = element.getAttribute('img') || 'attribute: img';
 }
 
 // updated design-system-section
@@ -586,68 +623,68 @@ class DesignSystemSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system" id="design-system">
+<section class="fluid-grid-system" id="design-system" data-version="${VERSION}">
     <section class="container-lg">
        <div style="gap: var(--space-l);" class="col">
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${colors
-             .map(
-                 color => `
-           <p style="flex: 1 1 23rem;" class=" ${color.property} ">
-             ${color.property}: Started the journey into UI/UX and Front-End architecture through self-directed learning.
-           </p>
-         `
-             )
-             .join('')}
+${colors
+    .map(
+        color => `
+  <p style="flex: 1 1 23rem;" class=" ${color.property} ">
+    ${color.property}: Started the journey into UI/UX and Front-End architecture through self-directed learning.
+  </p>
+`
+    )
+    .join('')}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${backgrounds
-             .map(
-                 background => `
-           <div style="flex: 1 1 23rem;" class=" ${background.property} ">
-             ${background.property}
-           </div>
-         `
-             )
-             .join('')}
+${backgrounds
+    .map(
+        background => `
+  <div style="flex: 1 1 23rem;" class=" ${background.property} ">
+    ${background.property}
+  </div>
+`
+    )
+    .join('')}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${headings
-             .map(
-                 heading => `
-           <${heading.property} style="flex: 1 1 23rem;" class=" ${heading.property} ">
-             ${heading.property}: Web Development.
-           </${heading.property}>
-         `
-             )
-             .join('')}
+${headings
+    .map(
+        heading => `
+  <${heading.property} style="flex: 1 1 23rem;" class=" ${heading.property} ">
+    ${heading.property}: Web Development.
+  </${heading.property}>
+`
+    )
+    .join('')}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${paragraphs
-             .map(
-                 pragraph => `
-           <p style="flex: 1 1 23rem;" class=" ${pragraph.property} ">
-             ${pragraph.property}: Started the journey into UI/UX and Front-End architecture through self-directed learning.
-           </p>
-         `
-             )
-             .join('')}
+${paragraphs
+    .map(
+        pragraph => `
+  <p style="flex: 1 1 23rem;" class=" ${pragraph.property} ">
+    ${pragraph.property}: Started the journey into UI/UX and Front-End architecture through self-directed learning.
+  </p>
+`
+    )
+    .join('')}
         </div>
 
         <div style="gap: var(--space-xs);" class="flex items-start">
-         ${buttons
-             .map(
-                 button => `
-           <button style="flex: 1 1 23rem;" class=" ${button.property} ">
-             ${button.property}
-           </button>
-         `
-             )
-             .join('')}
+${buttons
+    .map(
+        button => `
+  <button style="flex: 1 1 23rem;" class=" ${button.property} ">
+    ${button.property}
+  </button>
+`
+    )
+    .join('')}
         </div>
 
        </div>
@@ -667,11 +704,11 @@ class DesignSystemSection extends HTMLElement {
  * Focus: Performance, SEO, and Clean Logic
  */
 
-class ExampleSection extends HTMLElement {
+// example Section Web Component
+class CustomSection extends HTMLElement {
     connectedCallback() {
         // Configuration for easy updates
-
-        const devLanguages = [
+        /* const devLanguages = [
             new LinkList(`HTML`),
             new LinkList(`CSS`),
             new LinkList(`JavaScript`),
@@ -690,76 +727,31 @@ class ExampleSection extends HTMLElement {
         const aiModels = [new LinkList(`Gemini`), new LinkList(`Gemma`)];
         const versionControlls = [new LinkList(`GitHub`)];
 
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
+        export function DevSkill(name, favicon, link = '#') {
+            this.name = name;
+            this.favicon = favicon;
+            this.link = link;
+        }
+        const skills = [
+            new DevSkill(`HTML`, `${faviconHtml}`),
+            new DevSkill(`CSS`, `${faviconCss}`),
+            new DevSkill(`JavaScript`, `${faviconJs}`),
+        ];
 
-        // 3. Define the HTML (Top-level element is now your grid section)
+        export function DevTool(name, favicon, link = '#') {
+            this.name = name;
+            this.favixon = favicon;
+            this.link = link;
+        }
+        const tools = [
+            new DevTool(`VScode`, `${faviconVscode}`),
+            new DevTool(`Bootstrap`, `${faviconBootstrap}`),
+            new DevTool(`Figma`, `${faviconFigma}`),
+            new DevTool(`Webflow`, `${faviconWebflow}`),
+            new DevTool(`Framer`, `${faviconFramer}`),
+            new DevTool(`GitHub`, `${faviconGithub}`),
+        ]; */
 
-        // HTML
-        template.innerHTML = `
-
-          <div class="flex dark">
-${devLangiages.map(
-    lang => `
-    <span class="${lang.class}">${lang.name}</span>
-`
-)}
-       </div>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-
-// Data array for easy updates
-/* function DevSkill(name, favicon, link = '#') {
-    this.name = name;
-    this.favicon = favicon;
-    this.link = link;
-    }
-const skills = [
-    new DevSkill(`HTML`,`${faviconHtml}`),
-    new DevSkill(`CSS`, `${faviconCss}`),
-    new DevSkill(`JavaScript`, `${faviconJs}`),
-];
-
-  function DevTool(name, favicon, link = '#') {
-    this.name = name;
-    this.favixon = favicon;
-    this.link = link;
-  }
-const tools = [
-    new DevTool(`VScode`, `${faviconVscode}`),
-    new DevTool(`Bootstrap`, `${faviconBootstrap}`),
-    new DevTool(`Figma`, `${faviconFigma}`),
-    new DevTool(`Webflow`, `${faviconWebflow}`),
-    new DevTool(`Framer`, `${faviconFramer}`),
-    new DevTool(`GitHub`, `${faviconGithub}`),
-  ]; */
-
-/*
- * Components
- * Focus: Performance, SEO, and Clean Logic
- */
-
-// ES6 Global Constructor Function for Section Data
-function SectionData(element) {
-    this.heading = element.getAttribute('heading') || 'Section Heading';
-    this.description = element.getAttribute('details') || 'Section Description';
-    this.link = element.getAttribute('link') || '#';
-    this.linkText = element.getAttribute('linkText') || 'Link Text';
-    this.img = element.getAttribute('img') || '';
-
-    // Check if 'heading' attribute is declared on the element
-    this.hOne = element.hasAttribute('heading') ? 'h1' : 'h2';
-}
-
-// ClientsSection Web Component
-class CustomSection extends HTMLElement {
-    connectedCallback() {
         // Instantiate SectionData for current element
         const sectionData = new SectionData(this);
         // Create an off-screen Template
@@ -767,11 +759,11 @@ class CustomSection extends HTMLElement {
 
         // Render Markup
         template.innerHTML = `
-                <section class="fluid-grid-system bg-1" id="youtubers" data-version="${VERSION}">
+       <section class="fluid-grid-system bg-1" id="youtubers" data-version="${VERSION}">
     <section class="container-lg row infinite-scroller mask" data-direction="right" data-speed="fast">
-    <${sectionData.hOne}>${sectionData.heading}</${sectionData.hOne}>
+    <h2>${sectionData.heading}</h2>
     <p>${sectionData.description}</p>
-            </section>
+   </section>
     </section>
     `;
         // Synchronous Swap
@@ -811,33 +803,33 @@ class HeroSection extends HTMLElement {
       <section id="hero" class="fluid-grid-system dark" data-version="${VERSION}">
         <section class="container-md row">
 
-          <section style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
-            <section style="padding: 0em" class="brand-logo-container">
-              <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
+ <section style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
+   <section style="padding: 0em" class="brand-logo-container">
+     <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
 
-                  ${author.logoOutlineSvg}
+${author.logoOutlineSvg}
 
-              </section>
-            </section>
+     </section>
+   </section>
 
-            <div aria-hidden="true" class="gradient-mask d-none infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="brand-title">
-              <svg class="infinite-scroller_inner" fill="none" height="192" viewBox="0 0 2000 192" width="2000">
-                <text fill="var(--txt-1)" font-family="var(--ffb)" font-size="50" font-weight="600" x="0" y="116">
-                  ${author.title}
-                </text>
-              </svg>
-            </div>
-          </section>
+   <div aria-hidden="true" class="gradient-mask d-none infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="brand-title">
+     <svg class="infinite-scroller_inner" fill="none" height="192" viewBox="0 0 2000 192" width="2000">
+       <text fill="var(--txt-1)" font-family="var(--ffb)" font-size="50" font-weight="600" x="0" y="116">
+${sectionData.heading}
+       </text>
+     </svg>
+   </div>
+ </section>
 
-          <section class="row items-center">
-            <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
-            <${sectionData.hOne} id="heading" class="h3 txt-center d-non">${sectionData.heading}</${sectionData.hOne}>
-            <p class="txt-center">${author.description}</p>
-            <div class="button-group flex">
-              <a style="text-decoration: none;" href="/resume"><buttton style="border: 2px solid var(--bg-1); padding: 1em;" class="btn btn-primary pill txt-1 bg-1">Resume ↘</button></a>
-              <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
-            </div>
-          </section>
+ <section class="row items-center">
+   <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
+   <h1 id="heading" class="h3 txt-center d-non">${sectionData.heading}</h1>
+   <p class="txt-center">${sectionData.description}</p>
+   <div class="button-group flex">
+     <a style="text-decoration: none;" href="/resume"><buttton style="border: 2px solid var(--bg-1); padding: 1em;" class="btn btn-primary pill txt-1 bg-1">Resume ↘</button></a>
+     <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
+   </div>
+ </section>
 
         </section>
       </section>
@@ -905,24 +897,26 @@ class ClientsSection extends HTMLElement {
             ),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
         // HTML
         template.innerHTML = `
-<section class="fluid-grid-system bg-1" id="youtubers">
+<section class="fluid-grid-system bg-1" id="youtubers" data-version="${VERSION}">
     <section class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
-
+        <h2 class="h4 d-none">Subscription by ${author.name} on YouTube </h2>
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
            .map(
                youtuber => `
-         <li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
-           <img class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;" src="${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}" alt="YouTube: ${youtuber.name}"/>
-           <a href="${youtuber.link}">${youtuber.name}
-           </a>
-         </li>
+<li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
+  <img class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;" src="${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}" alt="YouTube: ${youtuber.name}"/>
+  <a href="${youtuber.link}">${youtuber.name}
+  </a>
+</li>
        `
            )
            .join('')}
@@ -981,7 +975,7 @@ class AboutSection extends HTMLElement {
                 '',
                 'Certified from',
                 'Utshob Technology Ltd.',
-                `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="utshabtech.com.bd">utshabtech.com.bd</a>`,
+                `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="https://utshabtech.com.bd">utshabtech.com.bd</a>`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
                 'View place',
                 `d-none`
@@ -1005,6 +999,8 @@ class AboutSection extends HTMLElement {
             ),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1013,19 +1009,19 @@ class AboutSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system bg-2" id="about">
+<section class="fluid-grid-system bg-2" id="about" data-version="${VERSION}">
     <section style="gap: 0em;" class="container-xl row">
-     <h6 class="fade-in-to">
+     <h2 class="h6 fade-in-to">
       About ${author.name}
-     </h6>
+     </h2>
      <div style="padding-block: 0em; row-gap: 0em;" class="col">
-      <h3 class="text-revel-onscrol row">
+      <heading-tag class="h3 text-revel-onscrol row">
        At a galance
        2001 - ${thisYear}
-      </h3>
+      <heading-tag>
       <div class="row" style="gap: var(--space-xs);">
        <p>${author.description}</p>
-       <a class="fade-in-to" href="#about">
+       <a class="p fade-in-to" href="#about">
         View on fullscreen ↘
        </a>
       </div>
@@ -1033,9 +1029,9 @@ class AboutSection extends HTMLElement {
 
      <section style="gap: calc(var(--padding-inline) * 2);" class="row">
 
-          ${stories
-              .map(
-                  story => `
+ ${stories
+     .map(
+         story => `
 
       <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
        <div style="gap: .5em;" class="row">
@@ -1049,9 +1045,9 @@ class AboutSection extends HTMLElement {
        </div>
       </section>
 
-          `
-              )
-              .join('')}
+ `
+     )
+     .join('')}
 
      </section>
 
@@ -1070,6 +1066,8 @@ class AboutSection extends HTMLElement {
 // updated ServicesSection Component
 class ServicesSection extends HTMLElement {
     connectedCallback() {
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1078,7 +1076,7 @@ class ServicesSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system" id="services">
+<section class="fluid-grid-system" id="services" data-version="${VERSION}">
     <section class="container-lg row">
      <h2>
       Services available in ${locationSecondary}.
@@ -1087,7 +1085,7 @@ class ServicesSection extends HTMLElement {
       </br>
       <p class="h6">Key Price Factors for Static Websites:</p>
         <ul style="list-style: none;">
-          <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
+ <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
         <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
         <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
         <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from ${money(300)}.</li>
@@ -1110,33 +1108,33 @@ class ServicesSection extends HTMLElement {
        </h5>
        <p class="p">** Discounted prices are showing **</p>
        <ul>
-         ${servicesPrimary
-             .map(
-                 service => `
-           <li class="done">${service.name} (<b>${service.price}</b>)</li>
-         `
-             )
-             .join('')}
+${servicesPrimary
+    .map(
+        service => `
+  <li class="done">${service.name} (<b>${service.price}</b>)</li>
+`
+    )
+    .join('')}
        </ul>
       </div>
       <div style="gap: var(--space-xs);" class="row">
        <h6>More services:</h6>
        <ul>
-         ${servicesSecondery
-             .map(
-                 service => `
-           <li class="done">${service.name} (<b>${service.price}</b>)</li>
+${servicesSecondery
+    .map(
+        service => `
+  <li class="done">${service.name} (<b>${service.price}</b>)</li>
         `
-             )
-             .join('')}
+    )
+    .join('')}
        </ul>
        </div>
      </section>
       <div class="flex j-end">
-         <a href="/vcf">Download VCF</a>
-         <button style="inline-size: fit-content;"  class="btn-primary">
-           <a href="#contact">Contact</a>
-         </button>
+<a href="/vcf">Download VCF</a>
+<button style="inline-size: fit-content;"  class="btn-primary">
+  <a href="#contact">Contact</a>
+</button>
       </div>
     </section>
    </section>
@@ -1168,7 +1166,7 @@ class ProjectsSection extends HTMLElement {
                 'Portfolio website',
                 `${author.title}`,
                 `${author.description}`,
-                `hassanbiswas.github.io`
+                `https://hassanbiswas.github.io`
             ),
             new ProjectsItem(
                 '24-Nov-2025',
@@ -1200,6 +1198,8 @@ class ProjectsSection extends HTMLElement {
             ),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1208,46 +1208,46 @@ class ProjectsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section class="fluid-grid-system bg-2" id="projects">
+      <section class="fluid-grid-system bg-2" id="projects" data-version="${VERSION}">
         <section style="gap: 0em;" class="container-xl row">
-          <h6 class="fade-in-to">Projects</h6>
+ <h6 class="fade-in-to">Projects</h6>
 
-          <div style="padding-block: 0em; row-gap: 0em;" class="col">
-            <h3 class="text-revel-onscrol row">
-              Projects have done since 2023 - ${thisYear}
-            </h3>
-            <div class="row" style="gap: var(--space-xs);">
-              <p>
-                <span class="text-revel-onscrol">
-                  With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide. I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
-                </span>
-              </p>
-              <a class="fade-in-to" href="#projects">View on fullscreen ↘</a>
-            </div>
-          </div>
+ <div style="padding-block: 0em; row-gap: 0em;" class="col">
+   <h3 class="text-revel-onscrol row">
+     Projects have done since 2023 - ${thisYear}
+   </h3>
+   <div class="row" style="gap: var(--space-xs);">
+     <p>
+       <span class="text-revel-onscrol">
+With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide. I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
+       </span>
+     </p>
+     <a class="fade-in-to" href="#projects">View on fullscreen ↘</a>
+   </div>
+ </div>
 
 
-          <section style="gap: calc(var(--padding-inline) * 2);" class="row">
+ <section style="gap: calc(var(--padding-inline) * 2);" class="row">
 
-          ${projects
-              .map(
-                  project => `
-            <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
-              <div style="gap: .5em;" class="row">
-                <h6 class="fade-in-to">${project.date}</h6>
-                <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
-              </div>
-              <h4 class="fade-in-to row">${project.title}</h4>
-              <div style="gap: var(--space-xs);" class="row">
-                <p class="fade-in-to">${project.desc}</p>
-                <a target="_blank" class="fade-in-to" href="${project.link}" loading="lazy">View site ↘</a>
-              </div>
-            </section>
-          `
-              )
-              .join('')}
+ ${projects
+     .map(
+         project => `
+   <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
+     <div style="gap: .5em;" class="row">
+       <h6 class="fade-in-to">${project.date}</h6>
+       <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
+     </div>
+     <h4 class="fade-in-to row">${project.title}</h4>
+     <div style="gap: var(--space-xs);" class="row">
+       <p class="fade-in-to">${project.desc}</p>
+       <a target="_blank" class="fade-in-to" href="${project.link}" loading="lazy">View site ↘</a>
+     </div>
+   </section>
+ `
+     )
+     .join('')}
 
-         </section>
+</section>
 
 
         </section>
@@ -1302,6 +1302,8 @@ class TestimonialsSection extends HTMLElement {
             ),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1310,7 +1312,7 @@ class TestimonialsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system" id="testimonials">
+<section class="fluid-grid-system" id="testimonials" data-version="${VERSION}">
     <section class="container-lg row">
      <div class="row">
       <h2 class="text-revel-onscrol">
@@ -1318,7 +1320,7 @@ class TestimonialsSection extends HTMLElement {
       </h2>
       <p>
         <span class="text-revel-onscrol">
-          What clients and colleagues say about my front-end architecture and design work.
+ What clients and colleagues say about my front-end architecture and design work.
         </span>
       </p>
      </div>
@@ -1326,27 +1328,27 @@ class TestimonialsSection extends HTMLElement {
         ${personQuotes
             .map(
                 person => `
-          <li class="items-center" style="display: flex; gap: var(--space-2xs);">
-            <img src="${person.photo}"/>
+ <li class="items-center" style="display: flex; gap: var(--space-2xs);">
+   <img src="${person.photo}"/>
 
-            <span>
-              <a href="${person.link}"><b>${person.name}</b> (${person.title})
-              </a></br>
-              <i class="h6">"${person.quote}"</i>
-            </span>
-          </li>
+   <span>
+     <a href="${person.link}"><b>${person.name}</b> (${person.title})
+     </a></br>
+     <i class="h6">"${person.quote}"</i>
+   </span>
+ </li>
         `
             )
             .join('')}
       </ul>
 
       <div class="flex j-end">
-         <p class="h6">
-           Your's coming soon!
-         </p>
-         <button style="inline-size: fit-content;"  class="btn-primary">
-           <a href="${urlFeedback}" title="Send Review" target="_blank">Add your review ↘</a>
-         </button>
+<p class="h6">
+  Your's coming soon!
+</p>
+<button style="inline-size: fit-content;"  class="btn-primary">
+  <a href="${urlFeedback}" title="Send Review" target="_blank">Add your review ↘</a>
+</button>
       </div>
 
     </section>
@@ -1355,19 +1357,19 @@ class TestimonialsSection extends HTMLElement {
     `;
         /*
 
-            let quote = document.querySelector('.quote'),
-              quotePerson = document.querySelector('.quote-person'),
-              quoteButtons = document.querySelectorAll('.quote-button'),
+   let quote = document.querySelector('.quote'),
+     quotePerson = document.querySelector('.quote-person'),
+     quoteButtons = document.querySelectorAll('.quote-button'),
 
-            // quotes
-            quoteButtons?.forEach(button => {
-              let random = Math.flore(Math.random() * personQuotes.lenth);
+   // quotes
+   quoteButtons?.forEach(button => {
+     let random = Math.flore(Math.random() * personQuotes.lenth);
 
-              button.addEventListener('click', () => {
-                quote?.innerText = personQuotes[random].quote;
-                quotePerson?.innerText = personQuotes[random].name
-              });
-            });
+     button.addEventListener('click', () => {
+       quote?.innerText = personQuotes[random].quote;
+       quotePerson?.innerText = personQuotes[random].name
+     });
+   });
 
       */
 
@@ -1406,19 +1408,21 @@ class FaqsSection extends HTMLElement {
             new FaqsItem(
                 `Am I available for hire?`,
                 `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
-          </sup>`
+ </sup>`
             ),
             new FaqsItem(
                 `What is my contact number?`,
                 `Mobile: (+880)
-           <a href="${urlMobile}"><b>1602-873384</b></a>
-           <sup class="p-sm">24/7</sup>
-           </br></br>
-           Whatsapp: (+880)
-           <a href="${urlWhatsapp}"><b>1602-873384</b></a>`
+  <a href="${urlMobile}"><b>1602-873384</b></a>
+  <sup class="p-sm">24/7</sup>
+  </br></br>
+  Whatsapp: (+880)
+  <a href="${urlWhatsapp}"><b>1602-873384</b></a>`
             ),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1427,7 +1431,7 @@ class FaqsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system" id="faqs">
+<section class="fluid-grid-system" id="faqs" data-version="${VERSION}">
 <section class="container-md">
     <div class="row">
        <h3 class="p">
@@ -1436,50 +1440,50 @@ class FaqsSection extends HTMLElement {
     </div>
     <section class="col">
 
-         <div class="row items-start">
-           <h2>
-             Frequently Asked Questions
-           </h2>
-           <p class="d-none">
-             <span class="text-revel-onscrol">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Adipisci rem magnam molestiae!
-             </span>
-           </p>
-            <div class="flex">
-             <input name="agreement" id="agreement" class="pill" checked="" type="radio"/>
-             <label for="agreement">
-              I agree to the
-              <a href="/privacy-policy" target="_blank">
-               Privacy Policy
-              </a>
-             </label>
-            </div>
-            <button class="pill btn-primary">
-             <a href="${urlMessenger}" target="_blank">Ask on Messenger
-             </a>
-            </button>
+<div class="row items-start">
+  <h2>
+    Frequently Asked Questions
+  </h2>
+  <p class="d-none">
+    <span class="text-revel-onscrol">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+Adipisci rem magnam molestiae!
+    </span>
+  </p>
+   <div class="flex">
+    <input name="agreement" id="agreement" class="pill" checked="" type="radio"/>
+    <label for="agreement">
+     I agree to the
+     <a href="/privacy-policy" target="_blank">
+      Privacy Policy
+     </a>
+    </label>
+   </div>
+   <button class="pill btn-primary">
+    <a href="${urlMessenger}" target="_blank">Ask on Messenger
+    </a>
+   </button>
 
       </div>
 
 
        <div class="row">
-          ${faqs
-              .map(
-                  faq => `
+ ${faqs
+     .map(
+         faq => `
         <details class="py-0 bg-1" name="question">
-         <summary>
-          <h6 class="p py-1">
-           ${faq.question}
-          </h6>
-         </summary>
-         <p style="padding: 1em;" class="h6">
-          ${faq.answer}
-         </p>
+<summary>
+ <h6 class="p py-1">
+  ${faq.question}
+ </h6>
+</summary>
+<p style="padding: 1em;" class="h6">
+ ${faq.answer}
+</p>
         </details>
-          `
-              )
-              .join('')}
+ `
+     )
+     .join('')}
        </div>
 
      </section>
@@ -1506,7 +1510,7 @@ class PrivacyPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
+<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section" data-version="${VERSION}">
 <div class="container-md">
 <div class="row">
 
@@ -1628,7 +1632,7 @@ class RefundAndCancelationPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
+<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section" data-version="${VERSION}">
  <div class="container-md">
 <div class="row">
 
@@ -1741,7 +1745,7 @@ class TermsOfServiceSection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section">
+<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section" data-version="${VERSION}">
 <div class="container-md">
 <div class="row">
 
@@ -1909,6 +1913,8 @@ class ContactSection extends HTMLElement {
             new ButtonsItem(`View Reviews ↘`, `${urlFeedback}`, `d-none`),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1917,7 +1923,7 @@ class ContactSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-    <section id="contact" class="fluid-grid-system py-5">
+    <section id="contact" class="fluid-grid-system py-5" data-version="${VERSION}">
     <section class="container">
 
      <div class="row">
@@ -1925,23 +1931,23 @@ class ContactSection extends HTMLElement {
         Contact with ${author.name}
        </h2>
        <div class="flex no-wrap items-start">
-         <div class="row">
-           <a href="${begaritola}">
-             <img class="square rounded" alt="${author.title}" src="${author.photo}"/>
-           </a>
+<div class="row">
+  <a href="${begaritola}">
+    <img class="square rounded" alt="${author.title}" src="${author.photo}"/>
+  </a>
         </div>
         <div style="flex: 1; flex-basis: 23rem; gap: var(--space-xs);" class="row">
-          <p class="p">${author.description}</p>
-          <h6 class="p-sm">Prefered Languages:</h6>
-          <ul style="list-style: none;" class="flex">
-            ${preferedLanguages
-                .map(
-                    language => `
-              <li>${language}</li>
-           `
-                )
-                .join('')}
-          </ul>
+ <p class="p">${author.description}</p>
+ <h6 class="p-sm">Prefered Languages:</h6>
+ <ul style="list-style: none;" class="flex">
+   ${preferedLanguages
+       .map(
+           language => `
+     <li>${language}</li>
+  `
+       )
+       .join('')}
+ </ul>
       <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
        ${linksData
            .map(
@@ -1949,7 +1955,7 @@ class ContactSection extends HTMLElement {
        <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
         <img class="squar" alt="${data.title}" src="${data.favicon}"/>
         <a href="${data.link}" title="${data.title}">
-         <p>${data.name}</p>
+<p>${data.name}</p>
         </a>
        </div>
        `
@@ -1964,7 +1970,7 @@ class ContactSection extends HTMLElement {
         <a target="_blank" href="${urlMessenger}">Start Chat ↘</a>
 
         <button style="" class="btn-primary">
-          <a href="/vcf">Download VCF</a>
+ <a href="/vcf">Download VCF</a>
         </button>
       </div>
 
@@ -1973,16 +1979,16 @@ class ContactSection extends HTMLElement {
        </iframe>
 
        <div class="flex">
-         ${buttons
-             .map(
-                 button => `
-           <button class=" ${button.classes} ">
-             <a href="${button.link}">${button.name}
-             </a>
-           </button>
-         `
-             )
-             .join('')}
+${buttons
+    .map(
+        button => `
+  <button class=" ${button.classes} ">
+    <a href="${button.link}">${button.name}
+    </a>
+  </button>
+`
+    )
+    .join('')}
       </div>
      </div>
 
@@ -2059,6 +2065,8 @@ class FooterSection extends HTMLElement {
             new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
         ];
 
+        // Instantiate SectionData for current element
+        const sectionData = new SectionData(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -2067,15 +2075,15 @@ class FooterSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<footer class="fluid-grid-system" id="footer">
+<footer class="fluid-grid-system" id="footer" data-version="${VERSION}">
    <section class="container-xl row gap-4 py-5">
     <section class="flex j-center">
       <form class="flex">
         <label style="opacity: 1;" class="d-non" for="system-theme">Choose Theme:</label>
         <select id="system-theme" name="system-theme" class="pill btn-primary">
-          <option value="default">Default</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
+ <option value="default">Default</option>
+ <option value="light">Light</option>
+ <option value="dark">Dark</option>
         </select>
       </form>
     </section>
@@ -2090,9 +2098,9 @@ class FooterSection extends HTMLElement {
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
         <button style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
-          <a class"txt-center flex items-center txt-center" href="/resume">
-            Resume ↘
-          </a>
+ <a class"txt-center flex items-center txt-center" href="/resume">
+   Resume ↘
+ </a>
         </button>
 
        <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
@@ -2115,8 +2123,8 @@ class FooterSection extends HTMLElement {
        ${navigations
            .map(
                navigation => `
-         <a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
-         </a>
+<a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
+</a>
        `
            )
            .join('')}
@@ -2134,7 +2142,7 @@ class FooterSection extends HTMLElement {
            .map(
                method => `
         <a style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}" target="_blank" title="${method.title}">
-         <img class="squar" alt="${method.alt}" loading="lazy" src="${method.favicon}"/> ${method.name}
+<img class="squar" alt="${method.alt}" loading="lazy" src="${method.favicon}"/> ${method.name}
         </a>
        `
            )
@@ -2153,7 +2161,7 @@ class FooterSection extends HTMLElement {
            .map(
                legal => `
         <a style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
-         ${legal.name}
+${legal.name}
         </a>
        `
            )
@@ -2172,7 +2180,7 @@ class FooterSection extends HTMLElement {
            .map(
                social => `
         <a style="flex: 1; flex-basis: 10ch; z-index: 789; display: flex; align-items: center; gap: 0.5em;" href="${social.link}" target="_blank" title="${social.name}">
-         <img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/> ${social.name}
+<img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/> ${social.name}
         </a>
        `
            )
@@ -2180,7 +2188,7 @@ class FooterSection extends HTMLElement {
 
 
         <a id="chat-bubble" style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
-          <img class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
+ <img class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
         </a>
 
 
@@ -2276,7 +2284,7 @@ class NavigationSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-  <section class="fluid-grid-system" id="bottom-navigation">
+  <section class="fluid-grid-system" id="bottom-navigation" data-version="${VERSION}">
    <section style="overflow: visible;" class="container-sm row">
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
@@ -2420,7 +2428,7 @@ if (document.readyState === 'loading') {
     injectMetaTheme();
 }
 // 3. Fallback logic: Ensure the value exists and isn't just an empty string
-primaryColor = rootStyles.getPropertyValue('--primary-50').trim() || 'hsl(240, 80%, 50%)';
+primaryColor = styleSheet.getPropertyValue('--primary-50').trim() || 'hsl(240, 80%, 50%)';
 
 // detect if a user is running your web app as an installed PWA (standalone mode)
 window.matchMedia('(display-mode: standalone)').addEventListener('change', evt => {
@@ -2432,7 +2440,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', evt =
 });
 
 // scroll to top
-function scrollTop() {
+export function scrollTop() {
     window.scrollTo({
         top: 0,
         behavior: 'smooth',
@@ -2490,7 +2498,7 @@ const navObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.1 }
+    { threshold: 0.06 }
 ); // Trigger when section is 60% visible, avoid 1
 
 document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
@@ -2551,26 +2559,26 @@ class TSection extends HTMLElement {
     this.innerHTML = `
       <section class="${props.selector}" data-version="${VERSION}">
         <div class="primary">
-          <h2>${props.heading}</h2>
-          <p>${props.details}</p>
-          <a class="btn" href="${props.link}">${props.linkText}</a>
+ <h2>${props.heading}</h2>
+ <p>${props.details}</p>
+ <a class="btn" href="${props.link}">${props.linkText}</a>
         </div>
         <div class="media-wrapper">
-          <img src="${props.img}" alt="${props.heading}" loading="lazy" />
+ <img src="${props.img}" alt="${props.heading}" loading="lazy" />
         </div>
       </section>
 
       <style>
         .${props.selector} .btn {
-          background-color: hsl(240, 80%, 50%);
-          color: white;
-          padding: 12px 24px;
-          text-decoration: none;
-          display: inline-block;
-          transition: filter 0.3s ease;
+ background-color: hsl(240, 80%, 50%);
+ color: white;
+ padding: 12px 24px;
+ text-decoration: none;
+ display: inline-block;
+ transition: filter 0.3s ease;
         }
         .${props.selector} .btn:hover {
-          filter: brightness(1.2);
+ filter: brightness(1.2);
         }
       </style>
     `;
@@ -2592,7 +2600,7 @@ customElements.define("t-section", TSection);
 // ###### JavaScript function goes bellow ######
 
 /**
- *  * Concise ES6 Path Extractor & Dynamic Heading
+ *  * Concise Path Extractor & Dynamic Heading
  */
 /* (() => {
     // 1. Extract path keyword and set heading tag
@@ -2604,10 +2612,10 @@ customElements.define("t-section", TSection);
     // 3. Find leaf elements or attributes matching the path string
     const matchedElements = path
         ? [...document.querySelectorAll('body *:not(script):not(style)')].filter(
-              el =>
-                  (!el.children.length && el.textContent.toLowerCase().includes(path)) ||
-                  [...el.attributes].some(a => a.value.toLowerCase().includes(path))
-          )
+     el =>
+(!el.children.length && el.textContent.toLowerCase().includes(path)) ||
+[...el.attributes].some(a => a.value.toLowerCase().includes(path))
+ )
         : [];
 
     console.log(`Tag: <${headingTag}>, Path: "${path}"`, matchedElements);
@@ -2767,7 +2775,7 @@ const infiniteScroll = () => {
     });
 }; // end
 
-function fadeInTop() {
+export function fadeInTop() {
     let fadeInTop = document.querySelectorAll('.fade-in-top');
 
     fadeInTop?.forEach(el => {
@@ -2780,7 +2788,7 @@ function fadeInTop() {
     });
 }
 
-function textRevelOnscroll() {
+export function textRevelOnscroll() {
     let textRevelOnscroll = document.querySelectorAll('.text-revel-onscroll');
 
     textRevelOnscroll?.forEach(revel => {
@@ -2815,46 +2823,46 @@ window.addEventListener('scroll', () => {
        version: VERSION,
 
 
-                          lerp: (a, b, t) => a + (b - a) * t,
+        lerp: (a, b, t) => a + (b - a) * t,
 
 
 
 
-                                    splitText(selector) {
-                                        const el = document.querySelector(selector);
-                                            if (!el) return [];
-                                                const text = el.textContent;
-                                                    el.innerHTML = "";
-                                                        el.style.opacity = "1";
+splitText(selector) {
+    const el = document.querySelector(selector);
+        if (!el) return [];
+   const text = el.textContent;
+       el.innerHTML = "";
+  el.style.opacity = "1";
 
-                                                                return text.split("").map(char => {
+ return text.split("").map(char => {
 const span = document.createElement("span");
-                                                                            span.textContent = char === " " ? "\u00A0" : char;
+    span.textContent = char === " " ? "\u00A0" : char;
 span.style.display = "inline-block";
-                                                                                        span.style.willChange = "transform, opacity";
+       span.style.willChange = "transform, opacity";
 el.appendChild(span);
-                                                                                                    return span;
-                                                                                                        });
+ return span;
+     });
 },
 
 
 
 
-                                                                                                                    animate({ duration, draw, easing = (t) => t }) {
-                                                                                                                        const start = performance.now();
+        animate({ duration, draw, easing = (t) => t }) {
+   const start = performance.now();
 
-                                                                                                                            requestAnimationFrame(function frame(time) {
-                                                                                                                                  let timeFraction = (time - start) / duration;
-                                                                                                                                        if (timeFraction > 1) timeFraction = 1;
+       requestAnimationFrame(function frame(time) {
+    let timeFraction = (time - start) / duration;
+ if (timeFraction > 1) timeFraction = 1;
 
-                                                                                                                                              // Apply easing to the time fraction
-                                                                                                                                                    const t = easing(timeFraction);
+       // Apply easing to the time fraction
+    const t = easing(timeFraction);
 
-                                                                                                                                                                draw(t);
+       draw(t);
 
 if (timeFraction < 1) requestAnimationFrame(frame);
 });
-                                                                                                                                                                            },
+ },
 
 
 
@@ -2863,39 +2871,39 @@ reveal(selector) {
 const chars = this.splitText(selector);
 
 chars.forEach((char, i) => {
-                                                                                                                                                                                                        setTimeout(() => {
-                                                                                                                                                                                                                this.animate({
+  setTimeout(() => {
+ this.animate({
 duration: 800,
-                                                                                                                                                                                                                                    // Using a sine-based smoothing for the progress 't'
-                                                                                                                                                                                                                                              easing: (progress) => (Math.sin(progress * Math.PI - Math.PI / 2) + 1) / 2,
-                                                                                                                                                                                                                                                        draw: (t) => {
-                                                                                                                                                                                                                                                                    // LERP from 20px to 0px (X) and -50% to 0% (Y)
-                                                                                                                                                                                                                                                                                const x = this.lerp(20, 0, t);
-                                                                                                                                                                                                                                                                                            const y = this.lerp(-50, 0, t);
-                                                                                                                                                                                                                                                                                                        const opacity = this.lerp(0, 1, t);
+   // Using a sine-based smoothing for the progress 't'
+    easing: (progress) => (Math.sin(progress * Math.PI - Math.PI / 2) + 1) / 2,
+     draw: (t) => {
+        // LERP from 20px to 0px (X) and -50% to 0% (Y)
+  const x = this.lerp(20, 0, t);
+     const y = this.lerp(-50, 0, t);
+        const opacity = this.lerp(0, 1, t);
 
-                                                                                                                                                                                                                                                                                                                    char.style.opacity = opacity;
-                                                                                                                                                                                                                                                                                                                                char.style.transform = `translate3d(${x}px, ${y}%, 0)`;
+  char.style.opacity = opacity;
+     char.style.transform = `translate3d(${x}px, ${y}%, 0)`;
 }
 });
-                                                                                                                                                                                                                                                                                                                                                        }, i * 50);
-                                                                                                                                                                                                                                                                                                                                                            });
+  }, i * 50);
+      });
 }
 };
 
-                                                                                                                                                                                                                                                                                                                                                              // --- Automation & Execution ---
+        // --- Automation & Execution ---
 
-                                                                                                                                                                                                                                                                                                                                                              // Set-and-forget intersection trigger
+        // Set-and-forget intersection trigger
 const observer = new IntersectionObserver((entries) => {
-                                                                                                                                                                                                                                                                                                                                                                entries.forEach(entry => {
-                                                                                                                                                                                                                                                                                                                                                                    if (entry.isIntersecting) {
+ entries.forEach(entry => {
+     if (entry.isIntersecting) {
 UI.reveal(entry.target.id ? `#${entry.target.id}` : null);
-                                                                                                                                                                                                                                                                                                                                                                                observer.unobserve(entry.target);
-                                                                                                                                                                                                                                                                                                                                                                                    }
+        observer.unobserve(entry.target);
+   }
 });
 }, { threshold: 0.1 });
 
-                                                                                                                                                                                                                                                                                                                                                                                      // Initialize for specific heading
+     // Initialize for specific heading
 const heading = document.querySelector("#heading");
 if (heading) observer.observe(heading);
 
@@ -2924,7 +2932,7 @@ observingItems?.forEach(item => {
 const favicon = document.querySelector('link[rel="icon"]');
 const isDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-function updateFavicon() {
+export function updateFavicon() {
   // Logic to switch the fill color in the Data URI string
   // if (isDark.matches) { ... }
 }
@@ -2961,13 +2969,9 @@ if (isWebView) {
 }
 
 // ######### Don't Go Bellow ⚠️ ##########
-
-// scripts/functions ends here!
-
+// ========= Handle Window Change ========
 document.addEventListener('scroll', s => {});
-
 document.addEventListener('resize', r => {});
-
 document.body.addEventListener('change', c => {});
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -2978,10 +2982,3 @@ document.addEventListener('DOMContentLoaded', function () {
 window.addEventListener('focus', () => {
     window.location.reload();
 });
-
-// variables, functions, arrays, objects ... into a single module object
-// Export everything together as a single default module
-export default {
-    VERSION,
-    brandColor,
-};
