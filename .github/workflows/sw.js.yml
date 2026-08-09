@@ -19,7 +19,7 @@ jobs:
         run: |
           # Generate version tag for the commit message
           VERSION_TAG=$(date +'%y.%m.%d')
-          
+
           cat <<EOF > sw.js
           /**
            * Web Developer | Hassan Biswas
@@ -29,13 +29,13 @@ jobs:
 
           const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
           const CACHE_NAME = \`hassan-biswas-v\${VERSION}\`;
-          const OFFLINE_URL = '/404.html';
+          const OFFLINE_URL = '/index.html';
 
           // Assets to cache
           const ASSETS_TO_CACHE = [
             '/',
             '/index.html',
-            '/404.html'
+            '/index.html' // 404.html
           ];
 
           // Install Event - Caching assets with cache-busting during download
@@ -48,8 +48,8 @@ jobs:
                     const separator = url.includes('?') ? '&' : '?';
                     return new Request(\`\${url}\${separator}v=\${VERSION}\`, { cache: 'reload' });
                   });
-                  
-                  // We fetch the versioned URL but we want to store it under the clean URL 
+
+                  // We fetch the versioned URL but we want to store it under the clean URL
                   // to make offline matching seamless.
                   return Promise.all(
                     versionsedRequests.map((request, index) => {
@@ -109,4 +109,3 @@ jobs:
           git add sw.js
           git commit -m "Automated Release - Service Worker Update $VERSION_TAG" || echo "No changes to commit"
           git push
-          

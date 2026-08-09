@@ -1,3 +1,4 @@
+// observe => observing (h, p. section, img, etc...)
 // variable
 // function
 // component
@@ -111,7 +112,7 @@ let primaryColor = `hsl(240, 80%, 50%)`;
 // review
 const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
 
-author.direction = `https://google.com/maps/dir//''/data=!4m7!4m6!1m1!4e2!1m2!1m1!1s0x39ff134bb81a3bb7:0xe2dd7732283d1db1!3e0?g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAEYASAB`;
+author.direction = `https://maps.google.com/maps?ll=23.070916,89.234141&z=15&t=m&hl=en&gl=BD&mapclient=embed&cid=16347353279731932593`;
 
 export const urlGithub = `https://github.com/hassanbiswas`,
     urlFacebook = `https://facebook.com/hassanbiswas.github.io`,
@@ -848,7 +849,7 @@ class ClientsSection extends HTMLElement {
         const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
         const ytLogoSize = `=s48-c-k-c0x00ffffff-no-rj`;
 
-        function YouTuber(name, photo, link = urlYoutube) {
+        function YouTuber(name, photo, link = `${urlYoutube}/featured`) {
             this.name = name;
             this.photo = photo;
             this.link = link;
@@ -928,7 +929,7 @@ class ClientsSection extends HTMLElement {
     `;
 
         // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
+        // Replaces <*-section> with the contents of the template immediately.
         this.replaceWith(template.content);
     }
 }
@@ -1909,7 +1910,7 @@ class ContactSection extends HTMLElement {
             this.classes = classes;
         }
         const buttons = [
-            new ButtonsItem(`Get Direction ↘`, `${author.direction}`, `btn-primary`),
+            new ButtonsItem(`Open Map ↘`, `${author.direction}`, `btn-primary`),
             new ButtonsItem(`View Reviews ↘`, `${urlFeedback}`, `d-none`),
         ];
 
@@ -2021,8 +2022,8 @@ class FooterSection extends HTMLElement {
             new NavItem(`Services ↘`, `/#services`),
             new NavItem(`Projects ↘`, `/#projects`),
             new NavItem(`Contact ↘`, `/#contact`),
-            new NavItem(`Case Studies`, `/case-studies`),
-            new NavItem(`Templates`, `/templates`),
+            new NavItem(`Case Studies`, `/github`),
+            new NavItem(`Templates`, `/github`),
         ];
 
         function MethodsItem(name, link, title, alt, favicon) {
