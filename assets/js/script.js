@@ -1,4 +1,18 @@
 // observe => observing (h, p. section, img, etc...)
+// document.addEventListener('DOMContentLoaded', () => {
+//     const cards = document.querySelectorAll('.card');
+//     const options = { threshold: 0.1 };
+//     const observer = new IntersectionObserver((entries) => {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting) {
+//                 entry.target.classList.add('visible');
+//                 observer.unobserve(entry.target);
+//             }
+//         });
+//     }, options);
+//     cards.forEach(card => observer.observe(card));
+// });
+
 // variable
 // function
 // component
@@ -9,14 +23,144 @@
 // ###################
 
 // dates functions
-const thisYear = new Date().getFullYear(),
+export const thisYear = new Date().getFullYear(),
     thisMonth = new Date().getMonth() + 1, // january = 0
     thisDay = new Date().getDate(),
     // Cache-busting & Logic automation for versioning
     VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 // Results in YY.MM.DD format (e.g., xxxx.xx.xx)
+Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
+
+// ================== SEO
+
+// Favicon+SVG <link>
+const linkSvg = (url = `#`, alt = `alt`, width = `100%`) => {
+    Object.assign(this, {
+        href: `${url}`,
+        alt: `${alt}`,
+        width: `${width}`,
+        rel: 'icon',
+        ariaHidden: 'true',
+        aspectRatio: '1',
+        height: 'auto',
+        size: 'any',
+        type: 'image/svg+xml',
+        loading: 'lazy',
+        draggable: 'false',
+        decoding: 'async',
+    }).dataset.version = VERSION;
+};
+
+// Font <link>
+const linkFont = (url = `#`) => {
+    Object.assign(this, {
+        href: `${url}`,
+        rel: 'preconnect',
+        as: 'font',
+        type: 'font/ttf',
+        crossorigin,
+    }).dataset.version = VERSION;
+};
+
+// img
+const img = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `16/9`) => {
+    Object.assign(this, {
+        src: `${src}`,
+        alt: `${alt}`,
+        width: `${width}`,
+        aspectRatio: `${aspectRatio}`,
+        ariaHidden: 'true',
+        height: 'auto',
+        size: 'any',
+        loading: 'lazy',
+        draggable: 'false',
+        decoding: 'async',
+    }).dataset.version = VERSION;
+};
+
+// a
+const a = url => {
+    Object.assign(this, {
+        href: `${url}`,
+        loading: 'lazy',
+        rel: 'noopener noreferrer',
+        target: '_blank',
+    }).dataset.version = VERSION;
+};
+
+// button
+const button = () => {
+    Object.assign(this, { type: 'button', ariaExpanded: 'false' }).dataset.version = VERSION;
+};
+
+// Component+JS <script>
+const linkComponent = url => {
+    Object.assign(this, { src: `${url}`, defer, type: 'module' }).dataset.version = VERSION;
+};
+
+// CSS <link>
+const linkCss = (url = `#`) => {
+    Object.assign(this, { href: `${url}`, rel: 'preload', as: 'style' }).dataset.version = VERSION;
+};
+
+// ================== SEO HTML
+
+const header = () => {
+    Object.assign(this, { role: 'banner' }).dataset.version = VERSION;
+};
+const navPrimary = () => {
+    Object.assign(this, {
+        ariaLabel: 'Primary Navigation',
+    }).dataset.version = VERSION;
+};
+const aMain = () => {
+    Object.assign(this, {
+        href: '#main-content',
+        class: 'skip-to-content',
+    }).dataset.version = VERSION;
+};
+const main = () => {
+    Object.assign(this, { id: 'main', role: 'main' }).dataset.version = VERSION;
+};
+const section = () => {
+    Object.assign(this, {
+        ariaLabelledby: 'headingId',
+    }).dataset.version = VERSION;
+};
+const footer = () => {
+    Object.assign(this, { id: 'footer', role: 'contentonfo' }).dataset.version = VERSION;
+};
+
+/*
+
+<a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+<header role="banner">
+    <nav aria-label="Main Navigation">
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    <section aria-labelledby="hero-title">
+        <h1 id="hero-title">Web Developer | Hassan Biswas</h1>
+        <img src="profile.webp" alt="Hassan Biswas Profile" width="400" height="400" loading="lazy" decoding="async">
+    </section>
+</main>
+
+<footer role="contentinfo">
+    <p>&copy; 2026 Hassan Biswas. All rights reserved.</p>
+</footer>
+*/
 
 // absolute path for components
+// header > location cta
+// nav fixed floating
+// main >
+// hero > h1 img skill tools reviews + scroll (logo/clients)
+// about > story > birth/school/college/proffession
+// services > scroll-left
+// testimonials - contact(map) - faqs
+// footer
 
 // Object
 const author = {
@@ -60,7 +204,7 @@ author.iframeHome = `https://google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452
 author.iframeVillage = `https://google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.7452527536307!2d89.23107137772256!3d23.06979927914087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff13bb28c63d57%3A0x266a14a438c0bb8f!2zQmVnYXJpdG9sYSBCYXphciB8IOCmrOCnh-Cml-CmvuCmsOCmv-CmpOCmsuCmviDgpqzgpr7gppzgpr7gprA!5e0!3m2!1sen!2sbd!4v1770707187851!5m2!1sen!2sbd`;
 
 // author.subscriptions = `https://youtube.com/`;
-// authore.subscrib = `https://youtube.com/`;
+// authore.subscribe = `https://youtube.com/`;
 
 // Village *****
 const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`,
@@ -114,6 +258,9 @@ const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
 
 author.direction = `https://maps.google.com/maps?ll=23.070916,89.234141&z=15&t=m&hl=en&gl=BD&mapclient=embed&cid=16347353279731932593`;
 
+export const url = url => {
+    return `https://${url}`;
+};
 export const urlGithub = `https://github.com/hassanbiswas`,
     urlFacebook = `https://facebook.com/hassanbiswas.github.io`,
     urlMessenger = `https://m.me/hassanbiswas.github.io`,
@@ -131,6 +278,16 @@ export const urlGithub = `https://github.com/hassanbiswas`,
     urlLinkedin = `https://linkedin.com/in/hassanbiswas-github-io`;
 
 // dribble, behance, etc.
+
+//  Constractor for listing
+const list = (name, link = '#', favicon = null) => {
+    return `<li>${a(name, link)}</li>`;
+};
+export function List(name, link = '#', favicon = null) {
+    this.name = name;
+    this.link = link;
+    this.favicon = favicon;
+}
 
 export const greetings = [
         'Hello',
@@ -209,7 +366,7 @@ const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
     faviconGmail = getFavicon(`chat.google.com`),
     faviconMap = getFavicon(`maps.google.com`),
     faviconMeet = getFavicon(`meet.google.com`),
-    faviconBkash = getFavicon(`bka.sh`),
+    faviconBkash = getFavicon(`https://bka.sh/`),
     faviconFacebook = getFavicon(`facebook.com`),
     faviconInstagram = getFavicon(`instagram.com`),
     faviconThreads = getFavicon(`threads.com`),
@@ -321,14 +478,6 @@ const handleConnectionChange = () => {
 
 // Listen for the 'online' event
 window.addEventListener('online', handleConnectionChange);
-
-//  Constractor for listing
-export function LinkList(name, link = '#', favicon = null) {
-    this.name = name;
-    this.class = name.toLowercase();
-    this.link = link;
-    this.favicon = favicon;
-}
 
 // Corrected function with default 't' value of 3m
 const timeout = (el, t = 3000) => {
@@ -548,7 +697,7 @@ export class HeadingTag extends HTMLElement {
             parentTwo = parentOne.parentElement,
             target = parentTwo.parentElement,
             parent = document.querySelector('main') || target.parentElement,
-            index = grandParent ? Array.from(parent.children).indexOf(target) : 0,
+            index = parent ? Array.from(parent.children).indexOf(target) : 0,
             h = index === 0 ? 0 : 1,
             // 2. Safely clamp tag level between 1 and 6
             tagLevel = Math.min(h + 1, 6);
@@ -569,12 +718,20 @@ if (!customElements.get('heading-tag')) {
 // <heading onload="lavel(1)">This is a heading!</heading>
 
 // Global Constructor Function for Section Data
-export function SectionData(element) {
+export function Section(element) {
     this.heading = element.getAttribute('heading') || 'attribute: heading';
     this.description = element.getAttribute('description') || 'attribute: description';
     this.link = element.getAttribute('link') || 'attribute: link';
     this.linkText = element.getAttribute('linkText') || 'attribute: linkText';
     this.img = element.getAttribute('img') || 'attribute: img';
+
+    // 1. Calculate 'h' directly based on DOM position
+    const parent = this.parentElement || document.querySelector('main');
+    const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+    const h = index === 0 ? 0 : 1;
+
+    // 2. Safely clamp tag level between 1 and 6
+    const tagLevel = Math.min(h + 1, 6);
 }
 
 // updated design-system-section
@@ -588,15 +745,15 @@ class DesignSystemSection extends HTMLElement {
             this.property = property;
         }
         const colors = [
-            new UiItem(`txt-1`),
-            new UiItem(`txt-2`),
-            new UiItem(`txt-3`),
+            new UiItem(`txt-black`),
+            new UiItem(`txt-muted`),
+            new UiItem(`txt-gray`),
             new UiItem(`txt-primary`),
         ];
         const backgrounds = [
-            new UiItem(`bg-1`),
-            new UiItem(`bg-2`),
-            new UiItem(`bg-3`),
+            new UiItem(`bg-base`),
+            new UiItem(`bg-raised`),
+            new UiItem(`bg-overlay`),
             new UiItem(`primary-40`),
             new UiItem(`primary-50`),
             new UiItem(`primary-60`),
@@ -609,7 +766,7 @@ class DesignSystemSection extends HTMLElement {
             new UiItem(`h5`),
             new UiItem(`h6`),
         ];
-        const paragraphs = [new UiItem(`p`), new UiItem(`p-sm`), new UiItem(`p-xsm`)];
+        const paragraphs = [new UiItem(`p`)];
         const buttons = [
             new UiItem(`button`),
             new UiItem(`btn-primary`),
@@ -710,23 +867,23 @@ class CustomSection extends HTMLElement {
     connectedCallback() {
         // Configuration for easy updates
         /* const devLanguages = [
-            new LinkList(`HTML`),
-            new LinkList(`CSS`),
-            new LinkList(`JavaScript`),
+            new List(`HTML`),
+            new List(`CSS`),
+            new List(`JavaScript`),
         ];
-        const devLibraries = [new LinkList(`Bootstrap`), new LinkList(`GSAP`)];
+        const devLibraries = [new List(`Bootstrap`), new List(`GSAP`)];
         const designTools = [
-            new LinkList(`Figma`),
-            new LinkList(`Webflow`),
-            new LinkList(`Frammer`),
+            new List(`Figma`),
+            new List(`Webflow`),
+            new List(`Frammer`),
         ];
         const devIdes = [
-            new LinkList(`VScode`),
-            new LinkList(`Antigravity`),
-            new LinkList(`Claude`),
+            new List(`VScode`),
+            new List(`Antigravity`),
+            new List(`Claude`),
         ];
-        const aiModels = [new LinkList(`Gemini`), new LinkList(`Gemma`)];
-        const versionControlls = [new LinkList(`GitHub`)];
+        const aiModels = [new List(`Gemini`), new List(`Gemma`)];
+        const versionControlls = [new List(`GitHub`)];
 
         export function DevSkill(name, favicon, link = '#') {
             this.name = name;
@@ -753,17 +910,17 @@ class CustomSection extends HTMLElement {
             new DevTool(`GitHub`, `${faviconGithub}`),
         ]; */
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // Create an off-screen Template
         const template = document.createElement('template');
 
         // Render Markup
         template.innerHTML = `
-       <section class="fluid-grid-system bg-1" id="youtubers" data-version="${VERSION}">
+       <section class="fluid-grid-system bg-base" id="youtubers" data-version="${VERSION}">
     <section class="container-lg row infinite-scroller mask" data-direction="right" data-speed="fast">
-    <h2>${sectionData.heading}</h2>
-    <p>${sectionData.description}</p>
+    <h2>${section.heading}</h2>
+    <p>${section.description}</p>
    </section>
     </section>
     `;
@@ -788,10 +945,10 @@ class HeroSection extends HTMLElement {
             }
         };
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
-        // sectionData.heading = author.title;
-        // sectionData.description = author.description;
+        // Instantiate Section for current element
+        const section = new Section(this);
+        // section.heading = author.title;
+        // section.description = author.description;
 
         // 2. Create an off-screen Template
         const template = document.createElement('template');
@@ -815,8 +972,8 @@ ${author.logoOutlineSvg}
 
    <div aria-hidden="true" class="gradient-mask d-none infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="brand-title">
      <svg class="infinite-scroller_inner" fill="none" height="192" viewBox="0 0 2000 192" width="2000">
-       <text fill="var(--txt-1)" font-family="var(--ffb)" font-size="50" font-weight="600" x="0" y="116">
-${sectionData.heading}
+       <text fill="var(--txt-black)" font-family="var(--ffb)" font-size="50" font-weight="600" x="0" y="116">
+${section.heading}
        </text>
      </svg>
    </div>
@@ -824,10 +981,10 @@ ${sectionData.heading}
 
  <section class="row items-center">
    <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
-   <h1 id="heading" class="h3 txt-center d-non">${sectionData.heading}</h1>
-   <p class="txt-center">${sectionData.description}</p>
+   <h1 id="heading" class="h3 txt-center d-non">${section.heading}</h1>
+   <p class="txt-center">${section.description}</p>
    <div class="button-group flex">
-     <a style="text-decoration: none;" href="/resume"><buttton style="border: 2px solid var(--bg-1); padding: 1em;" class="btn btn-primary pill txt-1 bg-1">Resume ↘</button></a>
+     <a style="text-decoration: none;" href="/resume"><buttton style="border: 2px solid var(--bg-base); padding: 1em;" class="btn btn-primary pill txt-black bg-base">Resume ↘</button></a>
      <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
    </div>
  </section>
@@ -898,15 +1055,15 @@ class ClientsSection extends HTMLElement {
             ),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
         // HTML
         template.innerHTML = `
-<section class="fluid-grid-system bg-1" id="youtubers" data-version="${VERSION}">
+<section class="fluid-grid-system bg-base" id="youtubers" data-version="${VERSION}">
     <section class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
         <h2 class="h4 d-none">Subscription by ${author.name} on YouTube </h2>
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
@@ -1000,8 +1157,8 @@ class AboutSection extends HTMLElement {
             ),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1010,16 +1167,16 @@ class AboutSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system bg-2" id="about" data-version="${VERSION}">
+<section class="fluid-grid-system bg-base" id="about" data-version="${VERSION}">
     <section style="gap: 0em;" class="container-xl row">
      <h2 class="h6 fade-in-to">
       About ${author.name}
      </h2>
      <div style="padding-block: 0em; row-gap: 0em;" class="col">
-      <heading-tag class="h3 text-revel-onscrol row">
+      <h3 class="h3 text-revel-onscrol row">
        At a galance
        2001 - ${thisYear}
-      <heading-tag>
+      <h3>
       <div class="row" style="gap: var(--space-xs);">
        <p>${author.description}</p>
        <a class="p fade-in-to" href="#about">
@@ -1034,7 +1191,7 @@ class AboutSection extends HTMLElement {
      .map(
          story => `
 
-      <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
+      <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised">
        <div style="gap: .5em;" class="row">
         <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
         <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
@@ -1067,8 +1224,8 @@ class AboutSection extends HTMLElement {
 // updated ServicesSection Component
 class ServicesSection extends HTMLElement {
     connectedCallback() {
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1101,7 +1258,7 @@ class ServicesSection extends HTMLElement {
        <li>Customized Site: ${money(300)}+ </li>
       </ul>
       </p>
-      <p class="p-sm"><span class="txt-primary">Note:</span> Prices are estimates and vary based on the web design company in Bangladesh.</p>
+      <p class="p"><span class="txt-primary">Note:</span> Prices are estimates and vary based on the web design company in Bangladesh.</p>
      <section class="col">
       <div style="gap: var(--space-xs);" class="row">
        <h5>
@@ -1199,8 +1356,8 @@ class ProjectsSection extends HTMLElement {
             ),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1209,7 +1366,7 @@ class ProjectsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section class="fluid-grid-system bg-2" id="projects" data-version="${VERSION}">
+      <section class="fluid-grid-system bg-base" id="projects" data-version="${VERSION}">
         <section style="gap: 0em;" class="container-xl row">
  <h6 class="fade-in-to">Projects</h6>
 
@@ -1233,7 +1390,7 @@ With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & de
  ${projects
      .map(
          project => `
-   <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-1">
+   <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised">
      <div style="gap: .5em;" class="row">
        <h6 class="fade-in-to">${project.date}</h6>
        <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
@@ -1303,8 +1460,8 @@ class TestimonialsSection extends HTMLElement {
             ),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1396,7 +1553,7 @@ class FaqsSection extends HTMLElement {
             ),
             new FaqsItem(
                 `What do I do?`,
-                `I usually <b> design </b> &amp; <b>develop</b> website<sup class="p-sm">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
+                `I usually <b> design </b> &amp; <b>develop</b> website<sup class="p">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
             ),
             new FaqsItem(
                 `What is my design process?`,
@@ -1408,22 +1565,22 @@ class FaqsSection extends HTMLElement {
             ),
             new FaqsItem(
                 `Am I available for hire?`,
-                `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p-sm"> 24/7
+                `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p"> 24/7
  </sup>`
             ),
             new FaqsItem(
                 `What is my contact number?`,
                 `Mobile: (+880)
   <a href="${urlMobile}"><b>1602-873384</b></a>
-  <sup class="p-sm">24/7</sup>
+  <sup class="p">24/7</sup>
   </br></br>
   Whatsapp: (+880)
   <a href="${urlWhatsapp}"><b>1602-873384</b></a>`
             ),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1472,7 +1629,7 @@ Adipisci rem magnam molestiae!
  ${faqs
      .map(
          faq => `
-        <details class="py-0 bg-1" name="question">
+        <details class="py-0 bg-raised" name="question">
 <summary>
  <h6 class="p py-1">
   ${faq.question}
@@ -1511,7 +1668,7 @@ class PrivacyPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section" data-version="${VERSION}">
+<section style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section" data-version="${VERSION}">
 <div class="container-md">
 <div class="row">
 
@@ -1633,7 +1790,7 @@ class RefundAndCancelationPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section" data-version="${VERSION}">
+<section style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section" data-version="${VERSION}">
  <div class="container-md">
 <div class="row">
 
@@ -1746,7 +1903,7 @@ class TermsOfServiceSection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-1); color: (--txt-2);" class="fluid-grid-system info-section" data-version="${VERSION}">
+<section style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section" data-version="${VERSION}">
 <div class="container-md">
 <div class="row">
 
@@ -1914,8 +2071,8 @@ class ContactSection extends HTMLElement {
             new ButtonsItem(`View Reviews ↘`, `${urlFeedback}`, `d-none`),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -1939,7 +2096,7 @@ class ContactSection extends HTMLElement {
         </div>
         <div style="flex: 1; flex-basis: 23rem; gap: var(--space-xs);" class="row">
  <p class="p">${author.description}</p>
- <h6 class="p-sm">Prefered Languages:</h6>
+ <h6 class="p">Prefered Languages:</h6>
  <ul style="list-style: none;" class="flex">
    ${preferedLanguages
        .map(
@@ -2023,7 +2180,6 @@ class FooterSection extends HTMLElement {
             new NavItem(`Projects ↘`, `/#projects`),
             new NavItem(`Contact ↘`, `/#contact`),
             new NavItem(`Case Studies`, `/github`),
-            new NavItem(`Templates`, `/github`),
         ];
 
         function MethodsItem(name, link, title, alt, favicon) {
@@ -2066,8 +2222,8 @@ class FooterSection extends HTMLElement {
             new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
         ];
 
-        // Instantiate SectionData for current element
-        const sectionData = new SectionData(this);
+        // Instantiate Section for current element
+        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -2104,7 +2260,7 @@ class FooterSection extends HTMLElement {
  </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-1);" id="installApp">
+       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
         <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
         <span style="line-height: 100%" class="d-non">Install ↘</span>
        </button>
@@ -2622,17 +2778,17 @@ customElements.define("t-section", TSection);
     console.log(`Tag: <${headingTag}>, Path: "${path}"`, matchedElements);
 })(); */
 
+const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
+const links = document.querySelectorAll('a');
+const photos = document.querySelectorAll('img, picture');
+const videos = document.querySelectorAll('video');
+const iframes = document.querySelectorAll('iframe');
+const svgs = document.querySelectorAll('svg');
+
 const seoMedia = () => {
     let height = window.innerHeight,
         width = window.innerWidth,
         aspectRatio = width >= height ? `16/9` : `9/16`;
-
-    const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
-    const links = document.querySelectorAll('a');
-    const photos = document.querySelectorAll('img, picture');
-    const videos = document.querySelectorAll('video');
-    const iframes = document.querySelectorAll('iframe');
-    const svgs = document.querySelectorAll('svg');
 
     // medias a, img, picture, video, iframe, svg
     medias?.forEach(el => {
@@ -2755,26 +2911,27 @@ medias?.forEach(el => {
     mediaObserver.observe(el);
 });
 
-const infiniteScrollers = document.querySelectorAll('.infinite-scroller');
+// const infiniteScrollers = document.querySelectorAll('.infinite-scroller');
+
+// function infiniteScrollAnimate() {
+//     infiniteScrollers?.forEach(scroller => {
+//         scroller.setAttribute('data-animation', true);
+
+//         const scrollerInner = scroller?.querySelector('.infinite-scroller_inner');
+//         const scrollerContents = ArrayFrom(scrollerInner.children);
+
+//         scrollerContents.forEach(content => {
+//             const duplicatedContent = content.cloneNode(true);
+//             duplicatedContent.setAttribute('aria-hidden', true);
+//             scrollerInner.appendChild(duplicatedContent);
+//         });
+//     });
+// }
+// infiniteScrollAnimate();
 
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    infiniteScroll();
-}
-
-const infiniteScroll = () => {
-    infiniteScrollers?.forEach(infiniteScroller => {
-        infiniteScroller.setAttribute('data-animation', true);
-
-        const infiniteScrollerInner = infiniteScroller?.querySelector('.infinite-scroller_inner');
-        const infiniteScrollerContents = ArrayFrom(infiniteScrollerInner?.children);
-
-        infiniteScrollerContents.forEach(content => {
-            const duplicatedContent = content.cloneNode(true);
-            duplicatedContent.setAttribute('aria-hidden', true);
-            infiniteScrollerInner.appendChild(duplicatedContent);
-        });
-    });
-}; // end
+    // animations()
+} // end
 
 export function fadeInTop() {
     let fadeInTop = document.querySelectorAll('.fade-in-top');
@@ -2945,16 +3102,16 @@ isDark.addEventListener('change', updateFavicon);
 const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 // 1. Define the handler
-const handleThemeChange = e => {
-    const isDark = e.matches;
-    syncThemeColor(isDark); // Pass the boolean for cleaner logic
-};
+// const handleThemeChange = e => {
+//     const isDark = e.matches;
+//     syncThemeColor(isDark); // Pass the boolean for cleaner logic
+// };
 
 // 2. Attach the listener
-darkModeMediaQuery.addEventListener('change', handleThemeChange);
+// darkModeMediaQuery.addEventListener('change', handleThemeChange);
 
 // 3. Run once on load to set the initial state
-handleThemeChange(darkModeMediaQuery);
+// handleThemeChange(darkModeMediaQuery);
 
 // ###### function calls bellow ######
 
@@ -2981,5 +3138,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener('focus', () => {
-    window.location.reload();
+    // window.location.reload();
 });
