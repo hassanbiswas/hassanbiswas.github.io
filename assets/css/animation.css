@@ -1,0 +1,130 @@
+/* section: ####### @starting-style ####### */
+
+
+
+
+
+/* section: ####### @keyframes ####### */
+
+/* animation: name etc on element; */
+@keyframes animation-name {
+  from {
+/* the position where animation start? before initial value */
+}
+  /* to {} nothing to do! it's the initial value */
+}
+
+  @keyframes marqueeLoop {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); } /* Moves exactly half the width to reset perfectly */
+}
+
+
+@keyframes slideUp {
+  from {
+opacity: 0;
+transform: translateY(30px) scale(0.9);
+}
+  to {
+opacity: 1;
+transform: translateY(0) scale(1);
+}
+}
+
+
+@keyframes slideInRight {
+  from {
+opacity: 0;
+transform: translateX(50px);
+}
+  to {
+opacity: 1;
+transform: translateX(0);
+}
+}
+
+
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}/*
+start before screen.
+skeleton loading txt/bg same color,
+animate with delay until offset mid 0 view
+
+*/
+
+
+
+@keyframes words-skeleton {
+  0% {
+background: var(--txt-muted);
+color: var(--txt-muted);
+}
+  100% {
+background: var(--txt-gray);
+color: var(--txt-gray);
+}
+}
+
+@keyframes gradient-shift {
+  to {
+filter: hue-rotate(360deg);
+}
+}
+
+
+  @keyframes brand-logo-wrapper {
+100% {
+  transform: rotateY(-360deg);
+}
+}
+
+   @keyframes infinite-scroll {
+ to {
+ transform: translate(calc(-50% - 0.5rem));
+ }
+
+}
+
+/*
+@keyframes slide-from-right {
+from { transform: translateX(100%); }
+} */
+/* Styling the overall transition */
+
+
+
+@keyframes slide-from-right {
+from { transform: translateX(100%); }
+}
+
+/*
+@keyframes appear {
+  from { opacity:  0; scale: 0.5; }
+} */
+
+  /* v2
+  @keyframes appear {
+  from {opacity: 0; clip-path: inset(100% 100% 0 0);}
+
+} */
+   /* v3
+  @keyframes appear {
+  from {opacity: 0; transform: translateX(-50%);}
+
+} */
+
+  @keyframes slide-to-right {
+  to{transform: translateX(100vw);}
+}
+
+  @keyframes slide-from-left {
+from{transform: translateX(-100vw);}
+}
+
+
+
+
+
+/* section: ####### ::view-transition ####### */

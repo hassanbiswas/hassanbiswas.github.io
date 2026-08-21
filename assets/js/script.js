@@ -35,122 +35,94 @@ Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.vers
 
 // Favicon+SVG <link>
 const linkSvg = (url = `#`, alt = `alt`, width = `100%`) => {
-    Object.assign(this, {
-        href: `${url}`,
-        alt: `${alt}`,
-        width: `${width}`,
-        rel: 'icon',
-        ariaHidden: 'true',
-        aspectRatio: '1',
-        height: 'auto',
-        size: 'any',
-        type: 'image/svg+xml',
-        loading: 'lazy',
-        draggable: 'false',
-        decoding: 'async',
-    }).dataset.version = VERSION;
+    return `href="${url}"
+        alt="${alt}"
+        width="${width}"
+        rel="icon"
+        aria-hidden="true"
+        aspect-ratio="1"
+        height="auto"
+        size="any"
+        type="image/svg+xml"
+        loading="lazy"
+        draggable="false"
+        decoding="async" data-version="${VERSION}"`;
 };
 
 // Font <link>
 const linkFont = (url = `#`) => {
-    Object.assign(this, {
-        href: `${url}`,
-        rel: 'preconnect',
-        as: 'font',
-        type: 'font/ttf',
-        crossorigin,
-    }).dataset.version = VERSION;
+    return `href="${url}"
+        rel="preconnect"
+        as="font"
+        type="font/ttf"
+        crossorigin data-version="${VERSION}"`;
 };
 
 // img
-const img = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `16/9`) => {
-    Object.assign(this, {
-        src: `${src}`,
-        alt: `${alt}`,
-        width: `${width}`,
-        aspectRatio: `${aspectRatio}`,
-        ariaHidden: 'true',
-        height: 'auto',
-        size: 'any',
-        loading: 'lazy',
-        draggable: 'false',
-        decoding: 'async',
-    }).dataset.version = VERSION;
-};
+const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
+    return `src="${url}"
+        alt="${alt}"
+        width="${width}"
+        aspect-ratio="${aspectRatio}"
+        aria-hidden="true"
+        height="auto"
+        size="any"
+        loading="lazy"
+        draggable="false"
+        decoding="async" data-version="${VERSION}"`;
+}; /*
+<picture>
+<source type="image/avif" srcset="img.avif"/>
+<source type="image/webp" srcset="img.webp"/>
+<img src="img.jpg" />
+</picture>*/
 
 // a
-const a = url => {
-    Object.assign(this, {
-        href: `${url}`,
-        loading: 'lazy',
-        rel: 'noopener noreferrer',
-        target: '_blank',
-    }).dataset.version = VERSION;
+const seoA = () => {
+    return `loading="lazy"
+        rel="noopener noreferrer"
+        target="_blank" data-version="${VERSION}"`;
 };
 
 // button
-const button = () => {
-    Object.assign(this, { type: 'button', ariaExpanded: 'false' }).dataset.version = VERSION;
+const seoButton = () => {
+    return `type="button" aria-expanded="false" data-version="${VERSION}"`;
 };
 
 // Component+JS <script>
 const linkComponent = url => {
-    Object.assign(this, { src: `${url}`, defer, type: 'module' }).dataset.version = VERSION;
+    return `src="${url}" defer type="module" data-version="${VERSION}"`;
 };
 
 // CSS <link>
 const linkCss = (url = `#`) => {
-    Object.assign(this, { href: `${url}`, rel: 'preload', as: 'style' }).dataset.version = VERSION;
+    return `href="${url}" rel="preload" as="style" data-version="${VERSION}"`;
 };
 
 // ================== SEO HTML
 
 const header = () => {
-    Object.assign(this, { role: 'banner' }).dataset.version = VERSION;
+    return `id="header" role="banner" data-version="${VERSION}"`;
 };
 const navPrimary = () => {
-    Object.assign(this, {
-        ariaLabel: 'Primary Navigation',
-    }).dataset.version = VERSION;
+    return `aria-label="Primary Navigation" "data-version="${VERSION}"`;
 };
-const aMain = () => {
-    Object.assign(this, {
-        href: '#main-content',
-        class: 'skip-to-content',
-    }).dataset.version = VERSION;
+const aSection = sectionId => {
+    return `href="#${sectionId}" class="skip-to-content" data-version="${VERSION}"`;
 };
 const main = () => {
-    Object.assign(this, { id: 'main', role: 'main' }).dataset.version = VERSION;
+    // return `id="main" role="main" data-version="${VERSION}"`;
+    document.querySelector('main').setAttribute('id', 'main');
+    document.querySelector('main').setAttribute('role', 'main');
+    document.querySelector('main').setAttribute('data-version', `${VERSION}`);
 };
-const section = () => {
-    Object.assign(this, {
-        ariaLabelledby: 'headingId',
-    }).dataset.version = VERSION;
+main();
+const seoSection = () => {
+    return `set_aria-labelledby="h-Id" data-version="${VERSION}"`;
 };
 const footer = () => {
-    Object.assign(this, { id: 'footer', role: 'contentonfo' }).dataset.version = VERSION;
+    return `id="footer" role="contentonfo" data-version="${VERSION}"`;
 };
-
-/*
-
-<a href="#main-content" class="skip-to-content">Skip to main content</a>
-
-<header role="banner">
-    <nav aria-label="Main Navigation">
-    </nav>
-</header>
-
-<main id="main-content" role="main">
-    <section aria-labelledby="hero-title">
-        <h1 id="hero-title">Web Developer | Hassan Biswas</h1>
-        <img src="profile.webp" alt="Hassan Biswas Profile" width="400" height="400" loading="lazy" decoding="async">
-    </section>
-</main>
-
-<footer role="contentinfo">
-    <p>&copy; 2026 Hassan Biswas. All rights reserved.</p>
-</footer>
-*/
 
 // absolute path for components
 // header > location cta
@@ -234,15 +206,15 @@ const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`,
     europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`,
     oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
 
-const worldwide = `<a href="${asia}">Asia</a>, <a href="${africa}">Africa</a>, <a href="${northAmerica}">North America</a>, <a href="${southAmerica}">South America</a>, <a href="${europe}">Europe</a>, <a href="${oceania}">Oceania</a>`;
+const worldwide = `<a ${seoA()} href="${asia}">Asia</a>, <a ${seoA()} href="${africa}">Africa</a>, <a ${seoA()} href="${northAmerica}">North America</a>, <a ${seoA()} href="${southAmerica}">South America</a>, <a ${seoA()} href="${europe}">Europe</a>, <a ${seoA()} href="${oceania}">Oceania</a>`;
 
 const locationPrimary = `
-<a href="${jashore}">Jashore</a>
-<a href="${khulna}">Khulna</a>
-<a href="${bangladesh}">Bangladesh</a>`,
+<a ${seoA()} href="${jashore}">Jashore</a>
+<a ${seoA()} href="${khulna}">Khulna</a>
+<a ${seoA()} href="${bangladesh}">Bangladesh</a>`,
     locationSecondary = `
-    <a href="${dhaka}">Dhaka</a>,
-    <a href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
+    <a ${seoA()} href="${dhaka}">Dhaka</a>,
+    <a ${seoA()} href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
 
 const root = document.documentElement,
     head = document.head || document.getElementsByTagName('head')[0],
@@ -252,7 +224,7 @@ const root = document.documentElement,
 
 let primaryColor = `hsl(240, 80%, 50%)`;
 
-// <a href=""></a>
+// <a ${seoA()} href=""></a>
 // review
 const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
 
@@ -333,13 +305,10 @@ export function ServicesPrimaryItem(name, price) {
     this.price = money(price);
 }
 const servicesPrimary = [
-    new ServicesPrimaryItem(`UI/UX design`, 80),
-    new ServicesPrimaryItem(`Web design`, 100),
-    new ServicesPrimaryItem(`Re-Design website`, 80),
-    new ServicesPrimaryItem(`Front-End development`, 100),
-    new ServicesPrimaryItem(`Static Websit (Reasonable price!)`, 80),
-    new ServicesPrimaryItem(`Photo/image to website`, 180),
-    new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 80),
+    new ServicesPrimaryItem(`UI/UX design`, 70),
+    new ServicesPrimaryItem(`Web design or Re-Design`, 80),
+    new ServicesPrimaryItem(`Front-End development`, 80),
+    new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 60),
 ];
 
 export function ServicesSeconderyItem(name, price) {
@@ -384,7 +353,7 @@ const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
     faviconFramer = getFavicon(`framer.com`),
     faviconGithub = getFavicon(`github.com`);
 
-const preferedLanguages = [`English(Native)`, `Bangla (Advanced)`, `Hindi(Conversation)`];
+const preferedLanguages = [`English (Native)`, `Bangla (Advanced)`, `Hindi (Conversation)`];
 
 /*
   const metaKey = document.querySelector('meta[name="keywords"]');
@@ -413,6 +382,19 @@ let metaViewport = () => {
     }
 };
 metaViewport();
+
+function SocialsItem(name, link, favicon) {
+    this.name = name;
+    this.link = link;
+    this.favicon = favicon;
+}
+
+const socials = [
+    new SocialsItem(`Facebook`, `${urlFacebook}`, `${faviconFacebook}`),
+    new SocialsItem(`Instagram`, `${urlInstagram}`, `${faviconInstagram}`),
+    new SocialsItem(`Threads`, `${urlThreads}`, `${faviconThreads}`),
+    new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
+];
 
 // ###### JavaScript variables declear golobally above ######
 
@@ -479,6 +461,10 @@ const handleConnectionChange = () => {
 // Listen for the 'online' event
 window.addEventListener('online', handleConnectionChange);
 
+const random = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min) || 0;
+};
+
 // Corrected function with default 't' value of 3m
 const timeout = (el, t = 3000) => {
     if (!el) return; // Guard clause if element is missing
@@ -512,13 +498,13 @@ class LoaderSection extends HTMLElement {
         const template = document.createElement('template');
         template.innerHTML = `
       <section id="loader" aria-hidden="true" class="fluid-grid-system" data-version="${VERSION}">
-       <section class="container-md content-center">
+       <div class="container-md content-center">
         <div class="col items-center">
  <h3 class="greeting txt-center flex">
    &lt;<span id="say-hello">Hello</span>/&gt;
  </h3>
         </div>
-       </section>
+       </div>
       </section>
     `;
 
@@ -601,7 +587,7 @@ class NotchSection extends HTMLElement {
      <p class="notification">
       Developing in "OPPO A53" handset!
      </p>
-     <button onclick="notch.classList.toggle('collapse')">
+     <button ${seoButton()} onclick="notch.classList.toggle('collapse')">
       ×
      </button>
     </div>
@@ -631,7 +617,7 @@ class ToastSection extends HTMLElement {
      <p class="notification">
       This is a toast dialog!
      </p>
-     <button onclick="toast.classList.toggle('collapse')">
+     <button ${seoButton()} onclick="toast.classList.toggle('collapse')">
       ×
      </button>
     </div>
@@ -656,19 +642,15 @@ class HeaderSection extends HTMLElement {
         // 3. Define the HTML
 
         template.innerHTML = `
-      <header class="fluid-grid-system" id="header" data-version="${VERSION}">
-       <section class="container-md">
-        <nav style="padding-block: .5em" class="col">
-<span title="address">
- <a href="https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9">Jashore</a>
- <a href="https://maps.app.goo.gl/FM6vxDsAPLaQErnd6">Khulna</a>
- <a href="https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9">Bangladesh</a>
-</span>
-<a title="messenger" href="${urlMessenger}" target="_blank">
- @hassanbiswas.github.io
-</a>
+            <header ${header()} class="fluid-grid-system" id="header">
+                <div class="container-md">
+                    <nav style="padding-block: 1.1em; gap: 5em; flex-wrap: nowrap;" class="flex j-between">
+
+            <div class="flex a-center" style="gap: 0.8em; flex: 1; block-size: 0;"></div>
+
+            <button ${seoButton()} style="flex: 1;" class="btn-primary"><a href="#services">Get Started</a></button>
         </nav>
-       </section>
+       </div>
       </header>
     `;
 
@@ -754,7 +736,6 @@ class DesignSystemSection extends HTMLElement {
             new UiItem(`bg-base`),
             new UiItem(`bg-raised`),
             new UiItem(`bg-overlay`),
-            new UiItem(`primary-40`),
             new UiItem(`primary-50`),
             new UiItem(`primary-60`),
         ];
@@ -766,7 +747,7 @@ class DesignSystemSection extends HTMLElement {
             new UiItem(`h5`),
             new UiItem(`h6`),
         ];
-        const paragraphs = [new UiItem(`p`)];
+        const paragraphs = [new UiItem(`p`), new UiItem(`p-sm`)];
         const buttons = [
             new UiItem(`button`),
             new UiItem(`btn-primary`),
@@ -782,7 +763,7 @@ class DesignSystemSection extends HTMLElement {
         template.innerHTML = `
 
 <section class="fluid-grid-system" id="design-system" data-version="${VERSION}">
-    <section class="container-lg">
+    <div class="container-lg">
        <div style="gap: var(--space-l);" class="col">
 
         <div style="gap: var(--space-xs);" class="flex items-start">
@@ -837,7 +818,7 @@ ${paragraphs
 ${buttons
     .map(
         button => `
-  <button style="flex: 1 1 23rem;" class=" ${button.property} ">
+  <button ${seoButton()} style="flex: 1 1 23rem;" class=" ${button.property} ">
     ${button.property}
   </button>
 `
@@ -846,7 +827,7 @@ ${buttons
         </div>
 
        </div>
-    </section>
+    </div>
    </section>
 
     `;
@@ -917,11 +898,11 @@ class CustomSection extends HTMLElement {
 
         // Render Markup
         template.innerHTML = `
-       <section class="fluid-grid-system bg-base" id="youtubers" data-version="${VERSION}">
-    <section class="container-lg row infinite-scroller mask" data-direction="right" data-speed="fast">
+       <section ${seoSection()} class="fluid-grid-system bg-base" id="youtubers">
+    <div class="container-sm row infinite-scroller mask" data-direction="right" data-speed="fast">
     <h2>${section.heading}</h2>
     <p>${section.description}</p>
-   </section>
+   </div>
     </section>
     `;
         // Synchronous Swap
@@ -958,17 +939,39 @@ class HeroSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section id="hero" class="fluid-grid-system dark" data-version="${VERSION}">
-        <section class="container-md row">
+      <section ${seoSection()} id="hero" class="fluid-grid-system dark">
+        <div class="container-md row custom-container">
+<svg width="0" height="0">
+        <clipPath id="myClip"
+        clipPathUnits="objectBoundingBox">
+        <path d="
+            M .1 0
+            L .45 0
+            Q .5 0 .5 .05
+            Q .5 .1 .55 .1
+            L .9 .1
+            Q 1 .1 1 .2
+            L 1 .9
+            Q 1 1 .9 1
+            L .55 1
+            Q .5 1 .5 .95
+            Q .5 .9 .45 .9
+            L .1 .9
+            Q 0 .9 0 .8
+            L 0 .1
+            Q 0 0 .1 0
+        "/>
+        </clipPath>
+</svg>
 
- <section style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
-   <section style="padding: 0em" class="brand-logo-container">
-     <section style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
+ <div style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
+   <div style="padding: 0em" class="brand-logo-container">
+     <div style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
 
 ${author.logoOutlineSvg}
 
-     </section>
-   </section>
+     </div>
+   </div>
 
    <div aria-hidden="true" class="gradient-mask d-none infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="brand-title">
      <svg class="infinite-scroller_inner" fill="none" height="192" viewBox="0 0 2000 192" width="2000">
@@ -977,19 +980,24 @@ ${section.heading}
        </text>
      </svg>
    </div>
- </section>
+ </div>
 
- <section class="row items-center">
+ <div class="row items-center">
    <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
    <h1 id="heading" class="h3 txt-center d-non">${section.heading}</h1>
    <p class="txt-center">${section.description}</p>
    <div class="button-group flex">
-     <a style="text-decoration: none;" href="/resume"><buttton style="border: 2px solid var(--bg-base); padding: 1em;" class="btn btn-primary pill txt-black bg-base">Resume ↘</button></a>
-     <a class="btn btn-cta" href="#contact">Contact Me ↘</a>
+     <a ${seoA()} style="text-decoration: none;" href="/resume">
+        <buttton style="border: 0px solid var(--bg-base); padding: 1em;" class="btn btn-primary txt-black bg-base pointer-button">Resume</button>
+     </a>
    </div>
- </section>
+ </div>
 
-        </section>
+
+
+
+
+        </div>
       </section>
 
     `;
@@ -1063,16 +1071,16 @@ class ClientsSection extends HTMLElement {
         // 3. Define the HTML (Top-level element is now your grid section)
         // HTML
         template.innerHTML = `
-<section class="fluid-grid-system bg-base" id="youtubers" data-version="${VERSION}">
-    <section class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
+<section ${seoSection()} class="fluid-grid-system bg-base" id="youtubers">
+    <div class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
         <h2 class="h4 d-none">Subscription by ${author.name} on YouTube </h2>
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
            .map(
                youtuber => `
 <li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
-  <img class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;" src="${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}" alt="YouTube: ${youtuber.name}"/>
-  <a href="${youtuber.link}">${youtuber.name}
+  <img ${seoImg(`${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}`, `YouTube: ${youtuber.name}`)} class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;"/>
+  <a ${seoA()} href="${youtuber.link}">${youtuber.name}
   </a>
 </li>
        `
@@ -1080,7 +1088,7 @@ class ClientsSection extends HTMLElement {
            .join('')}
       </ul>
 
-    </section>
+    </div>
    </section>
 
     `;
@@ -1133,7 +1141,7 @@ class AboutSection extends HTMLElement {
                 '',
                 'Certified from',
                 'Utshob Technology Ltd.',
-                `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a target="_blank" href="tel:1715-488288">1715-488288</a> </br> Cell: <a target="_blank" href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a target="_blank" href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a target="_blank" href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a target="_blank" href="https://utshabtech.com.bd">utshabtech.com.bd</a>`,
+                `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a ${seoA()} href="tel:1715-488288">1715-488288</a> </br> Cell: <a ${seoA()} href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a ${seoA()} href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a ${seoA()} href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a ${seoA()} href="https://utshabtech.com.bd">utshabtech.com.bd</a>`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
                 'View place',
                 `d-none`
@@ -1167,8 +1175,8 @@ class AboutSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system bg-base" id="about" data-version="${VERSION}">
-    <section style="gap: 0em;" class="container-xl row">
+<section ${seoSection()} class="fluid-grid-system bg-base" id="about">
+    <div style="gap: 0em;" class="container-md row">
      <h2 class="h6 fade-in-to">
       About ${author.name}
      </h2>
@@ -1185,13 +1193,13 @@ class AboutSection extends HTMLElement {
       </div>
      </div>
 
-     <section style="gap: calc(var(--padding-inline) * 2);" class="row">
+     <div style="gap: calc(var(--padding-inline) * 2);" class="row">
 
  ${stories
      .map(
          story => `
 
-      <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised">
+      <div style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised">
        <div style="gap: .5em;" class="row">
         <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
         <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
@@ -1199,17 +1207,17 @@ class AboutSection extends HTMLElement {
        <h4 class="fade-in-to row">${story.heading}</h4>
        <div style="gap: var(--space-xs);" class="row">
         <p class="fade-in-to">${story.desc}</p>
-        <a target="_blank" class="fade-in-to" href="${story.link}" loading="lazy">${story.linkText} ↘</a>
+        <a ${seoA()} class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
        </div>
-      </section>
+      </div>
 
  `
      )
      .join('')}
 
-     </section>
+     </div>
 
-    </section>
+    </div>
    </section>
 
 
@@ -1233,22 +1241,11 @@ class ServicesSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-
-<section class="fluid-grid-system" id="services" data-version="${VERSION}">
-    <section class="container-lg row">
+<section ${seoSection()} class="fluid-grid-system" id="services">
+    <div class="container-md row">
      <h2>
-      Services available in ${locationSecondary}.
+      Services available in <br> ${locationSecondary}.
      </h2>
-     <p>[Years 2026] Static website development in Bangladesh typically costs between ${money(75)} and ${money(300)}+, depending on the complexity, design quality, and features. Basic personal or small business static sites often start around ${money(100)}–${money(150)}, while professional, customized static websites with advanced layouts can exceed ${money(300)}.
-      </br>
-      <p class="h6">Key Price Factors for Static Websites:</p>
-        <ul style="list-style: none;">
- <li>Design Customization: Tailored HTML/CSS layouts are costlier than template-based ones.</li>
-        <li>Number of Pages: Simple websites (5–10 pages) are cheaper than larger ones.</li>
-        <li>Features: Inclusion of premium sliders, image galleries, or contact forms.</li>
-        <li>Domain/Hosting: Most packages include a .com domain and 2GB+ hosting space, with annual renewal fees usually starting from ${money(300)}.</li>
-        </ul>
-      </p>
       <p>
        <p class="h6">Average Price Ranges (Approximate):</p>
        </br>
@@ -1258,13 +1255,11 @@ class ServicesSection extends HTMLElement {
        <li>Customized Site: ${money(300)}+ </li>
       </ul>
       </p>
-      <p class="p"><span class="txt-primary">Note:</span> Prices are estimates and vary based on the web design company in Bangladesh.</p>
-     <section class="col">
+     <div class="row">
       <div style="gap: var(--space-xs);" class="row">
        <h5>
         My primary Services:
        </h5>
-       <p class="p">** Discounted prices are showing **</p>
        <ul>
 ${servicesPrimary
     .map(
@@ -1287,14 +1282,14 @@ ${servicesSecondery
     .join('')}
        </ul>
        </div>
-     </section>
+     </div>
       <div class="flex j-end">
-<a href="/vcf">Download VCF</a>
-<button style="inline-size: fit-content;"  class="btn-primary">
-  <a href="#contact">Contact</a>
+<a ${seoA()} href="/vcf">Download VCF</a>
+<button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+  <a ${seoA()} href="#contact">Contact</a>
 </button>
       </div>
-    </section>
+    </div>
    </section>
 
 
@@ -1310,12 +1305,12 @@ ${servicesSecondery
 class ProjectsSection extends HTMLElement {
     connectedCallback() {
         // Project data array for easy updates
-        function ProjectsItem(date, category, title, desc, link) {
+        function ProjectsItem(date, category, title, link, image) {
             this.date = date;
             this.category = category;
             this.title = title;
-            this.desc = desc;
             this.link = link;
+            this.image = image;
         }
 
         const projects = [
@@ -1323,36 +1318,36 @@ class ProjectsSection extends HTMLElement {
                 `01-Jan-${thisYear}`,
                 'Portfolio website',
                 `${author.title}`,
-                `${author.description}`,
-                `https://hassanbiswas.github.io`
+                `https://hassanbiswas.github.io`,
+                `/assets/og-images/og-main.png`
             ),
             new ProjectsItem(
                 '24-Nov-2025',
                 'Design Agency website',
-                'DEVAEC | Website Design & Front-End Development.',
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.',
-                `/projects`
+                'DEVAEC | Website Design & Front-End Development',
+                `#`,
+                `/assets/og-images/og-main.png`
             ),
             new ProjectsItem(
                 '13-May-2025',
                 'E-commerce website',
-                'TANUVL | Fashion & Clothing.',
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.',
-                `/projects`
+                'TANUVL | Fashion & Clothing',
+                `#`,
+                `/assets/og-images/og-main.png`
             ),
             new ProjectsItem(
                 '09-Jul-2024',
                 'Portfolio website',
-                'Shamin Ahmed Choudhuri.',
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.',
-                `/projects`
+                'Shamin Ahmed Choudhuri',
+                `#`,
+                `/assets/og-images/og-main.png`
             ),
             new ProjectsItem(
                 '21-Fev-2023',
-                'Practical Design (Desktop View)',
-                'Powered by Claudeflare.',
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem officia aliquam voluptatem aut, veritatis libero cumque quas debitis alias quod.',
-                `https://mdezazulhassan2023.pages.dev`
+                'Personal Website',
+                'Md Ezazul Hassan',
+                `https://mdezazulhassan2023.pages.dev`,
+                `/assets/og-images/og-main.png`
             ),
         ];
 
@@ -1366,49 +1361,42 @@ class ProjectsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section class="fluid-grid-system bg-base" id="projects" data-version="${VERSION}">
-        <section style="gap: 0em;" class="container-xl row">
- <h6 class="fade-in-to">Projects</h6>
+      <section ${seoSection()} class="fluid-grid-system bg-base" id="projects">
+        <div class="container-md row">
+ <p class="fade-in-to"><span class="txt-gray">Selected</span> Projects</p>
+ <div style="padding-block: 1em;">
+   <p class="h2 txt-gray" style="font-weight: bold; display: inline;">
+     Projects have done since 2023 - ${thisYear}.
+<span class="text-revel-onscrol">With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide.</span></p> <h2 class="h2" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
+</h2>
 
- <div style="padding-block: 0em; row-gap: 0em;" class="col">
-   <h3 class="text-revel-onscrol row">
-     Projects have done since 2023 - ${thisYear}
-   </h3>
-   <div class="row" style="gap: var(--space-xs);">
-     <p>
-       <span class="text-revel-onscrol">
-With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide. I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
-       </span>
-     </p>
-     <a class="fade-in-to" href="#projects">View on fullscreen ↘</a>
-   </div>
  </div>
 
-
- <section style="gap: calc(var(--padding-inline) * 2);" class="row">
+ <div style="gap: .25em;" class="row projects-list">
 
  ${projects
      .map(
-         project => `
-   <section style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised">
-     <div style="gap: .5em;" class="row">
-       <h6 class="fade-in-to">${project.date}</h6>
-       <h5 style="padding-block: 0em;" class="fade-in-to">${project.category}</h5>
+         (project, index) => `
+ <span inert class="project-image">
+    <img ${seoImg(`${project.image}`, `Project Image`, `100%`)}/>
+ </span>
+
+   <a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 0em; gap: .25em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised project-item">
+     <div style="gap: .25em;" class="row">
+       <h4 class="p fade-in-to">${project.date}</h4>
+       <h4 style="padding-block: 0em;" class="h6 fade-in-to">${project.category}</h4>
      </div>
-     <h4 class="fade-in-to row">${project.title}</h4>
-     <div style="gap: var(--space-xs);" class="row">
-       <p class="fade-in-to">${project.desc}</p>
-       <a target="_blank" class="fade-in-to" href="${project.link}" loading="lazy">View site ↘</a>
-     </div>
-   </section>
+
+     <h5 class="h5 fade-in-to row">${project.title}</h5>
+   </a>
  `
      )
      .join('')}
 
-</section>
+</div>
 
 
-        </section>
+        </div>
       </section>
 
     `;
@@ -1422,43 +1410,97 @@ With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & de
 // updated TestimonialsSection Component
 class TestimonialsSection extends HTMLElement {
     connectedCallback() {
-        function QuotesItem(name, title, quote, link, photo) {
+        const componentProjectProgress = () => {
+            return `
+                <div class="flex j-between">
+                <div class="row">
+                    <b class="h1 txt-center">45<span class="txt-gray">+</span></b>
+                    <p>Success project</p>
+                </div>
+                <div class="row">
+                    <b class="h1 txt-center">98<span class="txt-gray">%</span></b>
+                    <p>Client satisfaction</p>
+                </div>
+                <div class="row">
+                    <b class="h1 txt-center">3<span class="txt-gray">+</span></b>
+                    <p>Award woned</p>
+                </div>
+                </div>
+            `;
+        };
+
+        function QuotesItem(name, title, quote, link, photo, star, platform) {
             this.name = name;
             this.title = title;
             this.quote = quote;
             this.link = link;
             this.photo = photo;
+            this.star = star;
+            this.platform = platform;
         }
         const personQuotes = [
             new QuotesItem(
                 `${author.name}`,
                 `Web Developer`,
-                `I always try to provide the best.`,
+                `I saw incredible results after
+launching the campaign. The advertising
+approach was effective, data-driven, and
+exceeded expectations from the very
+beginning.`,
                 `/`,
-                `${faviconAuthor}`
+                `${faviconAuthor}`,
+                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+                `SEO`
             ),
             new QuotesItem(
                 `Mariam`,
-                `Student`,
-                `Hi ${author.name}, thank's a lot!`,
+                `Project Collaborator`,
+                `Thanks ${author.name} for the quick turnaround on our student platform! The animations and responsive layout exceeded our expectations completely.`,
                 `#`,
-                `${faviconFacebook}`
+                `${faviconFacebook}`,
+                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+                `Facebook`
             ),
             new QuotesItem(
-                `Shamin`,
-                `Businessman`,
-                `My website is faster than ever.`,
+                `Shamin Ahmed`,
+                `Businessman & Client`,
+                `My business website is noticeably faster and looks significantly more professional. ${author.name} translated our complex Figma requirements into pristine code with pixel-perfect accuracy.`,
                 `#`,
-                `${faviconFacebook}`
+                `${faviconInstagram}`,
+                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+                `Instagram`
             ),
             new QuotesItem(
-                `Tanveer`,
-                `Freelancer`,
-                `Hey! this is a great design, ${author.name}.`,
+                `Tanveer Rahman`,
+                `Freelancer & UI Designer`,
+                `${author.name} is an exceptional front-end developer! His attention to layout details, mobile responsiveness, and clean CSS code structure is genuinely top-notch.`,
                 `#`,
-                `${faviconFacebook}`
+                `${faviconX}`,
+                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+                `X (Twitter)`
             ),
         ];
+
+        let randomIndex = random(0, personQuotes?.length);
+
+        const componentReviews = () => {
+            return `
+<div class="row">
+    <ul class="flex" style="list-style: none; gap: -3em;">
+        ${personQuotes
+            .map(
+                person => `
+    <li>
+        <img ${seoImg(person.photo, `Client`)} style="inline-size: 2em;"/>
+    </li>
+        `
+            )
+            .join('')}
+            <li class="bg-raised pill" style="padding: .5em;">20+</li>
+      </ul>
+     <p>45+ Projects 25+ reviews</p>
+            `;
+        };
 
         // Instantiate Section for current element
         const section = new Section(this);
@@ -1469,72 +1511,100 @@ class TestimonialsSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-
-<section class="fluid-grid-system" id="testimonials" data-version="${VERSION}">
-    <section class="container-lg row">
-     <div class="row">
+<section ${seoSection()} class="fluid-grid-system" id="testimonials">
+    <div class="container-md row">
+         <p>Testimonials</p>
+<div class="row">
       <h2 class="text-revel-onscrol">
-       Quotes from my clients
+       <span class="txt-gray">Real People,</span> <br/>Real Results Feedback
       </h2>
       <p>
         <span class="text-revel-onscrol">
- What clients and colleagues say about my front-end architecture and design work.
+ What clients and colleagues say about my front-end architecture and design work. See what my users are truly accomplishing with honest, and project-based reviews
         </span>
       </p>
      </div>
-      <ul class="row">
-        ${personQuotes
-            .map(
-                person => `
- <li class="items-center" style="display: flex; gap: var(--space-2xs);">
-   <img src="${person.photo}"/>
 
-   <span>
-     <a href="${person.link}"><b>${person.name}</b> (${person.title})
-     </a></br>
-     <i class="h6">"${person.quote}"</i>
-   </span>
+     ${componentReviews()}
+
+     ${componentProjectProgress()}
+
+</div>
+
+      <ul class="row" style="list-style: none;">
+
+ <li>
+ <blockquote class="row items-center bg-raised" style="display: row; gap: .8em; padding: 2em; border-radius: 1em; inline-size: 100%;">
+
+     <b>
+                <span class="star" style="inline-size: .8em;">${personQuotes[randomIndex]?.star}</span>
+     </b>
+
+     <i class="h6 quote txt-center">"${personQuotes[randomIndex]?.quote}"</i>
+     <div class="flex j-center">
+                <img ${seoImg(personQuotes[randomIndex]?.photo, 'Client')} style="inline-size: 2em;" class="photo"/>
+
+                <div class="row" style="margin-inline-end: 1em; gap: .4em;">
+                    <a ${seoA()} href="${personQuotes[randomIndex]?.link}" class="link"><b class="name">${personQuotes[randomIndex]?.name}</b></a>
+                    <p class="title">${personQuotes[randomIndex]?.title}</p>
+                </div>
+
+                <b class="platform">${personQuotes[randomIndex]?.platform}</b>
+     </div>
+
+   </blockquote>
  </li>
-        `
-            )
-            .join('')}
-      </ul>
 
-      <div class="flex j-end">
-<p class="h6">
-  Your's coming soon!
-</p>
-<button style="inline-size: fit-content;"  class="btn-primary">
-  <a href="${urlFeedback}" title="Send Review" target="_blank">Add your review ↘</a>
+      </ul>
+<div class="flex j-end">
+    <button ${seoButton()} style="inline-size: fit-content; cursor: pointer;"  class="btn-primary quote-button bg-base d-none">Prev</button>
+    <button ${seoButton()} style="inline-size: fit-content; cursor: pointer;"  class="btn-primary quote-button bg-base">Next</button>
+</div>
+      <div class="flex j-center">
+<button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+  <a ${seoA()} href="${urlFeedback}">Add Review ↘</a>
 </button>
       </div>
 
-    </section>
+    </div>
    </section>
 
     `;
-        /*
 
-   let quote = document.querySelector('.quote'),
-     quotePerson = document.querySelector('.quote-person'),
-     quoteButtons = document.querySelectorAll('.quote-button'),
+        const content = template.content.cloneNode(true);
+        const quoteButtons = content.querySelectorAll('.quote-button');
 
-   // quotes
-   quoteButtons?.forEach(button => {
-     let random = Math.flore(Math.random() * personQuotes.lenth);
+        // 2. Select the existing DOM elements inside 'content'
+        const starEl = content.querySelector('.star');
+        const quoteEl = content.querySelector('.quote');
+        const photoEl = content.querySelector('.photo');
+        const nameEl = content.querySelector('.name');
+        const linkEl = content.querySelector('.link');
+        const titleEl = content.querySelector('.title');
+        const platformEl = content.querySelector('.platform');
 
-     button.addEventListener('click', () => {
-       quote?.innerText = personQuotes[random].quote;
-       quotePerson?.innerText = personQuotes[random].name
-     });
-   });
+        // 2. Attach listeners to the cloned nodes
+        quoteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. Pick a new random index
+                const randomIndex = random(0, personQuotes?.length);
+                const newQuote = personQuotes[randomIndex];
 
-      */
+                if (!newQuote) return;
 
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-        // Replace the custom element with the content
+                // 3. Directly update the UI nodes
+                if (starEl) starEl.textContent = newQuote.star;
+                if (quoteEl) quoteEl.textContent = `"${newQuote.quote}"`;
+                if (photoEl) photoEl.src = newQuote.photo;
+                if (nameEl) nameEl.textContent = newQuote.name;
+                if (linkEl) linkEl.href = newQuote.link;
+                if (titleEl) titleEl.textContent = newQuote.title;
+                if (platformEl) platformEl.textContent = newQuote.platform;
+            });
+        });
+
+        // 3. Swap the live component with 'content' ONLY ONCE
+        this.replaceWith(content);
     }
 }
 
@@ -1549,7 +1619,7 @@ class FaqsSection extends HTMLElement {
         const faqs = [
             new FaqsItem(
                 `Who am I?`,
-                `I'm web developer | <a href="#about"><b>${author.name}</b></a>.`
+                `I'm web developer | <a ${seoA()} href="#about"><b>${author.name}</b></a>.`
             ),
             new FaqsItem(
                 `What do I do?`,
@@ -1565,17 +1635,17 @@ class FaqsSection extends HTMLElement {
             ),
             new FaqsItem(
                 `Am I available for hire?`,
-                `Yes, you can hire me throw discussion on <a href="${urlMessenger}" target="_blank"><b>Messenger</b></a>. <sup class="p"> 24/7
+                `Yes, you can hire me throw discussion on <a ${seoA()} href="${urlMessenger}"><b>Messenger</b></a>. <sup class="p"> 24/7
  </sup>`
             ),
             new FaqsItem(
                 `What is my contact number?`,
                 `Mobile: (+880)
-  <a href="${urlMobile}"><b>1602-873384</b></a>
+  <a ${seoA()} href="${urlMobile}"><b>1602-873384</b></a>
   <sup class="p">24/7</sup>
   </br></br>
   Whatsapp: (+880)
-  <a href="${urlWhatsapp}"><b>1602-873384</b></a>`
+  <a ${seoA()} href="${urlWhatsapp}"><b>1602-873384</b></a>`
             ),
         ];
 
@@ -1589,38 +1659,25 @@ class FaqsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section class="fluid-grid-system" id="faqs" data-version="${VERSION}">
-<section class="container-md">
+<section ${seoSection()} class="fluid-grid-system" id="faqs">
+<div class="container-sm">
     <div class="row">
-       <h3 class="p">
+       <p class="txt-primar">
         FAQ's
-       </h3>
+       </p>
     </div>
-    <section class="col">
+    <div class="col">
 
 <div class="row items-start">
   <h2>
-    Frequently Asked Questions
+    Got questions? <br/><span class="txt-gray">I’ve got answers</span>
   </h2>
-  <p class="d-none">
+  <p class="d-non">
     <span class="text-revel-onscrol">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-Adipisci rem magnam molestiae!
+      Everything you need to know about my process, pricing,
+and how I work
     </span>
   </p>
-   <div class="flex">
-    <input name="agreement" id="agreement" class="pill" checked="" type="radio"/>
-    <label for="agreement">
-     I agree to the
-     <a href="/privacy-policy" target="_blank">
-      Privacy Policy
-     </a>
-    </label>
-   </div>
-   <button class="pill btn-primary">
-    <a href="${urlMessenger}" target="_blank">Ask on Messenger
-    </a>
-   </button>
 
       </div>
 
@@ -1631,11 +1688,11 @@ Adipisci rem magnam molestiae!
          faq => `
         <details class="py-0 bg-raised" name="question">
 <summary>
- <h6 class="p py-1">
+ <h3 class="p py-1">
   ${faq.question}
- </h6>
+ </h3>
 </summary>
-<p style="padding: 1em;" class="h6">
+<p style="padding: 1em;" class="h5">
  ${faq.answer}
 </p>
         </details>
@@ -1644,9 +1701,27 @@ Adipisci rem magnam molestiae!
      .join('')}
        </div>
 
-     </section>
-    </section>
-   </section>
+
+<div class="row items-end d-none">
+   <div class="flex">
+    <input name="agreement" id="agreement" class="pill" checked="" type="radio"/>
+    <label for="agreement">
+     I agree to the
+     <a ${seoA()} href="/privacy-policy">
+      Privacy Policy
+     </a>
+    </label>
+   </div>
+   <button ${seoButton()} class="pill btn-primary">
+    <a ${seoA()} href="${urlMessenger}">Ask on Messenger
+    </a>
+   </button>
+
+      </div>
+
+     </div>
+    </div>
+   </div>
 </section>
 
     `;
@@ -1668,7 +1743,7 @@ class PrivacyPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section" data-version="${VERSION}">
+<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
 <div class="container-md">
 <div class="row">
 
@@ -1790,7 +1865,7 @@ class RefundAndCancelationPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section" data-version="${VERSION}">
+<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
  <div class="container-md">
 <div class="row">
 
@@ -1903,7 +1978,7 @@ class TermsOfServiceSection extends HTMLElement {
 
         template.innerHTML = `
 
-<section style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section" data-version="${VERSION}">
+<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
 <div class="container-md">
 <div class="row">
 
@@ -1970,7 +2045,7 @@ Reuse generic code snippets or libraries developed during the project.
 Payment Terms
 </h2>
 <p>
-Invoices are sent via the agreed-upon <a href="/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
+Invoices are sent via the agreed-upon <a ${seoA()} href="/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
 </p>
 </li>
 
@@ -2067,8 +2142,8 @@ class ContactSection extends HTMLElement {
             this.classes = classes;
         }
         const buttons = [
-            new ButtonsItem(`Open Map ↘`, `${author.direction}`, `btn-primary`),
-            new ButtonsItem(`View Reviews ↘`, `${urlFeedback}`, `d-none`),
+            new ButtonsItem(`View Map ↘`, `${author.direction}`, `btn-primary`),
+            new ButtonsItem(`Add Reviews ↘`, `${urlFeedback}`, `d-none`),
         ];
 
         // Instantiate Section for current element
@@ -2080,23 +2155,31 @@ class ContactSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-
-    <section id="contact" class="fluid-grid-system py-5" data-version="${VERSION}">
-    <section class="container">
+    <section ${seoSection()} id="contact" class="fluid-grid-system py-5">
+    <div class="container-md">
 
      <div class="row">
-       <h2 class="h4">
-        Contact with ${author.name}
+
+     <div class="row background-map" style="object-fit: cover; overflow: clip;">
+       <iframe class="inverse" src=" ${author.iframeHome}" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+       </iframe>
+     </div>
+
+     <div class="ph-wrapper">
+       <h2 style="display: inline;" class="h2 txt-gray">
+        Ready to scale your brand with ${author.name}?
        </h2>
+       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} href="https://${author.siteUrl}"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and smart <a ${seoA()} href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> Crafted Webflow Template digital strategies.
+</p>
+</div>
+
        <div class="flex no-wrap items-start">
 <div class="row">
-  <a href="${begaritola}">
-    <img class="square rounded" alt="${author.title}" src="${author.photo}"/>
-  </a>
+
         </div>
         <div style="flex: 1; flex-basis: 23rem; gap: var(--space-xs);" class="row">
- <p class="p">${author.description}</p>
- <h6 class="p">Prefered Languages:</h6>
+
+ <h6 class="p txt-gray">Languages:</h6>
  <ul style="list-style: none;" class="flex">
    ${preferedLanguages
        .map(
@@ -2104,15 +2187,15 @@ class ContactSection extends HTMLElement {
      <li>${language}</li>
   `
        )
-       .join('')}
+       .join(', ')}
  </ul>
       <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
        ${linksData
            .map(
                data => `
        <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
-        <img class="squar" alt="${data.title}" src="${data.favicon}"/>
-        <a href="${data.link}" title="${data.title}">
+        <img ${seoImg(data.favicon, data.title)} style="inline-size: 2em;" class="squar"/>
+        <a ${seoA()} href="${data.link}">
 <p>${data.name}</p>
         </a>
        </div>
@@ -2125,33 +2208,18 @@ class ContactSection extends HTMLElement {
      </div>
 
       <div class="flex j-end">
-        <a target="_blank" href="${urlMessenger}">Start Chat ↘</a>
+ <a ${seoA()} href="/vcf">Download VCF ↘</a>
 
-        <button style="" class="btn-primary">
- <a href="/vcf">Download VCF</a>
+        <button ${seoButton()} style="padding: 0.8em;" class="btn-primary">
+        <a ${seoA()} style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
+ <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
+        </a>
         </button>
       </div>
 
-     <div class="row items-end">
-       <iframe class="inverse" title="Location" src=" ${author.iframeHome}" style="border:0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-       </iframe>
-
-       <div class="flex">
-${buttons
-    .map(
-        button => `
-  <button class=" ${button.classes} ">
-    <a href="${button.link}">${button.name}
-    </a>
-  </button>
-`
-    )
-    .join('')}
-      </div>
-     </div>
 
 
-    </section>
+    </div>
     </section>
 
 
@@ -2174,11 +2242,11 @@ class FooterSection extends HTMLElement {
 
         // Clean & readable initialization
         const navigations = [
-            new NavItem(`Home ↘`, `/`),
-            new NavItem(`About ↘`, `/#about`),
-            new NavItem(`Services ↘`, `/#services`),
-            new NavItem(`Projects ↘`, `/#projects`),
-            new NavItem(`Contact ↘`, `/#contact`),
+            new NavItem(`Home`, `/`),
+            new NavItem(`About`, `/#about`),
+            new NavItem(`Services`, `/#services`),
+            new NavItem(`Projects`, `/#projects`),
+            new NavItem(`Contact`, `/#contact`),
             new NavItem(`Case Studies`, `/github`),
         ];
 
@@ -2210,18 +2278,6 @@ class FooterSection extends HTMLElement {
             new LegalsItem(`Refund &amp; Cancelation Policy`, `/refund_and_cancelation-policy`),
         ];
 
-        function SocialsItem(name, link, favicon) {
-            this.name = name;
-            this.link = link;
-            this.favicon = favicon;
-        }
-        const socials = [
-            new SocialsItem(`Facebook`, `${urlFacebook}`, `${faviconFacebook}`),
-            new SocialsItem(`Instagram`, `${urlInstagram}`, `${faviconInstagram}`),
-            new SocialsItem(`Threads`, `${urlThreads}`, `${faviconThreads}`),
-            new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
-        ];
-
         // Instantiate Section for current element
         const section = new Section(this);
         // 2. Create an off-screen Template
@@ -2231,10 +2287,9 @@ class FooterSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-
-<footer class="fluid-grid-system" id="footer" data-version="${VERSION}">
-   <section class="container-xl row gap-4 py-5">
-    <section class="flex j-center">
+<footer ${footer()} class="fluid-grid-system" id="footer">
+   <div class="container-xl row gap-4 py-5">
+    <div class="flex j-center">
       <form class="flex">
         <label style="opacity: 1;" class="d-non" for="system-theme">Choose Theme:</label>
         <select id="system-theme" name="system-theme" class="pill btn-primary">
@@ -2243,44 +2298,46 @@ class FooterSection extends HTMLElement {
  <option value="dark">Dark</option>
         </select>
       </form>
-    </section>
-    <section class="col">
-     <section class="row">
-      <h5>${author.title}</h5>
-      <p>${author.description}</p>
-      <p>
+    </div>
+    <div class="col">
+     <div class="row" style="position: relative; overflow: clip; border-radius: 1em;">
+     <h2 class ="p">I craft marketing strategies that elevate brands, attract audiences, and drive measurable business growth.
+</h2>
+      <h3 class ="p">
        Providing high-quality web design and front-end development services to clients in ${locationSecondary}.
-      </p>
+      </h3>
 
       <div class="row">
       <div style="align-content: stretch;" class="flex grow a-center">
-        <button style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
- <a class"txt-center flex items-center txt-center" href="/resume">
-   Resume ↘
+        <button ${seoButton()} style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
+ <a ${seoA()} class"txt-center flex items-center txt-center" href="/resume">
+   Resume
  </a>
         </button>
 
-       <button class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
-        <img style="display: inline;" class="squar" alt="Android" src="${faviconAndroid}"/>
-        <span style="line-height: 100%" class="d-non">Install ↘</span>
+       <button ${seoButton()} class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
+        <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 2em; display: inline;" class="squar"/>
+        <span style="line-height: 100%" class="d-non">Install</span>
        </button>
 
       </div>
       </div>
 
-     </section>
+        <img ${seoImg(faviconAuthor, author.name)} style="inline-size: 60%; max-inline-size: 20em; display: inline; position: absolute; left: -5%; bottom: -5%; transform: rotate(20deg); opacity: .3; z-index: -1;" class="squar d-none"/>
 
-     <section style="" class="flex items-start">
+     </div>
+
+     <div style="" class="flex items-start">
       <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
-       <h6 class="">
+       <h4 class="p txt-gray">
         Navigation
-       </h6>
+       </h4>
        <div class="flex navigation-links">
 
        ${navigations
            .map(
                navigation => `
-<a style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
+<a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
 </a>
        `
            )
@@ -2290,16 +2347,16 @@ class FooterSection extends HTMLElement {
       </nav>
 
       <nav style="flex: 1; flex-basis: 15ch; gap: var(--space-xs);" class="row">
-       <h6 class="">
+       <h4 class="p txt-gray">
         Method
-       </h6>
+       </h4>
        <div class="flex methode-links">
 
        ${methods
            .map(
                method => `
-        <a style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}" target="_blank" title="${method.title}">
-<img class="squar" alt="${method.alt}" loading="lazy" src="${method.favicon}"/> ${method.name}
+        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
+<img ${seoImg(method.favicon, method.alt)} style="inline-size: 2em;" class="squar"/> ${method.name}
         </a>
        `
            )
@@ -2308,16 +2365,35 @@ class FooterSection extends HTMLElement {
        </div>
       </nav>
 
+<nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
+       <h4 class="p txt-gray">
+        Social
+       </h4>
+      <div class="flex social-links a-center" style="gap: 0.8em;">
+
+                ${socials
+                    .map(
+                        social => `
+    <a ${seoA()} href="${social.link}">
+    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 2em;" class=”pill squar rounded"/>
+    </a>
+    `
+                    )
+                    .join('')}
+
+       </div>
+      </nav>
+
       <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
-       <h6 class="">
+       <h4 class="p txt-gray">
         Legal
-       </h6>
+       </h4>
        <div class="flex legal-links">
 
        ${legals
            .map(
                legal => `
-        <a style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
+        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
 ${legal.name}
         </a>
        `
@@ -2326,49 +2402,29 @@ ${legal.name}
 
        </div>
       </nav>
-      <nav style="flex: 1; flex-basis: 10ch; gap: var(--space-xs);" class="row">
-       <h6 class="">
-        Social
-       </h6>
-       <div class="flex social-links">
-        <!-- class = icon -->
 
-       ${socials
-           .map(
-               social => `
-        <a style="flex: 1; flex-basis: 10ch; z-index: 789; display: flex; align-items: center; gap: 0.5em;" href="${social.link}" target="_blank" title="${social.name}">
-<img style="border-radius: var(--pill); overflow: clip;" class=”pill squar rounded" alt="${social.name}" loading="lazy" src="${social.favicon}"/> ${social.name}
-        </a>
-       `
-           )
-           .join('')}
-
-
-        <a id="chat-bubble" style="flex: 1; flex-basis: 5ch;" class=”pill squar rounded" href="${urlMessenger}" target="_blank" title="Messenger">
- <img class=”pill squar rounded" alt="Chat on Messenger" loading="lazy" src="${getFavicon(`m.me`, 50)}"/>
+        <a ${seoA()} id="chat-bubble" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
+ <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
         </a>
 
-
-       </div>
-      </nav>
-     </section>
-    </section>
-    <section class="col items-center">
+     </div>
+    </div>
+    <div class="col items-center">
      <div class="flex grow input-group items-center">
       <input style="padding: var(--space-s); border: 1px solid var(--primary-50); color: var(--primary-50); background: color-mix(in hsl, var(--bg), transparent 30%); font-weight: bold;" class="pill" placeholder="@hassanbiswas.github.io" readonly type="text"/>
-      <a style="text-decoration: none;" href="${urlYoutube}">
-       <button class="btn-primary">Subscribe</button>
+      <a ${seoA()} style="text-decoration: none;" href="${urlYoutube}">
+       <button ${seoButton()} class="btn-primary">Subscribe</button>
       </a>
      </div>
-    </section>
-   </section>
+    </div>
+   </div>
    <!-- footer with links & logo -->
    <p style="display: none;" class="container-md">
     &copy; ${new Date().getFullYear()} ${author.title}
    </p>
 
    <div class="container-lg mask infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="footer-marquee">
-    <section class="svg-wrapper infinite-scroller_inner">
+    <div class="svg-wrapper infinite-scroller_inner">
      <svg>
       <text class="copyright" y="95">
        &copy;
@@ -2384,7 +2440,7 @@ ${legal.name}
         ${author.title}
       </text>
      </svg>
-    </section>
+    </div>
    </div>
 
   </footer>
@@ -2425,7 +2481,7 @@ class NavigationSection extends HTMLElement {
         // Clean & readable initialization
         const navigations = [
             new NavItem(
-                `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img src="${faviconAuthor}" alt="Home"/>Home</span>`,
+                `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 2em;"/>Home</span>`,
                 '#hero'
             ),
             new NavItem('About', '#about'),
@@ -2441,14 +2497,14 @@ class NavigationSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-  <section class="fluid-grid-system" id="bottom-navigation" data-version="${VERSION}">
-   <section style="overflow: visible;" class="container-sm row">
+  <section ${navPrimary()} class="fluid-grid-system" id="bottom-navigation">
+   <div style="overflow: visible;" class="container-sm row">
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
        ${navigations
            .map(
                navigation => `
-        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="/${navigation.link}" t>
+        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="/${navigation.link}" >
 ${navigation.name}
         </a>
        `
@@ -2458,7 +2514,7 @@ ${navigation.name}
         <a class="list-item active-bg" inert=""></a>
 
     </nav>
-   </section>
+   </div>
   </section>
 
     `;
@@ -2695,58 +2751,6 @@ window.addEventListener('appinstalled', () => {
     installBtn.style.display = 'none';
 });
 
-/*
-
-class TSection extends HTMLElement {
-  connectedCallback() {
-    // Destructuring attributes for cleaner code
-    const props = {
-      selector: this.getAttribute("selector") || "fluid-grid-system",
-      heading: this.getAttribute("heading") || "New Project",
-      details: this.getAttribute("details") || "details",
-      link: this.getAttribute("link") || "#",
-      linkText: this.getAttribute("linkText") || "View Case Study",
-      img: this.getAttribute("img") || ""
-    };
-
-    this.render(props);
-  }
-
-  render(props) {
-    this.innerHTML = `
-      <section class="${props.selector}" data-version="${VERSION}">
-        <div class="primary">
- <h2>${props.heading}</h2>
- <p>${props.details}</p>
- <a class="btn" href="${props.link}">${props.linkText}</a>
-        </div>
-        <div class="media-wrapper">
- <img src="${props.img}" alt="${props.heading}" loading="lazy" />
-        </div>
-      </section>
-
-      <style>
-        .${props.selector} .btn {
- background-color: hsl(240, 80%, 50%);
- color: white;
- padding: 12px 24px;
- text-decoration: none;
- display: inline-block;
- transition: filter 0.3s ease;
-        }
-        .${props.selector} .btn:hover {
- filter: brightness(1.2);
-        }
-      </style>
-    `;
-  }
-}
-
-customElements.define("t-section", TSection);
-
-*/
-// >> removed
-
 // - 1. inject HTML element ##############
 // - 2. get HTML element ###############
 
@@ -2755,29 +2759,7 @@ customElements.define("t-section", TSection);
 // define custom elements before get dom element || seoMedia || function || call
 
 // ###### JavaScript function goes bellow ######
-
-/**
- *  * Concise Path Extractor & Dynamic Heading
- */
-/* (() => {
-    // 1. Extract path keyword and set heading tag
-    const path = window.location.pathname.split('/').filter(Boolean)[0]?.toLowerCase() || '';
-    const headingTag = path ? 'h1' : 'h2';
-
-    // 2. Create heading element
-    const heading = document.createElement(headingTag);
-    // 3. Find leaf elements or attributes matching the path string
-    const matchedElements = path
-        ? [...document.querySelectorAll('body *:not(script):not(style)')].filter(
-     el =>
-(!el.children.length && el.textContent.toLowerCase().includes(path)) ||
-[...el.attributes].some(a => a.value.toLowerCase().includes(path))
- )
-        : [];
-
-    console.log(`Tag: <${headingTag}>, Path: "${path}"`, matchedElements);
-})(); */
-
+// come_back
 const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
 const links = document.querySelectorAll('a');
 const photos = document.querySelectorAll('img, picture');
@@ -2825,28 +2807,6 @@ const seoMedia = () => {
 };
 seoMedia();
 
-//  Simple Accessibility Audit Helper
-
-const auditAccessibility = () => {
-    const images = document.querySelectorAll('img:not([alt])');
-    const buttons = document.querySelectorAll('button:not([aria-label])');
-
-    /*
-    if (images.length || buttons.length) {
-      console.warn(`[A11Y Audit] Found ${images.length} images missing alt and ${buttons.length} buttons missing labels.`);
-    }
-    */
-
-    images?.forEach(el => {
-        el.setAttribute('alt', `Visual content`);
-    });
-    buttons?.forEach(el => {
-        el.setAttribute('aria-label', `button`);
-    });
-};
-
-auditAccessibility();
-
 const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
 
 // color from image
@@ -2854,7 +2814,7 @@ const imageContainers = document.querySelectorAll('*:has(img, picture, video, if
     let image = container.querySelector('img'),
         width = image.innerWidth,
         height = image.innerHeight,
-        canvas = container.createElement('canvas'),
+        canvas = document.createElement('canvas'),
         ctx = canvas.getContext('2d');
 
     canvas.setAttribute('inert');
