@@ -1,0 +1,246 @@
+ul.tags li:nth-child(-n + 3) {
+    display: none; /* Defaultby 3 visiable */
+}
+
+
+  /* lowest priority. e.g. cancel, learn more */
+  .btn-tertiary,
+  .btn-ghost { border: 0px solid; }
+
+  /* for compact ui e.g. social icon or menu toggle */
+  .btn-icon { border: 0px solid; }
+
+  /* for mibile first, expand on click */
+  .btn-floating-action { border: 0px solid; }
+
+  /* shows a spinner or success checkmark after clicking */
+  .btn-loading,
+  .btn-stateful { border: 0px solid; }
+
+  /* ### 2. core layout components */
+
+/*
+
+  .navbar {
+
+.logo { border: 0px solid; }
+
+.links { border: 0px solid; }
+
+.theme-toggler { border: 0px solid; }
+}
+
+  .hero {
+
+.title { border: 0px solid; }
+
+.subtitle { border: 0px solid; }
+
+.cta { border: 0px solid; }
+}
+
+  .footer {
+
+.sitemap { border: 0px solid; }
+
+.copyright { border: 0px solid; }
+
+.social-icons { border: 0px solid; }
+}
+
+*/
+
+  /* the layout system like bootstrap */
+  .grid,
+  .container { border: 0px solid; }
+
+
+  /* ### 3. Content & Information Display */
+
+  /* for project thumbnails, blog posts, services */
+
+  .card {
+display: flex;
+flex-direction: column;
+background: #ffffff;
+border-radius: 1.2rem; /* 12px */
+overflow: hidden;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+border: 0px solid #eee;
+
+transition: transform var(--duration) var(--timingFunction),
+  box-shadow var(--duration) var(--timingFunction)
+;
+
+&:hover {
+  transform: translateY(-5px);
+}
+
+.card.glass {
+  /* background: var(--glass-bg); */
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  padding: var(--space-m);
+  transition: transform var(--duration) var(--timingFunction);
+
+  &:hover {
+transform: var(--scale-hover);
+}
+}
+
+.card_header {border: 0px solid;}
+.card_body {
+  padding: var(--space-s);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.card_subtitle {border: 0px solid;}
+.card_footer {
+  padding: var(--space-xs);
+  padding-top: 0; /* Let body padding handle top gap */
+  margin-top: auto;
+}
+
+.image-wrapper {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  .img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+}
+
+&:hover {
+  transform: translateY(-10px);
+}
+}
+
+  /* for FAQ's & collapeable content to save vertical space */
+  .accordion { border: 0px solid; }
+  /* Container for the accordion stack */
+  .accordion-group { border: 0px solid; }
+
+  /* to showcase multiple images & testimonials */
+  .carousel,
+  .slider { border: 0px solid; }
+
+  /* to switch between content types */
+  .tabs { border: 0px solid; }
+
+  /* small label of 'hot' 'new' or tech stack icon */
+  .badges,
+  .tags { border: 0px solid; }
+
+  /* pop up window for focused task or detailed project view */
+
+  .modal,
+  /* .dialog, */ /* creating #notch border */
+  dialog {
+--y: .4em;
+--z: .12em;
+border: 0.1em solid var(--txt-gray);
+border-radius: 1.6em;
+padding: var(--space-xs);
+box-shadow: var(--shadow);
+
+&::backdrop {
+  background-color: rgb(55 35 85 / 0.5);
+  backdrop-filter: blur(0.3em);
+}
+}
+
+  /* ### 4. Data entry & Feedback (Forms) */
+
+  /* text fields with attached icons or labels */
+  .input-group { border: 0px solid; }
+
+  /* for choosing options from a list */
+  .select,
+  .dropdown { border: 0px solid; }
+
+  /* for binary settings e.g. dark mode */
+  .toggle,
+  .switch { border: 0px solid; }
+
+  /* temorary floating alerts e.g. message sent! */
+  .toast,
+  .snackbar { border: 0px solid; }
+
+  /* small text hints that appears on hover */
+  .tooltips { border: 0px solid; }
+
+  /* ### 5. Navigation & Wayfinding */
+
+  /* show path, Home > Projects > Web Design */
+  .breadcrumbs { border: 0px solid; }
+
+  /* navigation through long list of blog post or projects */
+  .pagination { border: 0px solid; }
+
+  /* the mobile menu that slide in from the side */
+  .side-drawer,
+  .offcanvas { border: 0px solid; }
+
+  /* a small button that appears after scrolling the bottom */
+  .back-to-top { border: 0px solid; }
+
+
+
+  /* glass morphism */
+  .glass {
+--blur: .3em;
+
+border-top: .1em solid var(--bg-overlay);
+border-bottom: .1em solid var(--bg-overlay);
+
+background: linear-gradient(
+  to top,
+  var(--bg-overlay),
+  rgba(255, 255, 255, .2)
+);
+-webkit-backdrop-filter: blur(var(--blur));
+backdrop-filter: blur(var(--blur));
+border-radius: 1em;
+}
+
+  .new-glass {
+background-color: hsl(0 0% 100% / 0.5);
+backdrop-filter: blur(0.5em) contrast(50%) brightness(50%) saturate(0%);
+}
+
+
+
+  /* #cursor */
+  #custom-cursr,
+  #custom-cursr-two {
+--size: 2rem;
+
+position: absolute;
+aspect-ratio: 1;
+border-radius: var(--pill);
+z-index: 998;
+mix-blend-mode: difference;
+pointer-events: none;
+transform: translateX(0) translateY(0);
+transition:
+  400ms var(--timingFunction)
+;
+}
+
+  #custom-cursor {
+top: 0;
+left: 0;
+block-size: var(--size);
+background: transparent;
+border: .1em solid var(--txt-black);
+}
+
+  #custom-cursor-two {
+top: calc(var(--size) / 2.5);
+left: calc(var(--size) / 2.5);
+block-size: .4rem;
+background: var(--txt-black);
+}
