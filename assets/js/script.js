@@ -1,18 +1,3 @@
-// observe => observing (h, p. section, img, etc...)
-// document.addEventListener('DOMContentLoaded', () => {
-//     const cards = document.querySelectorAll('.card');
-//     const options = { threshold: 0.1 };
-//     const observer = new IntersectionObserver((entries) => {
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting) {
-//                 entry.target.classList.add('visible');
-//                 observer.unobserve(entry.target);
-//             }
-//         });
-//     }, options);
-//     cards.forEach(card => observer.observe(card));
-// });
-
 // variable
 // function
 // component
@@ -121,7 +106,7 @@ const seoSection = () => {
     return `set_aria-labelledby="h-Id" data-version="${VERSION}"`;
 };
 const footer = () => {
-    return `id="footer" role="contentonfo" data-version="${VERSION}"`;
+    return `id="footer" role="contentinfo" data-version="${VERSION}"`;
 };
 
 // absolute path for components
@@ -353,35 +338,7 @@ const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
     faviconFramer = getFavicon(`framer.com`),
     faviconGithub = getFavicon(`github.com`);
 
-const preferedLanguages = [`English (Native)`, `Bangla (Advanced)`, `Hindi (Conversation)`];
-
-/*
-  const metaKey = document.querySelector('meta[name="keywords"]');
-  if (metaKey) {
-    // console.log(metaKey.getAttribute('content'));
-  }
-  */
-
-let metaViewport = () => {
-    const VIEWPORT_CONTENT = 'width=device-width, initial-scale=1';
-
-    // Attempt to find existing viewport meta tag
-    let viewport = document.querySelector('meta[name="viewport"]');
-
-    if (viewport) {
-        // Update existing tag
-        viewport.setAttribute('content', VIEWPORT_CONTENT);
-        viewport.setAttribute('data-version', VERSION);
-    } else {
-        // Create and inject new tag if missing
-        viewport = document.createElement('meta');
-        viewport.name = 'viewport';
-        viewport.content = VIEWPORT_CONTENT;
-        viewport.setAttribute('data-version', VERSION);
-        document.head.appendChild(viewport);
-    }
-};
-metaViewport();
+const preferedLanguages = [`English(Native)`, `Bangla(Advanced)`, `Hindi(Conversation)`];
 
 function SocialsItem(name, link, favicon) {
     this.name = name;
@@ -443,21 +400,14 @@ const ogImg = document.querySelector('meta[property="og:image"]');
 // Remove everything after .png and append ?v=${VERSION}
 if (ogImg) ogImg.content = ogImg.content.replace(/\.png.*/i, `.png?v=${VERSION}`);
 
-// index.html only
+// /index.html only
 //document.title = `${author.title}`;
-
-/** class="done"
- *  * Logic Automation: Auto-refresh on network restoration
- * Integrated with your versioning constant
- */
 
 const handleConnectionChange = () => {
     if (navigator.onLine) {
-        // console.log(`Connection restored. Reloading version: ${VERSION}`);
         window.location.reload();
     }
 };
-
 // Listen for the 'online' event
 window.addEventListener('online', handleConnectionChange);
 
@@ -483,8 +433,97 @@ const timeout = (el, t = 3000) => {
     );
 };
 
-// Example usage:
-// timeout(document.querySelector('.my-element'));
+// @@@@@@@@@@@@
+
+function QuotesItem(name, title, quote, link, photo, star, platform) {
+    this.name = name;
+    this.title = title;
+    this.quote = quote;
+    this.link = link;
+    this.photo = photo;
+    this.star = star;
+    this.platform = platform;
+}
+const personQuotes = [
+    new QuotesItem(
+        `${author.name}`,
+        `Web Developer`,
+        `I saw incredible results after
+launching the campaign. The advertising
+approach was effective, data-driven, and
+exceeded expectations from the very
+beginning.`,
+        `/`,
+        `${faviconAuthor}`,
+        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `SEO`
+    ),
+    new QuotesItem(
+        `Mariam Coudhuri`,
+        `Project Collaborator`,
+        `Thanks ${author.name} for the quick turnaround on our student platform! The animations and responsive layout exceeded our expectations completely.`,
+        `#`,
+        `${faviconFacebook}`,
+        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `Facebook`
+    ),
+    new QuotesItem(
+        `Shamin Ahmed`,
+        `Businessman & Client`,
+        `My business website is noticeably faster and looks significantly more professional. ${author.name} translated our complex Figma requirements into pristine code with pixel-perfect accuracy.`,
+        `#`,
+        `${faviconInstagram}`,
+        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `Instagram`
+    ),
+    new QuotesItem(
+        `Tanveer Rahman`,
+        `Freelancer & UI Designer`,
+        `${author.name} is an exceptional front-end developer! His attention to layout details, mobile responsiveness, and clean CSS code structure is genuinely top-notch.`,
+        `#`,
+        `${faviconX}`,
+        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `X (Twitter)`
+    ),
+];
+
+const componentReviews = () => {
+    return `
+<div class="row items-center">
+    <ul class="flex" style="list-style: none; gap: -3em;">
+        ${personQuotes
+            .map(
+                person => `
+    <li>
+        <img ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em;"/>
+    </li>
+        `
+            )
+            .join('')}
+            <li class="bg-raised pill" style="padding: .5em;">20+</li>
+      </ul>
+     <p>45+ Projects 25+ reviews</p>
+            `;
+};
+
+const componentProjectProgress = () => {
+    return `
+                <div class="flex j-between">
+                <div class="row">
+                    <b class="h1 txt-center">45<span class="txt-gray">+</span></b>
+                    <p>Success project</p>
+                </div>
+                <div class="row">
+                    <b class="h1 txt-center">98<span class="txt-gray">%</span></b>
+                    <p>Client satisfaction</p>
+                </div>
+                <div class="row">
+                    <b class="h1 txt-center">3<span class="txt-gray">+</span></b>
+                    <p>Award woned</p>
+                </div>
+                </div>
+            `;
+};
 
 // ### offline.html | Loading component ###
 // updated loader section
@@ -582,7 +621,7 @@ class NotchSection extends HTMLElement {
 
         // collapse
         template.innerHTML = `
-  <section class="container-sm" id="notch" data-version="${VERSION}">
+  <section class="container-sm collapse" id="notch" data-version="${VERSION}">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
       Developing in "OPPO A53" handset!
@@ -1175,36 +1214,34 @@ class AboutSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section ${seoSection()} class="fluid-grid-system bg-base" id="about">
-    <div style="gap: 0em;" class="container-md row">
-     <h2 class="h6 fade-in-to">
+<section ${seoSection()} class="fluid-grid-system bg-base  screenHeight snappyContainer" id="about">
+    <div style="gap: 0em;" class="row  screenHeight">
+     <p class="h6 fade-in-to">
       About ${author.name}
-     </h2>
+     </p>
      <div style="padding-block: 0em; row-gap: 0em;" class="col">
-      <h3 class="h3 text-revel-onscrol row">
+      <h2 class="h3 text-revel-onscrol row">
        At a galance
        2001 - ${thisYear}
-      <h3>
+      <h2>
       <div class="row" style="gap: var(--space-xs);">
        <p>${author.description}</p>
        <a class="p fade-in-to" href="#about">
-        View on fullscreen ↘
+        View Story ↘
        </a>
-      </div>
+       </div>
      </div>
-
-     <div style="gap: calc(var(--padding-inline) * 2);" class="row">
+    </div>
 
  ${stories
      .map(
          story => `
-
-      <div style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised">
+      <div style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised  screenHeight">
        <div style="gap: .5em;" class="row">
-        <h6 class="fade-in-to ${story.dateClass}">${story.date}</h6>
-        <h5 style="padding-block: 0em;" class="fade-in-to">${story.title}</h5>
+        <h3 class="h6 fade-in-to ${story.dateClass}">${story.date}</h3>
+        <h4 style="h5 padding-block: 0em;" class="fade-in-to">${story.title}</h4>
        </div>
-       <h4 class="fade-in-to row">${story.heading}</h4>
+       <h5 class="h4 fade-in-to row">${story.heading}</h5>
        <div style="gap: var(--space-xs);" class="row">
         <p class="fade-in-to">${story.desc}</p>
         <a ${seoA()} class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
@@ -1215,11 +1252,8 @@ class AboutSection extends HTMLElement {
      )
      .join('')}
 
-     </div>
 
-    </div>
    </section>
-
 
     `;
 
@@ -1318,7 +1352,7 @@ class ProjectsSection extends HTMLElement {
                 `01-Jan-${thisYear}`,
                 'Portfolio website',
                 `${author.title}`,
-                `https://hassanbiswas.github.io`,
+                `/`,
                 `/assets/og-images/og-main.png`
             ),
             new ProjectsItem(
@@ -1361,42 +1395,40 @@ class ProjectsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section ${seoSection()} class="fluid-grid-system bg-base" id="projects">
-        <div class="container-md row">
+      <section ${seoSection()} class="fluid-grid-system bg-base snappyContainer" id="projects">
+
+      <div class="container-md row  screenHeight" style="padding-block: 1em;">
  <p class="fade-in-to"><span class="txt-gray">Selected</span> Projects</p>
- <div style="padding-block: 1em;">
-   <p class="h2 txt-gray" style="font-weight: bold; display: inline;">
+ <div><p class="h2 txt-gray" style="font-weight: bold; display: inline;">
      Projects have done since 2023 - ${thisYear}.
 <span class="text-revel-onscrol">With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide.</span></p> <h2 class="h2" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
-</h2>
-
+</h2></div>
  </div>
 
- <div style="gap: .25em;" class="row projects-list">
-
+ <div style="gap: 0em;" class="row projects-list screenHeight">
  ${projects
      .map(
          (project, index) => `
+
+   <a ${seoA()} href="${project.link}" style="text-decoration: none; padding: 1em; gap: 0em; border-block-end: 1px solid transparent;" class="flex fade-in-top-containe bg-raised project-item">
+
+        <h4 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-muted">[0${index + 1}]</span> ${project.category}</h4>
+       <h5 class="p fade-in-to">${project.date}</h5>
+
+
+     <!-- <h5 class="h5 fade-in-to row">${project.title}</h5> -->
+   </a>
+
  <span inert class="project-image">
     <img ${seoImg(`${project.image}`, `Project Image`, `100%`)}/>
  </span>
 
-   <a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 0em; gap: .25em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised project-item">
-     <div style="gap: .25em;" class="row">
-       <h4 class="p fade-in-to">${project.date}</h4>
-       <h4 style="padding-block: 0em;" class="h6 fade-in-to">${project.category}</h4>
-     </div>
-
-     <h5 class="h5 fade-in-to row">${project.title}</h5>
-   </a>
  `
      )
      .join('')}
-
 </div>
 
 
-        </div>
       </section>
 
     `;
@@ -1410,97 +1442,7 @@ class ProjectsSection extends HTMLElement {
 // updated TestimonialsSection Component
 class TestimonialsSection extends HTMLElement {
     connectedCallback() {
-        const componentProjectProgress = () => {
-            return `
-                <div class="flex j-between">
-                <div class="row">
-                    <b class="h1 txt-center">45<span class="txt-gray">+</span></b>
-                    <p>Success project</p>
-                </div>
-                <div class="row">
-                    <b class="h1 txt-center">98<span class="txt-gray">%</span></b>
-                    <p>Client satisfaction</p>
-                </div>
-                <div class="row">
-                    <b class="h1 txt-center">3<span class="txt-gray">+</span></b>
-                    <p>Award woned</p>
-                </div>
-                </div>
-            `;
-        };
-
-        function QuotesItem(name, title, quote, link, photo, star, platform) {
-            this.name = name;
-            this.title = title;
-            this.quote = quote;
-            this.link = link;
-            this.photo = photo;
-            this.star = star;
-            this.platform = platform;
-        }
-        const personQuotes = [
-            new QuotesItem(
-                `${author.name}`,
-                `Web Developer`,
-                `I saw incredible results after
-launching the campaign. The advertising
-approach was effective, data-driven, and
-exceeded expectations from the very
-beginning.`,
-                `/`,
-                `${faviconAuthor}`,
-                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
-                `SEO`
-            ),
-            new QuotesItem(
-                `Mariam`,
-                `Project Collaborator`,
-                `Thanks ${author.name} for the quick turnaround on our student platform! The animations and responsive layout exceeded our expectations completely.`,
-                `#`,
-                `${faviconFacebook}`,
-                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
-                `Facebook`
-            ),
-            new QuotesItem(
-                `Shamin Ahmed`,
-                `Businessman & Client`,
-                `My business website is noticeably faster and looks significantly more professional. ${author.name} translated our complex Figma requirements into pristine code with pixel-perfect accuracy.`,
-                `#`,
-                `${faviconInstagram}`,
-                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
-                `Instagram`
-            ),
-            new QuotesItem(
-                `Tanveer Rahman`,
-                `Freelancer & UI Designer`,
-                `${author.name} is an exceptional front-end developer! His attention to layout details, mobile responsiveness, and clean CSS code structure is genuinely top-notch.`,
-                `#`,
-                `${faviconX}`,
-                `⁠✪⁠✪⁠✪⁠✪✪⁠`,
-                `X (Twitter)`
-            ),
-        ];
-
-        let randomIndex = random(0, personQuotes?.length);
-
-        const componentReviews = () => {
-            return `
-<div class="row">
-    <ul class="flex" style="list-style: none; gap: -3em;">
-        ${personQuotes
-            .map(
-                person => `
-    <li>
-        <img ${seoImg(person.photo, `Client`)} style="inline-size: 2em;"/>
-    </li>
-        `
-            )
-            .join('')}
-            <li class="bg-raised pill" style="padding: .5em;">20+</li>
-      </ul>
-     <p>45+ Projects 25+ reviews</p>
-            `;
-        };
+        // let randomIndex = random(0, personQuotes?.length);
 
         // Instantiate Section for current element
         const section = new Section(this);
@@ -1512,13 +1454,13 @@ beginning.`,
         // HTML
         template.innerHTML = `
 <section ${seoSection()} class="fluid-grid-system" id="testimonials">
-    <div class="container-md row">
+    <div class="container-md row items-center txt-center">
          <p>Testimonials</p>
 <div class="row">
       <h2 class="text-revel-onscrol">
        <span class="txt-gray">Real People,</span> <br/>Real Results Feedback
       </h2>
-      <p>
+      <p class="txt-center">
         <span class="text-revel-onscrol">
  What clients and colleagues say about my front-end architecture and design work. See what my users are truly accomplishing with honest, and project-based reviews
         </span>
@@ -1531,35 +1473,36 @@ beginning.`,
 
 </div>
 
-      <ul class="row" style="list-style: none;">
-
- <li>
- <blockquote class="row items-center bg-raised" style="display: row; gap: .8em; padding: 2em; border-radius: 1em; inline-size: 100%;">
+      <ul class="curousel" style="list-style: none;">
+${personQuotes
+    .map(
+        (person, index) => `
+    <li class="flex">
+ <blockquote class="row items-center bg-raised" style="flex: 1; display: row; gap: .8em; padding: 2em; border-radius: 2em; inline-size: 100%; block-size: 100%;">
 
      <b>
-                <span class="star" style="inline-size: .8em;">${personQuotes[randomIndex]?.star}</span>
+                <span class="star" style="inline-size: .8em;">${person?.star}</span>
      </b>
 
-     <i class="h6 quote txt-center">"${personQuotes[randomIndex]?.quote}"</i>
-     <div class="flex j-center">
-                <img ${seoImg(personQuotes[randomIndex]?.photo, 'Client')} style="inline-size: 2em;" class="photo"/>
+     <i class="h6 quote txt-center">"${person?.quote}"</i>
+     <div class="flex j-center txt-left">
+                <img ${seoImg(person?.photo, 'Client')} style="inline-size: 1.5em;" class="photo"/>
 
                 <div class="row" style="margin-inline-end: 1em; gap: .4em;">
-                    <a ${seoA()} href="${personQuotes[randomIndex]?.link}" class="link"><b class="name">${personQuotes[randomIndex]?.name}</b></a>
-                    <p class="title">${personQuotes[randomIndex]?.title}</p>
+                    <a ${seoA()} href="${person?.link}" class="link"><b class="name">${person?.name}</b></a>
+                    <p class="title">${person?.title}</p>
                 </div>
 
-                <b class="platform">${personQuotes[randomIndex]?.platform}</b>
+                <b class="platform">${person?.platform}</b>
      </div>
 
    </blockquote>
  </li>
-
+    `
+    )
+    .join('')}
       </ul>
-<div class="flex j-end">
-    <button ${seoButton()} style="inline-size: fit-content; cursor: pointer;"  class="btn-primary quote-button bg-base d-none">Prev</button>
-    <button ${seoButton()} style="inline-size: fit-content; cursor: pointer;"  class="btn-primary quote-button bg-base">Next</button>
-</div>
+
       <div class="flex j-center">
 <button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
   <a ${seoA()} href="${urlFeedback}">Add Review ↘</a>
@@ -1572,36 +1515,17 @@ beginning.`,
     `;
 
         const content = template.content.cloneNode(true);
-        const quoteButtons = content.querySelectorAll('.quote-button');
-
         // 2. Select the existing DOM elements inside 'content'
-        const starEl = content.querySelector('.star');
-        const quoteEl = content.querySelector('.quote');
-        const photoEl = content.querySelector('.photo');
-        const nameEl = content.querySelector('.name');
-        const linkEl = content.querySelector('.link');
-        const titleEl = content.querySelector('.title');
-        const platformEl = content.querySelector('.platform');
+        // const starEl = content.querySelector('.star');
+        // const quoteEl = content.querySelector('.quote');
 
         // 2. Attach listeners to the cloned nodes
-        quoteButtons.forEach(button => {
+        /* quoteButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // 1. Pick a new random index
-                const randomIndex = random(0, personQuotes?.length);
-                const newQuote = personQuotes[randomIndex];
-
-                if (!newQuote) return;
-
-                // 3. Directly update the UI nodes
-                if (starEl) starEl.textContent = newQuote.star;
-                if (quoteEl) quoteEl.textContent = `"${newQuote.quote}"`;
-                if (photoEl) photoEl.src = newQuote.photo;
                 if (nameEl) nameEl.textContent = newQuote.name;
                 if (linkEl) linkEl.href = newQuote.link;
-                if (titleEl) titleEl.textContent = newQuote.title;
-                if (platformEl) platformEl.textContent = newQuote.platform;
             });
-        });
+        }); */
 
         // 3. Swap the live component with 'content' ONLY ONCE
         this.replaceWith(content);
@@ -2161,7 +2085,7 @@ class ContactSection extends HTMLElement {
      <div class="row">
 
      <div class="row background-map" style="object-fit: cover; overflow: clip;">
-       <iframe class="inverse" src=" ${author.iframeHome}" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+       <iframe class="inverse" src=" ${author.iframeHome}" title="Author Village" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
        </iframe>
      </div>
 
@@ -2169,7 +2093,7 @@ class ContactSection extends HTMLElement {
        <h2 style="display: inline;" class="h2 txt-gray">
         Ready to scale your brand with ${author.name}?
        </h2>
-       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} href="https://${author.siteUrl}"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and smart <a ${seoA()} href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> Crafted Webflow Template digital strategies.
+       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and <a ${seoA()} href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> Crafted Webflow Template digital strategies.
 </p>
 </div>
 
@@ -2183,18 +2107,19 @@ class ContactSection extends HTMLElement {
  <ul style="list-style: none;" class="flex">
    ${preferedLanguages
        .map(
-           language => `
-     <li>${language}</li>
+           (language, index) => `
+     <li><span class="p txt-gray">[0${index + 1}]</span> ${language}</li>
   `
        )
-       .join(', ')}
+       .join('')}
  </ul>
       <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
+ <h6 class="p txt-gray">Links:</h6>
        ${linksData
            .map(
                data => `
        <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
-        <img ${seoImg(data.favicon, data.title)} style="inline-size: 2em;" class="squar"/>
+        <img ${seoImg(data.favicon, data.title)} style="inline-size: 1.5em;" class="squar"/>
         <a ${seoA()} href="${data.link}">
 <p>${data.name}</p>
         </a>
@@ -2210,11 +2135,9 @@ class ContactSection extends HTMLElement {
       <div class="flex j-end">
  <a ${seoA()} href="/vcf">Download VCF ↘</a>
 
-        <button ${seoButton()} style="padding: 0.8em;" class="btn-primary">
         <a ${seoA()} style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
  <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
         </a>
-        </button>
       </div>
 
 
@@ -2316,14 +2239,14 @@ class FooterSection extends HTMLElement {
         </button>
 
        <button ${seoButton()} class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
-        <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 2em; display: inline;" class="squar"/>
+        <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
         <span style="line-height: 100%" class="d-non">Install</span>
        </button>
 
       </div>
       </div>
 
-        <img ${seoImg(faviconAuthor, author.name)} style="inline-size: 60%; max-inline-size: 20em; display: inline; position: absolute; left: -5%; bottom: -5%; transform: rotate(20deg); opacity: .3; z-index: -1;" class="squar d-none"/>
+        <img ${seoImg(faviconAuthor, author.name)} style="max-inline-size: 10em; display: inline; position: absolute; left: -5%; bottom: -5%; transform: rotate(20deg); opacity: .3; z-index: -1;" class="squar d-none"/>
 
      </div>
 
@@ -2336,8 +2259,8 @@ class FooterSection extends HTMLElement {
 
        ${navigations
            .map(
-               navigation => `
-<a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${navigation.link}">${navigation.name}
+               (navigation, index) => `
+<a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${navigation.link}"><span class="p txt-gray">[0${index + 1}]</span> ${navigation.name}
 </a>
        `
            )
@@ -2356,7 +2279,7 @@ class FooterSection extends HTMLElement {
            .map(
                method => `
         <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
-<img ${seoImg(method.favicon, method.alt)} style="inline-size: 2em;" class="squar"/> ${method.name}
+<img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar"/> ${method.name}
         </a>
        `
            )
@@ -2375,7 +2298,7 @@ class FooterSection extends HTMLElement {
                     .map(
                         social => `
     <a ${seoA()} href="${social.link}">
-    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 2em;" class=”pill squar rounded"/>
+    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded"/>
     </a>
     `
                     )
@@ -2481,7 +2404,7 @@ class NavigationSection extends HTMLElement {
         // Clean & readable initialization
         const navigations = [
             new NavItem(
-                `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 2em;"/>Home</span>`,
+                `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em;"/>Home</span>`,
                 '#hero'
             ),
             new NavItem('About', '#about'),
@@ -2666,15 +2589,11 @@ export function scrollTop() {
 // \\\\\ animation \\\\\\\
 // #######################
 
-// view transition
-document.querySelectorAll('animate')?.forEach(el => {
-    // get screen position
-    el.classList.add('animation');
-
-    // in html animate.animation { css animation: ; }
-});
-
 // ======== Functions =========
+
+// #######################
+// \\\\\ IntersectionObserver \\\\\\\
+// #######################
 
 // for revel animation
 const observerOptions = {
@@ -2693,6 +2612,21 @@ const observer = new IntersectionObserver(entries => {
         }
     });
 }, observerOptions);
+
+// observe => observing (section, h, p, img, etc...)
+// document.addEventListener('DOMContentLoaded', () => {
+//     const cards = document.querySelectorAll('.card');
+//     const options = { threshold: 0.1 };
+//     const observer = new IntersectionObserver((entries) => {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting) {
+//                 entry.target.classList.add('visible');
+//                 observer.unobserve(entry.target);
+//             }
+//         });
+//     }, options);
+//     cards.forEach(card => observer.observe(card));
+// });
 
 // Select all elements you want to animate
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
@@ -2713,7 +2647,6 @@ const navObserver = new IntersectionObserver(
     },
     { threshold: 0.06 }
 ); // Trigger when section is 60% visible, avoid 1
-
 document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
 
 // ------ install app --------
@@ -2736,9 +2669,9 @@ window.addEventListener('beforeinstallprompt', e => {
         // Wait for the user to respond to the prompt
         deferredPrompt.userChoice.then(choiceResult => {
             if (choiceResult.outcome === 'accepted') {
-                // console.log('User accepted the install prompt');
+                console.log('User accepted the install prompt');
             } else {
-                // console.log('User dismissed the install prompt');
+                console.log('User dismissed the install prompt');
             }
             deferredPrompt = null;
         });
@@ -2747,7 +2680,7 @@ window.addEventListener('beforeinstallprompt', e => {
 
 // Logic to hide button if already installed
 window.addEventListener('appinstalled', () => {
-    // console.log('PWA was installed');
+    console.log('PWA was installed');
     installBtn.style.display = 'none';
 });
 
@@ -2767,50 +2700,39 @@ const videos = document.querySelectorAll('video');
 const iframes = document.querySelectorAll('iframe');
 const svgs = document.querySelectorAll('svg');
 
-const seoMedia = () => {
-    let height = window.innerHeight,
-        width = window.innerWidth,
-        aspectRatio = width >= height ? `16/9` : `9/16`;
+// medias a, img, picture, video, iframe, svg
+medias?.forEach(el => {
+    el.setAttribute('loading', 'lazy');
+    el.setAttribute('draggable', 'false');
+});
 
-    // medias a, img, picture, video, iframe, svg
-    medias?.forEach(el => {
-        el.setAttribute('loading', 'lazy');
-        el.setAttribute('draggable', 'false');
-    });
+// a
+links?.forEach(el => {
+    el.setAttribute(``);
+});
 
-    // a
-    /*
-      links?.forEach(el => {
-        el.setAttribute('target', '_blank');
-      });
-      */
-    // photo
-    // photos?.forEach((el) => {
-    // el.style.aspectRatio = aspectRatio;
-    // el.setAttribute("alt", `Visual content`);
-    // el.style.height = `100%`;
-    // el.style.width = `100%`;
-    // });
-    // video
-    videos?.forEach(el => {
-        el.setAttribute('muted');
-        el.setAttribute('loop');
-        el.setAttribute('autoplay');
-        el.setAttribute('playsinline');
-        // el.style.objectFit = `scale-down`;
-    });
-    // svg
-    svgs?.forEach(el => {
-        el.setAttribute('sizes', 'any');
-        el.style.objectFit = `scale-down`;
-    });
-};
-seoMedia();
+// photo
+photos?.forEach(el => {
+    el.setAttribute(``);
+});
+
+// video
+videos?.forEach(el => {
+    el.setAttribute('muted');
+    el.setAttribute('loop');
+    el.setAttribute('autoplay');
+    el.setAttribute('playsinline');
+});
+// svg
+svgs?.forEach(el => {
+    el.setAttribute('sizes', 'any');
+    el.style.objectFit = `scale-down`;
+});
 
 const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
 
 // color from image
-/* imageContainers?.forEach(container => {
+imageContainers?.forEach(container => {
     let image = container.querySelector('img'),
         width = image.innerWidth,
         height = image.innerHeight,
@@ -2832,43 +2754,6 @@ const imageContainers = document.querySelectorAll('*:has(img, picture, video, if
     // convrt rgb to hex
     let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
     container.style.setProperty(`--primary-50`, imageColor);
-}); */
-
-// v2026.04.25
-let animes = document.querySelectorAll('.anime');
-// animation
-const animeObserver = new IntersectionObserver(entries => {
-    entries.forEach(
-        entry => {
-            entry.target.classList.toggle('show', entry.isIntersecting);
-            // if (entry.isIntetsecting) animeObserver.unobserve(entry.target)
-        },
-        {
-            threshold: 1, // or rootMargin: "-100px",
-        }
-    );
-});
-
-animes?.forEach(el => {
-    animeObserver.observe(el);
-});
-
-// v2026.04.25
-// remove lazy loading for screen media
-const mediaObserver = new IntersectionObserver(entries => {
-    entries.forEach(
-        entry => {
-            entry.target.removeAttribute('loading', entry.isIntersecting);
-            if (entry.isIntetsecting) mediaObserver.unobserve(entry.target);
-        },
-        {
-            rootMargin: '100px',
-        }
-    );
-});
-
-medias?.forEach(el => {
-    mediaObserver.observe(el);
 });
 
 // const infiniteScrollers = document.querySelectorAll('.infinite-scroller');
@@ -2887,24 +2772,36 @@ medias?.forEach(el => {
 //         });
 //     });
 // }
+
+// ################## Animations ##################
 // infiniteScrollAnimate();
 
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // animations()
-} // end
+// Observe if into screen
+/* const observer = new IntersectionObserver(entries => {
+    entries.forEach(
+        entry => {
+            entry.target.classList.toggle('observing', entry.isIntersecting);
+            // if (entry.isIntetsecting) itemObserver.unobserve(entry.target)
+        },
+        {
+            threshold: 1, // or rootMargin: "-100px",
+        }
+    );
+});
 
-export function fadeInTop() {
-    let fadeInTop = document.querySelectorAll('.fade-in-top');
+const observe = document.querySelectorAll('.observe');
+observe?.forEach(el => {
+    observer.observe(el);
+}); */
 
-    fadeInTop?.forEach(el => {
-        let rect = el.getBoundingClientRect(),
-            revelPosition = rect.width / 2 + window.innerWidth,
-            revelPosition2 = rect.width / 2;
-        rect.right > revelPosition || revelPosition2 > rect.right
-            ? (el.style = `transform: translateY(-100%); opacity: 0;`)
-            : (el.style = `transform: translateY(0); opacity: 1;`);
-    });
-}
+let fadeInTop = document.querySelectorAll('.fade-in-top');
+
+fadeInTop?.forEach(el => {
+    el.style = `transform: translateY(-100%); opacity: 0;`;
+
+    observer.observe(el);
+    el.style = `transform: translateY(0); opacity: 1;`;
+});
 
 export function textRevelOnscroll() {
     let textRevelOnscroll = document.querySelectorAll('.text-revel-onscroll');
@@ -2924,154 +2821,25 @@ export function textRevelOnscroll() {
     });
 }
 
-window.addEventListener('scroll', () => {
-    fadeInTop();
-    textRevelOnscroll();
-});
-
-/**
- *  * UI Engine - Lerp & Logic Preservation
- * Version: 2026.04.25
- */
-
-// const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
-
 /*
-     const UI = {
-       version: VERSION,
-
-
-        lerp: (a, b, t) => a + (b - a) * t,
-
-
-
-
-splitText(selector) {
-    const el = document.querySelector(selector);
-        if (!el) return [];
-   const text = el.textContent;
-       el.innerHTML = "";
-  el.style.opacity = "1";
-
- return text.split("").map(char => {
-const span = document.createElement("span");
-    span.textContent = char === " " ? "\u00A0" : char;
-span.style.display = "inline-block";
-       span.style.willChange = "transform, opacity";
-el.appendChild(span);
- return span;
-     });
-},
-
-
-
-
-        animate({ duration, draw, easing = (t) => t }) {
-   const start = performance.now();
-
-       requestAnimationFrame(function frame(time) {
-    let timeFraction = (time - start) / duration;
- if (timeFraction > 1) timeFraction = 1;
-
-       // Apply easing to the time fraction
-    const t = easing(timeFraction);
-
-       draw(t);
-
-if (timeFraction < 1) requestAnimationFrame(frame);
-});
- },
-
-
-
-
-reveal(selector) {
-const chars = this.splitText(selector);
-
-chars.forEach((char, i) => {
-  setTimeout(() => {
- this.animate({
-duration: 800,
-   // Using a sine-based smoothing for the progress 't'
-    easing: (progress) => (Math.sin(progress * Math.PI - Math.PI / 2) + 1) / 2,
-     draw: (t) => {
-        // LERP from 20px to 0px (X) and -50% to 0% (Y)
-  const x = this.lerp(20, 0, t);
-     const y = this.lerp(-50, 0, t);
-        const opacity = this.lerp(0, 1, t);
-
-  char.style.opacity = opacity;
-     char.style.transform = `translate3d(${x}px, ${y}%, 0)`;
-}
-});
-  }, i * 50);
-      });
-}
-};
-
-        // --- Automation & Execution ---
-
-        // Set-and-forget intersection trigger
-const observer = new IntersectionObserver((entries) => {
- entries.forEach(entry => {
-     if (entry.isIntersecting) {
-UI.reveal(entry.target.id ? `#${entry.target.id}` : null);
-        observer.unobserve(entry.target);
-   }
-});
-}, { threshold: 0.1 });
-
-     // Initialize for specific heading
-const heading = document.querySelector("#heading");
-if (heading) observer.observe(heading);
-
-console.log(`UI Engine Active: v${UI.version}`);
-   */
-
-const itemObserver = new IntersectionObserver(entries => {
+// observe once
+// remove lazy loading for screen media
+const observerOnce = new IntersectionObserver(entries => {
     entries.forEach(
         entry => {
-            entry.target.classList.toggle('observing', entry.isIntersecting);
-            // if (entry.isIntetsecting) itemObserver.unobserve(entry.target)
+            entry.target.classList.toggle('observingOnce', entry.isIntersecting);
+            if (entry.isIntetsecting) mediaObserver.unobserve(entry.target);
         },
         {
-            threshold: 1, // or rootMargin: "-100px",
+            threshold: 1, // or rootMargin: "-100px", or 100
         }
     );
 });
 
-const observingItems = document.querySelectorAll('.observing-item');
-observingItems?.forEach(item => {
-    itemObserver.observe(item);
-});
-
-/*
-
-const favicon = document.querySelector('link[rel="icon"]');
-const isDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-export function updateFavicon() {
-  // Logic to switch the fill color in the Data URI string
-  // if (isDark.matches) { ... }
-}
-
-isDark.addEventListener('change', updateFavicon);
-
-*/
-
-const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-// 1. Define the handler
-// const handleThemeChange = e => {
-//     const isDark = e.matches;
-//     syncThemeColor(isDark); // Pass the boolean for cleaner logic
-// };
-
-// 2. Attach the listener
-// darkModeMediaQuery.addEventListener('change', handleThemeChange);
-
-// 3. Run once on load to set the initial state
-// handleThemeChange(darkModeMediaQuery);
+const observingOnce = document.querySelectorAll('.observingOnce');
+observingOnce?.forEach(el => {
+    observerOnce.observe(el);
+}); */
 
 // ###### function calls bellow ######
 
@@ -3095,8 +2863,4 @@ document.body.addEventListener('change', c => {});
 document.addEventListener('DOMContentLoaded', function () {
     // console.log("HTML DOM is loaded, but images might not be!");
     // SEO script for hight performance & ranking
-});
-
-window.addEventListener('focus', () => {
-    // window.location.reload();
 });
