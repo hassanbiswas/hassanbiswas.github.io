@@ -4,7 +4,7 @@ on:
   schedule:
     # Automation: Runs every Sunday at 00:00 UTC (Weekly)
     - cron: '0 0 * * 0'
-  workflow_dispatch: 
+  workflow_dispatch:
   push:
     branches: [ main ]
   workflow_run:
@@ -38,9 +38,9 @@ jobs:
             const now = new Date();
             const VERSION = now.toLocaleDateString('en-GB').split('/').reverse().join('.');
             const VERSION_DATE = now.toISOString().split('T')[0];
-            
+
             const BASE_URL = 'https://hassanbiswas.github.io';
-            const BRAND_COLOR = 'hsl(240, 80%, 50%)'; 
+            const BRAND_COLOR = 'hsl(240, 80%, 50%)';
 
             const CONFIG = {
               '/': { priority: 1.0, changefreq: 'weekly' },
@@ -51,7 +51,7 @@ jobs:
             };
 
             const INCLUSIONS = {
-              folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund_and_cancelation-policy', 'resume', 'services', 'terms-of-service', 'testimonial', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
+              folders: ['.', 'about', 'call', 'case-study', 'contact', 'facebook', 'gmail', 'imo', 'instagram', 'linkedin', 'location', 'messenger', 'pinterest', 'privacy-policy', 'projects', 'refund_and_cancelation-policy', 'resume', 'services', 'terms-of-service', 'testimonials', 'threads', 'tiktok', 'vcf', 'whatsapp', 'x', 'youtube'],
               extensions: ['.html']
             };
 
@@ -84,7 +84,7 @@ jobs:
             }).join('\n');
 
             const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>`;
-            
+
             fs.writeFileSync('sitemap.xml', sitemap.trim());
             console.log(`Generated sitemap.xml (v${VERSION}) with Brand Color: ${BRAND_COLOR}`);
 
@@ -102,7 +102,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add sitemap.xml
-          
+
           # Only commit and push if there are changes
           if ! git diff-index --quiet HEAD; then
             git commit -m "SEO update: $VERSION"
@@ -112,5 +112,3 @@ jobs:
           else
             echo "No changes to commit."
           fi
-
-          
