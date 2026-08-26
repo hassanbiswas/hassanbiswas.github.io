@@ -102,39 +102,14 @@
             };
 
             injectAsset('css', 'assets/css/style.css');
-            injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
+            // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
             injectAsset('js', 'assets/js/script.js');
-            injectAsset('js', 'components/loader-section.js');
-            injectAsset('js', 'components/notch-section.js');
-            injectAsset('js', 'components/header-section.js');
-            injectAsset('js', 'components/hero-section.js');
-            injectAsset('js', 'components/footer-section.js');
-            injectAsset('js', 'components/navigation-section.js');
-            injectAsset('js', 'components/toast-section.js');
         </script>
 
         <link href="/manifest.json" rel="manifest" />
 
         <!-- <meta content="3; URL=/" http-equiv="refresh" /> -->
 
-        <script type="speculationrules">
-            {
-                "prerender": [
-                    {
-                        "where": {
-                            "href_matches": "/*"
-                        },
-                        "eagerness": "moderate"
-                    }
-                ],
-
-                "prefetch": [
-                    {
-                        "urls": ["/", "/#projects"]
-                    }
-                ]
-            }
-        </script>
         <!-- scripts -->
         <!-- <div id="google_translate_element"></div> -->
         <!-- <script type="text/javascript">

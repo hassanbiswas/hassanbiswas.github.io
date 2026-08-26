@@ -4,30 +4,31 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="0; URL=https://x.com/O1602873384" http-equiv="refresh" />
-        <script defer="">
+
+        <script defer>
+            const rootUrl = `/`;
+
             // Your updated logic automation: Changes once per day
             const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
             const injectAsset = (type, path, media = 'all') => {
-                const versionedPath = `${path}?v=${VERSION}`;
+                const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
                 if (type === 'css') {
                     document.write(
                         `<link rel="stylesheet" href="${versionedPath}" media="${media}">`
                     );
                 } else {
-                    document.write(`<script defer src="${versionedPath}"><\/script>`);
+                    document.write(`<script type="module" defer src="${versionedPath}"><\/script>`);
                 }
             };
 
-            injectAsset('css', 'https://hassanbiswas.github.io/assets/css/style.css');
-            injectAsset(
-                'css',
-                'https://hassanbiswas.github.io/assets/css/animation.css',
-                '(prefers-reduced-motion: none)'
-            );
-            injectAsset('js', 'https://hassanbiswas.github.io/assets/js/script.js');
+            injectAsset('css', 'assets/css/style.css');
+            // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
+            injectAsset('js', 'assets/js/script.js');
         </script>
-        <link href="https://hassanbiswas.github.io/manifest.json" rel="manifest" />
+
+        <link href="/manifest.json" rel="manifest" />
+
         <meta content="hsl(240, 80%, 50%)" name="theme-color" />
         <title>X | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture</title>
         <meta
@@ -45,7 +46,7 @@
         <meta content="index, follow" name="robots" />
         <meta content="Hassan Biswas" name="author" />
     </head>
-    <body onload="myScript()">
+    <body>
         <!-- class/id removed -->
         <!--/// body starts here! -->
         <!--/// #loader starts here! -->
