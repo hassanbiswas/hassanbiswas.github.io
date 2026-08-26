@@ -122,13 +122,21 @@
   </url>
   <url>
     <loc>https://hassanbiswas.github.io/terms-of-service/</loc>
+<<<<<<< HEAD
     <lastmod>2026-08-25</lastmod>
+=======
+    <lastmod>2026-08-26</lastmod>
+>>>>>>> 5304614b6e363250cb39ccddd2728304c7c2a0f5
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://hassanbiswas.github.io/testimonials/</loc>
+<<<<<<< HEAD
     <lastmod>2026-08-25</lastmod>
+=======
+    <lastmod>2026-08-26</lastmod>
+>>>>>>> 5304614b6e363250cb39ccddd2728304c7c2a0f5
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>
   </url>
