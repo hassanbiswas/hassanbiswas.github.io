@@ -66,22 +66,22 @@ const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
 const seoA = () => {
     return `loading="lazy"
         rel="noopener noreferrer"
-        target="_blank" data-version="${VERSION}"`;
+        target="_blank"`;
 };
 
 // button
 const seoButton = () => {
-    return `type="button" aria-expanded="false" data-version="${VERSION}"`;
+    return `type="button" aria-expanded="false"`;
 };
 
 // Component+JS <script>
 const linkComponent = url => {
-    return `src="${url}" defer type="module" data-version="${VERSION}"`;
+    return `src="${url}" defer type="module"`;
 };
 
 // CSS <link>
 const linkCss = (url = `#`) => {
-    return `href="${url}" rel="preload" as="style" data-version="${VERSION}"`;
+    return `href="${url}" rel="preload" as="style"`;
 };
 
 // ================== SEO HTML
@@ -215,8 +215,8 @@ const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
 
 author.direction = `https://maps.google.com/maps?ll=23.070916,89.234141&z=15&t=m&hl=en&gl=BD&mapclient=embed&cid=16347353279731932593`;
 
-export const url = url => {
-    return `https://${url}`;
+export const ssl = ssl => {
+    return `https://${ssl}`;
 };
 export const urlGithub = `https://github.com/hassanbiswas`,
     urlFacebook = `https://facebook.com/hassanbiswas.github.io`,
@@ -487,20 +487,26 @@ beginning.`,
     ),
 ];
 
+/*
+ * Components
+ * Focus: Performance, SEO, and Clean Logic
+ */
+// ------------------- Reusable Components ------------------
+
 const componentReviews = () => {
     return `
 <div class="row items-center">
-    <ul class="flex" style="list-style: none; gap: -3em;">
+    <ul class="wrap" style="list-style: none; display: flex; gap: -0.5em;">
         ${personQuotes
             .map(
                 person => `
-    <li>
-        <img ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em;"/>
+    <li class="bg-raised pill" style="padding: .4em;">
+        <img class=" pill" ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em;"/>
     </li>
         `
             )
             .join('')}
-            <li class="bg-raised pill" style="padding: .5em;">20+</li>
+            <li class="bg-raised pill txt-center" style="padding: .4em;">20+</li>
       </ul>
      <p>45+ Projects 25+ reviews</p>
             `;
@@ -510,28 +516,24 @@ const componentProjectProgress = () => {
     return `
                 <div class="flex j-between">
                 <div class="row">
-                    <b class="h1 txt-center">45<span class="txt-gray">+</span></b>
+                    <b class="h1 txt-center"><span class="txtStroke">45</span><span class="txt-gray">+</span></b>
                     <p>Success project</p>
                 </div>
                 <div class="row">
-                    <b class="h1 txt-center">98<span class="txt-gray">%</span></b>
+                    <b class="h1 txt-center"><span class="txtStroke">98</span><span class="txt-gray">%</span></b>
                     <p>Client satisfaction</p>
                 </div>
                 <div class="row">
-                    <b class="h1 txt-center">3<span class="txt-gray">+</span></b>
+                    <b class="h1 txt-center"><span class="txtStroke">3</span><span class="txt-gray">+</span></b>
                     <p>Award woned</p>
                 </div>
                 </div>
             `;
 };
 
-// ### offline.html | Loading component ###
-// updated loader section
-/**
- * LoaderSection Component
- * Focus: Performance, SEO, and Clean Logic
- */
+// ---------------- Custom Elements -----------------
 
+// ### offline.html | Loading component ###
 class LoaderSection extends HTMLElement {
     connectedCallback() {
         const template = document.createElement('template');
@@ -606,12 +608,11 @@ class LoaderSection extends HTMLElement {
         }, 200);
     }
 }
+// Define the custom element
+if (!customElements.get('loader-section')) {
+    customElements.define('loader-section', LoaderSection);
+}
 
-// updated notch section
-/**
- * NotchSection Component
- * Focus: Performance, SEO, and Clean Logic
- */
 class NotchSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -637,12 +638,11 @@ class NotchSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('notch-section')) {
+    customElements.define('notch-section', NotchSection);
+}
 
-// updated toast section
-/**
- * ToastSection Component
- * Focus: Performance, SEO, and Clean Logic
- */
 class ToastSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -667,12 +667,11 @@ class ToastSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('toast-section')) {
+    customElements.define('toast-section', ToastSection);
+}
 
-// updated header section
-/**
- * HeaderSection Component
- * Focus: Performance, SEO, and Clean Logic
- */
 class HeaderSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -683,11 +682,13 @@ class HeaderSection extends HTMLElement {
         template.innerHTML = `
             <header ${header()} class="fluid-grid-system" id="header">
                 <div class="container-md">
-                    <nav style="padding-block: 1.1em; gap: 5em; flex-wrap: nowrap;" class="flex j-between">
+                    <nav style="padding-block: 0.4em; gap: .8em;" class="flex j-between">
 
-            <div class="flex a-center" style="gap: 0.8em; flex: 1; block-size: 0;"></div>
+            <div aria-label="Primary service location" class="flex" style="gap: 4px; flex-wrap: nowrap;">
+    ${locationPrimary}
+            </div>
 
-            <button ${seoButton()} style="flex: 1;" class="btn-primary"><a href="#services">Get Started</a></button>
+            <a ${seoA()} aria-label="Connect to Messenger" href="${urlMessenger}" style="">@${author.siteUrl}</a>
         </nav>
        </div>
       </header>
@@ -697,46 +698,10 @@ class HeaderSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
-
 // Define the custom element
 if (!customElements.get('header-section')) {
     customElements.define('header-section', HeaderSection);
 }
-
-/*
- * Components
- * Focus: Performance, SEO, and Clean Logic
- */
-export class HeadingTag extends HTMLElement {
-    connectedCallback() {
-        const id = this.getAttribute('id') || 'id',
-            classes = this.getAttribute('class') || 'class',
-            style = this.getAttribute('style') || 'style',
-            text = this.innerText || this.textContent || 'insert text';
-
-        const parentOne = this.parentElement,
-            parentTwo = parentOne.parentElement,
-            target = parentTwo.parentElement,
-            parent = document.querySelector('main') || target.parentElement,
-            index = parent ? Array.from(parent.children).indexOf(target) : 0,
-            h = index === 0 ? 0 : 1,
-            // 2. Safely clamp tag level between 1 and 6
-            tagLevel = Math.min(h + 1, 6);
-
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-        template.innerHTML = `
-
-            <h${h + 1} ${id} ${classes} ${style}>${text}</h${h + 1}>
-
-                    `;
-        this.replaceWith(template.content);
-    }
-}
-if (!customElements.get('heading-tag')) {
-    customElements.define('heading-tag', HeadingTag);
-}
-// <heading onload="lavel(1)">This is a heading!</heading>
 
 // Global Constructor Function for Section Data
 export function Section(element) {
@@ -755,11 +720,6 @@ export function Section(element) {
     const tagLevel = Math.min(h + 1, 6);
 }
 
-// updated design-system-section
-/**
- * DesignSystemSection Component
- * Focus: Performance, SEO, and Clean Logic
- */
 class DesignSystemSection extends HTMLElement {
     connectedCallback() {
         function UiItem(property) {
@@ -876,11 +836,10 @@ ${buttons
         this.replaceWith(template.content);
     }
 }
-
-/**
- * Component
- * Focus: Performance, SEO, and Clean Logic
- */
+// Define the custom element
+if (!customElements.get('design-system-section')) {
+    customElements.define('design-system-section', DesignSystemSection);
+}
 
 // example Section Web Component
 class CustomSection extends HTMLElement {
@@ -937,7 +896,7 @@ class CustomSection extends HTMLElement {
 
         // Render Markup
         template.innerHTML = `
-       <section ${seoSection()} class="fluid-grid-system bg-base" id="youtubers">
+       <section ${seoSection()} class="fluid-grid-system bg-base" id="customSection">
     <div class="container-sm row infinite-scroller mask" data-direction="right" data-speed="fast">
     <h2>${section.heading}</h2>
     <p>${section.description}</p>
@@ -948,7 +907,6 @@ class CustomSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
-
 // Register Custom Element
 if (!customElements.get('custom-section')) {
     customElements.define('custom-section', CustomSection);
@@ -979,7 +937,7 @@ class HeroSection extends HTMLElement {
         template.innerHTML = `
 
       <section ${seoSection()} id="hero" class="fluid-grid-system dark">
-        <div class="container-md row custom-container">
+        <div class="container-md row custom-containe">
 <svg width="0" height="0">
         <clipPath id="myClip"
         clipPathUnits="objectBoundingBox">
@@ -1003,7 +961,7 @@ class HeroSection extends HTMLElement {
         </clipPath>
 </svg>
 
- <div style="padding: 0em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
+ <div style="padding: 0em; margin-block: -5em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
    <div style="padding: 0em" class="brand-logo-container">
      <div style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
 
@@ -1012,19 +970,20 @@ ${author.logoOutlineSvg}
      </div>
    </div>
 
-   <div aria-hidden="true" class="gradient-mask d-none infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="brand-title">
-     <svg class="infinite-scroller_inner" fill="none" height="192" viewBox="0 0 2000 192" width="2000">
-       <text fill="var(--txt-black)" font-family="var(--ffb)" font-size="50" font-weight="600" x="0" y="116">
+   <h1 aria-hidden="flase" id="heading" class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
+     <svg class="infinite-scroller_inner svgDraw" fill="none" height="100" viewBox="0 0 768 100" width="768">
+       <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
 ${section.heading}
        </text>
      </svg>
-   </div>
+   </h1>
  </div>
 
  <div class="row items-center">
    <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
-   <h1 id="heading" class="h3 txt-center d-non">${section.heading}</h1>
+
    <p class="txt-center">${section.description}</p>
+   ${componentReviews()}
    <div class="button-group flex">
      <a ${seoA()} style="text-decoration: none;" href="/resume">
         <buttton style="border: 0px solid var(--bg-base); padding: 1em;" class="btn btn-primary txt-black bg-base pointer-button">Resume</button>
@@ -1046,8 +1005,11 @@ ${section.heading}
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('hero-section')) {
+    customElements.define('hero-section', HeroSection);
+}
 
-// updated ClientsSection Component
 class ClientsSection extends HTMLElement {
     connectedCallback() {
         const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
@@ -1112,7 +1074,7 @@ class ClientsSection extends HTMLElement {
         template.innerHTML = `
 <section ${seoSection()} class="fluid-grid-system bg-base" id="youtubers">
     <div class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
-        <h2 class="h4 d-none">Subscription by ${author.name} on YouTube </h2>
+        <h2 class="h4 d-none">Subscriptioned by ${author.name} on YouTube </h2>
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
            .map(
@@ -1137,12 +1099,15 @@ class ClientsSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('clients-section')) {
+    customElements.define('clients-section', ClientsSection);
+}
 
-// updated  AboutSection Component
 class AboutSection extends HTMLElement {
     connectedCallback() {
         // Story data array for easy updates
-        function StoriesItem(date, title, heading, desc, link, linkText, dateClass) {
+        function StoriesItem(date, title, heading, desc, link, linkText, dateClass, image) {
             this.date = date;
             this.title = title;
             this.heading = heading;
@@ -1150,6 +1115,7 @@ class AboutSection extends HTMLElement {
             this.link = link;
             this.linkText = linkText;
             this.dateClass = dateClass;
+            this.image = image;
         }
         const stories = [
             new StoriesItem(
@@ -1158,7 +1124,9 @@ class AboutSection extends HTMLElement {
                 'Having mom, dad & small family.',
                 `I'm ${new Date().getFullYear() - 2001} years old & growing up with core values that shape my professional work ethic today.`,
                 `${author.location}`,
-                'View place'
+                'View place',
+                ``,
+                `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 '2022',
@@ -1166,7 +1134,9 @@ class AboutSection extends HTMLElement {
                 'YouTube platform for design and development.',
                 'Started the journey into UI/UX and Front-End architecture through self-directed learning.',
                 `${urlYoutube}`,
-                'View channels'
+                'View channels',
+                ``,
+                `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 '2024',
@@ -1174,7 +1144,9 @@ class AboutSection extends HTMLElement {
                 'Diploma in Computer Science and Technology.',
                 'Formalized my technical foundation in software logic and system design.',
                 'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
-                'View institute'
+                'View institute',
+                ``,
+                `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 '',
@@ -1183,7 +1155,8 @@ class AboutSection extends HTMLElement {
                 `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a ${seoA()} href="tel:1715-488288">1715-488288</a> </br> Cell: <a ${seoA()} href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a ${seoA()} href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a ${seoA()} href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a ${seoA()} href="https://utshabtech.com.bd">utshabtech.com.bd</a>`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
                 'View place',
-                `d-none`
+                `d-none`,
+                `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 // FIXED: Used backticks to allow double quotes in the HTML string
@@ -1192,7 +1165,9 @@ class AboutSection extends HTMLElement {
                 'Designing and developing website.',
                 `${author.description}`,
                 `/projects`,
-                'View projects'
+                'View projects',
+                ``,
+                `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 `${thisYear}`,
@@ -1200,7 +1175,9 @@ class AboutSection extends HTMLElement {
                 'Junior Front-End Developer',
                 'Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.',
                 `/resume`,
-                'Download Resume'
+                'Download Resume',
+                ``,
+                `/assets/og-images/og-main.png`
             ),
         ];
 
@@ -1214,15 +1191,14 @@ class AboutSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section ${seoSection()} class="fluid-grid-system bg-base  screenHeight snappyContainer" id="about">
-    <div style="gap: 0em;" class="row  screenHeight">
+<section ${seoSection()} class="fluid-grid-system bg-base  screenHeight snappyContainer" style="--snapType: y mandatory;" id="about">
+    <div style="gap: 0em;" class="row content-center  screenHeight">
      <p class="h6 fade-in-to">
-      About ${author.name}
+      About <span class="txt-gray">${author.name}</span>
      </p>
-     <div style="padding-block: 0em; row-gap: 0em;" class="col">
-      <h2 class="h3 text-revel-onscrol row">
-       At a galance
-       2001 - ${thisYear}
+     <div style="padding-block: 0em; gap: .8em;" class="col">
+      <h2 class="h3 text-revel-onscrol">
+       At a galance <span class="txt-gray">2001 - ${thisYear}</span>
       <h2>
       <div class="row" style="gap: var(--space-xs);">
        <p>${author.description}</p>
@@ -1236,16 +1212,21 @@ class AboutSection extends HTMLElement {
  ${stories
      .map(
          story => `
-      <div style="padding-block: 0em; row-gap: 0em; border: 0px solid currentColor;" class="col fade-in-top-containe bg-raised  screenHeight">
+    <div style="padding-block: 0em; overflow: clip; position: relative;" class="row fade-in-top-containe  screenHeight content-center ">
+
+    <span inert class="story-image" style="opacity: .2; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
+
+
        <div style="gap: .5em;" class="row">
-        <h3 class="h6 fade-in-to ${story.dateClass}">${story.date}</h3>
+        <h3 class="p fade-in-to txt-muted ${story.dateClass}">${story.date}</h3>
         <h4 style="h5 padding-block: 0em;" class="fade-in-to">${story.title}</h4>
        </div>
-       <h5 class="h4 fade-in-to row">${story.heading}</h5>
-       <div style="gap: var(--space-xs);" class="row">
-        <p class="fade-in-to">${story.desc}</p>
+       <h5 class="h2 fade-in-to txt-center" style="justify-self: center; max-inline-size: 16em;">${story.heading}</h5>
+       <div style="gap: var(--space-xs); justify-self: end; max-inline-size: 20em;" class="row">
+        <p class="fade-in-to" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;">${story.desc}</p>
         <a ${seoA()} class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
        </div>
+
       </div>
 
  `
@@ -1262,8 +1243,11 @@ class AboutSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('about-section')) {
+    customElements.define('about-section', AboutSection);
+}
 
-// updated ServicesSection Component
 class ServicesSection extends HTMLElement {
     connectedCallback() {
         // Instantiate Section for current element
@@ -1276,20 +1260,20 @@ class ServicesSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 <section ${seoSection()} class="fluid-grid-system" id="services">
-    <div class="container-md row">
+    <div class="container-md row" style="gap: 1em;">
      <h2>
       Services available in <br> ${locationSecondary}.
      </h2>
-      <p>
+     <div class="row" style="gap: .8em;">
        <p class="h6">Average Price Ranges (Approximate):</p>
-       </br>
        <ul style="list-style: none;">
        <li>Basic/Simple Site: ${money(75)} – ${money(150)} (Portfolio, Personal)</li>
        <li>Business Website: ${money(150)} – ${money(300)} (Corporate, Small Business)</li>
        <li>Customized Site: ${money(300)}+ </li>
       </ul>
-      </p>
-     <div class="row">
+    </div>
+
+     <div class="row" style="gap: .8em;">
       <div style="gap: var(--space-xs);" class="row">
        <h5>
         My primary Services:
@@ -1304,7 +1288,7 @@ ${servicesPrimary
     .join('')}
        </ul>
       </div>
-      <div style="gap: var(--space-xs);" class="row">
+      <div style="gap: .8em;" class="row">
        <h6>More services:</h6>
        <ul>
 ${servicesSecondery
@@ -1334,8 +1318,11 @@ ${servicesSecondery
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('services-section')) {
+    customElements.define('services-section', ServicesSection);
+}
 
-// updated ProjectsSection Component
 class ProjectsSection extends HTMLElement {
     connectedCallback() {
         // Project data array for easy updates
@@ -1395,9 +1382,9 @@ class ProjectsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section ${seoSection()} class="fluid-grid-system bg-base snappyContainer" id="projects">
+      <section ${seoSection()} class="fluid-grid-system bg-base snappyContainer" style="--snapType: y mandatory;" id="projects">
 
-      <div class="container-md row  screenHeight" style="padding-block: 1em;">
+      <div class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip;">
  <p class="fade-in-to"><span class="txt-gray">Selected</span> Projects</p>
  <div><p class="h2 txt-gray" style="font-weight: bold; display: inline;">
      Projects have done since 2023 - ${thisYear}.
@@ -1405,12 +1392,12 @@ class ProjectsSection extends HTMLElement {
 </h2></div>
  </div>
 
- <div style="gap: 0em;" class="row projects-list screenHeight">
+ <div style="gap: 0em;" class=" row content-center projects-list screenHeight">
  ${projects
      .map(
          (project, index) => `
 
-   <a ${seoA()} href="${project.link}" style="text-decoration: none; padding: 1em; gap: 0em; border-block-end: 1px solid transparent;" class="flex fade-in-top-containe bg-raised project-item">
+   <a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em; border-block-end: 1px solid var(--txt-gray);" class="flex fade-in-top-containe project-item">
 
         <h4 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-muted">[0${index + 1}]</span> ${project.category}</h4>
        <h5 class="p fade-in-to">${project.date}</h5>
@@ -1419,7 +1406,7 @@ class ProjectsSection extends HTMLElement {
      <!-- <h5 class="h5 fade-in-to row">${project.title}</h5> -->
    </a>
 
- <span inert class="project-image">
+ <span inert class="project-image" style="">
     <img ${seoImg(`${project.image}`, `Project Image`, `100%`)}/>
  </span>
 
@@ -1438,8 +1425,11 @@ class ProjectsSection extends HTMLElement {
         this.replaceWith(template.content);
     }
 }
+// Define the custom element
+if (!customElements.get('projects-section')) {
+    customElements.define('projects-section', ProjectsSection);
+}
 
-// updated TestimonialsSection Component
 class TestimonialsSection extends HTMLElement {
     connectedCallback() {
         // let randomIndex = random(0, personQuotes?.length);
@@ -1473,12 +1463,12 @@ class TestimonialsSection extends HTMLElement {
 
 </div>
 
-      <ul class="curousel" style="list-style: none;">
+      <ul class="carousel bg-raised" style="list-style: none; margin-inline: 2.4em; border-radius: 2em; inline-size: min(100%, 30em);">
 ${personQuotes
     .map(
         (person, index) => `
-    <li class="flex">
- <blockquote class="row items-center bg-raised" style="flex: 1; display: row; gap: .8em; padding: 2em; border-radius: 2em; inline-size: 100%; block-size: 100%;">
+    <li class="flex carousel-item" style="">
+ <blockquote class="row items-center" style="flex: 1; display: row; gap: .8em; padding: 2em; inline-size: 100%; block-size: 100%;">
 
      <b>
                 <span class="star" style="inline-size: .8em;">${person?.star}</span>
@@ -1531,8 +1521,11 @@ ${personQuotes
         this.replaceWith(content);
     }
 }
+// Define the custom element
+if (!customElements.get('testimonials-section')) {
+    customElements.define('testimonials-section', TestimonialsSection);
+}
 
-// updated FaqsSection Component
 class FaqsSection extends HTMLElement {
     connectedCallback() {
         // faqs data array for easy updates
@@ -1656,8 +1649,420 @@ and how I work
         // Replace the custom element with the content
     }
 }
+// Define the custom element
+if (!customElements.get('faqs-section')) {
+    customElements.define('faqs-section', FaqsSection);
+}
 
-// updated privacy-policy-section component
+class ContactSection extends HTMLElement {
+    connectedCallback() {
+        // 1. Data Source (Scalable: could be moved to a global config)
+        function LinksDataItem(name, link, title, favicon) {
+            this.name = name;
+            this.link = link;
+            this.title = title;
+            this.favicon = favicon;
+        }
+        const linksData = [
+            new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`, `${faviconMobile}`),
+            new LinksDataItem(
+                `@hassanbiswas.github.io`,
+                `${urlMessenger}`,
+                `Messenger`,
+                `${faviconMessenger}`
+            ),
+            new LinksDataItem(
+                `hassanbiswas.github.io@gmail.com`,
+                `${urlGmail}`,
+                `Gmail`,
+                `${faviconGmail}`
+            ),
+            new LinksDataItem(`${locationPrimary}`, `${begaritola}`, `Location`, `${faviconMap}`),
+        ];
+
+        function ButtonsItem(name, link, classes) {
+            this.name = name;
+            this.link = link;
+            this.classes = classes;
+        }
+        const buttons = [
+            new ButtonsItem(`View Map ↘`, `${author.direction}`, `btn-primary`),
+            new ButtonsItem(`Add Reviews ↘`, `${urlFeedback}`, `d-none`),
+        ];
+
+        // Instantiate Section for current element
+        const section = new Section(this);
+        // 2. Create an off-screen Template
+        const template = document.createElement('template');
+
+        // 3. Define the HTML (Top-level element is now your grid section)
+
+        // HTML
+        template.innerHTML = `
+    <section ${seoSection()} id="contact" class="fluid-grid-system py-5">
+    <div class="container-md">
+
+     <div class="row">
+
+     <div class="row background-map" style="object-fit: cover; overflow: clip;">
+       <iframe class="inverse" src=" ${author.iframeHome}" title="Author Village" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+       </iframe>
+     </div>
+
+     <div class="ph-wrapper">
+       <h2 style="display: inline;" class="h2 txt-gray">
+        Ready to scale your brand with ${author.name}?
+       </h2>
+       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and <a ${seoA()} href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> Crafted Webflow Template digital strategies.
+</p>
+</div>
+
+       <div class="flex no-wrap items-start">
+<div class="row">
+
+        </div>
+        <div style="flex: 1; flex-basis: 23rem; gap: var(--space-xs);" class="row">
+
+ <h6 class="p txt-gray">Languages:</h6>
+ <ul style="list-style: none;" class="flex">
+   ${preferedLanguages
+       .map(
+           (language, index) => `
+     <li><span class="p txt-gray">[0${index + 1}]</span> ${language}</li>
+  `
+       )
+       .join('')}
+ </ul>
+      <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
+ <h6 class="p txt-gray">Links:</h6>
+       ${linksData
+           .map(
+               data => `
+       <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
+        <img ${seoImg(data.favicon, data.title)} style="inline-size: 1.5em;" class="squar"/>
+        <a ${seoA()} href="${data.link}">
+<p>${data.name}</p>
+        </a>
+       </div>
+       `
+           )
+           .join('')}
+      </div>
+        </div>
+       </div>
+     </div>
+
+      <div class="flex j-end">
+ <a ${seoA()} href="/vcf">Download VCF ↘</a>
+
+        <a ${seoA()} style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
+ <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
+        </a>
+      </div>
+
+
+
+    </div>
+    </section>
+
+
+    `;
+
+        // 4. THE MAGIC: Synchronous swap
+        // Replaces <contact-section> with the contents of the template immediately.
+        this.replaceWith(template.content);
+    }
+}
+// Define the custom element
+if (!customElements.get('contact-section')) {
+    customElements.define('contact-section', ContactSection);
+}
+
+class FooterSection extends HTMLElement {
+    connectedCallback() {
+        // Constructor Function
+        function NavItem(name, link) {
+            this.name = name;
+            this.link = link;
+        }
+
+        // Clean & readable initialization
+        const navigations = [
+            new NavItem(`Home`, `/`),
+            new NavItem(`About`, `/#about`),
+            new NavItem(`Services`, `/#services`),
+            new NavItem(`Projects`, `/#projects`),
+            new NavItem(`Contact`, `/#contact`),
+            new NavItem(`Case Studies`, `/github`),
+        ];
+
+        function MethodsItem(name, link, title, alt, favicon) {
+            this.name = name;
+            this.link = link;
+            this.title = title;
+            this.alt = alt;
+            this.favicon = favicon;
+        }
+        const methods = [
+            new MethodsItem(
+                `Meet`,
+                `${urlMeet}`,
+                `Video Conference`,
+                `Google Meet`,
+                `${faviconMeet}`
+            ),
+            new MethodsItem(`bKash`, `${urlBkash}`, `Payment by bKash`, `bKash`, `${faviconBkash}`),
+        ];
+
+        function LegalsItem(name, link) {
+            this.name = name;
+            this.link = link;
+        }
+        const legals = [
+            new LegalsItem(`Privacy Policy`, `/privacy-policy`),
+            new LegalsItem(`Terms of Service`, `/terms-of-service`),
+            new LegalsItem(`Refund &amp; Cancelation Policy`, `/refund_and_cancelation-policy`),
+        ];
+
+        // Instantiate Section for current element
+        const section = new Section(this);
+        // 2. Create an off-screen Template
+        const template = document.createElement('template');
+
+        // 3. Define the HTML (Top-level element is now your grid section)
+
+        // HTML
+        template.innerHTML = `
+<footer ${footer()} class="fluid-grid-system" id="footer">
+   <div class="container-xl row gap-4 py-5">
+    <div class="flex j-center">
+      <form class="flex">
+        <label style="opacity: 1;" class="d-non" for="system-theme">Choose Theme:</label>
+        <select id="system-theme" name="system-theme" class="pill btn-primary">
+ <option value="default">Default</option>
+ <option value="light">Light</option>
+ <option value="dark">Dark</option>
+        </select>
+      </form>
+    </div>
+    <div class="col">
+     <div class="row" style="position: relative; overflow: clip; border-radius: 1em;">
+     <h2 class ="p">I craft marketing strategies that elevate brands, attract audiences, and drive measurable business growth.
+</h2>
+      <h3 class ="p">
+       Providing high-quality web design and front-end development services to clients in ${locationSecondary}.
+      </h3>
+
+      <div class="row">
+      <div style="align-content: stretch;" class="flex grow a-center">
+        <button ${seoButton()} style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
+ <a ${seoA()} class"txt-center flex items-center txt-center" href="/resume">
+   Resume
+ </a>
+        </button>
+
+       <button ${seoButton()} class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
+        <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
+        <span style="line-height: 100%" class="d-non">Install</span>
+       </button>
+
+      </div>
+      </div>
+
+        <!-- <img ${seoImg(faviconAuthor, author.name)} style="max-inline-size: 10em; display: inline; position: absolute; left: -5%; bottom: -5%; transform: rotate(20deg); opacity: .3; z-index: -1;" class="squar d-none"/> -->
+
+     </div>
+
+     <div style="" class="flex items-start">
+      <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
+       <h4 class="p txt-gray">
+        Navigation
+       </h4>
+       <div class="flex navigation-links">
+
+       ${navigations
+           .map(
+               (navigation, index) => `
+<a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${navigation.link}"><span class="p txt-gray">[0${index + 1}]</span> ${navigation.name}
+</a>
+       `
+           )
+           .join('')}
+
+       </div>
+      </nav>
+
+      <nav style="flex: 1; flex-basis: 15ch; gap: var(--space-xs);" class="row">
+       <h4 class="p txt-gray">
+        Method
+       </h4>
+       <div class="flex methode-links">
+
+       ${methods
+           .map(
+               method => `
+        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
+<img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar"/> ${method.name}
+        </a>
+       `
+           )
+           .join('')}
+
+       </div>
+      </nav>
+
+<nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
+       <h4 class="p txt-gray">
+        Social
+       </h4>
+      <div class="flex social-links a-center" style="gap: 0.8em;">
+
+                ${socials
+                    .map(
+                        social => `
+    <a ${seoA()} href="${social.link}">
+    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded"/>
+    </a>
+    `
+                    )
+                    .join('')}
+
+       </div>
+      </nav>
+
+      <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
+       <h4 class="p txt-gray">
+        Legal
+       </h4>
+       <div class="flex legal-links">
+
+       ${legals
+           .map(
+               legal => `
+        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
+${legal.name}
+        </a>
+       `
+           )
+           .join('')}
+
+       </div>
+      </nav>
+
+        <a ${seoA()} id="chat-bubble" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
+ <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
+        </a>
+
+     </div>
+    </div>
+    <div class="col items-center">
+     <div class="flex grow input-group items-center">
+      <input style="padding: var(--space-s); border: 1px solid var(--primary-50); color: var(--primary-50); background: color-mix(in hsl, var(--bg), transparent 30%); font-weight: bold;" class="pill" placeholder="@hassanbiswas.github.io" readonly type="text"/>
+      <a ${seoA()} style="text-decoration: none;" href="${urlYoutube}">
+       <button ${seoButton()} class="btn-primary">Subscribe</button>
+      </a>
+     </div>
+    </div>
+   </div>
+   <!-- footer with links & logo -->
+   <div class="container-lg mask infinite-scroller" data-direction="left" data-speed="fast" id="footer-marquee">
+    <div class="svg-wrapper infinite-scroller_inner">
+     <svg fill="none">
+      <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
+       &copy; ${new Date().getFullYear()} ${author.title}
+      </text>
+     </svg>
+    </div>
+   </div>
+
+  </footer>
+
+    `;
+
+        // 4. THE MAGIC: Synchronous swap
+        // Replaces <contact-section> with the contents of the template immediately.
+
+        // Cache elements from fragment before swapping
+        const content = template.content;
+
+        /*
+    const installBtn = content.querySelector('#installApp');
+    const themeSelect = content.querySelector('#theme-selector');
+
+    // Handle PWA install logic (placeholder)
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.deferredPrompt = e;
+      installBtn.style.display = 'flex';
+    });
+    */
+
+        this.replaceWith(content);
+    }
+}
+// Define the custom element
+if (!customElements.get('footer-section')) {
+    customElements.define('footer-section', FooterSection);
+}
+
+class NavigationSection extends HTMLElement {
+    connectedCallback() {
+        // Navigation Constructor Function
+        function NavItem(name, link) {
+            this.name = name;
+            this.link = link;
+        }
+
+        // Clean & readable initialization
+        const navigations = [
+            new NavItem(
+                `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em;"/>Home</span>`,
+                '#hero'
+            ),
+            new NavItem('About', '#about'),
+            new NavItem('Services', '#services'),
+            new NavItem('Projects', '#projects'),
+        ];
+
+        // 2. Create an off-screen Template
+        const template = document.createElement('template');
+
+        // 3. Define the HTML (Top-level element is now your grid section)
+
+        // HTML
+        template.innerHTML = `
+  <section ${navPrimary()} class="fluid-grid-system" id="bottom-navigation">
+   <div style="overflow: visible;" class="container-sm row">
+    <nav class="nav-list items-center txt-center" id="header-nav-list">
+
+       ${navigations
+           .map(
+               navigation => `
+        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="/${navigation.link}" >
+${navigation.name}
+        </a>
+       `
+           )
+           .join('')}
+
+        <a class="list-item active-bg" inert=""></a>
+
+    </nav>
+   </div>
+  </section>
+
+    `;
+
+        // 4. THE MAGIC: Synchronous swap
+        // Replaces <contact-section> with the contents of the template immediately.
+        this.replaceWith(template.content);
+    }
+}
+// Define the custom element
+if (!customElements.get('navigation-section')) {
+    customElements.define('navigation-section', NavigationSection);
+}
+
 class PrivacyPolicySection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -1778,121 +2183,11 @@ Third-Party Services
         this.replaceWith(template.content);
     }
 }
-
-// refund-and-cancelation-policy-section component
-class RefundAndCancelationPolicySection extends HTMLElement {
-    connectedCallback() {
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML
-
-        template.innerHTML = `
-
-<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
- <div class="container-md">
-<div class="row">
-
-<div class="row">
- <h1>
-Refund &amp; Cancelation Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
- </h1>
-<p>
-<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
- </p>
-
-<p>
-Thank you for choosing my services
-. I provide custom digital services, I want to ensure we have a clear understanding of our financial commitment before a project begins.
- </p>
- </div>
-
-
- <ol class="row">
- <li>
- <h2>
- Project Deposits
- </h2>
- <p>
- Most projects require an initial deposit (typically
- <b>
-30% to 50%
-</b>
-) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
-<strong>
- Deposits are non-refundable
- </strong>
- once work has started.
- </p>
- </li>
-
-
- <li>
- <h2>
- Cancellation During Development
- </h2>
- <p>
- If a project is cancelled after development has begun but before completion, the client is responsible for payment for all work completed up to the date of cancellation.
-
-  <ul>
- <li>
- If the work completed exceeds the deposit, an additional invoice will be issued.
-</li>
- <li>
- If the work completed is less than the deposit, no refund of the deposit will be issued.
-</li>
-</ul>
-</p>
-</li>
-
-
-<li>
-<h2>
-Final Delivery &amp; Acceptance
-</h2>
-<p>
-Once the final files are delivered and the "Final Approval" is signed off by the client,
-<strong>
- no refunds will be issued
- </strong>
- . Digital products cannot be "returned" in the traditional sense once the source code is in the client's possession.
- </p>
- </li>
-
-
- <li>
- <h2>
- Revisions
- </h2>
-<p>
-To ensure satisfaction, I include a specific number of revision rounds (as stated in our initial contract). This allows us to fine-tune the design and functionality before final delivery.
-</p>
-</li>
-
-
-<li>
-<h2>
-Questions &amp; Disputes | Contact Me
-</h2>
-<p>
-I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
-</p>
-</li>
-
-</ol>
-
-</div>
-</div>
-</section>
-
-`;
-
-        // 4. THE MAGIC: Synchronous swap
-        this.replaceWith(template.content);
-    }
+// Define the custom element
+if (!customElements.get('privacy-policy-section')) {
+    customElements.define('privacy-policy-section', PrivacyPolicySection);
 }
 
-// updated terms-of-service-section
 class TermsOfServiceSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -2032,492 +2327,122 @@ For any legal inquiries regarding these terms, please reach out.
         this.replaceWith(template.content);
     }
 }
-
-// updated ContactSection Component
-class ContactSection extends HTMLElement {
-    connectedCallback() {
-        // 1. Data Source (Scalable: could be moved to a global config)
-        function LinksDataItem(name, link, title, favicon) {
-            this.name = name;
-            this.link = link;
-            this.title = title;
-            this.favicon = favicon;
-        }
-        const linksData = [
-            new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`, `${faviconMobile}`),
-            new LinksDataItem(
-                `@hassanbiswas.github.io`,
-                `${urlMessenger}`,
-                `Messenger`,
-                `${faviconMessenger}`
-            ),
-            new LinksDataItem(
-                `hassanbiswas.github.io@gmail.com`,
-                `${urlGmail}`,
-                `Gmail`,
-                `${faviconGmail}`
-            ),
-            new LinksDataItem(`${locationPrimary}`, `${begaritola}`, `Location`, `${faviconMap}`),
-        ];
-
-        function ButtonsItem(name, link, classes) {
-            this.name = name;
-            this.link = link;
-            this.classes = classes;
-        }
-        const buttons = [
-            new ButtonsItem(`View Map ↘`, `${author.direction}`, `btn-primary`),
-            new ButtonsItem(`Add Reviews ↘`, `${urlFeedback}`, `d-none`),
-        ];
-
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
-    <section ${seoSection()} id="contact" class="fluid-grid-system py-5">
-    <div class="container-md">
-
-     <div class="row">
-
-     <div class="row background-map" style="object-fit: cover; overflow: clip;">
-       <iframe class="inverse" src=" ${author.iframeHome}" title="Author Village" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-       </iframe>
-     </div>
-
-     <div class="ph-wrapper">
-       <h2 style="display: inline;" class="h2 txt-gray">
-        Ready to scale your brand with ${author.name}?
-       </h2>
-       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and <a ${seoA()} href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> Crafted Webflow Template digital strategies.
-</p>
-</div>
-
-       <div class="flex no-wrap items-start">
-<div class="row">
-
-        </div>
-        <div style="flex: 1; flex-basis: 23rem; gap: var(--space-xs);" class="row">
-
- <h6 class="p txt-gray">Languages:</h6>
- <ul style="list-style: none;" class="flex">
-   ${preferedLanguages
-       .map(
-           (language, index) => `
-     <li><span class="p txt-gray">[0${index + 1}]</span> ${language}</li>
-  `
-       )
-       .join('')}
- </ul>
-      <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
- <h6 class="p txt-gray">Links:</h6>
-       ${linksData
-           .map(
-               data => `
-       <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
-        <img ${seoImg(data.favicon, data.title)} style="inline-size: 1.5em;" class="squar"/>
-        <a ${seoA()} href="${data.link}">
-<p>${data.name}</p>
-        </a>
-       </div>
-       `
-           )
-           .join('')}
-      </div>
-        </div>
-       </div>
-     </div>
-
-      <div class="flex j-end">
- <a ${seoA()} href="/vcf">Download VCF ↘</a>
-
-        <a ${seoA()} style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
- <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
-        </a>
-      </div>
-
-
-
-    </div>
-    </section>
-
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-
-// updated FooterSection Component
-class FooterSection extends HTMLElement {
-    connectedCallback() {
-        // Constructor Function
-        function NavItem(name, link) {
-            this.name = name;
-            this.link = link;
-        }
-
-        // Clean & readable initialization
-        const navigations = [
-            new NavItem(`Home`, `/`),
-            new NavItem(`About`, `/#about`),
-            new NavItem(`Services`, `/#services`),
-            new NavItem(`Projects`, `/#projects`),
-            new NavItem(`Contact`, `/#contact`),
-            new NavItem(`Case Studies`, `/github`),
-        ];
-
-        function MethodsItem(name, link, title, alt, favicon) {
-            this.name = name;
-            this.link = link;
-            this.title = title;
-            this.alt = alt;
-            this.favicon = favicon;
-        }
-        const methods = [
-            new MethodsItem(
-                `Meet`,
-                `${urlMeet}`,
-                `Video Conference`,
-                `Google Meet`,
-                `${faviconMeet}`
-            ),
-            new MethodsItem(`bKash`, `${urlBkash}`, `Payment by bKash`, `bKash`, `${faviconBkash}`),
-        ];
-
-        function LegalsItem(name, link) {
-            this.name = name;
-            this.link = link;
-        }
-        const legals = [
-            new LegalsItem(`Privacy Policy`, `/privacy-policy`),
-            new LegalsItem(`Terms of Service`, `/terms-of-service`),
-            new LegalsItem(`Refund &amp; Cancelation Policy`, `/refund_and_cancelation-policy`),
-        ];
-
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
-<footer ${footer()} class="fluid-grid-system" id="footer">
-   <div class="container-xl row gap-4 py-5">
-    <div class="flex j-center">
-      <form class="flex">
-        <label style="opacity: 1;" class="d-non" for="system-theme">Choose Theme:</label>
-        <select id="system-theme" name="system-theme" class="pill btn-primary">
- <option value="default">Default</option>
- <option value="light">Light</option>
- <option value="dark">Dark</option>
-        </select>
-      </form>
-    </div>
-    <div class="col">
-     <div class="row" style="position: relative; overflow: clip; border-radius: 1em;">
-     <h2 class ="p">I craft marketing strategies that elevate brands, attract audiences, and drive measurable business growth.
-</h2>
-      <h3 class ="p">
-       Providing high-quality web design and front-end development services to clients in ${locationSecondary}.
-      </h3>
-
-      <div class="row">
-      <div style="align-content: stretch;" class="flex grow a-center">
-        <button ${seoButton()} style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
- <a ${seoA()} class"txt-center flex items-center txt-center" href="/resume">
-   Resume
- </a>
-        </button>
-
-       <button ${seoButton()} class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
-        <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
-        <span style="line-height: 100%" class="d-non">Install</span>
-       </button>
-
-      </div>
-      </div>
-
-        <img ${seoImg(faviconAuthor, author.name)} style="max-inline-size: 10em; display: inline; position: absolute; left: -5%; bottom: -5%; transform: rotate(20deg); opacity: .3; z-index: -1;" class="squar d-none"/>
-
-     </div>
-
-     <div style="" class="flex items-start">
-      <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
-       <h4 class="p txt-gray">
-        Navigation
-       </h4>
-       <div class="flex navigation-links">
-
-       ${navigations
-           .map(
-               (navigation, index) => `
-<a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${navigation.link}"><span class="p txt-gray">[0${index + 1}]</span> ${navigation.name}
-</a>
-       `
-           )
-           .join('')}
-
-       </div>
-      </nav>
-
-      <nav style="flex: 1; flex-basis: 15ch; gap: var(--space-xs);" class="row">
-       <h4 class="p txt-gray">
-        Method
-       </h4>
-       <div class="flex methode-links">
-
-       ${methods
-           .map(
-               method => `
-        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
-<img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar"/> ${method.name}
-        </a>
-       `
-           )
-           .join('')}
-
-       </div>
-      </nav>
-
-<nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
-       <h4 class="p txt-gray">
-        Social
-       </h4>
-      <div class="flex social-links a-center" style="gap: 0.8em;">
-
-                ${socials
-                    .map(
-                        social => `
-    <a ${seoA()} href="${social.link}">
-    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded"/>
-    </a>
-    `
-                    )
-                    .join('')}
-
-       </div>
-      </nav>
-
-      <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
-       <h4 class="p txt-gray">
-        Legal
-       </h4>
-       <div class="flex legal-links">
-
-       ${legals
-           .map(
-               legal => `
-        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
-${legal.name}
-        </a>
-       `
-           )
-           .join('')}
-
-       </div>
-      </nav>
-
-        <a ${seoA()} id="chat-bubble" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
- <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
-        </a>
-
-     </div>
-    </div>
-    <div class="col items-center">
-     <div class="flex grow input-group items-center">
-      <input style="padding: var(--space-s); border: 1px solid var(--primary-50); color: var(--primary-50); background: color-mix(in hsl, var(--bg), transparent 30%); font-weight: bold;" class="pill" placeholder="@hassanbiswas.github.io" readonly type="text"/>
-      <a ${seoA()} style="text-decoration: none;" href="${urlYoutube}">
-       <button ${seoButton()} class="btn-primary">Subscribe</button>
-      </a>
-     </div>
-    </div>
-   </div>
-   <!-- footer with links & logo -->
-   <p style="display: none;" class="container-md">
-    &copy; ${new Date().getFullYear()} ${author.title}
-   </p>
-
-   <div class="container-lg mask infinite-scroller" data-direction="right/left" data-speed="fast/slow" id="footer-marquee">
-    <div class="svg-wrapper infinite-scroller_inner">
-     <svg>
-      <text class="copyright" y="95">
-       &copy;
-      </text>
-     </svg>
-     <svg>
-      <text class="txt-stroke" y="95">
-        ${new Date().getFullYear()}
-      </text>
-     </svg>
-     <svg>
-      <text y="95">
-        ${author.title}
-      </text>
-     </svg>
-    </div>
-   </div>
-
-  </footer>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-
-        // Cache elements from fragment before swapping
-        const content = template.content;
-
-        /*
-    const installBtn = content.querySelector('#installApp');
-    const themeSelect = content.querySelector('#theme-selector');
-
-    // Handle PWA install logic (placeholder)
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      window.deferredPrompt = e;
-      installBtn.style.display = 'flex';
-    });
-    */
-
-        this.replaceWith(content);
-    }
-}
-
-// updated NavigationSection Component
-class NavigationSection extends HTMLElement {
-    connectedCallback() {
-        // Navigation Constructor Function
-        function NavItem(name, link) {
-            this.name = name;
-            this.link = link;
-        }
-
-        // Clean & readable initialization
-        const navigations = [
-            new NavItem(
-                `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em;"/>Home</span>`,
-                '#hero'
-            ),
-            new NavItem('About', '#about'),
-            new NavItem('Services', '#services'),
-            new NavItem('Projects', '#projects'),
-        ];
-
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
-
-  <section ${navPrimary()} class="fluid-grid-system" id="bottom-navigation">
-   <div style="overflow: visible;" class="container-sm row">
-    <nav class="nav-list items-center txt-center" id="header-nav-list">
-
-       ${navigations
-           .map(
-               navigation => `
-        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="/${navigation.link}" >
-${navigation.name}
-        </a>
-       `
-           )
-           .join('')}
-
-        <a class="list-item active-bg" inert=""></a>
-
-    </nav>
-   </div>
-  </section>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-
-// ###################
-// inits custom elements
-// ###################
-
-// ***** defining custom elements *****
-
-if (!customElements.get('loader-section')) {
-    customElements.define('loader-section', LoaderSection);
-}
-
-// Define the custom element
-if (!customElements.get('notch-section')) {
-    customElements.define('notch-section', NotchSection);
-}
-
-// Define the custom element
-if (!customElements.get('toast-section')) {
-    customElements.define('toast-section', ToastSection);
-}
-
-// Define the custom element
-if (!customElements.get('design-system-section')) {
-    customElements.define('design-system-section', DesignSystemSection);
-}
-
-// Define the custom element
-if (!customElements.get('hero-section')) {
-    customElements.define('hero-section', HeroSection);
-}
-
-// Define the custom element
-if (!customElements.get('clients-section')) {
-    customElements.define('clients-section', ClientsSection);
-}
-
-// Define the custom element
-if (!customElements.get('about-section')) {
-    customElements.define('about-section', AboutSection);
-}
-
-// Define the custom element
-if (!customElements.get('services-section')) {
-    customElements.define('services-section', ServicesSection);
-}
-
-// Define the custom element
-if (!customElements.get('projects-section')) {
-    customElements.define('projects-section', ProjectsSection);
-}
-
-// Define the custom element
-if (!customElements.get('testimonials-section')) {
-    customElements.define('testimonials-section', TestimonialsSection);
-}
-
-// Define the custom element
-if (!customElements.get('faqs-section')) {
-    customElements.define('faqs-section', FaqsSection);
-}
-
-// Define the custom element
-if (!customElements.get('privacy-policy-section')) {
-    customElements.define('privacy-policy-section', PrivacyPolicySection);
-}
-
 // Define the custom element
 if (!customElements.get('terms-of-service-section')) {
     customElements.define('terms-of-service-section', TermsOfServiceSection);
 }
 
+class RefundAndCancelationPolicySection extends HTMLElement {
+    connectedCallback() {
+        // 2. Create an off-screen Template
+        const template = document.createElement('template');
+
+        // 3. Define the HTML
+
+        template.innerHTML = `
+
+<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
+ <div class="container-md">
+<div class="row">
+
+<div class="row">
+ <h1>
+Refund &amp; Cancelation Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
+ </h1>
+<p>
+<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
+ </p>
+
+<p>
+Thank you for choosing my services
+. I provide custom digital services, I want to ensure we have a clear understanding of our financial commitment before a project begins.
+ </p>
+ </div>
+
+
+ <ol class="row">
+ <li>
+ <h2>
+ Project Deposits
+ </h2>
+ <p>
+ Most projects require an initial deposit (typically
+ <b>
+30% to 50%
+</b>
+) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
+<strong>
+ Deposits are non-refundable
+ </strong>
+ once work has started.
+ </p>
+ </li>
+
+
+ <li>
+ <h2>
+ Cancellation During Development
+ </h2>
+ <p>
+ If a project is cancelled after development has begun but before completion, the client is responsible for payment for all work completed up to the date of cancellation.
+
+  <ul>
+ <li>
+ If the work completed exceeds the deposit, an additional invoice will be issued.
+</li>
+ <li>
+ If the work completed is less than the deposit, no refund of the deposit will be issued.
+</li>
+</ul>
+</p>
+</li>
+
+
+<li>
+<h2>
+Final Delivery &amp; Acceptance
+</h2>
+<p>
+Once the final files are delivered and the "Final Approval" is signed off by the client,
+<strong>
+ no refunds will be issued
+ </strong>
+ . Digital products cannot be "returned" in the traditional sense once the source code is in the client's possession.
+ </p>
+ </li>
+
+
+ <li>
+ <h2>
+ Revisions
+ </h2>
+<p>
+To ensure satisfaction, I include a specific number of revision rounds (as stated in our initial contract). This allows us to fine-tune the design and functionality before final delivery.
+</p>
+</li>
+
+
+<li>
+<h2>
+Questions &amp; Disputes | Contact Me
+</h2>
+<p>
+I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
+</p>
+</li>
+
+</ol>
+
+</div>
+</div>
+</section>
+
+`;
+
+        // 4. THE MAGIC: Synchronous swap
+        this.replaceWith(template.content);
+    }
+}
 // Define the custom element
 if (!customElements.get('refund-and-cancelation-policy-section')) {
     customElements.define(
@@ -2525,23 +2450,9 @@ if (!customElements.get('refund-and-cancelation-policy-section')) {
         RefundAndCancelationPolicySection
     );
 }
-
-// Define the custom element
-if (!customElements.get('contact-section')) {
-    customElements.define('contact-section', ContactSection);
-}
-
-// Define the custom element
-if (!customElements.get('footer-section')) {
-    customElements.define('footer-section', FooterSection);
-}
-
-// Define the custom element
-if (!customElements.get('navigation-section')) {
-    customElements.define('navigation-section', NavigationSection);
-}
-
-// ***** defining custom elements ends *****
+// ###################
+// inits custom elements done!
+// ###################
 
 const injectMetaTheme = () => {
     let metaTheme = document.querySelector('meta[name="theme-color"]');
