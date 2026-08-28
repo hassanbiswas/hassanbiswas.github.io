@@ -1,12 +1,11 @@
 name: Deploy
-
+# moved to private
 on:
-  # push logic commented-out per workflow rules
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - '**'
+  push:
+    branches:
+      - main
+    paths:
+      - '**'
   workflow_run:
     workflows: ["compression.yml", "seo-assets.yml", "seo-pulse.yml", "seo-update.yml", "version-sync.yml", "dynamic-og.yml", "prettier.yml"]
     types:
@@ -28,6 +27,7 @@ concurrency:
 jobs:
   process-and-deploy:
     runs-on: ubuntu-latest
+    # Logic Preservation: Only runs if push/schedule/dispatch OR successful compression
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     environment:
@@ -38,21 +38,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Minify JS/CSS Assets & Update HTML References
-        run: |
-          # Install lightweight CLI tools for minification
-          npm install -g terser clean-css-cli
-
-          # Generate minified assets without overwriting originals
-          npx terser assets/js/script.js -o assets/js/script.min.js --compress --mangle
-          npx clean-css-cli -o assets/css/style.min.css assets/css/style.css
-
-          # Rewrite HTML references to load minified assets on GitHub Pages
-          sed -i 's|assets/css/style.css|assets/css/style.min.css|g' index.html
-          sed -i 's|assets/js/script.js|assets/js/script.min.js|g' index.html
-
+          fetch-depth: 0      
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -64,4 +51,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
