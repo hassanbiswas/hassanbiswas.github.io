@@ -2051,13 +2051,14 @@ block-size: 100dvh;
     span[inert] { transition: .4s var(--transition);}
 
  & > .row {position: relative;}
-&:has(.project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible)) { opacity: 0.6; }
+&:has(.project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible)) { opacity: 0.5; }
  .project-item {
-  transition : 350ms linear;
+  transition : 200ms linear;
 
     &:is(:hover, :focus-visible) {
    cursor: pointer;
-   background: var(--bg-overlay);
+   /* background: var(--bg-raised);
+   padding-inline-start: .8em; */
     }
 }
  .project-image {
@@ -2290,12 +2291,13 @@ a {
   place-content: center;
 
   color: var(--txt-black);
+  font-size: --fluidTypography(1.2rem, 1.6rem);
   text-transform: uppercase;
 
   transition: 400ms linear;
   text-decoration: none;
   text-align: center;
-  padding: .5em 1em;
+  padding: .8em .4em;
   block-size: stretch;
 }
 
