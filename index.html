@@ -3,32 +3,47 @@
     <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+       
         <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-PRSSQR5H');
-        </script>
-        <!-- End Google Tag Manager -->
+    <!-- Non-Blocking Deferred Analytics (GTM + gtag.js) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
 
-        <!-- Google tag manager (gtag.js) -->
-        <!-- Correct usage of async as an attribute -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GTM-PRSSQR5H"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
+        (function loadDeferredAnalytics() {
+            const GTM_ID = 'GTM-PRSSQR5H';
+            let loaded = false;
+
+            function initAnalytics() {
+                if (loaded) return;
+                loaded = true;
+
+                // Remove interaction listeners
+                ['touchstart', 'scroll', 'mousemove'].forEach(event => {
+                    window.removeEventListener(event, initAnalytics);
+                });
+
+                // Load GTM
+                const gtmScript = document.createElement('script');
+                gtmScript.async = true;
+                gtmScript.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+                document.head.appendChild(gtmScript);
+
+                // Push initial tracking state
+                window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                gtag('js', new Date());
+                gtag('config', GTM_ID);
             }
-            gtag('js', new Date());
-            gtag('config', 'GTM-PRSSQR5H');
-        </script>
+
+            // Attach passive interaction listeners or 4-second timeout safety fallback
+            ['touchstart', 'scroll', 'mousemove'].forEach(event => {
+                window.addEventListener(event, initAnalytics, { passive: true });
+            });
+            setTimeout(initAnalytics, 4000);
+        })();
+    </script>
+    <!-- Canonical & Meta -->
+
         <!-- End Google tag manager -->
 
         <!-- for duplicate content usses -->
@@ -339,15 +354,17 @@
 
     <body>
         <!-- Google Tag Manager (noscript) -->
-        <noscript>
-            <iframe
-                height="0"
-                src="https://www.googletagmanager.com/ns.html?id=GTM-PRSSQR5H"
-                style="display: none; visibility: hidden"
-                width="0"
-            ></iframe>
-        </noscript>
-        <!-- End Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PRSSQR5H"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+            loading="lazy"
+        ></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+        
         <!-- Google B. -->
         <!-- Professional Profile Schema (JSON-LD) -->
         <!-- image URL in the image field is a permanent absolute link (not a relative path like ./img.jpg). -->
