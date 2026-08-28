@@ -1,12 +1,22 @@
 /* section: ####### @starting-style ####### */
+/* 1. Base Element State (Final/Visible state & transition rules) */
+.starting-style {
+  opacity: 1;
+    transform: translateY(0);
+ transition: opacity 0.4s ease, transform 0.4s ease;
 
-@starting-style {
- .starting-style {
- opacity: 0;
- transform: translateY(50%);
- animation-delay: calc(sibling-index() * 0.1s);
- }
- }
+/* Stagger delay using standard sibling-index() calculation */
+  transition-delay: var(--delay);
+  }
+
+  /* 2. Entry State (Before element renders / transitions in) */
+  @starting-style {
+    .starting-style {
+   opacity: 0;
+  transform: translateY(50%);
+    }
+    }
+
 
 
 
@@ -85,11 +95,11 @@ svg.svgDraw {
     height: 100%;
 
     txt {
-        stroke: currentColor;
-        stroke-width: 1; fill: transparent;
-        stroke-dasharry: 450;
-        stroke-dashoffset: 450;
-        animation: svgDraw 4s forwards;
+   stroke: currentColor;
+   stroke-width: 1; fill: transparent;
+   stroke-dasharry: 450;
+   stroke-dashoffset: 450;
+   animation: svgDraw 4s forwards;
     }
 }
 @keyframes svgDraw {
@@ -256,7 +266,7 @@ border-radius: 0 0 30px 30px;
 
 ::view-transition-new(overlay) {
 animation: 250ms cubic-bezier(0, 0, 0.3, 1) both fade-in;
-  animation-delay: 0.5s;
+  animation-delay: var(--delay);
 }
 ::view-transition-old(overlay) {
 animation: 250ms cubic-bezier(0, 0, 0.3, 1) both fade-out;

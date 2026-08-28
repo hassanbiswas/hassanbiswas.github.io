@@ -290,10 +290,10 @@ export function ServicesPrimaryItem(name, price) {
     this.price = money(price);
 }
 const servicesPrimary = [
-    new ServicesPrimaryItem(`UI/UX design`, 70),
-    new ServicesPrimaryItem(`Web design or Re-Design`, 80),
-    new ServicesPrimaryItem(`Front-End development`, 80),
-    new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 60),
+    new ServicesPrimaryItem(`UI/UX design`, 80),
+    new ServicesPrimaryItem(`Design or Re-Design website`, 160),
+    new ServicesPrimaryItem(`Front-End development`, 100),
+    new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 80),
 ];
 
 export function ServicesSeconderyItem(name, price) {
@@ -688,7 +688,7 @@ class HeaderSection extends HTMLElement {
     ${locationPrimary}
             </div>
 
-            <a ${seoA()} aria-label="Connect to Messenger" href="${urlMessenger}" style="">@${author.siteUrl}</a>
+            <a ${seoA()} aria-label="Messenger" href="${urlMessenger}" style="">@${author.siteUrl}</a>
         </nav>
        </div>
       </header>
@@ -970,7 +970,7 @@ ${author.logoOutlineSvg}
      </div>
    </div>
 
-   <h1 aria-hidden="flase" id="heading" class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
+   <h1 id="heading" class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
      <svg class="infinite-scroller_inner svgDraw" fill="none" height="100" viewBox="0 0 768 100" width="768">
        <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
 ${section.heading}
@@ -1107,13 +1107,24 @@ if (!customElements.get('clients-section')) {
 class AboutSection extends HTMLElement {
     connectedCallback() {
         // Story data array for easy updates
-        function StoriesItem(date, title, heading, desc, link, linkText, dateClass, image) {
+        function StoriesItem(
+            date,
+            title,
+            heading,
+            desc,
+            link,
+            linkText,
+            ariaLabel,
+            dateClass,
+            image
+        ) {
             this.date = date;
             this.title = title;
             this.heading = heading;
             this.desc = desc;
             this.link = link;
             this.linkText = linkText;
+            this.ariaLabel = ariaLabel;
             this.dateClass = dateClass;
             this.image = image;
         }
@@ -1125,6 +1136,7 @@ class AboutSection extends HTMLElement {
                 `I'm ${new Date().getFullYear() - 2001} years old & growing up with core values that shape my professional work ethic today.`,
                 `${author.location}`,
                 'View place',
+                `map`,
                 ``,
                 `/assets/og-images/og-main.png`
             ),
@@ -1135,6 +1147,7 @@ class AboutSection extends HTMLElement {
                 'Started the journey into UI/UX and Front-End architecture through self-directed learning.',
                 `${urlYoutube}`,
                 'View channels',
+                `youtube`,
                 ``,
                 `/assets/og-images/og-main.png`
             ),
@@ -1145,6 +1158,7 @@ class AboutSection extends HTMLElement {
                 'Formalized my technical foundation in software logic and system design.',
                 'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
                 'View institute',
+                `map`,
                 ``,
                 `/assets/og-images/og-main.png`
             ),
@@ -1155,6 +1169,7 @@ class AboutSection extends HTMLElement {
                 `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a ${seoA()} href="tel:1715-488288">1715-488288</a> </br> Cell: <a ${seoA()} href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a ${seoA()} href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a ${seoA()} href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a ${seoA()} href="https://utshabtech.com.bd">utshabtech.com.bd</a>`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
                 'View place',
+                `map`,
                 `d-none`,
                 `/assets/og-images/og-main.png`
             ),
@@ -1166,6 +1181,7 @@ class AboutSection extends HTMLElement {
                 `${author.description}`,
                 `/projects`,
                 'View projects',
+                `project`,
                 ``,
                 `/assets/og-images/og-main.png`
             ),
@@ -1176,6 +1192,7 @@ class AboutSection extends HTMLElement {
                 'Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.',
                 `/resume`,
                 'Download Resume',
+                `resume`,
                 ``,
                 `/assets/og-images/og-main.png`
             ),
@@ -1224,7 +1241,7 @@ class AboutSection extends HTMLElement {
        <h5 class="h2 fade-in-to txt-center" style="justify-self: center; max-inline-size: 16em;">${story.heading}</h5>
        <div style="gap: var(--space-xs); justify-self: end; max-inline-size: 20em;" class="row">
         <p class="fade-in-to" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;">${story.desc}</p>
-        <a ${seoA()} class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
+        <a ${seoA()} aria-label="${story.ariaLabel}" class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
        </div>
 
       </div>
@@ -1265,7 +1282,7 @@ class ServicesSection extends HTMLElement {
       Services available in <br> ${locationSecondary}.
      </h2>
      <div class="row" style="gap: .8em;">
-       <p class="h6">Average Price Ranges (Approximate):</p>
+       <h3 class="h6 txt-gray">Average Price Ranges (Approximate):</h3>
        <ul style="list-style: none;">
        <li>Basic/Simple Site: ${money(75)} – ${money(150)} (Portfolio, Personal)</li>
        <li>Business Website: ${money(150)} – ${money(300)} (Corporate, Small Business)</li>
@@ -1275,9 +1292,9 @@ class ServicesSection extends HTMLElement {
 
      <div class="row" style="gap: .8em;">
       <div style="gap: var(--space-xs);" class="row">
-       <h5>
+       <h3 class="h4">
         My primary Services:
-       </h5>
+       </h3>
        <ul>
 ${servicesPrimary
     .map(
@@ -1289,7 +1306,7 @@ ${servicesPrimary
        </ul>
       </div>
       <div style="gap: .8em;" class="row">
-       <h6>More services:</h6>
+       <h3 class="h4">More services:</h3>
        <ul>
 ${servicesSecondery
     .map(
@@ -1399,11 +1416,8 @@ class ProjectsSection extends HTMLElement {
 
    <a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em; border-block-end: 1px solid var(--txt-gray);" class="flex fade-in-top-containe project-item">
 
-        <h4 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-muted">[0${index + 1}]</span> ${project.category}</h4>
-       <h5 class="p fade-in-to">${project.date}</h5>
-
-
-     <!-- <h5 class="h5 fade-in-to row">${project.title}</h5> -->
+        <h3 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-gray">[0${index + 1}]</span> ${project.category}</h3>
+       <h4 class="p fade-in-to">${project.date}</h4>
    </a>
 
  <span inert class="project-image" style="">
@@ -1723,7 +1737,7 @@ class ContactSection extends HTMLElement {
         </div>
         <div style="flex: 1; flex-basis: 23rem; gap: var(--space-xs);" class="row">
 
- <h6 class="p txt-gray">Languages:</h6>
+ <h3 class="p txt-gray">Languages:</h3>
  <ul style="list-style: none;" class="flex">
    ${preferedLanguages
        .map(
@@ -1734,7 +1748,7 @@ class ContactSection extends HTMLElement {
        .join('')}
  </ul>
       <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
- <h6 class="p txt-gray">Links:</h6>
+ <h3 class="p txt-gray">Links:</h3>
        ${linksData
            .map(
                data => `
@@ -1755,7 +1769,7 @@ class ContactSection extends HTMLElement {
       <div class="flex j-end">
  <a ${seoA()} href="/vcf">Download VCF ↘</a>
 
-        <a ${seoA()} style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
+        <a ${seoA()} aria-label="messenger" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
  <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
         </a>
       </div>
@@ -1901,7 +1915,7 @@ class FooterSection extends HTMLElement {
        ${methods
            .map(
                method => `
-        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
+        <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
 <img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar"/> ${method.name}
         </a>
        `
@@ -1920,7 +1934,7 @@ class FooterSection extends HTMLElement {
                 ${socials
                     .map(
                         social => `
-    <a ${seoA()} href="${social.link}">
+    <a ${seoA()} aria-label="${social.name}" href="${social.link}">
     <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded"/>
     </a>
     `
@@ -1949,7 +1963,7 @@ ${legal.name}
        </div>
       </nav>
 
-        <a ${seoA()} id="chat-bubble" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
+        <a ${seoA()} aria-label="messenger" id="chat-bubble" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
  <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
         </a>
 
@@ -2618,14 +2632,14 @@ medias?.forEach(el => {
 });
 
 // a
-links?.forEach(el => {
-    el.setAttribute(``);
-});
+// links?.forEach(el => {
+//     el.setAttribute(``);
+// });
 
 // photo
-photos?.forEach(el => {
-    el.setAttribute(``);
-});
+// photos?.forEach(el => {
+//     el.setAttribute(``);
+// });
 
 // video
 videos?.forEach(el => {
