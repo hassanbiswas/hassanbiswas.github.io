@@ -38,8 +38,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
+          fetch-depth: 0      
+          
+      # - name: Minify JS and CSS Assets
+        # run: |
+          # npx terser assets/js/script.js -o assets/js/script.min.js --compress --mangle
+          # npx clean-css-cli -o assets/css/style.min.css assets/css/style.css
+          # href="assets/css/style.min.css"
+          # src="assets/js/script.min.js" defer
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
