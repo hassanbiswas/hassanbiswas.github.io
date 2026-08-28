@@ -3,46 +3,48 @@
     <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-       
+
         <!-- Google Tag Manager -->
-    <!-- Non-Blocking Deferred Analytics (GTM + gtag.js) -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-
-        (function loadDeferredAnalytics() {
-            const GTM_ID = 'GTM-PRSSQR5H';
-            let loaded = false;
-
-            function initAnalytics() {
-                if (loaded) return;
-                loaded = true;
-
-                // Remove interaction listeners
-                ['touchstart', 'scroll', 'mousemove'].forEach(event => {
-                    window.removeEventListener(event, initAnalytics);
-                });
-
-                // Load GTM
-                const gtmScript = document.createElement('script');
-                gtmScript.async = true;
-                gtmScript.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
-                document.head.appendChild(gtmScript);
-
-                // Push initial tracking state
-                window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                gtag('js', new Date());
-                gtag('config', GTM_ID);
+        <!-- Non-Blocking Deferred Analytics (GTM + gtag.js) -->
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
             }
 
-            // Attach passive interaction listeners or 4-second timeout safety fallback
-            ['touchstart', 'scroll', 'mousemove'].forEach(event => {
-                window.addEventListener(event, initAnalytics, { passive: true });
-            });
-            setTimeout(initAnalytics, 4000);
-        })();
-    </script>
-    <!-- Canonical & Meta -->
+            (function loadDeferredAnalytics() {
+                const GTM_ID = 'GTM-PRSSQR5H';
+                let loaded = false;
+
+                function initAnalytics() {
+                    if (loaded) return;
+                    loaded = true;
+
+                    // Remove interaction listeners
+                    ['touchstart', 'scroll', 'mousemove'].forEach(event => {
+                        window.removeEventListener(event, initAnalytics);
+                    });
+
+                    // Load GTM
+                    const gtmScript = document.createElement('script');
+                    gtmScript.async = true;
+                    gtmScript.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
+                    document.head.appendChild(gtmScript);
+
+                    // Push initial tracking state
+                    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                    gtag('js', new Date());
+                    gtag('config', GTM_ID);
+                }
+
+                // Attach passive interaction listeners or 4-second timeout safety fallback
+                ['touchstart', 'scroll', 'mousemove'].forEach(event => {
+                    window.addEventListener(event, initAnalytics, { passive: true });
+                });
+                setTimeout(initAnalytics, 4000);
+            })();
+        </script>
+        <!-- Canonical & Meta -->
 
         <!-- End Google tag manager -->
 
@@ -354,17 +356,17 @@
 
     <body>
         <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-PRSSQR5H"
-            height="0"
-            width="0"
-            style="display:none;visibility:hidden"
-            loading="lazy"
-        ></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-        
+        <noscript>
+            <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-PRSSQR5H"
+                height="0"
+                width="0"
+                style="display: none; visibility: hidden"
+                loading="lazy"
+            ></iframe>
+        </noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
         <!-- Google B. -->
         <!-- Professional Profile Schema (JSON-LD) -->
         <!-- image URL in the image field is a permanent absolute link (not a relative path like ./img.jpg). -->
