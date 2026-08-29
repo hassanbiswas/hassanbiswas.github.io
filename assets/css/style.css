@@ -810,17 +810,16 @@ anchor-name: --carousel;
 display: flex;
     align-items: center;
    justify-content: center;
-  gap: .4em;
+  gap: .8em;
 
- padding-block-start: 2em;
+ padding-block: 1.6em;
  }
 
  .carousel-item::scroll-marker {
 content: '';
-    inline-size: 1em;
-   block-size: 1em;
+    padding: .6rem;
   border-radius: 100dvw;
- background: var(--txt-black);
+ background: var(--bg-raised);
  }
 
  .carousel-item::scroll-marker:target-current {
@@ -2001,16 +2000,37 @@ padding-block: var(--space-xs);
 }
 
   #about {
---col-size: 24rem; /* 23rem */
-/* color-scheme: dark;
-background: var(--primary-50); */
-min-block-size: 100dvh;
+background: var(--bg-base);
 }
 
   /* #services */
   #services {
-/* block-size: 100dvh; */
 background: var(--bg-base);
+block-size: 100dvh;
+grid-template-columns: unset;
+
+    overflow: auto clip;
+
+  ul { padding-inline: .8em; }
+}
+
+.horizontalScroller {
+block-size: 100dvh;
+grid-template-columns: unset;
+
+    overflow: auto clip;
+padding: 0; margin: 0;
+display: grid;
+grid-auto-flow: column;
+grid-auto-columns: 100%;
+gap: 0em;
+
+    .scrollerItem { grid-column: unset; padding: 0; margin: 0;
+        block-size: 100dvh; overflow: clip;
+        display: grid;
+
+        .itemCard { inline-size: min(100%, 76.8rem); }
+    }
 }
 
 .snappyContainer {
@@ -2019,8 +2039,7 @@ background: var(--bg-base);
 
 /* border: 1px solid red; */
 
-overflow: clip;
-overflow-y: auto;
+overflow: clip auto;
 padding-block: 0;
 
     /* for parrent */
@@ -2291,7 +2310,7 @@ a {
   place-content: center;
 
   color: var(--txt-black);
-  font-size: --fluidTypography(1.2rem, 1.6rem);
+  font-size: --fluidTypography(1.1rem, 1.4rem);
   text-transform: uppercase;
 
   transition: 400ms linear;

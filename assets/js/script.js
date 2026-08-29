@@ -285,15 +285,32 @@ const specializing = [
     ),
 ];
 
-export function ServicesPrimaryItem(name, price) {
+export function ServicesPrimaryItem(name, price, description) {
     this.name = name;
     this.price = money(price);
+    this.description = description;
 }
 const servicesPrimary = [
-    new ServicesPrimaryItem(`UI/UX design`, 80),
-    new ServicesPrimaryItem(`Design or Re-Design website`, 160),
-    new ServicesPrimaryItem(`Front-End development`, 100),
-    new ServicesPrimaryItem(`Figma/Framer/Webflow to website`, 80),
+    new ServicesPrimaryItem(
+        `UI/UX design`,
+        80,
+        `Custom wireframes, modern color schemes, interactive prototypes in Figma optimized for conversion.`
+    ),
+    new ServicesPrimaryItem(
+        `Design or Re-Design website`,
+        160,
+        `Upgrading slow, outdated websites into sleek, modern, Awwwards-inspired web applications.`
+    ),
+    new ServicesPrimaryItem(
+        `Front-End development`,
+        100,
+        `Transforming Figma/Framer designs into clean, responsive, latest HTML, CSS, and JavaScript code.`
+    ),
+    new ServicesPrimaryItem(
+        `Figma/Framer/Webflow to website`,
+        80,
+        `Complete corporate, agency, or personal portfolio websites with custom interactive JS features.`
+    ),
 ];
 
 export function ServicesSeconderyItem(name, price) {
@@ -455,8 +472,8 @@ exceeded expectations from the very
 beginning.`,
         `/`,
         `${faviconAuthor}`,
-        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
-        `SEO`
+        `★★★★★`,
+        `CEO`
     ),
     new QuotesItem(
         `Mariam Coudhuri`,
@@ -464,7 +481,7 @@ beginning.`,
         `Thanks ${author.name} for the quick turnaround on our student platform! The animations and responsive layout exceeded our expectations completely.`,
         `#`,
         `${faviconFacebook}`,
-        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `★★★★★`,
         `Facebook`
     ),
     new QuotesItem(
@@ -473,7 +490,7 @@ beginning.`,
         `My business website is noticeably faster and looks significantly more professional. ${author.name} translated our complex Figma requirements into pristine code with pixel-perfect accuracy.`,
         `#`,
         `${faviconInstagram}`,
-        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `★★★★★`,
         `Instagram`
     ),
     new QuotesItem(
@@ -482,8 +499,17 @@ beginning.`,
         `${author.name} is an exceptional front-end developer! His attention to layout details, mobile responsiveness, and clean CSS code structure is genuinely top-notch.`,
         `#`,
         `${faviconX}`,
-        `⁠✪⁠✪⁠✪⁠✪✪⁠`,
+        `★★★★★`,
         `X (Twitter)`
+    ),
+    new QuotesItem(
+        `MD Bayezid`,
+        `Local Business`,
+        `${author.name} is providing the best Web Design services in ${locationPrimary}.`,
+        `#`,
+        `${faviconThreads}`,
+        `★★★★★`,
+        `Threads`
     ),
 ];
 
@@ -496,37 +522,47 @@ beginning.`,
 const componentReviews = () => {
     return `
 <div class="row items-center">
-    <ul class="wrap" style="list-style: none; display: flex; gap: -0.5em;">
+
+    <ul class="wrap" style="list-style: none; display: flex; gap: 0em;">
         ${personQuotes
             .map(
                 person => `
-    <li class="bg-raised pill" style="padding: .4em;">
-        <img class=" pill" ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em;"/>
-    </li>
+        <li class="bg-raised pill" style="padding: .3em; margin-inline: -0.4em;">
+            <img class=" pill" ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em;"/>
+        </li>
         `
             )
             .join('')}
-            <li class="bg-raised pill txt-center" style="padding: .4em;">20+</li>
+            <li class="bg-raised pill txt-center" style="padding: .3em; margin-inline: -0.4em;">${12 + (new Date().getFullYear() - 2023) - personQuotes?.length}+</li>
       </ul>
-     <p>45+ Projects 25+ reviews</p>
+
+     <p>${32 + (new Date().getFullYear() - 2023)}+ Projects & ${12 + (new Date().getFullYear() - 2023)}+ reviews</p>
+
+</div>
             `;
 };
 
 const componentProjectProgress = () => {
     return `
-                <div class="flex j-between">
-                <div class="row">
-                    <b class="h1 txt-center"><span class="txtStroke">45</span><span class="txt-gray">+</span></b>
-                    <p>Success project</p>
+          <div class="flex a-start" style="gap: 1.6em; padding-inline: 1.6em;">
+
+                <div class="row" style="gap: .4em; flex: 1;">
+                    <b class="h1 txt-center"><span class="txtStroke">${new Date().getFullYear() - 2023}</span><span class="txt-gray">+</span></b>
+                    <p class="txt-center">Experience</p>
                 </div>
-                <div class="row">
-                    <b class="h1 txt-center"><span class="txtStroke">98</span><span class="txt-gray">%</span></b>
-                    <p>Client satisfaction</p>
+                <div class="row" style="gap: .4em; flex: 1;">
+                    <b class="h1 txt-center"><span class="txtStroke">${32 + (new Date().getFullYear() - 2023)}</span><span class="txt-gray">+</span></b>
+                    <p class="txt-center">Success projects</p>
                 </div>
-                <div class="row">
-                    <b class="h1 txt-center"><span class="txtStroke">3</span><span class="txt-gray">+</span></b>
-                    <p>Award woned</p>
+                <div class="row" style="gap: .4em; flex: 1;">
+                    <b class="h1 txt-center"><span class="txtStroke">${random(95, 99)}</span><span class="txt-gray">%</span></b>
+                    <p class="txt-center">Core web vitals</p>
                 </div>
+                <div class="row" style="gap: .4em; flex: 1;">
+                    <b class="h1 txt-center"><span class="txtStroke">${random(95, 99)}</span><span class="txt-gray">%</span></b>
+                    <p class="txt-center">Client satisfaction</p>
+                </div>
+
                 </div>
             `;
 };
@@ -961,7 +997,7 @@ class HeroSection extends HTMLElement {
         </clipPath>
 </svg>
 
- <div style="padding: 0em; margin-block: -5em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
+ <div style="padding: 0em; margin-block: -4em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
    <div style="padding: 0em" class="brand-logo-container">
      <div style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
 
@@ -984,7 +1020,7 @@ ${section.heading}
 
    <p class="txt-center">${section.description}</p>
    ${componentReviews()}
-   <div class="button-group flex">
+   <div class="flex content-center ">
      <a ${seoA()} style="text-decoration: none;" href="/resume">
         <buttton style="border: 0px solid var(--bg-base); padding: 1em;" class="btn btn-primary txt-black bg-base pointer-button">Resume</button>
      </a>
@@ -1080,7 +1116,7 @@ class ClientsSection extends HTMLElement {
            .map(
                youtuber => `
 <li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
-  <img ${seoImg(`${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}`, `YouTube: ${youtuber.name}`)} class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto;"/>
+  <img ${seoImg(`${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}`, `YouTube: ${youtuber.name}`)} class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto; opacity: .8;"/>
   <a ${seoA()} href="${youtuber.link}">${youtuber.name}
   </a>
 </li>
@@ -1107,17 +1143,7 @@ if (!customElements.get('clients-section')) {
 class AboutSection extends HTMLElement {
     connectedCallback() {
         // Story data array for easy updates
-        function StoriesItem(
-            date,
-            title,
-            heading,
-            desc,
-            link,
-            linkText,
-            ariaLabel,
-            dateClass,
-            image
-        ) {
+        function StoriesItem(date, title, heading, desc, link, linkText, ariaLabel, image) {
             this.date = date;
             this.title = title;
             this.heading = heading;
@@ -1125,52 +1151,47 @@ class AboutSection extends HTMLElement {
             this.link = link;
             this.linkText = linkText;
             this.ariaLabel = ariaLabel;
-            this.dateClass = dateClass;
             this.image = image;
         }
         const stories = [
             new StoriesItem(
                 '2001',
                 'Birth of mine',
-                'Having mom, dad & small family.',
-                `I'm ${new Date().getFullYear() - 2001} years old & growing up with core values that shape my professional work ethic today.`,
+                'Roots & Passion for Technology',
+                `it's been  ${new Date().getFullYear() - 2001} years, I born with core values of discipline, continuous learning, and creative problem-solving.`,
                 `${author.location}`,
                 'View place',
                 `map`,
-                ``,
                 `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 '2022',
-                'Learning web design',
+                'Web Design & UI Architecture',
                 'YouTube platform for design and development.',
-                'Started the journey into UI/UX and Front-End architecture through self-directed learning.',
+                'Deep-dived into self-directed UI/UX design, mastering Figma wireframing and frontend logic.',
                 `${urlYoutube}`,
                 'View channels',
                 `youtube`,
-                ``,
                 `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
                 '2024',
-                'Graduated at',
+                'Diploma in CS & Technology',
                 'Diploma in Computer Science and Technology.',
-                'Formalized my technical foundation in software logic and system design.',
+                'Formalized technical foundation in software logic, database structures, and system engineering.',
                 'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
                 'View institute',
                 `map`,
-                ``,
                 `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
-                '',
-                'Certified from',
+                '2024',
+                'Utshob Tech Certified & Freelance',
                 'Utshob Technology Ltd.',
-                `<span class="d-none">Ajoy Dutta </br> Managing Director </br></span> Sheikh Hasina Software Technology Park </br> Level-10, Shankarpur, Jashore, Bangladesh. </br> Cell: <a ${seoA()} href="tel:1715-488288">1715-488288</a> </br> Cell: <a ${seoA()} href="tel:1881-039755">1881-039755</a> </br> <span class="d-none">E-mail: <a ${seoA()} href="mailto:ajoydutta@utshabtech.com">ajoydutta@utshabtech.com</a> </br> E-mail: <a ${seoA()} href="mailto:ajoydutta@gmail.com">ajoydutta@gmail.com</a> </br></span> <a ${seoA()} href="https://utshabtech.com.bd">utshabtech.com.bd</a>`,
+                `Building high-performing client sites at Sheikh Hasina Software Technology Park and serving international contracts.`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
                 'View place',
                 `map`,
-                `d-none`,
                 `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
@@ -1182,7 +1203,6 @@ class AboutSection extends HTMLElement {
                 `/projects`,
                 'View projects',
                 `project`,
-                ``,
                 `/assets/og-images/og-main.png`
             ),
             new StoriesItem(
@@ -1193,7 +1213,6 @@ class AboutSection extends HTMLElement {
                 `/resume`,
                 'Download Resume',
                 `resume`,
-                ``,
                 `/assets/og-images/og-main.png`
             ),
         ];
@@ -1209,33 +1228,33 @@ class AboutSection extends HTMLElement {
         template.innerHTML = `
 
 <section ${seoSection()} class="fluid-grid-system bg-base  screenHeight snappyContainer" style="--snapType: y mandatory;" id="about">
-    <div style="gap: 0em;" class="row content-center  screenHeight">
-     <p class="h6 fade-in-to">
-      About <span class="txt-gray">${author.name}</span>
-     </p>
-     <div style="padding-block: 0em; gap: .8em;" class="col">
-      <h2 class="h3 text-revel-onscrol">
-       At a galance <span class="txt-gray">2001 - ${thisYear}</span>
-      <h2>
-      <div class="row" style="gap: var(--space-xs);">
-       <p>${author.description}</p>
-       <a class="p fade-in-to" href="#about">
-        View Story ↘
-       </a>
-       </div>
-     </div>
-    </div>
+    <article style="gap: 0em;" class="row content-center screenHeight">
+      <p class="h6 fade-in-to">
+        <span class="txt-gray">${author.name}</span> 2001 - ${thisYear}
+      </p>
+      <div style="padding-block: 0em; gap: .8em;" class="col ">
+        <h2 class="h3 text-revel-onscrol" style="padding-block-start: .4em;">
+        Driven by Quality,<br> Precision & Modern Aesthetics
+        <h2>
+        <div class="row " style="gap: var(--space-xs); ">
+            <p>Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
+            <a class="p fade-in-to " href="#story-1">
+                View Story ↘
+            </a>
+        </div>
+      </div>
+    </article>
 
  ${stories
      .map(
-         story => `
-    <div style="padding-block: 0em; overflow: clip; position: relative;" class="row fade-in-top-containe  screenHeight content-center ">
+         (story, index) => `
+    <article id="story-${index + 1}" style="padding-block: 0em; overflow: clip; position: relative;" class="row fade-in-top-containe  screenHeight content-center ">
 
     <span inert class="story-image" style="opacity: .2; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
 
 
        <div style="gap: .5em;" class="row">
-        <h3 class="p fade-in-to txt-muted ${story.dateClass}">${story.date}</h3>
+        <h3 class="p fade-in-to txt-muted">${story.date}</h3>
         <h4 style="h5 padding-block: 0em;" class="fade-in-to">${story.title}</h4>
        </div>
        <h5 class="h2 fade-in-to txt-center" style="justify-self: center; max-inline-size: 16em;">${story.heading}</h5>
@@ -1244,11 +1263,20 @@ class AboutSection extends HTMLElement {
         <a ${seoA()} aria-label="${story.ariaLabel}" class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
        </div>
 
-      </div>
+      </article>
 
  `
      )
      .join('')}
+
+
+    <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
+
+       <div style="gap: .5em;" class="row">
+        <a aria-label="skip to services" class="fade-in-to" href="#services">View Services ↘</a>
+       </div>
+
+      </div>
 
 
    </section>
@@ -1276,57 +1304,89 @@ class ServicesSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-<section ${seoSection()} class="fluid-grid-system" id="services">
-    <div class="container-md row" style="gap: 1em;">
-     <h2>
-      Services available in <br> ${locationSecondary}.
-     </h2>
-     <div class="row" style="gap: .8em;">
-       <h3 class="h6 txt-gray">Average Price Ranges (Approximate):</h3>
-       <ul style="list-style: none;">
-       <li>Basic/Simple Site: ${money(75)} – ${money(150)} (Portfolio, Personal)</li>
-       <li>Business Website: ${money(150)} – ${money(300)} (Corporate, Small Business)</li>
-       <li>Customized Site: ${money(300)}+ </li>
-      </ul>
-    </div>
+<section ${seoSection()} id="services" class="fluid-grid-system  horizontalScroller snappyContainer screenHeight " style="--snapType: x mandatory;">
 
-     <div class="row" style="gap: .8em;">
-      <div style="gap: var(--space-xs);" class="row">
-       <h3 class="h4">
-        My primary Services:
-       </h3>
-       <ul>
+<div class="grid fade-in-top-containe items-center content-center scrollerItem">
+    <div class="row itemCard" style="gap: .8em;">
+
+        <p class="h6 fade-in-to">
+        Services by <span class="txt-gray">${author.name}</span>
+        </p>
+        <h2>
+        Services available in <br> ${locationSecondary}.
+        </h2>
+        <article>High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${random(95, 100)}%</b> satisfaction.</article>
+    <h3 class="h4">
+            <a  class="fade-in-to" href="#service-1">My primary Services ↘</a>
+        </h3>
+
+    </div>
+</div>
+
+
 ${servicesPrimary
     .map(
-        service => `
-  <li class="done">${service.name} (<b>${service.price}</b>)</li>
+        (service, index) => `
+<article id="service-${index + 1}" class="grid fade-in-top-containe  items-center content-center scrollerItem serviceCard">
+    <div class="row itemCard" style="gap: .8em;">
+
+        <h4 class="h5">${service.name}</h4>
+        <h5><span class="p txt-gray">Starting from</span> <b>${service.price}</b></h5>
+        <p>${service.description}</p>
+        <ul>
+            <li class="done">Responsive Layout</li>
+            <li class="done">Pixel-perfect accuracy</li>
+            <li class="done">Lighthouse score ${random(90, 95)}+ (<b>Pro</b>)</li>
+            <li class="done">Modern dark/light theme</li>
+            <li class="done">Multi-page architecture (<b>Pro</b>)</li>
+        </ul>
+
+
+    </div>
+</article>
 `
     )
     .join('')}
-       </ul>
-      </div>
-      <div style="gap: .8em;" class="row">
-       <h3 class="h4">More services:</h3>
-       <ul>
-${servicesSecondery
-    .map(
-        service => `
-  <li class="done">${service.name} (<b>${service.price}</b>)</li>
-        `
-    )
-    .join('')}
-       </ul>
-       </div>
-     </div>
-      <div class="flex j-end">
-<a ${seoA()} href="/vcf">Download VCF</a>
-<button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
-  <a ${seoA()} href="#contact">Contact</a>
-</button>
-      </div>
-    </div>
-   </section>
 
+
+
+<div class="grid fade-in-top-containe  items-center content-center scrollerItem">
+        <div class="row itemCard" style="gap: .8em;">
+
+        <h3 class="h4">More services:</h3>
+        <ul class="row " style="gap: .4em; padding-inline: 2em;">
+        ${servicesSecondery
+            .map(
+                service => `
+        <li class="done">${service.name} (<b>${service.price}</b>)</li>
+                `
+            )
+            .join('')}
+        </ul>
+
+        <div class="flex j-center">
+            <a ${seoA()} href="/vcf">Download VCF</a>
+            <button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+            <a ${seoA()} href="#contact">Contact</a>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div class="grid fade-in-top-containe items-center scrollerItem">
+    <div class="row items-center itemCard" style="gap: 1.6em;">
+
+        <a aria-label="skip to projects" class="fade-in-to" style="white-space: nowrap;" href="#projects">View Projects ↘</a>
+
+    </div>
+</div>
+
+
+   </section>
 
     `;
 
@@ -1401,24 +1461,24 @@ class ProjectsSection extends HTMLElement {
 
       <section ${seoSection()} class="fluid-grid-system bg-base snappyContainer" style="--snapType: y mandatory;" id="projects">
 
-      <div class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip;">
+      <article class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip;">
  <p class="fade-in-to"><span class="txt-gray">Selected</span> Projects</p>
  <div><p class="h2 txt-gray" style="font-weight: bold; display: inline;">
      Projects have done since 2023 - ${thisYear}.
 <span class="text-revel-onscrol">With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide.</span></p> <h2 class="h2" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
 </h2></div>
- </div>
+ </article>
 
  <div style="gap: 0em;" class=" row content-center projects-list screenHeight">
  ${projects
      .map(
          (project, index) => `
 
-   <a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em; border-block-end: 1px solid var(--txt-gray);" class="flex fade-in-top-containe project-item">
+   <article id="project-${index + 1}"><a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em; border-block-end: 1px solid var(--txt-gray);" class="flex fade-in-top-containe project-item">
 
         <h3 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-gray">[0${index + 1}]</span> ${project.category}</h3>
        <h4 class="p fade-in-to">${project.date}</h4>
-   </a>
+   </a></article>
 
  <span inert class="project-image" style="">
     <img ${seoImg(`${project.image}`, `Project Image`, `100%`)}/>
@@ -1427,6 +1487,15 @@ class ProjectsSection extends HTMLElement {
  `
      )
      .join('')}
+</div>
+
+
+<div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
+
+       <div style="gap: .5em;" class="row">
+         <a aria-label="skip to testimonials" class="fade-in-to" href="#testimonials">View Testimonials ↘</a>
+       </div>
+
 </div>
 
 
@@ -1458,60 +1527,61 @@ class TestimonialsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 <section ${seoSection()} class="fluid-grid-system" id="testimonials">
-    <div class="container-md row items-center txt-center">
-         <p>Testimonials</p>
-<div class="row">
-      <h2 class="text-revel-onscrol">
-       <span class="txt-gray">Real People,</span> <br/>Real Results Feedback
-      </h2>
-      <p class="txt-center">
-        <span class="text-revel-onscrol">
- What clients and colleagues say about my front-end architecture and design work. See what my users are truly accomplishing with honest, and project-based reviews
-        </span>
-      </p>
-     </div>
+    <div class="container-md row content-center" style="gap: .8em;">
 
-     ${componentReviews()}
+        <div class="row txt-center">
+            <p class="txt-center">Testimonials</p>
+            <h2 class="text-revel-onscrol">
+            <span class="txt-gray">Real People,</span> <br/>Real Results Feedback
+            </h2>
+            <p class="txt-center">
+                <span class="text-revel-onscrol">
+        What clients and colleagues say about my front-end architecture and design work. See what my users are truly accomplishing with honest, and project-based reviews
+                </span>
+            </p>
+        </div>
 
-     ${componentProjectProgress()}
+        ${componentReviews()}
 
-</div>
+        ${componentProjectProgress()}
 
-      <ul class="carousel bg-raised" style="list-style: none; margin-inline: 2.4em; border-radius: 2em; inline-size: min(100%, 30em);">
-${personQuotes
-    .map(
-        (person, index) => `
-    <li class="flex carousel-item" style="">
- <blockquote class="row items-center" style="flex: 1; display: row; gap: .8em; padding: 2em; inline-size: 100%; block-size: 100%;">
+        <ul class="carousel bg-raised" style="list-style: none; margin-inline: 2.4em; border-radius: 2em; inline-size: min(100%, 30em);">
+            ${personQuotes
+                .map(
+                    (person, index) => `
+                <li class="flex carousel-item" style="">
+            <blockquote id="quote-${index + 1}" class="row items-center" style="flex: 1; display: row; gap: .8em; padding: 2em; inline-size: 100%; block-size: 100%;">
 
-     <b>
-                <span class="star" style="inline-size: .8em;">${person?.star}</span>
-     </b>
+                <b>
+                    <span class="star" style="inline-size: .8em;">${person?.star} • 4.9/5</span>
+                </b>
 
-     <i class="h6 quote txt-center">"${person?.quote}"</i>
-     <div class="flex j-center txt-left">
-                <img ${seoImg(person?.photo, 'Client')} style="inline-size: 1.5em;" class="photo"/>
+                <i class="h6 quote txt-center">"${person?.quote}"</i>
 
-                <div class="row" style="margin-inline-end: 1em; gap: .4em;">
-                    <a ${seoA()} href="${person?.link}" class="link"><b class="name">${person?.name}</b></a>
-                    <p class="title">${person?.title}</p>
+                <div class="flex j-center txt-left">
+                            <img ${seoImg(person?.photo, 'Client')} style="inline-size: 1.5em;" class="photo"/>
+
+                            <div class="row" style="margin-inline-end: 1em; gap: .4em;">
+                                <a ${seoA()} href="${person?.link}" class="link"><b class="name">${person?.name}</b></a>
+                                <p class="title">${person?.title}</p>
+                            </div>
+
+                            <b class="platform">${person?.platform}</b>
                 </div>
 
-                <b class="platform">${person?.platform}</b>
-     </div>
+            </blockquote>
+            </li>
+                `
+                )
+                .join('')}
+        </ul>
 
-   </blockquote>
- </li>
-    `
-    )
-    .join('')}
-      </ul>
+        <div class="flex j-center">
+            <a ${seoA()} href="${urlFeedback}"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+            Add Review ↘
+            </button></a>
+        </div>
 
-      <div class="flex j-center">
-<button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
-  <a ${seoA()} href="${urlFeedback}">Add Review ↘</a>
-</button>
-      </div>
 
     </div>
    </section>
@@ -1550,7 +1620,7 @@ class FaqsSection extends HTMLElement {
         const faqs = [
             new FaqsItem(
                 `Who am I?`,
-                `I'm web developer | <a ${seoA()} href="#about"><b>${author.name}</b></a>.`
+                `I'm a Web Developer | <a ${seoA()} href="#about"><b>${author.name}</b></a>.`
             ),
             new FaqsItem(
                 `What do I do?`,
@@ -1593,17 +1663,15 @@ class FaqsSection extends HTMLElement {
 <section ${seoSection()} class="fluid-grid-system" id="faqs">
 <div class="container-sm">
     <div class="row">
+
+<div class="row items-start">
        <p class="txt-primar">
         FAQ's
        </p>
-    </div>
-    <div class="col">
-
-<div class="row items-start">
   <h2>
     Got questions? <br/><span class="txt-gray">I’ve got answers</span>
   </h2>
-  <p class="d-non">
+  <p class="">
     <span class="text-revel-onscrol">
       Everything you need to know about my process, pricing,
 and how I work
@@ -1719,7 +1787,7 @@ class ContactSection extends HTMLElement {
      <div class="row">
 
      <div class="row background-map" style="object-fit: cover; overflow: clip;">
-       <iframe class="inverse" src=" ${author.iframeHome}" title="Author Village" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0;" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+       <iframe class="inverse" src=" ${author.iframeHome}" title="Author Village" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0; background: var(--bg-raised)" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
        </iframe>
      </div>
 
@@ -1727,7 +1795,7 @@ class ContactSection extends HTMLElement {
        <h2 style="display: inline;" class="h2 txt-gray">
         Ready to scale your brand with ${author.name}?
        </h2>
-       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and <a ${seoA()} href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> Crafted Webflow Template digital strategies.
+       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and <a ${seoA()} aria-label="author village" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> digital strategies.
 </p>
 </div>
 
@@ -1766,9 +1834,9 @@ class ContactSection extends HTMLElement {
        </div>
      </div>
 
-      <div class="flex j-end">
+      <div class="flex j-center">
  <a ${seoA()} href="/vcf">Download VCF ↘</a>
-
+<p class="txt-gray">or connect</p>
         <a ${seoA()} aria-label="messenger" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
  <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
         </a>
@@ -1875,7 +1943,7 @@ class FooterSection extends HTMLElement {
  </a>
         </button>
 
-       <button ${seoButton()} class="btn-primary no-wrap flex items-center txt-center" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; align-items: center; justify-content: center; align-content: center; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
+       <button ${seoButton()} class="btn-primary" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; place-items: center; flex-wrap: nowrap; gap: .4em; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
         <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
         <span style="line-height: 100%" class="d-non">Install</span>
        </button>
@@ -1883,7 +1951,6 @@ class FooterSection extends HTMLElement {
       </div>
       </div>
 
-        <!-- <img ${seoImg(faviconAuthor, author.name)} style="max-inline-size: 10em; display: inline; position: absolute; left: -5%; bottom: -5%; transform: rotate(20deg); opacity: .3; z-index: -1;" class="squar d-none"/> -->
 
      </div>
 
@@ -1916,7 +1983,7 @@ class FooterSection extends HTMLElement {
            .map(
                method => `
         <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
-<img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar"/> ${method.name}
+<img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar lightDark"/> ${method.name}
         </a>
        `
            )
@@ -1935,7 +2002,7 @@ class FooterSection extends HTMLElement {
                     .map(
                         social => `
     <a ${seoA()} aria-label="${social.name}" href="${social.link}">
-    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded"/>
+    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded lightDark"/>
     </a>
     `
                     )
@@ -2617,7 +2684,8 @@ window.addEventListener('appinstalled', () => {
 // define custom elements before get dom element || seoMedia || function || call
 
 // ###### JavaScript function goes bellow ######
-// come_back
+// const dynamicElements = document.querySelectorAll('img:not([loading])');
+//
 const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
 const links = document.querySelectorAll('a');
 const photos = document.querySelectorAll('img, picture');
@@ -2664,8 +2732,7 @@ imageContainers?.forEach(container => {
         canvas = document.createElement('canvas'),
         ctx = canvas.getContext('2d');
 
-    canvas.setAttribute('inert');
-    canvas.setAttribute('aria-hidden', 'true');
+    // canvas.setAttribute('aria-hidden', 'true');
 
     canvas.innerWidth = width;
     canvas.innerHeight = height;
