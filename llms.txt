@@ -1,25 +1,68 @@
 # Web Developer | Hassan Biswas — UI/UX & Front-End Architecture
 
-> Freelance Front-End Developer & Website Designer specializing in transforming Figma, Framer, and Webflow designs into high-performance, accessible, and SEO-friendly digital experiences.
+> Freelance Front-End Developer & UI/UX Specialist based in Jashore, Khulna, Bangladesh. Specializing in transforming Figma, Framer, and Webflow designs into clean, responsive, accessible, high-performance, and SEO-friendly digital experiences using pure HTML, CSS, and modern JavaScript with Awwwards-inspired aesthetics.
 
 Hassan Biswas is a Web Developer based in Jashore, Khulna, Bangladesh with 3+ years of experience in front-end development, custom Web Components, zero-dependency lightweight architectures, and modern web performance optimization.
 
-## Core Services & Specializations
+---
 
-- **UI/UX & Web Design:** Transforming Figma, Framer, and Webflow concepts into clean, pixel-perfect user interfaces.
-- **Front-End Development:** High-performance, responsive web architectures built with vanilla HTML, CSS, and modern JavaScript.
-- **Figma/Design-to-Code Conversion:** Fast, SEO-optimized static sites built with Awwwards-inspired aesthetics.
-- **Automation & CI/CD:** GitHub Actions automation, zero-maintenance site deployments, and release workflows.
+## Core Specializations & Services
 
-## Key Links & Resources
+- **UI/UX & Web Design:** Transforming Figma, Framer, Webflow, and Relume concepts into clean, pixel-perfect user interfaces, wireframes, and design systems.
+- **Front-End Architecture:** High-performance, modular, zero-dependency lightweight web architectures built with vanilla HTML5, native CSS3 (HSL color systems), and modern JavaScript (ES6+).
+- **Figma / Design-to-Code Conversion:** Fast, SEO-optimized, responsive static sites built with pixel-perfect accuracy and Awwwards-inspired layouts.
+- **Performance, SEO & Accessibility:** Optimizing Core Web Vitals, accessibility standards (WCAG), semantic HTML structure, and search engine discoverability.
+- **Custom Components & Automation:** Reusable custom Web Components, custom JS logic, zero-maintenance deployments, and GitHub Actions CI/CD release workflows.
+
+---
+
+## Service Packages & Average Pricing
+
+- **UI/UX Design:** $80.00 (Wireframing, prototyping, and design systems)
+- **Figma / Framer / Webflow to Website:** $80.00
+- **Front-End Development:** $100.00
+- **Design or Redesign Website:** $160.00
+- **Basic / Simple Website:** $75.00 – $150.00 (Portfolio, personal sites)
+- **Business Website:** $150.00 – $300.00 (Corporate, small business)
+- **Customized Site:** $300.00+
+
+---
+
+## Technical Profile
+
+- **Languages:** HTML5, CSS3, JavaScript (ES6+)
+- **UI & Design Tools:** Figma, Framer, Webflow, Relume
+- **Styling & Standards:** Native CSS (HSL color systems), mobile-first responsive design, semantic HTML tags, clean-logic web components
+- **Aesthetics & Ethos:** High-performance, zero-maintenance automation, pixel-perfect precision, Awwwards-inspired visual quality
+
+---
+
+## Key Site Links & Resources
 
 - [Portfolio Homepage](https://hassanbiswas.github.io/): Complete portfolio showcase, service list, client testimonials, and interactive web elements.
-- [About Hassan Biswas](https://hassanbiswas.github.io/#about): Experience, education background, and milestone timeline from 2022 to present.
-- [Services & Pricing](https://hassanbiswas.github.io/#services): Detailed breakdown of UI/UX design, web engineering, and static site build offerings.
-- [Projects Showcase](https://hassanbiswas.github.io/#projects): Collection of front-end projects, custom UI components, and design systems.
-- [Contact & Inquiry](https://hassanbiswas.github.io/#contact): Direct contact options including email (hassanbiswas.github.io@gmail.com), mobile, and social links.
+- [About Hassan Biswas](https://hassanbiswas.github.io/#about): Experience, education background, core values, and milestone timeline from 2022 to present.
+- [Services & Pricing](https://hassanbiswas.github.io/#services): Detailed breakdown of UI/UX design, front-end engineering, and custom build offerings.
+- [Projects Showcase](https://hassanbiswas.github.io/#projects): Curated collection of front-end projects, custom UI components, and design systems.
+- [Contact & Inquiry](https://hassanbiswas.github.io/#contact): Direct contact channels including email, mobile, and social media links.
 
-## Official Profiles
+---
 
-- [GitHub Profile](https://github.com/hassanbiswas): Source code, repositories, custom scripts, and automation workflows.
-- [LinkedIn Profile](https://www.linkedin.com/in/hassanbiswas-github-io): Professional work history and client networking.
+## Contact & Location Information
+
+- **Website:** https://hassanbiswas.github.io
+- **GitHub Repository:** https://github.com/hassanbiswas/hassanbiswas.github.io
+- **Email:** hassanbiswas.github.io@gmail.com
+- **Mobile / WhatsApp:** +8801602873384
+- **Messenger:** https://m.me/hassanbiswas.github.io
+- **Location:** Monirampur, Jashore, Khulna, Bangladesh (Services available locally in Dhaka & worldwide across Asia, Europe, North America, South America, Africa, and Oceania)
+
+---
+
+## Official Social Profiles
+
+- **GitHub:** https://github.com/hassanbiswas
+- **LinkedIn:** https://www.linkedin.com/in/hassanbiswas-github-io
+- **Facebook:** https://www.facebook.com/hassanbiswas.github.io
+- **Instagram:** https://www.instagram.com/hassanbiswas.github.io
+- **X (Twitter):** https://www.x.com/o1602873384
+- **YouTube:** https://www.youtube.com/@hassanbiswas-github-io
