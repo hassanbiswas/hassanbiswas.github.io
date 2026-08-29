@@ -26,7 +26,8 @@ Disallow: /drafts/
 Disallow: /node_modules/
 
 # Direct AI agents and LLMs to your LLM-specific context file
-LLMS: https://hassanbiswas.github.io/llms.txt
+# LLMS: https://hassanbiswas.github.io/llms.txt
+Sitemap: https://hassanbiswas.github.io/llms.txt
 
 # XML Sitemap (Update this URL if you add a sitemap.xml later)
 Sitemap: https://hassanbiswas.github.io/sitemap.xml
