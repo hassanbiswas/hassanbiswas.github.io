@@ -1,8 +1,32 @@
+# Allow all standard search engines and web crawlers
 User-agent: *
 Allow: /
+
+# Explicitly grant access to major AI agents and LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 Disallow: /private/
 Disallow: /drafts/
 Disallow: /node_modules/
-Sitemap: https://hassanbiswas.github.io/sitemap.xml
 
-# Updated: 2026-02-20 (v20)
+# Direct AI agents and LLMs to your LLM-specific context file
+LLMS: https://hassanbiswas.github.io/llms.txt
+
+# XML Sitemap (Update this URL if you add a sitemap.xml later)
+Sitemap: https://hassanbiswas.github.io/sitemap.xml
