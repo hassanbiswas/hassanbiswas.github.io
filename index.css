@@ -1,6 +1,6 @@
 /* @import "style.css"; | ... */ /* bad idea 💡 */
 
-@function --fluidTypography(--min-value: 14rem, --max-value: 16rem) {
+@function --fluidFont(--min-value: 14rem, --max-value: 16rem) {
     result: clamp(
 var(--min-value),
   calc(var(--min-value) + (var(--max-value) - var(--min-value)) * var(--progress)),
@@ -92,11 +92,11 @@ transform: rotate(calc(var(--lerp-val) * 1deg)) scale(calc(1 + var(--lerp-val) *
  transform: translateX(calc(var(--lerp-val) * -1%));
 }
 
-@function --pxToRem(--px: 16px) {
+@function --fluidPx(--px: 16px) {
     result: calc(var(--px) / 16 * 1rem);
 }
 
-@function --space(--steps: 1) {
+@function --fluidSpace(--steps: 1) {
    /* Baseline scale: 4em base growing to 6em max per step */
   result: clamp(
 calc(4em * var(--steps)),
@@ -108,8 +108,8 @@ calc(4em * var(--steps)),
 
 
 .my_card {
-    padding: --space(2);
-    font-size: --pxToRem(24px);
+    padding: --fluidSpace(2);
+    font-size: --fluidPx(24px);
 }
 
 @function --accentBg(--color: var(--primary-50) <color>, --alpha: 30% type(<number> | <percentage>)) return <color> {
@@ -144,7 +144,7 @@ inline-size: 100dvw;
 font-family: var(--custom-font);
 background: var(--primary-50);
 
-font-size: --fluidTypography(1.4rem, 1.6rem);
+font-size: --fluidFont(1.4rem, 1.6rem);
 font-weight: 400;
 line-height: 1.5; /* 150 */
 color: var(--txt-muted);
@@ -165,7 +165,7 @@ scrollbar-width: none; */
 /* for parrent */
 scroll-behavior: smooth;
 overscroll-behavior: contain;
-scroll-snap-type: y proximity;
+/* scroll-snap-type: both proximity; */
 /* scroll-padding: 0em; */ /* for curossel paddin */
 
 /* for child */
@@ -328,7 +328,7 @@ hsl(252, 100%, 75%) hsl(45, 100%, 70%)  hsl(169, 65%, 57%)  hsl(3, 87%, 82%)    
 );
 /* - fluid spacing
 - fluid design system + components */
-/* --space(1) */
+/* --fluidSpace(1) */
 --space-2xs: clamp(
   .4rem,
   calc(.4rem + (.8rem - .4rem) * var(--progress)),
@@ -448,6 +448,9 @@ hsl(252, 100%, 75%) hsl(45, 100%, 70%)  hsl(169, 65%, 57%)  hsl(3, 87%, 82%)    
 /* transition: [property] [duration] [timing-function] [delay]; */
 /* transition: background-color 0.5s ease 1s; */
 
+
+    --snapType: proximity; /* proximity mandatory */
+    --snapAlign: start;
 }  /* 4. Motion Accessibility */
   /* $no-animation */
   @media (prefers-reduced-motion: reduce) {
@@ -619,6 +622,7 @@ iframe {
 }
 
 }
+/* invert, inverse, monochrome */
   img.inverse {
   filter: grayscale(1) contrast(1.5);
 }
@@ -714,15 +718,15 @@ margin: 0; /* Prevents unwanted spacing at the top of sections */
   h5, .h5 { font-size: var(--h5); line-height: 1.5; }
   h6, .h6 { font-size: var(--h6); line-height: 1.6; } */
 
-  h1, .h1 { font-size: --fluidTypography(3.2rem, 4.8rem) ; line-height: 1.1; }
-  h2, .h2 { font-size: --fluidTypography(2.6rem, 3.6rem) ; line-height: 1.2; }
-  h3, .h3 { font-size: --fluidTypography(2.2rem, 2.8rem) ; line-height: 1.3; }
-  h4, .h4 { font-size: --fluidTypography(1.8rem, 2.2rem) ; line-height: 1.4; }
-  h5, .h5 { font-size: --fluidTypography(1.6rem, 1.8rem) ; line-height: 1.5; }
-  h6, .h6 { font-size: --fluidTypography(1.4rem, 1.6rem) ; line-height: 1.6; }
+  h1, .h1 { font-size: --fluidFont(3.2rem, 4.8rem) ; line-height: 1.1; }
+  h2, .h2 { font-size: --fluidFont(2.6rem, 3.6rem) ; line-height: 1.2; }
+  h3, .h3 { font-size: --fluidFont(2.2rem, 2.8rem) ; line-height: 1.3; }
+  h4, .h4 { font-size: --fluidFont(1.8rem, 2.2rem) ; line-height: 1.4; }
+  h5, .h5 { font-size: --fluidFont(1.6rem, 1.8rem) ; line-height: 1.5; }
+  h6, .h6 { font-size: --fluidFont(1.4rem, 1.6rem) ; line-height: 1.6; }
 
   p, .p {
-font-size: --fluidTypography(1.4rem, 1.6rem);
+font-size: --fluidFont(1.4rem, 1.6rem);
 font-weight: 400;
 line-height: 1.5; /* 150 */
 color: var(--txt-muted);
@@ -736,7 +740,7 @@ text-align: left; /* left center right justify */
 }
 
 .p-small {
-font-size: --fluidTypography(1.4rem, 1.4rem);
+font-size: --fluidFont(1.4rem, 1.4rem);
 }
 
   /* ======== bg & txt ============= */
@@ -767,12 +771,12 @@ font-size: --fluidTypography(1.4rem, 1.4rem);
 
   /* carousel */
   .carousel {
-    display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 1em;
+    display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 0em;
     align-items: stretch;
 
 overflow-x: auto;
 overflow-y: clip;
-scroll-snap-type: x mandatory;
+scroll-snap-type: both mandatory;
 anchor-name: --carousel;
 
 
@@ -1524,7 +1528,31 @@ overflow: clip;
 object-fit: scale-down;
 }
 
+/* invert, inverse, monochrome */
 :is(img, svg, iframe).invert { filter: invert(1); }
+/* invert, inverse, monochrome */
+:is(img, .img).monochrome {
+    filter: grayscale(100%) brightness(200%);
+  mix-blend-mode: luminosity;
+}
+
+:is(svg, .svg).monochrome path
+/* For Inline SVGs */
+{
+  fill: currentColor;
+}
+:is(svg, .svg).monochrome {
+    color: var(--txt-black );
+    /* color: hsl(0, 0%, 100%); */ /* Adjust to hsl(0, 0%, 0%) for light themes */
+      transition: color 0.3s ease;
+}
+
+:is(iframe, .iframe).monochrome {
+   /* Invert all colors, then re-invert hue so roads/pins keep logical colors */
+   filter: grayscale(100%) invert(90%) contrast(120%);
+   border: 0;
+   transition: filter 0.3s ease;
+}
 
   .image-container-scaleY:has(img) {
 aspect-ratio: 16/9;
@@ -1697,7 +1725,7 @@ color: var(--bg-raised);
 
 
 body {
-    font-size: --fluidTypography(1.4rem, 1.6rem);
+    font-size: --fluidFont(1.4rem, 1.6rem);
     line-height: 1.5;
     font-weight: 400;
     color: var(--txt-muted);
@@ -1767,9 +1795,10 @@ position: relative;
 
 /* for parrent */
 overscroll-behavior: contain;
-scroll-snap-type: y proximity;
+/* scroll-snap-type: both proximity; */
 contain-intrinsic-size: auto 5rem; /* prevent section jumping */
 scroll-padding: 0em; /* for curossel paddin */
+scroll-margin: 0;
 
 /* for child */
 & > * {
@@ -2009,7 +2038,11 @@ background: var(--bg-base);
 block-size: 100dvh;
 grid-template-columns: unset;
 
-    overflow: auto clip;
+overflow: auto auto;
+
+      touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */
+
+
 
   ul { padding-inline: .8em; }
 }
@@ -2018,7 +2051,10 @@ grid-template-columns: unset;
 block-size: 100dvh;
 grid-template-columns: unset;
 
-    overflow: auto clip;
+    overflow: auto auto;
+          touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */
+
+
 padding: 0; margin: 0;
 display: grid;
 grid-auto-flow: column;
@@ -2034,8 +2070,6 @@ gap: 0em;
 }
 
 .snappyContainer {
-    --snapType: y proximity; /* proximity mandatory */
-    --snapAlign: start;
 
 /* border: 1px solid red; */
 
@@ -2045,7 +2079,7 @@ padding-block: 0;
     /* for parrent */
     scroll-behavior: smooth;
     overscroll-behavior: contain;
-    scroll-snap-type: var(--snapType);
+    scroll-snap-type: both var(--snapType);
 
     /* for child */
     & > * {
@@ -2229,7 +2263,7 @@ overflow: visible; /* Allows text to show even if coordinates are slightly off *
 }
 
   text {
-font-size: calc(--fluidTypography(3.2rem, 4.8rem) * 3);
+font-size: calc(--fluidFont(3.2rem, 4.8rem) * 3);
 font-weight: 800;
 fill: var(--txt-black);
 }
@@ -2289,7 +2323,7 @@ transition: 400ms linear;
   /* align-items: center;
   justify-content: center; */
   place-content: center;
-  padding: 0 0 1em 0;
+  padding: 0 0 1.6em 0;
 
   #header-nav-list {
 display: flex; /* grid for equal + liquid animation */
@@ -2310,13 +2344,13 @@ a {
   place-content: center;
 
   color: var(--txt-black);
-  font-size: --fluidTypography(1.1rem, 1.4rem);
+  font-size: --fluidFont(1.1rem, 1.4rem);
   text-transform: uppercase;
 
   transition: 400ms linear;
   text-decoration: none;
   text-align: center;
-  padding: .8em .4em;
+  padding: .4em .8em;
   block-size: stretch;
 }
 
