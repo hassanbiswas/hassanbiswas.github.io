@@ -31,7 +31,7 @@ const linkSvg = (url = `#`, alt = `alt`, width = `100%`) => {
         type="image/svg+xml"
         loading="lazy"
         draggable="false"
-        decoding="async" data-version="${VERSION}"`;
+        decoding="async"`;
 };
 
 // Font <link>
@@ -40,7 +40,7 @@ const linkFont = (url = `#`) => {
         rel="preconnect"
         as="font"
         type="font/ttf"
-        crossorigin data-version="${VERSION}"`;
+        crossorigin`;
 };
 
 // img
@@ -54,13 +54,15 @@ const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
         size="any"
         loading="lazy"
         draggable="false"
-        decoding="async" data-version="${VERSION}"`;
-}; /*
+        decoding="async"`;
+};
+/*
 <picture>
 <source type="image/avif" srcset="img.avif"/>
 <source type="image/webp" srcset="img.webp"/>
 <img src="img.jpg" />
-</picture>*/
+</picture>
+*/
 
 // a
 const seoA = () => {
@@ -87,26 +89,31 @@ const linkCss = (url = `#`) => {
 // ================== SEO HTML
 
 const header = () => {
-    return `id="header" role="banner" data-version="${VERSION}"`;
+    return `id="header" role="banner"`;
 };
 const navPrimary = () => {
-    return `aria-label="Primary Navigation" "data-version="${VERSION}"`;
+    return `aria-label="Primary Navigation"`;
 };
 const aSection = sectionId => {
-    return `href="#${sectionId}" class="skip-to-content" data-version="${VERSION}"`;
+    return `href="#${sectionId}" class="skip-section"`;
 };
 const main = () => {
-    // return `id="main" role="main" data-version="${VERSION}"`;
+    // return `id="main" role="main"`;
     document.querySelector('main').setAttribute('id', 'main');
     document.querySelector('main').setAttribute('role', 'main');
-    document.querySelector('main').setAttribute('data-version', `${VERSION}`);
 };
 main();
-const seoSection = () => {
-    return `set_aria-labelledby="h-Id" data-version="${VERSION}"`;
+const seoSection = (sectionName = `sectionName`) => {
+    // section id="about" > h2 id="aboutHeading"
+    return `aria-labelledby="${sectionName}Heading"`;
+};
+const seoH = (sectionName = `sectionName`) => {
+    // section id="about" > h2 id="aboutHeading"
+    return `id="${sectionName}Heading"`;
+    // this.setAttribute('id', `${sectionName}Heading`);
 };
 const footer = () => {
-    return `id="footer" role="contentinfo" data-version="${VERSION}"`;
+    return `id="footer" role="contentinfo"`;
 };
 
 // absolute path for components
@@ -191,15 +198,14 @@ const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`,
     europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`,
     oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
 
-const worldwide = `<a ${seoA()} href="${asia}">Asia</a>, <a ${seoA()} href="${africa}">Africa</a>, <a ${seoA()} href="${northAmerica}">North America</a>, <a ${seoA()} href="${southAmerica}">South America</a>, <a ${seoA()} href="${europe}">Europe</a>, <a ${seoA()} href="${oceania}">Oceania</a>`;
+const worldwide = `<a ${seoA()} aria-label="Asia" href="${asia}">Asia</a>, <a ${seoA()} aria-label="Africa" href="${africa}">Africa</a>, <a ${seoA()} aria-label="North America" href="${northAmerica}">North America</a>, <a ${seoA()} aria-label="South America" href="${southAmerica}">South America</a>, <a ${seoA()} aria-label="Europe" href="${europe}">Europe</a>, <a ${seoA()} aria-label="Oceania" href="${oceania}">Oceania</a>`;
 
 const locationPrimary = `
-<a ${seoA()} href="${jashore}">Jashore</a>
-<a ${seoA()} href="${khulna}">Khulna</a>
-<a ${seoA()} href="${bangladesh}">Bangladesh</a>`,
+<a ${seoA()} aria-label="Jashore" href="${jashore}">Jashore</a> <a ${seoA()} aria-label="Khulna" href="${khulna}">Khulna</a> <a ${seoA()} aria-label="Bangladesh" href="${bangladesh}">Bangladesh</a>
+`,
     locationSecondary = `
-    <a ${seoA()} href="${dhaka}">Dhaka</a>,
-    <a ${seoA()} href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-none"> (${worldwide})<span>`;
+    <a ${seoA()} aria-label="Dhaka" href="${dhaka}">Dhaka</a>,
+    <a ${seoA()} aria-label="Bangladesh" href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-non" style="visibility: visible; position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: clip; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">(${worldwide})</span>`;
 
 const root = document.documentElement,
     head = document.head || document.getElementsByTagName('head')[0],
@@ -248,12 +254,16 @@ export function List(name, link = '#', favicon = null) {
 
 export const greetings = [
         'Hello',
-        'السَّلَامُ عَلَيْكُمْ',
-        'হ্যালো',
-        '你好',
-        '안녕하세요',
-        'こんにちは',
-        'हेलो',
+        'لسلام ليكم',
+        'Olá!',
+        'еHola!',
+        'Ciao!',
+        'Привет!',
+        'Hallo!',
+        'Bonjour!',
+        'は好',
+        '녕んにちは',
+        'á녕하세요',
     ],
     money = value => {
         return value?.toLocaleString('en-US', { style: 'currency', currency: 'USD' }); // undefined
@@ -521,7 +531,7 @@ beginning.`,
 
 const componentReviews = () => {
     return `
-<div class="row items-center">
+<div class="row items-center componentReviews">
 
     <ul class="wrap" style="list-style: none; display: flex; gap: 0em;">
         ${personQuotes
@@ -544,26 +554,26 @@ const componentReviews = () => {
 
 const componentProjectProgress = () => {
     return `
-          <div class="flex a-start" style="gap: 1.6em; padding-inline: 1.6em;">
+          <div class="flex a-start componentProjectProgress" style="gap: 1.6em; padding-inline: 1.6em;">
 
-                <div class="row" style="gap: .4em; flex: 1;">
+                <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${new Date().getFullYear() - 2023}</span><span class="txt-gray">+</span></b>
                     <p class="txt-center">Experience</p>
                 </div>
-                <div class="row" style="gap: .4em; flex: 1;">
+                <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${32 + (new Date().getFullYear() - 2023)}</span><span class="txt-gray">+</span></b>
                     <p class="txt-center">Success projects</p>
                 </div>
-                <div class="row" style="gap: .4em; flex: 1;">
+                <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${random(95, 99)}</span><span class="txt-gray">%</span></b>
                     <p class="txt-center">Core web vitals</p>
                 </div>
-                <div class="row" style="gap: .4em; flex: 1;">
+                <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${random(95, 99)}</span><span class="txt-gray">%</span></b>
                     <p class="txt-center">Client satisfaction</p>
                 </div>
 
-                </div>
+        </div>
             `;
 };
 
@@ -574,7 +584,7 @@ class LoaderSection extends HTMLElement {
     connectedCallback() {
         const template = document.createElement('template');
         template.innerHTML = `
-      <section id="loader" aria-hidden="true" class="fluid-grid-system" data-version="${VERSION}">
+      <section id="loader" aria-hidden="true" class="fluid-grid-system">
        <div class="container-md content-center">
         <div class="col items-center">
  <h3 class="greeting txt-center flex">
@@ -658,7 +668,7 @@ class NotchSection extends HTMLElement {
 
         // collapse
         template.innerHTML = `
-  <section class="container-sm collapse" id="notch" data-version="${VERSION}">
+  <section class="container-sm collapse" id="notch">
     <div class="col dialog" id="notchDialog">
      <p class="notification">
       Developing in "OPPO A53" handset!
@@ -687,7 +697,7 @@ class ToastSection extends HTMLElement {
         // 3. Define the HTML
 
         template.innerHTML = `
-  <section class="container-sm collapse" id="toast" data-version="${VERSION}">
+  <section class="container-sm collapse" id="toast">
     <div class="col dialog" id="toastDialog">
      <p class="notification">
       This is a toast dialog!
@@ -932,9 +942,9 @@ class CustomSection extends HTMLElement {
 
         // Render Markup
         template.innerHTML = `
-       <section ${seoSection()} class="fluid-grid-system bg-base" id="customSection">
+       <section ${seoSection(`customSection`)} class="fluid-grid-system bg-base" id="customSection">
     <div class="container-sm row infinite-scroller mask" data-direction="right" data-speed="fast">
-    <h2>${section.heading}</h2>
+    <h2 ${seoH(`customSection`)}">${section.heading}</h2>
     <p>${section.description}</p>
    </div>
     </section>
@@ -972,7 +982,7 @@ class HeroSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section ${seoSection()} id="hero" class="fluid-grid-system dark">
+      <section ${seoSection(`hero`)} id="hero" class="fluid-grid-system dark">
         <div class="container-md row custom-containe">
 <svg width="0" height="0">
         <clipPath id="myClip"
@@ -1006,8 +1016,8 @@ ${author.logoOutlineSvg}
      </div>
    </div>
 
-   <h1 id="heading" class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
-     <svg class="infinite-scroller_inner svgDraw" fill="none" height="100" viewBox="0 0 768 100" width="768">
+   <h1 ${seoH(`hero`)} class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
+     <svg class="infinite-scroller_inner svgDraw" fill="none" height="512" viewBox="0 0 512 512" width="512" height="100%" style="overflow: visible;">
        <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
 ${section.heading}
        </text>
@@ -1085,18 +1095,9 @@ class ClientsSection extends HTMLElement {
                 `Olivier Larose`,
                 `rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw`
             ),
-            new YouTuber(`Bro Code`, `ytc/AIdro_mPFVsxROj1dOtTWc9iNBwDYV4z42Q8LPokBSewiW9pCSg`),
             new YouTuber(
                 `Arnau Ros`,
                 `cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw`
-            ),
-            new YouTuber(
-                `True Coder`,
-                `qZmPS2Kq4TLISM7z0NPZRlA2umZVbW2qfRK4P87YZJbkcCw4vkUHhMtee4LaHuhzi1jUF_n6`
-            ),
-            new YouTuber(
-                `Lukas | Web Dev`,
-                `dr8aIhorUkiEw381t158v3AWNgB7nhQbW4g68MjZDkPdq21L6lbE7AA-gl9DACGwE4HhWopIeA`
             ),
         ];
 
@@ -1108,9 +1109,9 @@ class ClientsSection extends HTMLElement {
         // 3. Define the HTML (Top-level element is now your grid section)
         // HTML
         template.innerHTML = `
-<section ${seoSection()} class="fluid-grid-system bg-base" id="youtubers">
+<section ${seoSection(`youtubers`)} class="fluid-grid-system bg-base" id="youtubers">
     <div class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
-        <h2 class="h4 d-none">Subscriptioned by ${author.name} on YouTube </h2>
+        <h2 ${seoH(`youtubers`)} class="h4 d-none">Subscriptioned by ${author.name} on YouTube </h2>
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
            .map(
@@ -1227,19 +1228,19 @@ class AboutSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section ${seoSection()} class="fluid-grid-system bg-base  screenHeight snappyContainer" style="--snapType: y mandatory;" id="about">
+<section ${seoSection(`about`)} class="fluid-grid-system bg-base  screenHeight snappyContainer " style="--snapType: mandatory;" id="about">
     <article style="gap: 0em;" class="row content-center screenHeight">
       <p class="h6 fade-in-to">
         <span class="txt-gray">${author.name}</span> 2001 - ${thisYear}
       </p>
       <div style="padding-block: 0em; gap: .8em;" class="col ">
-        <h2 class="h3 text-revel-onscrol" style="padding-block-start: .4em;">
+        <h2 ${seoH(`about`)} class="h3 text-revel-onscrol" style="padding-block-start: .4em;">
         Driven by Quality,<br> Precision & Modern Aesthetics
         <h2>
         <div class="row " style="gap: var(--space-xs); ">
             <p>Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
             <a class="p fade-in-to " href="#story-1">
-                View Story ↘
+                View Story ...❯
             </a>
         </div>
       </div>
@@ -1259,8 +1260,8 @@ class AboutSection extends HTMLElement {
        </div>
        <h5 class="h2 fade-in-to txt-center" style="justify-self: center; max-inline-size: 16em;">${story.heading}</h5>
        <div style="gap: var(--space-xs); justify-self: end; max-inline-size: 20em;" class="row">
-        <p class="fade-in-to" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;">${story.desc}</p>
-        <a ${seoA()} aria-label="${story.ariaLabel}" class="fade-in-to" href="${story.link}">${story.linkText} ↘</a>
+        <p class="fade-in-to lineClamp" style="">${story.desc}</p>
+        <a ${seoA()} aria-label="${story.ariaLabel}" class="fade-in-to" href="${story.link}">${story.linkText} ↗</a>
        </div>
 
       </article>
@@ -1273,7 +1274,7 @@ class AboutSection extends HTMLElement {
     <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
 
        <div style="gap: .5em;" class="row">
-        <a aria-label="skip to services" class="fade-in-to" href="#services">View Services ↘</a>
+        <a aria-label="skip to services" class="fade-in-to" href="#services">❯ View Services</a>
        </div>
 
       </div>
@@ -1304,7 +1305,7 @@ class ServicesSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-<section ${seoSection()} id="services" class="fluid-grid-system  horizontalScroller snappyContainer screenHeight " style="--snapType: x mandatory;">
+<section ${seoSection(`services`)} id="services" class="fluid-grid-system  horizontalScroller snappyContainer screenHeight " style="--snapType: mandatory;">
 
 <div class="grid fade-in-top-containe items-center content-center scrollerItem">
     <div class="row itemCard" style="gap: .8em;">
@@ -1312,12 +1313,12 @@ class ServicesSection extends HTMLElement {
         <p class="h6 fade-in-to">
         Services by <span class="txt-gray">${author.name}</span>
         </p>
-        <h2>
+        <h2 ${seoH(`services`)}>
         Services available in <br> ${locationSecondary}.
         </h2>
         <article>High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${random(95, 100)}%</b> satisfaction.</article>
     <h3 class="h4">
-            <a  class="fade-in-to" href="#service-1">My primary Services ↘</a>
+            <a  class="fade-in-to" href="#service-1">View my primary services ...❯</a>
         </h3>
 
     </div>
@@ -1353,7 +1354,7 @@ ${servicesPrimary
 <div class="grid fade-in-top-containe  items-center content-center scrollerItem">
         <div class="row itemCard" style="gap: .8em;">
 
-        <h3 class="h4">More services:</h3>
+        <h3 class="h4 txt-center">More services by <span class="txt-gray">${author.name}</span></h3>
         <ul class="row " style="gap: .4em; padding-inline: 2em;">
         ${servicesSecondery
             .map(
@@ -1366,9 +1367,9 @@ ${servicesPrimary
 
         <div class="flex j-center">
             <a ${seoA()} href="/vcf">Download VCF</a>
-            <button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
-            <a ${seoA()} href="#contact">Contact</a>
-            </button>
+            <a ${seoA()} href="#contact"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+            Contact
+            </button></a>
         </div>
 
     </div>
@@ -1380,7 +1381,7 @@ ${servicesPrimary
 <div class="grid fade-in-top-containe items-center scrollerItem">
     <div class="row items-center itemCard" style="gap: 1.6em;">
 
-        <a aria-label="skip to projects" class="fade-in-to" style="white-space: nowrap;" href="#projects">View Projects ↘</a>
+        <a aria-label="skip to projects" class="fade-in-to" style="white-space: nowrap;" href="#projects">❯ View Projects</a>
 
     </div>
 </div>
@@ -1459,24 +1460,29 @@ class ProjectsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-      <section ${seoSection()} class="fluid-grid-system bg-base snappyContainer" style="--snapType: y mandatory;" id="projects">
+      <section ${seoSection(`projects`)} class="fluid-grid-system bg-base snappyContainer" style="--snapType: mandatory;" id="projects">
 
       <article class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip;">
- <p class="fade-in-to"><span class="txt-gray">Selected</span> Projects</p>
- <div><p class="h2 txt-gray" style="font-weight: bold; display: inline;">
-     Projects have done since 2023 - ${thisYear}.
-<span class="text-revel-onscrol">With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites worldwide.</span></p> <h2 class="h2" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
-</h2></div>
+ <p class="fade-in-to txt-gray">Selected <span class="txt-muted">Projects</span> 2023 - ${thisYear}</p>
+ <div>
+    <h2 ${seoH(`projects`)} class="h2" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
+</h2>
+ <p class="h2 txt-gray" style="font-weight: bold; display: inline;">
+<span class="text-revel-onscrol">
+With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & developing websites in ${locationSecondary}.
+</span>
+</p>
+</div>
  </article>
 
- <div style="gap: 0em;" class=" row content-center projects-list screenHeight">
+ <div style="gap: 0em;" class=" row content-center projects-list screenHeight fluidHovere">
  ${projects
      .map(
          (project, index) => `
 
    <article id="project-${index + 1}"><a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em; border-block-end: 1px solid var(--txt-gray);" class="flex fade-in-top-containe project-item">
 
-        <h3 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-gray">[0${index + 1}]</span> ${project.category}</h3>
+        <h3 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-gray">[0${index + 1}]</span> ${project.category} <span class="txt-gray">↗</span></h3>
        <h4 class="p fade-in-to">${project.date}</h4>
    </a></article>
 
@@ -1493,7 +1499,7 @@ class ProjectsSection extends HTMLElement {
 <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
 
        <div style="gap: .5em;" class="row">
-         <a aria-label="skip to testimonials" class="fade-in-to" href="#testimonials">View Testimonials ↘</a>
+         <a aria-label="skip to testimonials" class="fade-in-to" href="#testimonials">❯ View Testimonials</a>
        </div>
 
 </div>
@@ -1526,12 +1532,12 @@ class TestimonialsSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-<section ${seoSection()} class="fluid-grid-system" id="testimonials">
-    <div class="container-md row content-center" style="gap: .8em;">
+<section ${seoSection(`testimonials`)} class="fluid-grid-system" id="testimonials">
+    <div class="container-md row items-center" style="gap: .8em;">
 
         <div class="row txt-center">
             <p class="txt-center">Testimonials</p>
-            <h2 class="text-revel-onscrol">
+            <h2 ${seoH(`testimonials`)} class="text-revel-onscrol">
             <span class="txt-gray">Real People,</span> <br/>Real Results Feedback
             </h2>
             <p class="txt-center">
@@ -1545,7 +1551,7 @@ class TestimonialsSection extends HTMLElement {
 
         ${componentProjectProgress()}
 
-        <ul class="carousel bg-raised" style="list-style: none; margin-inline: 2.4em; border-radius: 2em; inline-size: min(100%, 30em);">
+        <ul class="carousel bg-raised" style="list-style: none; margin-inline: 2.4em; border-radius: 2em;">
             ${personQuotes
                 .map(
                     (person, index) => `
@@ -1578,7 +1584,7 @@ class TestimonialsSection extends HTMLElement {
 
         <div class="flex j-center">
             <a ${seoA()} href="${urlFeedback}"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
-            Add Review ↘
+            Add Review ↗
             </button></a>
         </div>
 
@@ -1620,7 +1626,7 @@ class FaqsSection extends HTMLElement {
         const faqs = [
             new FaqsItem(
                 `Who am I?`,
-                `I'm a Web Developer | <a ${seoA()} href="#about"><b>${author.name}</b></a>.`
+                `I'm a Front-End Website Developer | <a ${seoA()} href="#about"><b>${author.name}</b></a>.`
             ),
             new FaqsItem(
                 `What do I do?`,
@@ -1660,7 +1666,7 @@ class FaqsSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 
-<section ${seoSection()} class="fluid-grid-system" id="faqs">
+<section ${seoSection(`faqs`)} class="fluid-grid-system" id="faqs">
 <div class="container-sm">
     <div class="row">
 
@@ -1668,7 +1674,7 @@ class FaqsSection extends HTMLElement {
        <p class="txt-primar">
         FAQ's
        </p>
-  <h2>
+  <h2 ${seoH(`faqs`)}>
     Got questions? <br/><span class="txt-gray">I’ve got answers</span>
   </h2>
   <p class="">
@@ -1681,17 +1687,18 @@ and how I work
       </div>
 
 
-       <div class="row">
+       <div class="row fluidHovere">
  ${faqs
      .map(
-         faq => `
-        <details class="py-0 bg-raised" name="question">
-<summary>
- <h3 class="p py-1">
-  ${faq.question}
+         (faq, index) => `
+        <details class="bg-raised" name="question">
+<summary class="flex nowrap j-between">
+ <h3 class="p question">
+  <span class="txt-gray">[0${index + 1}]</span> ${faq.question}
  </h3>
+ <b class="marker">+</b>
 </summary>
-<p style="padding: 1em;" class="h5">
+<p class="h6 answer">
  ${faq.answer}
 </p>
         </details>
@@ -1781,22 +1788,22 @@ class ContactSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-    <section ${seoSection()} id="contact" class="fluid-grid-system py-5">
+    <section ${seoSection(`contact`)} id="contact" class="fluid-grid-system py-5">
     <div class="container-md">
 
      <div class="row">
 
      <div class="row background-map" style="object-fit: cover; overflow: clip;">
-       <iframe class="inverse" src=" ${author.iframeHome}" title="Author Village" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0; background: var(--bg-raised)" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+       <iframe class="monochrome" src=" ${author.iframeHome}" aria-label="Business Location" title="Business Location" style="border:0; aspect-ratio: 16/6; border-radius: 2em 2em 0 0; background: var(--bg-base)" allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
        </iframe>
      </div>
 
-     <div class="ph-wrapper">
-       <h2 style="display: inline;" class="h2 txt-gray">
-        Ready to scale your brand with ${author.name}?
+<div class="ph-wrapper">
+        <h2 ${seoH(`contact`)} style="display: inline;" class="h2 txt-black">I help ambitious brands stand out through <a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> bold design and digital strategies.
        </h2>
-       <p style="display: inline; font-weight: bold;" class="h2 txt-black"><a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> I Craft Webflow Template to help ambitious brands stand out through bold design and <a ${seoA()} aria-label="author village" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> digital strategies.
-</p>
+       <p style="display: inline; font-weight: bold;" class="h2 txt-gray">
+        Ready to scale your brand with <a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> ${author.name}?
+        </p>
 </div>
 
        <div class="flex no-wrap items-start">
@@ -1822,9 +1829,7 @@ class ContactSection extends HTMLElement {
                data => `
        <div class="flex col-md-2 gap-1 no-wrap no-grow items-start">
         <img ${seoImg(data.favicon, data.title)} style="inline-size: 1.5em;" class="squar"/>
-        <a ${seoA()} href="${data.link}">
-<p>${data.name}</p>
-        </a>
+        <a ${seoA()} aria-label="${data.title}" href="${data.link}"><p>${data.name}</p></a>
        </div>
        `
            )
@@ -1835,7 +1840,7 @@ class ContactSection extends HTMLElement {
      </div>
 
       <div class="flex j-center">
- <a ${seoA()} href="/vcf">Download VCF ↘</a>
+ <a ${seoA()} href="/vcf">❯ Download VCF</a>
 <p class="txt-gray">or connect</p>
         <a ${seoA()} aria-label="messenger" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
  <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
@@ -1869,12 +1874,12 @@ class FooterSection extends HTMLElement {
         }
 
         // Clean & readable initialization
-        const navigations = [
+        const pages = [
             new NavItem(`Home`, `/`),
-            new NavItem(`About`, `/#about`),
-            new NavItem(`Services`, `/#services`),
-            new NavItem(`Projects`, `/#projects`),
-            new NavItem(`Contact`, `/#contact`),
+            new NavItem(`About`, `/about`),
+            new NavItem(`Services`, `/services`),
+            new NavItem(`Projects`, `/projects`),
+            new NavItem(`Contact`, `/contact`),
             new NavItem(`Case Studies`, `/github`),
         ];
 
@@ -1915,11 +1920,11 @@ class FooterSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-<footer ${footer()} class="fluid-grid-system" id="footer">
+<footer ${footer()} ${seoSection(`footer`)} class="fluid-grid-system" id="footer">
    <div class="container-xl row gap-4 py-5">
     <div class="flex j-center">
       <form class="flex">
-        <label style="opacity: 1;" class="d-non" for="system-theme">Choose Theme:</label>
+        <label style="opacity: 1;" class="d-non txt-gray" for="system-theme">Choose Theme:</label>
         <select id="system-theme" name="system-theme" class="pill btn-primary">
  <option value="default">Default</option>
  <option value="light">Light</option>
@@ -1929,23 +1934,23 @@ class FooterSection extends HTMLElement {
     </div>
     <div class="col">
      <div class="row" style="position: relative; overflow: clip; border-radius: 1em;">
-     <h2 class ="p">I craft marketing strategies that elevate brands, attract audiences, and drive measurable business growth.
+     <h2 ${seoH(`footer`)} class ="h5 txt-gray">I craft marketing strategies that elevate brands, <span class="txt-black"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audiences, and drive measurable business growth.</span>
 </h2>
+<article>
       <h3 class ="p">
        Providing high-quality web design and front-end development services to clients in ${locationSecondary}.
       </h3>
+</article>
 
       <div class="row">
-      <div style="align-content: stretch;" class="flex grow a-center">
-        <button ${seoButton()} style="display: flex; align-items: center; justify-content: center; text-align: center; flex: 1; block-size: stretch; align-self: stretch;" class="btn-primary pill flex items-center txt-center">
- <a ${seoA()} class"txt-center flex items-center txt-center" href="/resume">
-   Resume
- </a>
-        </button>
+      <div style="align-content: stretch;" class="flex a-center j-start">
+         <a ${seoA()} href="/resume" style="flex: 0; block-size: stretch; align-self: stretch;"><button ${seoButton()} class="btn-primary pill flex items-center txt-center">
+Resume
+        </button></a>
 
-       <button ${seoButton()} class="btn-primary" style="--primary-50: rgb(0, 256, 0); flex: 1; display: flex; place-items: center; flex-wrap: nowrap; gap: .4em; background: rgba(0, 256, 0, .3); display: none; color: var(--txt-black);" id="installApp">
-        <img ${seoImg(faviconAndroid, `Android`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
-        <span style="line-height: 100%" class="d-non">Install</span>
+       <button ${seoButton()} class="btn-primary" style="--primary-50: rgb(0, 256, 0); flex: 0; block-size: stretch; align-self: stretch; display: flex; place-items: center; flex-wrap: nowrap; gap: .4em; background: rgba(0, 256, 0, .3); display: none; border: 0; color: var(--txt-black);" id="installApp">
+        <img ${seoImg(faviconAndroid, `App`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
+        <span style="line-height: 100%" class="d-non">Install App</span>
        </button>
 
       </div>
@@ -1957,14 +1962,14 @@ class FooterSection extends HTMLElement {
      <div style="" class="flex items-start">
       <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
        <h4 class="p txt-gray">
-        Navigation
+        Pages
        </h4>
        <div class="flex navigation-links">
 
-       ${navigations
+       ${pages
            .map(
-               (navigation, index) => `
-<a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${navigation.link}"><span class="p txt-gray">[0${index + 1}]</span> ${navigation.name}
+               (page, index) => `
+<a class="h6" ${seoA()} style="text-decoration: none; flex: 1; flex-basis: 10ch;" href="${page.link}"><span class="p txt-gray">[0${index + 1}]</span> ${page.name} <span class="txt-gray">↗</span>
 </a>
        `
            )
@@ -1974,16 +1979,16 @@ class FooterSection extends HTMLElement {
       </nav>
 
       <nav style="flex: 1; flex-basis: 15ch; gap: var(--space-xs);" class="row">
-       <h4 class="p txt-gray">
-        Method
+       <h4 class="p txt-gray" style="/* white-space: no-wrap; */">
+        Conference &amp; Payment
        </h4>
        <div class="flex methode-links">
 
        ${methods
            .map(
-               method => `
-        <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; display: flex; align-items: center; gap: 0.5em;" href="${method.link}">
-<img ${seoImg(method.favicon, method.alt)} style="inline-size: 1.5em;" class="squar lightDark"/> ${method.name}
+               (method, index) => `
+        <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; text-decoration: none;" href="${method.link}">
+<span class="txt-gray">[0${index + 1}]</span> ${method.name} <span class="txt-gray">↗</span>
         </a>
        `
            )
@@ -1994,7 +1999,7 @@ class FooterSection extends HTMLElement {
 
 <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
        <h4 class="p txt-gray">
-        Social
+        Socials
        </h4>
       <div class="flex social-links a-center" style="gap: 0.8em;">
 
@@ -2002,7 +2007,7 @@ class FooterSection extends HTMLElement {
                     .map(
                         social => `
     <a ${seoA()} aria-label="${social.name}" href="${social.link}">
-    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded lightDark"/>
+    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/>
     </a>
     `
                     )
@@ -2013,15 +2018,15 @@ class FooterSection extends HTMLElement {
 
       <nav style="flex: 1; flex-basis: 20ch; gap: var(--space-xs);" class="row">
        <h4 class="p txt-gray">
-        Legal
+        Legals
        </h4>
        <div class="flex legal-links">
 
        ${legals
            .map(
-               legal => `
-        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch;" href="${legal.link}">
-${legal.name}
+               (legal, index) => `
+        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; text-decoration: none;" href="${legal.link}">
+<span class="txt-gray">[0${index + 1}]</span> ${legal.name} <span class="txt-gray">↗</span>
         </a>
        `
            )
@@ -2039,8 +2044,8 @@ ${legal.name}
     <div class="col items-center">
      <div class="flex grow input-group items-center">
       <input style="padding: var(--space-s); border: 1px solid var(--primary-50); color: var(--primary-50); background: color-mix(in hsl, var(--bg), transparent 30%); font-weight: bold;" class="pill" placeholder="@hassanbiswas.github.io" readonly type="text"/>
-      <a ${seoA()} style="text-decoration: none;" href="${urlYoutube}">
-       <button ${seoButton()} class="btn-primary">Subscribe</button>
+      <a ${seoA()} style="text-decoration: none; block-size: stretch; align-self: stretch;" href="${urlYoutube}">
+       <button ${seoButton()} class="btn-primary" style="border: 1px solid var(--primary-50);">Subscribe</button>
       </a>
      </div>
     </div>
@@ -2153,12 +2158,12 @@ class PrivacyPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
+<section ${seoSection(`privacyPolicy`)} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
 <div class="container-md">
 <div class="row">
 
 <div class="row">
-<h1>
+<h1 ${seoH(`privacyPolicy`)}>
 Privacy Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
 </h1>
 <p>
@@ -2278,12 +2283,12 @@ class TermsOfServiceSection extends HTMLElement {
 
         template.innerHTML = `
 
-<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
+<section ${seoSection(`termsOfService`)} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
 <div class="container-md">
 <div class="row">
 
 <div class="row">
-<h1>
+<h1 ${seoH(`termsOfService`)}>
 Terms of Service <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
 </h1>
 <p>
@@ -2422,12 +2427,12 @@ class RefundAndCancelationPolicySection extends HTMLElement {
 
         template.innerHTML = `
 
-<section ${seoSection()} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
+<section ${seoSection(`refundAndCancelationPolicy`)} style="background: var(--bg-base); color: (--txt-muted);" class="fluid-grid-system info-section">
  <div class="container-md">
 <div class="row">
 
 <div class="row">
- <h1>
+ <h1 ${seoH(`refundAndCancelationPolicy`)}>
 Refund &amp; Cancelation Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
  </h1>
 <p>
@@ -2545,7 +2550,6 @@ const injectMetaTheme = () => {
     }
 
     metaTheme.content = primaryColor;
-    metaTheme.setAttribute('data-version', VERSION);
 };
 
 // 5. Run it after the DOM is fully loaded to ensure CSS variables are ready
@@ -2813,6 +2817,218 @@ export function textRevelOnscroll() {
     });
 }
 
+// Split Text Web Component (Heading Animation)
+class SplitHeading extends HTMLElement {
+    connectedCallback() {
+        const text = this.textContent.trim();
+        this.innerHTML = text
+            .split('')
+            .map((char, index) => {
+                const displayChar = char === ' ' ? '&nbsp;' : char;
+                return `<span class="char" style="transition-delay: ${index * 25}ms">${displayChar}</span>`;
+            })
+            .join('');
+
+        this.classList.add('split-heading');
+        this.observeVisibility();
+    }
+
+    observeVisibility() {
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.classList.add('is-visible');
+                        observer.unobserve(this);
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        observer.observe(this);
+    }
+}
+
+// Scroll Reveal Observer for Paragraphs
+const initScrollReveal = () => {
+    const elements = document.querySelectorAll('.scroll-reveal');
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.15 }
+    );
+
+    elements.forEach(el => observer.observe(el));
+};
+
+customElements.define('split-heading', SplitHeading);
+document.addEventListener('DOMContentLoaded', initScrollReveal);
+
+class SVG3DLogo {
+    constructor(containerId, options = {}) {
+        this.container = document.getElementById(containerId);
+        this.brandColor = options.brandColor || 'hsl(240, 80%, 50%)';
+        this.VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+
+        this.init();
+    }
+
+    setStyle() {
+        const styleId = 'svg-3d-logo-styles';
+        if (document.getElementById(styleId)) return;
+
+        const styleTag = document.createElement('style');
+        styleTag.id = styleId;
+
+        styleTag.textContent = `
+.svg-logo-perspective {
+perspective: 1000px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+max-width: 400px;
+margin: 0 auto;
+padding: 2rem;
+}
+
+/* Outer Card: Receives Tilt Effect (Mouse / Touch) */
+.svg-logo-tilt-card {
+width: 100%;
+height: auto;
+transform-style: preserve-3d;
+transition: transform 0.15s cubic-bezier(0.2, 0.8, 1, 1);
+will-change: transform;
+}
+
+/* Inner Container: Holds Continuous Spin Animation */
+.svg-logo-spinner {
+width: 100%;
+height: auto;
+transform-style: preserve-3d;
+animation: spin3DInfinite 12s linear infinite;
+transform-origin: center center;
+}
+
+.svg-logo-element {
+width: 100%;
+height: auto;
+display: block;
+overflow: visible;
+filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
+}
+
+.svg-logo-element path {
+fill: ${this.brandColor};
+}
+
+/* Continuous Infinite 3D Y-Axis Rotation */
+@keyframes spin3DInfinite {
+0% {
+transform: rotateY(0deg);
+}
+100% {
+transform: rotateY(360deg);
+}
+}
+`;
+
+        document.head.appendChild(styleTag);
+    }
+
+    render() {
+        if (!this.container) return;
+
+        // Viewport-scalable SVG structure with separate tilt and spin wrappers
+        const svgHTML = `
+<div class="svg-logo-perspective">
+<div class="svg-logo-tilt-card" id="logoTiltCard">
+<div class="svg-logo-spinner">
+<svg
+class="svg-logo-element"
+viewBox="0 0 500 500"
+sizes="any"
+preserveAspectRatio="xMidYMid meet"
+loading="lazy"
+aria-label="3D Scalable Logo"
+>
+<!-- Outer Ring -->
+<path d="M 250 50 A 200 200 0 1 0 450 250 L 370 250 A 120 120 0 1 1 250 130 Z" />
+<!-- Inner 3D Cube Path -->
+<path d="M 250 160 L 310 195 L 310 265 L 250 230 Z" opacity="0.85" />
+<path d="M 250 160 L 190 195 L 250 230 L 310 195 Z" opacity="0.95" />
+<path d="M 190 195 L 190 265 L 250 230 Z" opacity="0.7" />
+</svg>
+</div>
+</div>
+</div>
+`;
+
+        this.container.innerHTML = svgHTML;
+        this.attachTiltEffect();
+    }
+
+    attachTiltEffect() {
+        const tiltCard = document.getElementById('logoTiltCard');
+        const wrapper = this.container.querySelector('.svg-logo-perspective');
+        if (!tiltCard || !wrapper) return;
+
+        const handleMove = (clientX, clientY) => {
+            const rect = wrapper.getBoundingClientRect();
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            // Calculate tilt angles based on pointer distance from center
+            const rotateX = ((y - centerY) / centerY) * -30;
+            const rotateY = ((x - centerX) / centerX) * 30;
+
+            tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
+        };
+
+        const handleReset = () => {
+            tiltCard.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        };
+
+        // Mouse events
+        wrapper.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
+        wrapper.addEventListener('mouseleave', handleReset);
+
+        // Touch events for mobile responsiveness
+        wrapper.addEventListener(
+            'touchmove',
+            e => {
+                if (e.touches.length > 0) {
+                    handleMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            },
+            { passive: true }
+        );
+        wrapper.addEventListener('touchend', handleReset);
+    }
+
+    init() {
+        this.setStyle();
+        this.render();
+    }
+}
+
+// Instantiate component
+document.addEventListener('DOMContentLoaded', () => {
+    new SVG3DLogo('logo-container', {
+        brandColor: 'hsl(240, 80%, 50%)',
+    });
+});
+
 /*
 // observe once
 // remove lazy loading for screen media
@@ -2823,7 +3039,7 @@ const observerOnce = new IntersectionObserver(entries => {
             if (entry.isIntetsecting) mediaObserver.unobserve(entry.target);
         },
         {
-            threshold: 1, // or rootMargin: "-100px", or 100
+            threshold: 1, // threshold: 1, or rootMargin: "-100px", or 100
         }
     );
 });
