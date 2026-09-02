@@ -1,3 +1,8 @@
+Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = new Date()
+    .toLocaleDateString('en-GB')
+    .split('/')
+    .reverse()
+    .join('.');
 // variable
 // function
 // component
@@ -11,10 +16,10 @@
 export const thisYear = new Date().getFullYear(),
     thisMonth = new Date().getMonth() + 1, // january = 0
     thisDay = new Date().getDate(),
+    thisDate = new Date().toLocaleDateString('en-GB'),
     // Cache-busting & Logic automation for versioning
     VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 // Results in YY.MM.DD format (e.g., xxxx.xx.xx)
-Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
 
 // ================== SEO
 
@@ -56,6 +61,7 @@ const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
         draggable="false"
         decoding="async"`;
 };
+
 /*
 <picture>
 <source type="image/avif" srcset="img.avif"/>
@@ -63,6 +69,17 @@ const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
 <img src="img.jpg" />
 </picture>
 */
+const seoPicture = (url, type = `png`) => {
+    // <picture ${seoPicture('url')}> // .avif | .webp
+    return `<source srcset="
+        <!-- url without @2x.png -->
+                ${url}@1x.${type},
+                ${url}@2x.${type} 2x,
+                ${url}@3x.${type} 3x
+            "/>
+            <img src="${url}@2x.${type}"/>`;
+    // </picture>
+};
 
 // a
 const seoA = () => {
@@ -70,6 +87,11 @@ const seoA = () => {
         rel="noopener noreferrer"
         target="_blank"`;
 };
+
+// const seoAudio = () => { };
+// const seoVideo = () => {};
+// const seoSvg = () => {};
+// const seoIframe = () => {};
 
 // button
 const seoButton = () => {
@@ -110,10 +132,20 @@ const seoSection = (sectionName = `sectionName`) => {
 const seoH = (sectionName = `sectionName`) => {
     // section id="about" > h2 id="aboutHeading"
     return `id="${sectionName}Heading"`;
-    // this.setAttribute('id', `${sectionName}Heading`);
 };
 const footer = () => {
     return `id="footer" role="contentinfo"`;
+};
+
+const svgAnimateX = (values = ['300%', '-300%'], duration = '20s') => {
+    return `
+        <animate
+            attributeName="x"
+            values="${values[0]}; ${values[1]}"
+            dur="${duration}"
+            repeatCount="indefinite"
+        />
+    `;
 };
 
 // absolute path for components
@@ -217,7 +249,7 @@ let primaryColor = `hsl(240, 80%, 50%)`;
 
 // <a ${seoA()} href=""></a>
 // review
-const urlFeedback = `https://g.page/r/CbEdPSgyd93iEBI/review`;
+const urlReviews = `https://g.page/r/CbEdPSgyd93iEBI/review`;
 
 author.direction = `https://maps.google.com/maps?ll=23.070916,89.234141&z=15&t=m&hl=en&gl=BD&mapclient=embed&cid=16347353279731932593`;
 
@@ -365,7 +397,11 @@ const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
     faviconFramer = getFavicon(`framer.com`),
     faviconGithub = getFavicon(`github.com`);
 
-const preferedLanguages = [`English(Native)`, `Bangla(Advanced)`, `Hindi(Conversation)`];
+const preferedLanguages = [
+    `English<span class="txt-gray">(Native)</span>`,
+    `Bangla<span class="txt-gray">(Advanced)</span>`,
+    `Hindi<span class="txt-gray">(Speaking)</span>`,
+];
 
 function SocialsItem(name, link, favicon) {
     this.name = name;
@@ -531,7 +567,7 @@ beginning.`,
 
 const componentReviews = () => {
     return `
-<div class="row items-center componentReviews">
+<div class="flex items-center componentReviews" style="gap: 1.2em; ">
 
     <ul class="wrap" style="list-style: none; display: flex; gap: 0em;">
         ${personQuotes
@@ -544,9 +580,11 @@ const componentReviews = () => {
             )
             .join('')}
             <li class="bg-raised pill txt-center" style="padding: .3em; margin-inline: -0.4em;">${12 + (new Date().getFullYear() - 2023) - personQuotes?.length}+</li>
-      </ul>
-
-     <p>${32 + (new Date().getFullYear() - 2023)}+ Projects & ${12 + (new Date().getFullYear() - 2023)}+ reviews</p>
+        </ul>
+        <div class="row items-start " style="gap: .4em; ">
+            <b class="txt-black">★★★★★ • 4.9/5</b>
+            <p>${22 + (new Date().getFullYear() - 2023)}+ <a ${seoA()} aria-label="Projects" href="#projects">Projects</a> &amp; ${12 + (new Date().getFullYear() - 2023)}+ <a ${seoA()} aria-label="Reviews" href="${urlReviews}">Reviews</a></p>
+        </div>
 
 </div>
             `;
@@ -561,7 +599,7 @@ const componentProjectProgress = () => {
                     <p class="txt-center">Experience</p>
                 </div>
                 <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center"><span class="txtStroke">${32 + (new Date().getFullYear() - 2023)}</span><span class="txt-gray">+</span></b>
+                    <b class="h1 txt-center"><span class="txtStroke">${22 + (new Date().getFullYear() - 2023)}</span><span class="txt-gray">+</span></b>
                     <p class="txt-center">Success projects</p>
                 </div>
                 <div class="row" style="gap: .4em;">
@@ -582,6 +620,8 @@ const componentProjectProgress = () => {
 // ### offline.html | Loading component ###
 class LoaderSection extends HTMLElement {
     connectedCallback() {
+        document.getElementsByTagName('body')[0].setAttribute('inert', '');
+
         const template = document.createElement('template');
         template.innerHTML = `
       <section id="loader" aria-hidden="true" class="fluid-grid-system">
@@ -637,6 +677,7 @@ class LoaderSection extends HTMLElement {
                 loader.style.transition = 'opacity 0.4s ease, visibility 0.4s';
                 loader.style.opacity = '0';
                 loader.style.visibility = 'hidden';
+                document.getElementsByTagName('body')[0].removeAttribute('inert');
 
                 setTimeout(() => {
                     loader.remove();
@@ -983,7 +1024,7 @@ class HeroSection extends HTMLElement {
         template.innerHTML = `
 
       <section ${seoSection(`hero`)} id="hero" class="fluid-grid-system dark">
-        <div class="container-md row custom-containe">
+        <div class="container-md row custom-containe" style="position: relative;">
 <svg width="0" height="0">
         <clipPath id="myClip"
         clipPathUnits="objectBoundingBox">
@@ -1007,43 +1048,42 @@ class HeroSection extends HTMLElement {
         </clipPath>
 </svg>
 
- <div style="padding: 0em; margin-block: -4em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
-   <div style="padding: 0em" class="brand-logo-container">
-     <div style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
+        <div style="padding: 0em; margin-block: -4em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
+        <div style="padding: 0em" class="brand-logo-container">
+            <div style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
 
-${author.logoOutlineSvg}
+        ${author.logoOutlineSvg}
 
-     </div>
-   </div>
+            </div>
+        </div>
 
-   <h1 ${seoH(`hero`)} class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
-     <svg class="infinite-scroller_inner svgDraw" fill="none" height="512" viewBox="0 0 512 512" width="512" height="100%" style="overflow: visible;">
-       <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
-${section.heading}
-       </text>
-     </svg>
-   </h1>
- </div>
+        <h1 ${seoH(`hero`)} class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
+            <svg class="infinite-scroller_inner svgDraw" fill="none" height="512" viewBox="0 0 512 512" width="512" height="100%" style="overflow: visible;">
+            <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
+        ${section.heading}
 
- <div class="row items-center">
-   <span style="padding: .5em 1em;" class="badge txt-bg-inverse pill">Available for Projects</span>
+                ${svgAnimateX()}
+            </text>
+            </svg>
+        </h1>
+        </div>
 
-   <p class="txt-center">${section.description}</p>
-   ${componentReviews()}
-   <div class="flex content-center ">
-     <a ${seoA()} style="text-decoration: none;" href="/resume">
-        <buttton style="border: 0px solid var(--bg-base); padding: 1em;" class="btn btn-primary txt-black bg-base pointer-button">Resume</button>
-     </a>
-   </div>
- </div>
+        <div class="row items-center">
+            <span style="padding: .4em .8em; gap: .4em" class="h6 flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> Last seen ${random(1, new Date().getHours())}:${random(0, new Date().getMinutes())}</span>
 
-
+            <p class="txt-center">${section.description}</p>
+            ${componentReviews()}
+            <div class="flex content-center ">
+                <a ${seoA()} style="text-decoration: none;" href="/resume">
+                    <buttton style="border: 0px solid var(--bg-base); padding: 1em;" class="btn btn-primary txt-black bg-base pointer-button">Resume</button>
+                </a>
+            </div>
+        </div>
 
 
 
         </div>
       </section>
-
     `;
 
         // 4. THE MAGIC: Synchronous swap
@@ -1109,9 +1149,10 @@ class ClientsSection extends HTMLElement {
         // 3. Define the HTML (Top-level element is now your grid section)
         // HTML
         template.innerHTML = `
-<section ${seoSection(`youtubers`)} class="fluid-grid-system bg-base" id="youtubers">
-    <div class="container-lg row infinite-scroller mask" data-direction="right/left" data-speed="fast/slow">
+<section ${seoSection(`youtubers`)} class="fluid-grid-system bg-base" id="youtubers" style="display: none; ">
+    <div class="container-lg row infinite-scroller mask" data-direction="left" data-speed="slow">
         <h2 ${seoH(`youtubers`)} class="h4 d-none">Subscriptioned by ${author.name} on YouTube </h2>
+
       <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
        ${youtubers
            .map(
@@ -1125,6 +1166,7 @@ class ClientsSection extends HTMLElement {
            )
            .join('')}
       </ul>
+
 
     </div>
    </section>
@@ -1144,10 +1186,9 @@ if (!customElements.get('clients-section')) {
 class AboutSection extends HTMLElement {
     connectedCallback() {
         // Story data array for easy updates
-        function StoriesItem(date, title, heading, desc, link, linkText, ariaLabel, image) {
+        function StoriesItem(date, title, desc, link, linkText, ariaLabel, image) {
             this.date = date;
             this.title = title;
-            this.heading = heading;
             this.desc = desc;
             this.link = link;
             this.linkText = linkText;
@@ -1157,64 +1198,58 @@ class AboutSection extends HTMLElement {
         const stories = [
             new StoriesItem(
                 '2001',
-                'Birth of mine',
                 'Roots & Passion for Technology',
                 `it's been  ${new Date().getFullYear() - 2001} years, I born with core values of discipline, continuous learning, and creative problem-solving.`,
                 `${author.location}`,
                 'View place',
                 `map`,
-                `/assets/og-images/og-main.png`
+                `/assets/img/personal/img-1.jpg`
             ),
             new StoriesItem(
                 '2022',
                 'Web Design & UI Architecture',
-                'YouTube platform for design and development.',
                 'Deep-dived into self-directed UI/UX design, mastering Figma wireframing and frontend logic.',
                 `${urlYoutube}`,
                 'View channels',
                 `youtube`,
-                `/assets/og-images/og-main.png`
+                `/assets/img/personal/img-2.jpg`
             ),
             new StoriesItem(
                 '2024',
-                'Diploma in CS & Technology',
                 'Diploma in Computer Science and Technology.',
                 'Formalized technical foundation in software logic, database structures, and system engineering.',
                 'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
                 'View institute',
                 `map`,
-                `/assets/og-images/og-main.png`
+                `/assets/img/personal/img-3.jpg`
             ),
             new StoriesItem(
-                '2024',
+                '2025',
                 'Utshob Tech Certified & Freelance',
-                'Utshob Technology Ltd.',
                 `Building high-performing client sites at Sheikh Hasina Software Technology Park and serving international contracts.`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
                 'View place',
                 `map`,
-                `/assets/og-images/og-main.png`
+                `/assets/img/brand/app-bg-512.png`
             ),
             new StoriesItem(
                 // FIXED: Used backticks to allow double quotes in the HTML string
-                `2025 - ${thisYear}`,
-                'Being a developer',
+                `${thisYear - 1}`,
                 'Designing and developing website.',
                 `${author.description}`,
                 `/projects`,
                 'View projects',
                 `project`,
-                `/assets/og-images/og-main.png`
+                `/assets/img/brand/app-bg-512.png`
             ),
             new StoriesItem(
                 `${thisYear}`,
-                'Looking for opportunities',
                 'Junior Front-End Developer',
                 'Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.',
                 `/resume`,
                 'Download Resume',
                 `resume`,
-                `/assets/og-images/og-main.png`
+                `/assets/img/brand/app-bg-512.png`
             ),
         ];
 
@@ -1229,7 +1264,7 @@ class AboutSection extends HTMLElement {
         template.innerHTML = `
 
 <section ${seoSection(`about`)} class="fluid-grid-system bg-base  screenHeight snappyContainer " style="--snapType: mandatory;" id="about">
-    <article style="gap: 0em;" class="row content-center screenHeight">
+    <div style="gap: 0em;" class="row content-center screenHeight">
       <p class="h6 fade-in-to">
         <span class="txt-gray">${author.name}</span> 2001 - ${thisYear}
       </p>
@@ -1244,26 +1279,40 @@ class AboutSection extends HTMLElement {
             </a>
         </div>
       </div>
-    </article>
+    </div>
 
  ${stories
      .map(
          (story, index) => `
-    <article id="story-${index + 1}" style="padding-block: 0em; overflow: clip; position: relative;" class="row fade-in-top-containe  screenHeight content-center ">
+    <article id="story-${index + 1}" class="row fade-in-top-containe content-center screenHeight " style="padding-block: 0em; overflow: clip; position: relative; ">
 
-    <span inert class="story-image" style="opacity: .2; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
+        <span inert aria-hidden="true" class="story-image mas" style="opacity: .3; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
 
+        <svg fill="none" viewBox="0 0 100 100" class="storySvg" style="position: absolute; inset: 0; margin: auto; overflow: visible; " >
+            <text class="h1" x="50%" y="50%" text-anchor="middle"
+            style="stroke: var(--txt-gray); stroke-width: .3; fill: transparent; stroke-dasharry: 440; stroke-dashoffset: 50; font-size: calc(--fluidFont(1.4rem, 1.6rem) * 2.2);
+            font-weight: 800; opacity: 1; mix-blend-mode: difference; "
+            >${story.date}</text>
+        </svg>
 
-       <div style="gap: .5em;" class="row">
-        <h3 class="p fade-in-to txt-muted">${story.date}</h3>
-        <h4 style="h5 padding-block: 0em;" class="fade-in-to">${story.title}</h4>
-       </div>
-       <h5 class="h2 fade-in-to txt-center" style="justify-self: center; max-inline-size: 16em;">${story.heading}</h5>
-       <div style="gap: var(--space-xs); justify-self: end; max-inline-size: 20em;" class="row">
-        <p class="fade-in-to lineClamp" style="">${story.desc}</p>
-        <a ${seoA()} aria-label="${story.ariaLabel}" class="fade-in-to" href="${story.link}">${story.linkText} ↗</a>
-       </div>
+        <span inert class="story-imageCliped" style="clip-path: inset(30% 30% 30% 30%); opacity: 1; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
 
+        <div class="toCenterContents " >
+            <div class="col" style="--col-size: 20rem; gap: 0;  padding-block: 0; ">
+                <div><span inert aria-hidden="true" class="h6 txt-gray">${story.date}</span> <h3 style="padding-block: 0em; mix-blend-mode: difference; display: inline;" class="h2 split-heading">${story.title}</h3></div>
+
+                <div class="emptyCol"></div>
+            </div>
+
+            <div class="col" style="--col-size: 20rem; gap: 0;  padding-block: 0; ">
+                <div class="emptyCol"></div>
+
+                <div style="gap: .4em;" class="row">
+                    <p class="fade-in-to h6 lineClamp" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip; mix-blend-mode: difference; ">${story.desc}</p>
+                    <a ${seoA()} aria-label="${story.ariaLabel}" class="fade-in-to" href="${story.link}">${story.linkText} ↗</a>
+                </div>
+            </div>
+        </div>
       </article>
 
  `
@@ -1316,8 +1365,8 @@ class ServicesSection extends HTMLElement {
         <h2 ${seoH(`services`)}>
         Services available in <br> ${locationSecondary}.
         </h2>
-        <article>High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${random(95, 100)}%</b> satisfaction.</article>
-    <h3 class="h4">
+        <p>High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${random(95, 100)}%</b> satisfaction.</p>
+    <h3 class="h5">
             <a  class="fade-in-to" href="#service-1">View my primary services ...❯</a>
         </h3>
 
@@ -1462,7 +1511,7 @@ class ProjectsSection extends HTMLElement {
 
       <section ${seoSection(`projects`)} class="fluid-grid-system bg-base snappyContainer" style="--snapType: mandatory;" id="projects">
 
-      <article class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip;">
+      <div class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip;">
  <p class="fade-in-to txt-gray">Selected <span class="txt-muted">Projects</span> 2023 - ${thisYear}</p>
  <div>
     <h2 ${seoH(`projects`)} class="h2" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
@@ -1473,7 +1522,7 @@ With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & de
 </span>
 </p>
 </div>
- </article>
+ </div>
 
  <div style="gap: 0em;" class=" row content-center projects-list screenHeight fluidHovere">
  ${projects
@@ -1583,7 +1632,7 @@ class TestimonialsSection extends HTMLElement {
         </ul>
 
         <div class="flex j-center">
-            <a ${seoA()} href="${urlFeedback}"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+            <a ${seoA()} href="${urlReviews}"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
             Add Review ↗
             </button></a>
         </div>
@@ -1594,21 +1643,8 @@ class TestimonialsSection extends HTMLElement {
 
     `;
 
-        const content = template.content.cloneNode(true);
-        // 2. Select the existing DOM elements inside 'content'
-        // const starEl = content.querySelector('.star');
-        // const quoteEl = content.querySelector('.quote');
-
-        // 2. Attach listeners to the cloned nodes
-        /* quoteButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (nameEl) nameEl.textContent = newQuote.name;
-                if (linkEl) linkEl.href = newQuote.link;
-            });
-        }); */
-
-        // 3. Swap the live component with 'content' ONLY ONCE
-        this.replaceWith(content);
+        // 3. Swap the live component
+        this.replaceWith(template.content);
     }
 }
 // Define the custom element
@@ -1776,7 +1812,7 @@ class ContactSection extends HTMLElement {
         }
         const buttons = [
             new ButtonsItem(`View Map ↘`, `${author.direction}`, `btn-primary`),
-            new ButtonsItem(`Add Reviews ↘`, `${urlFeedback}`, `d-none`),
+            new ButtonsItem(`Add Reviews ↘`, `${urlReviews}`, `d-none`),
         ];
 
         // Instantiate Section for current element
@@ -1799,7 +1835,7 @@ class ContactSection extends HTMLElement {
      </div>
 
 <div class="ph-wrapper">
-        <h2 ${seoH(`contact`)} style="display: inline;" class="h2 txt-black">I help ambitious brands stand out through <a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> bold design and digital strategies.
+        <h2 ${seoH(`contact`)} style="display: inline;" class="h2 txt-black split-heading">I help ambitious brands stand out through <a ${seoA()} aria-label="Hassan Biswas Home Page" href="/"><img ${seoImg(faviconAuthor, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> bold design and digital strategies.
        </h2>
        <p style="display: inline; font-weight: bold;" class="h2 txt-gray">
         Ready to scale your brand with <a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> ${author.name}?
@@ -2056,6 +2092,8 @@ Resume
      <svg fill="none">
       <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
        &copy; ${new Date().getFullYear()} ${author.title}
+
+       ${svgAnimateX()}
       </text>
      </svg>
     </div>
@@ -2067,23 +2105,7 @@ Resume
 
         // 4. THE MAGIC: Synchronous swap
         // Replaces <contact-section> with the contents of the template immediately.
-
-        // Cache elements from fragment before swapping
-        const content = template.content;
-
-        /*
-    const installBtn = content.querySelector('#installApp');
-    const themeSelect = content.querySelector('#theme-selector');
-
-    // Handle PWA install logic (placeholder)
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      window.deferredPrompt = e;
-      installBtn.style.display = 'flex';
-    });
-    */
-
-        this.replaceWith(content);
+        this.replaceWith(template.content);
     }
 }
 // Define the custom element
@@ -2609,21 +2631,6 @@ const observer = new IntersectionObserver(entries => {
     });
 }, observerOptions);
 
-// observe => observing (section, h, p, img, etc...)
-// document.addEventListener('DOMContentLoaded', () => {
-//     const cards = document.querySelectorAll('.card');
-//     const options = { threshold: 0.1 };
-//     const observer = new IntersectionObserver((entries) => {
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting) {
-//                 entry.target.classList.add('visible');
-//                 observer.unobserve(entry.target);
-//             }
-//         });
-//     }, options);
-//     cards.forEach(card => observer.observe(card));
-// });
-
 // Select all elements you want to animate
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -2641,9 +2648,32 @@ const navObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.06 }
+    { threshold: 0.6 }
 ); // Trigger when section is 60% visible, avoid 1
 document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
+
+// remove lazy loading in screen medias
+const lazyLoading = document.querySelectorAll('a, img, picture, svg, iframe, audio, video');
+lazyLoading?.forEach(el => {
+    el.setAttribute('loading', 'lazy');
+});
+
+const lazyObserver = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.removeAttribute('loading');
+                observer.unobserve(entry.target);
+            } else {
+                entry.target.setAttribute('loading', 'lazy');
+            }
+        });
+    },
+    { threshold: 0.1 }
+); // Trigger when section is 10% visible, avoid 1
+// threshold: 0.3, or rootMargin: "100px", or "-100px"
+// document.querySelectorAll('[loading', 'lazy]')
+lazyLoading?.forEach(el => lazyObserver.observe(el));
 
 // ------ install app --------
 let deferredPrompt;
@@ -2672,7 +2702,7 @@ window.addEventListener('beforeinstallprompt', e => {
             deferredPrompt = null;
         });
     });
-}); // may be extra!
+});
 
 // Logic to hide button if already installed
 window.addEventListener('appinstalled', () => {
@@ -2752,54 +2782,13 @@ imageContainers?.forEach(container => {
     container.style.setProperty(`--primary-50`, imageColor);
 });
 
-// const infiniteScrollers = document.querySelectorAll('.infinite-scroller');
-
-// function infiniteScrollAnimate() {
-//     infiniteScrollers?.forEach(scroller => {
-//         scroller.setAttribute('data-animation', true);
-
-//         const scrollerInner = scroller?.querySelector('.infinite-scroller_inner');
-//         const scrollerContents = ArrayFrom(scrollerInner.children);
-
-//         scrollerContents.forEach(content => {
-//             const duplicatedContent = content.cloneNode(true);
-//             duplicatedContent.setAttribute('aria-hidden', true);
-//             scrollerInner.appendChild(duplicatedContent);
-//         });
-//     });
-// }
-
 // ################## Animations ##################
-// infiniteScrollAnimate();
 
-// Observe if into screen
-/* const observer = new IntersectionObserver(entries => {
-    entries.forEach(
-        entry => {
-            entry.target.classList.toggle('observing', entry.isIntersecting);
-            // if (entry.isIntetsecting) itemObserver.unobserve(entry.target)
-        },
-        {
-            threshold: 1, // or rootMargin: "-100px",
-        }
-    );
+document.querySelectorAll('.fade-in-top')?.forEach(el => {
+    observer.observe(el);
 });
 
-const observe = document.querySelectorAll('.observe');
-observe?.forEach(el => {
-    observer.observe(el);
-}); */
-
-let fadeInTop = document.querySelectorAll('.fade-in-top');
-
-fadeInTop?.forEach(el => {
-    el.style = `transform: translateY(-100%); opacity: 0;`;
-
-    observer.observe(el);
-    el.style = `transform: translateY(0); opacity: 1;`;
-});
-
-export function textRevelOnscroll() {
+export const textRevelOnscroll = () => {
     let textRevelOnscroll = document.querySelectorAll('.text-revel-onscroll');
 
     textRevelOnscroll?.forEach(revel => {
@@ -2815,79 +2804,29 @@ export function textRevelOnscroll() {
             { duration: 1200, fill: 'forwards' }
         );
     });
-}
-
-// Split Text Web Component (Heading Animation)
-class SplitHeading extends HTMLElement {
-    connectedCallback() {
-        const text = this.textContent.trim();
-        this.innerHTML = text
-            .split('')
-            .map((char, index) => {
-                const displayChar = char === ' ' ? '&nbsp;' : char;
-                return `<span class="char" style="transition-delay: ${index * 25}ms">${displayChar}</span>`;
-            })
-            .join('');
-
-        this.classList.add('split-heading');
-        this.observeVisibility();
-    }
-
-    observeVisibility() {
-        const observer = new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        this.classList.add('is-visible');
-                        observer.unobserve(this);
-                    }
-                });
-            },
-            { threshold: 0.2 }
-        );
-
-        observer.observe(this);
-    }
-}
-
-// Scroll Reveal Observer for Paragraphs
-const initScrollReveal = () => {
-    const elements = document.querySelectorAll('.scroll-reveal');
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        },
-        { threshold: 0.15 }
-    );
-
-    elements.forEach(el => observer.observe(el));
 };
 
-customElements.define('split-heading', SplitHeading);
-document.addEventListener('DOMContentLoaded', initScrollReveal);
+// Split Text Web Component (Heading Animation)
+const splitHeading = document.querySelectorAll('.split-heading');
+splitHeading?.forEach(el => {
+    const text = el.textContent.trim();
+    el.innerHTML = text
+        .split('')
+        .map((char, index) => {
+            const displayChar = char === ' ' ? '&nbsp;' : char;
+            return `<span class="char split">${displayChar}</span>`;
+        })
+        .join('');
 
-class SVG3DLogo {
-    constructor(containerId, options = {}) {
-        this.container = document.getElementById(containerId);
-        this.brandColor = options.brandColor || 'hsl(240, 80%, 50%)';
-        this.VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+    el.classList.add('spliting');
+    observer.observe(el);
+});
 
-        this.init();
-    }
+document.querySelectorAll('.scroll-reveal')?.forEach(el => observer.observe(el));
 
-    setStyle() {
-        const styleId = 'svg-3d-logo-styles';
-        if (document.getElementById(styleId)) return;
-
-        const styleTag = document.createElement('style');
-        styleTag.id = styleId;
-
-        styleTag.textContent = `
+/*
+const logoContainer = () => {
+    styleTag?.textContent = `
 .svg-logo-perspective {
 perspective: 1000px;
 display: flex;
@@ -2899,7 +2838,6 @@ margin: 0 auto;
 padding: 2rem;
 }
 
-/* Outer Card: Receives Tilt Effect (Mouse / Touch) */
 .svg-logo-tilt-card {
 width: 100%;
 height: auto;
@@ -2908,7 +2846,6 @@ transition: transform 0.15s cubic-bezier(0.2, 0.8, 1, 1);
 will-change: transform;
 }
 
-/* Inner Container: Holds Continuous Spin Animation */
 .svg-logo-spinner {
 width: 100%;
 height: auto;
@@ -2925,11 +2862,6 @@ overflow: visible;
 filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
 }
 
-.svg-logo-element path {
-fill: ${this.brandColor};
-}
-
-/* Continuous Infinite 3D Y-Axis Rotation */
 @keyframes spin3DInfinite {
 0% {
 transform: rotateY(0deg);
@@ -2939,15 +2871,11 @@ transform: rotateY(360deg);
 }
 }
 `;
+}; */
 
-        document.head.appendChild(styleTag);
-    }
-
-    render() {
-        if (!this.container) return;
-
-        // Viewport-scalable SVG structure with separate tilt and spin wrappers
-        const svgHTML = `
+// Viewport-scalable SVG structure with separate tilt and spin wrappers
+/*
+const svgHTML = `
 <div class="svg-logo-perspective">
 <div class="svg-logo-tilt-card" id="logoTiltCard">
 <div class="svg-logo-spinner">
@@ -2959,95 +2887,50 @@ preserveAspectRatio="xMidYMid meet"
 loading="lazy"
 aria-label="3D Scalable Logo"
 >
-<!-- Outer Ring -->
-<path d="M 250 50 A 200 200 0 1 0 450 250 L 370 250 A 120 120 0 1 1 250 130 Z" />
-<!-- Inner 3D Cube Path -->
-<path d="M 250 160 L 310 195 L 310 265 L 250 230 Z" opacity="0.85" />
-<path d="M 250 160 L 190 195 L 250 230 L 310 195 Z" opacity="0.95" />
-<path d="M 190 195 L 190 265 L 250 230 Z" opacity="0.7" />
+
 </svg>
 </div>
 </div>
 </div>
 `;
+*/
 
-        this.container.innerHTML = svgHTML;
-        this.attachTiltEffect();
-    }
+// this.container.innerHTML = svgHTML;
 
-    attachTiltEffect() {
-        const tiltCard = document.getElementById('logoTiltCard');
-        const wrapper = this.container.querySelector('.svg-logo-perspective');
-        if (!tiltCard || !wrapper) return;
+const attachTiltEffect = () => {
+    const tiltCard = document.getElementById('logoTiltCard');
+    const wrapper = this.container.querySelector('.svg-logo-perspective');
+    if (!tiltCard || !wrapper) return;
 
-        const handleMove = (clientX, clientY) => {
-            const rect = wrapper.getBoundingClientRect();
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            // Calculate tilt angles based on pointer distance from center
-            const rotateX = ((y - centerY) / centerY) * -30;
-            const rotateY = ((x - centerX) / centerX) * 30;
-
-            tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
-        };
-
-        const handleReset = () => {
-            tiltCard.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        };
-
-        // Mouse events
-        wrapper.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
-        wrapper.addEventListener('mouseleave', handleReset);
-
-        // Touch events for mobile responsiveness
-        wrapper.addEventListener(
-            'touchmove',
-            e => {
-                if (e.touches.length > 0) {
-                    handleMove(e.touches[0].clientX, e.touches[0].clientY);
-                }
-            },
-            { passive: true }
-        );
-        wrapper.addEventListener('touchend', handleReset);
-    }
-
-    init() {
-        this.setStyle();
-        this.render();
-    }
-}
-
-// Instantiate component
-document.addEventListener('DOMContentLoaded', () => {
-    new SVG3DLogo('logo-container', {
-        brandColor: 'hsl(240, 80%, 50%)',
-    });
-});
-
-/*
-// observe once
-// remove lazy loading for screen media
-const observerOnce = new IntersectionObserver(entries => {
-    entries.forEach(
-        entry => {
-            entry.target.classList.toggle('observingOnce', entry.isIntersecting);
-            if (entry.isIntetsecting) mediaObserver.unobserve(entry.target);
+    const handleMove = (clientX, clientY) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        // Calculate tilt angles based on pointer distance from center
+        const rotateX = ((y - centerY) / centerY) * -30;
+        const rotateY = ((x - centerX) / centerX) * 30;
+        tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
+    };
+    const handleReset = () => {
+        tiltCard.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    };
+    // Mouse events
+    wrapper.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
+    wrapper.addEventListener('mouseleave', handleReset);
+    // Touch events for mobile responsiveness
+    wrapper.addEventListener(
+        'touchmove',
+        e => {
+            if (e.touches.length > 0) {
+                handleMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
         },
-        {
-            threshold: 1, // threshold: 1, or rootMargin: "-100px", or 100
-        }
+        { passive: true }
     );
-});
-
-const observingOnce = document.querySelectorAll('.observingOnce');
-observingOnce?.forEach(el => {
-    observerOnce.observe(el);
-}); */
+    wrapper.addEventListener('touchend', handleReset);
+};
 
 // ###### function calls bellow ######
 
