@@ -29,8 +29,9 @@
   "editor.wordWrapColumn": 120,
 
   // --- AUTOMATION & SPEED (SET-AND-FORGET) ---
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 1000000, 
+  "files.autoSave": "off",
+  // "files.autoSave": "afterDelay",
+  // "files.autoSaveDelay": 1000000, 
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
