@@ -138,37 +138,42 @@ initial-value: hsl(240 80% 50%); /* 240 80% 50% */
 
   html,
   body {
+    color-scheme: light dark;
 min-block-size: 100dvh;
- /* svh prevent jumping */
 inline-size: 100dvw;
+font-family: var(--custom-font);
 background: var(--primary-50);
+
+font-size: --fluidFont(1.4rem, 1.6rem);
+font-weight: 400;
+line-height: 1.5; /* 150 */
+color: var(--txt-muted);
 }
+
   /* 2. Root Element - Accessibility & Base Units */
   html {
-    font-size: 62.5%;
-    /* will 1rem = 10px */
-        color-scheme: light dark;
-         /* -webkit-text-size-adjust: 100%;  */
-         /* Prevents font scaling in iOS */
-         /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  */
-         /* Removes tap highlight */
+font-size: 62.5%; /* 1rem = 10px */
 
-         overscroll-behavior: contain;
-         /* prevent section jumping */
-         /* contain-intrinsic-size: 5rem; */
+content-visibility: auto;
 
-         content-visibility: auto;
-         /* interpolate-size: allow-keywords;  */
-         /* animate/transition: height/width */
-         /* transition-behavior: allow-discrete;  */
-         /* opacity, display, overlay */
-         scroll-behavior: smooth;
-         scroll-padding: 0em;
+/* scrollbar-gutter: stable; */
 
+/* for text area */
+/* scrollbar-gutter: none;
+scrollbar-width: none; */
 
-/* ?v9 (-) => */
-scroll-snap-type: y proximity;
-/* <= (-) ?v9 */
+/* for parrent */
+scroll-behavior: smooth;
+overscroll-behavior: contain;
+/* scroll-snap-type: both proximity; */
+/* scroll-padding: 0em; */ /* for curossel paddin */
+
+/* for child */
+& > * {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* scroll-margin: 0em; */ /* if stiky navbar */
+}
 }
 
   /* Example Fallback */
@@ -176,16 +181,13 @@ scroll-snap-type: y proximity;
 html {
   interpolate-size: allow-keywords;
 }
-}
-
-/*
-html { overflow-x: clip; }
-body { overflow-x: clip;  }
- */
-
-/* 3. Global Variables & Design Tokens */
+}  /* 3. Global Variables & Design Tokens */
 :root {
-/* 1. color-scheme: light dark; Required for light-dark() to function */
+/* 1. Required for light-dark() to function */
+color-scheme: light dark;
+
+interpolate-size: allow-keywords; /* animate/transition: height/width */
+transition-behavior: allow-discrete; /* opacity, display, overlay */
 
 /* --- Color System --- */
 /* --color: light-dark(white, black); */
@@ -773,39 +775,34 @@ font-size: --fluidFont(1.4rem, 1.4rem);
     align-items: stretch;
 
 overflow-x: auto;
-    /* scrollbar-gutter: none; */
-        scrollbar-width: none;
+overflow-y: clip;
 scroll-snap-type: both mandatory;
 anchor-name: --carousel;
 
 
-    scroll-marker-group: before;
+    scroll-marker-group: after;
 
 & > * {
-    scroll-snap-align: center;
+    scroll-snap-align: center; inline-size: 100%;
 }
 
 &::scroll-button(*) {
   position: fixed;
   position-anchor: --carousel;
 
-  padding: .8em 1.6em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
-  border: 1px solid var(--bg-raised);
-  background: var(--bg-overlay);
-  display: grid;
-  place-items: center;
-  font-weight: bold;
-  color: currentColor;
+  padding: .8em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
+  border: 2px solid var(--bg-raised);
+  background: var(--bg-base);
 }
 
 &::scroll-button(left) {
-  content: '❮';
+  content: 'Prev';
   position-area: center left;
   transform: translateX(50%);
 }
 
 &::scroll-button(right) {
-  content: '❯';
+  content: 'Next';
   position-area: center right;
   transform: translateX(-50%);
 }
@@ -900,15 +897,13 @@ padding: var(--space-s) var(--space-m);
 
 &:is(:hover, :focus-visible) {
   cursor: pointer;
-  transform: translateY(-0.2em);
-  filter: hue-rotate(10deg);
+  transform: translateY(-0.1em);
+  filter: hue-rotate(6deg);
 }
 /* &:is(:focus) */
 
-/* a {text-decoration: none;} */
+a {text-decoration: none;}
 }
-
-a:has(button, input[type="button"]) { text-decoration: none; }
 
   /* main call-to-action with bold background. e.g. hire me, submit */
 
@@ -1729,6 +1724,22 @@ color: var(--bg-raised);
   /* ##### body style starts here! ##### */
 
 
+body {
+    font-size: --fluidFont(1.4rem, 1.6rem);
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--txt-muted);
+block-size: 100dvh; /* svh prevent jumping */
+/* border-radius: 0 0 var(--section-radius) var(--section-radius); */
+overflow-y: auto;
+overflow-x: clip; /* clip standalone-app */
+
+/* position: relative; */
+
+/* -webkit-text-size-adjust: 100%; */ /* Prevents font scaling in iOS */
+/* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */ /* Removes tap highlight */
+ }
+
 :has([value="light"]:checked) body {color-scheme: light;}
 :has([value="dark"]:checked) body {color-scheme: dark;}
 
@@ -1771,26 +1782,8 @@ border-radius: var(--section-radius);
 overflow-x: clip;
 }
 
-/* ?v9 (-) => */
-body {
-    font-size: --fluidTypography(1.4rem, 1.6rem);
-    line-height: 1.5;
-    font-weight: 400;
-    color: var(--txt-muted);
-block-size: 100dvh; /* svh prevent jumping */
-/* border-radius: 0 0 var(--section-radius) var(--section-radius); */
-overflow-y: auto;
-overflow-x: clip; /* clip standalone-app */
-
-/* position: relative; */
-
-/* -webkit-text-size-adjust: 100%; */ /* Prevents font scaling in iOS */
-/* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */ /* Removes tap highlight */
- }
-/* <= (-) ?v9 */
-
-
-  body,   /* (body,) (-) <= ?v9 */
+  /* #body removed */
+  body,
   main {
 display: grid;
 grid-auto-flow: row;
@@ -1798,47 +1791,14 @@ gap: 0em;
 grid-template-columns: 1fr;
 grid-auto-rows: auto;
 overflow-x: clip;
-
-    /* ?.v9 =>  */
-        /* overflow-x: clip; */
-        /* } */
-
-
-          /* body { */
-          /* font-family: var(--custom-font); */
-          /* font-size: --fluidFont(1.4rem, 1.6rem); */
-          /* font-weight: 400; */
-          /* line-height: 1.5; */
-          /* color: var(--txt-muted); grid-template-columns: unset; */
-
-          /* block-size: 100dvh; */
-          /* position: relative; */
-/* }  */
-/* <= ?v9 */
-
 position: relative;
-
- /* ?v9 (-) =>  */
-/* position: relative; */
-
-/* overscroll-behavior: contain; */
-/* scroll-snap-type: y proximity; */
-/* contain-intrinsic-size: auto 5rem; */
-/* scroll-padding: 0em; */
-
-/* & > * { */
-  /* scroll-snap-align: start; */
-    /* scroll-snap-stop: always; */
-      /* scroll-margin: 0em; */
-      /* } */
-      /* } */
-    /* <= (-) ?v9 */
 
 /* for parrent */
 overscroll-behavior: contain;
-scroll-snap-type: y proximity;
+/* scroll-snap-type: both proximity; */
 contain-intrinsic-size: auto 5rem; /* prevent section jumping */
 scroll-padding: 0em; /* for curossel paddin */
+scroll-margin: 0;
 
 /* for child */
 & > * {
@@ -1855,39 +1815,7 @@ scrollbar-gutter: stable;
 /* for parrent */
 /* overflow-y: auto; */
 
-
-    /* ?v9 =>  */
-        /* *scrollbar-gutter: stable; */
-        /* min-block-size: 100dvh; */
-        /* overflow-y: scroll; */
-
-    /* *scrollbar-gutter: none; */
-    /* *scrollbar-width: none; */
-
-    /* scroll-snap-type: both mandatory; */
-
-    /* *Ensures touch devices handle both directions without locking */
-    /* *touch-action: pan-x pan-y; */
- /* <= ?v9 */
-
-
 /* for child */
-/* ?v9 => */
-    /* & > * { */
-    /* scroll-snap-align: start; */
-    /* scroll-snap-stop: always; */
-    /* scroll-margin: 0em; */
-
-    /* padding-block: var(--space-2xl); */
-    /* } */
-    /* } */
-
-    /* Container Setup */
-/* <= ?v9 */
-
-
-
-
 > * {
   padding-block: var(--space-2xl);
 }
@@ -2102,16 +2030,6 @@ padding-block: var(--space-xs);
 
   #about {
 background: var(--bg-base);
-
-    overflow: clip auto;
-    /* ?v9 => */
-    /* scrollbar-gutter: none; */
-    /* scrollbar-width: none; */
-    /* <= ?v9 */
-}
-
-.lineClamp {
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;
 }
 
   /* #services */
@@ -2120,21 +2038,11 @@ background: var(--bg-base);
 block-size: 100dvh;
 grid-template-columns: unset;
 
-    overflow: auto clip;
-/* ?v9 => */
-    /* scrollbar-gutter: none; */
-    /* scrollbar-width: none; */
-/* <= ?v9 */
+overflow: auto auto;
 
-/* touch-action: pan-x pan-x; */
-/* Ensures touch devices handle both directions without locking */
+      touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */
 
 
-    & > * {
-        scroll-snap-align: var(--snapAlign, start);
-        scroll-snap-stop: always;
-        scroll-margin: 0em;
-    }
 
   ul { padding-inline: .8em; }
 }
@@ -2143,7 +2051,9 @@ grid-template-columns: unset;
 block-size: 100dvh;
 grid-template-columns: unset;
 
-    overflow: auto;
+    overflow: auto auto;
+          touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */
+
 
 padding: 0; margin: 0;
 display: grid;
@@ -2160,61 +2070,50 @@ gap: 0em;
 }
 
 .snappyContainer {
+
+/* border: 1px solid red; */
+
+overflow: clip auto;
 padding-block: 0;
-overflow: auto;
-/* ?v9 => */
-    /* overflow: clip auto; */
-/* <= ?v9 */
 
-/* touch-action: pan-x pan-y; */
+    /* for parrent */
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    scroll-snap-type: both var(--snapType);
 
-scroll-snap-type: both var(--snapType, proximity);
-scroll-padding: 0;
-
+    /* for child */
     & > * {
-        scroll-snap-align: var(--snapAlign, start);
-        scroll-snap-stop: always;
-        scroll-margin: 0em;
-    }
+ scroll-snap-align: var(--snapAlign);
+   scroll-snap-stop: always;
+    scroll-margin: 0em; /* if stiky navbar */
+    scroll-padding: 0;
+}
 }
  .screenHeight {
     block-size: 100dvh;
     /* border: 1px solid yellow; */
 }
 
-
-.fluidHovere {
-    &:has( > :is(:hover, :focus-visible)) > :not(:is(:hover, :focus-visible)) {
-        opacity: 0.5;
-    }
-
-    > * {  transition : opacity 200ms ease-in;
-
-        &:is(:hover, :focus-visible) {
-            cursor: pointer;
-        }
-    }
-
-     /* & > .scale { scale: .8; } */
-}
-
-
   #projects {
 block-size: 100dvh;
-
-    overflow: clip auto;
-    /* ?v9 => */
-    /* scrollbar-gutter: none; */
-    /* scrollbar-width: none; */
-    /* <= ?v9 */
+    overflow-x: clip;
+    overflow-y: scroll;
 
     & > * { block-size: 100dvh; }
 
     span[inert] { transition: .4s var(--transition);}
 
  & > .row {position: relative;}
+&:has(.project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible)) { opacity: 0.5; }
+ .project-item {
+  transition : 200ms linear;
 
-
+    &:is(:hover, :focus-visible) {
+   cursor: pointer;
+   /* background: var(--bg-raised);
+   padding-inline-start: .8em; */
+    }
+}
  .project-image {
     transition : 350ms linear;
     aspect-ratio: 1;
@@ -2234,53 +2133,46 @@ block-size: 100dvh;
   }
 }
 
-.componentReviews { visibility: visible; }
-.componentProjectProgress {
-    > :is(*, .row) {
-        flex: 1 1 13rem; /* 13 is the 2 of mobileScreen */
-    }
-}
-
   /* #testimonial */
   #testimonials {
 background: var(--bg-base);
-/* touch-action: pan-x pan-y; */
 }
 
   #faqs {
 background: var(--bg-base);
+
+&:has(details:is(:hover, :focus-visible)) details:not(:is(:hover, :focus-visible)) { opacity: 0.6; }
 
 details {
   overflow: clip;
   /* border: .2rem solid; */
   border-image: linear-gradient(to right, var(--bg-overlay), transparent) 1;
   border-radius: 2em;
-  transition: 300ms linear;
   padding: .5em;
+  transition: 400ms linear;
 
     &:is(:hover, :focus-visible) {cursor: pointer;}
-
-    > * {
-        padding: 1em;
-    }
-
   summary {
 
-    .question {
+    h3 {
     list-style-position: outside;
-    margin-inline-start: -1.6em;
+    margin-inline-start: 1em;
+    padding: .5em;
     }
 
 &::marker {
-    content: '';
-    /* font-size: inherit; */
+    content: '+';
+    font-size: inherit;
 }
 }
 &[open] summary::marker  {
-    content: '';
+    content: '×';
 }
-&[open] :has(.question) .marker  {
-    rotate: 45deg;
+
+  p {
+/* padding-block-start: .5em; */
+
+transition: 400ms linear;
 }
 
   &:is(:hover, :focus, :focus-visible) p {
@@ -2288,17 +2180,6 @@ cursor: pointer;
 }
 }
 .d-none { display: none; }
-}
-details {
-
-    &::details-content {
-    block-size: 0;
-    overflow: clip;
-    transition: block-size 300ms var(--transition),
-    content-visibilitt 300ms allow-discrete;
-    }
-
-    &[open]::details-content { block-size: auto; }
 }
 
   /* #contact */
@@ -2339,8 +2220,6 @@ padding: 1em;
 background: transparent;
 }
 
-.grow-m { flex: 1 1 30rem; }
-
 .footer-card {
   /* grid-column: container-xl; */
   color-scheme: dark;
@@ -2355,7 +2234,7 @@ background: transparent;
 display: flex; /* commented */
 }
 
-
+> p { display: none; }
 
 #footer-marquee {
   /* nav-transparent : 0 */
@@ -2366,8 +2245,8 @@ display: flex; /* commented */
 
   .svg-wrapper {
 min-block-size: 20dvh;
-/* min-inline-size: 20rem; */
-padding-block: 1em;
+/* max-inline-size: 210rem; */
+padding-block: 2em var(--space-m);
 display: flex;
 
 gap: var(--space-s);
@@ -2441,11 +2320,10 @@ transition: 400ms linear;
 
 :has(#header-nav-list) {
   display: grid;
-
   /* align-items: center;
   justify-content: center; */
   place-content: center;
-  padding: 0 0 2.4rem 0;
+  padding: 0 0 1.6em 0;
 
   #header-nav-list {
 display: flex; /* grid for equal + liquid animation */
@@ -2456,7 +2334,7 @@ gap: 0;
 border-radius: var(--pill);
 /* overflow: clip; */
 padding: .4em;
-background: var(--bg-raised);
+background: var(--bg-base);
 
 anchor-name: --chatBubble;
 
@@ -2483,7 +2361,7 @@ a:not(.active):nth-child(1) {
 }
 
 .active-bg {
-  background: var(--bg-base);
+  background: var(--bg-raised);
   z-index: -1;
   pointer-events: none;
   position: absolute;

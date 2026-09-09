@@ -2,7 +2,10 @@ Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.vers
     .toLocaleDateString('en-GB')
     .split('/')
     .reverse()
+    .slice(0, 2)
+    .concat('01')
     .join('.');
+
 // variable
 // function
 // component
@@ -18,7 +21,14 @@ export const thisYear = new Date().getFullYear(),
     thisDay = new Date().getDate(),
     thisDate = new Date().toLocaleDateString('en-GB'),
     // Cache-busting & Logic automation for versioning
-    VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+    // VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+    VERSION = new Date()
+        .toLocaleDateString('en-GB')
+        .split('/')
+        .reverse()
+        .slice(0, 2)
+        .concat('01')
+        .join('.');
 // Results in YY.MM.DD format (e.g., xxxx.xx.xx)
 
 // ================== SEO
@@ -117,7 +127,7 @@ const navPrimary = () => {
     return `aria-label="Primary Navigation"`;
 };
 const aSection = sectionId => {
-    return `href="#${sectionId}" class="skip-section"`;
+    return `href="/#${sectionId}" class="skip-section"`;
 };
 const main = () => {
     // return `id="main" role="main"`;
@@ -156,6 +166,7 @@ const svgAnimateX = (values = ['300%', '-300%'], duration = '20s') => {
 // about > story > birth/school/college/proffession
 // services > scroll-left
 // testimonials - contact(map) - faqs
+// cta
 // footer
 
 // Object
@@ -569,7 +580,7 @@ const componentReviews = () => {
     return `
 <div class="flex items-center componentReviews" style="gap: 1.2em; ">
 
-    <ul class="wrap" style="list-style: none; display: flex; gap: 0em;">
+    <ul class="" style="list-style: none; display: flex; flex-wrap: wrap; gap: 0em;">
         ${personQuotes
             .map(
                 person => `
@@ -583,7 +594,7 @@ const componentReviews = () => {
         </ul>
         <div class="row items-start " style="gap: .4em; ">
             <b class="txt-black">★★★★★ • 4.9/5</b>
-            <p>${22 + (new Date().getFullYear() - 2023)}+ <a ${seoA()} aria-label="Projects" href="#projects">Projects</a> &amp; ${12 + (new Date().getFullYear() - 2023)}+ <a ${seoA()} aria-label="Reviews" href="${urlReviews}">Reviews</a></p>
+            <p>${22 + (new Date().getFullYear() - 2023)}+ <a ${seoA()} aria-label="Projects" href="/#projects">Projects</a> &amp; ${12 + (new Date().getFullYear() - 2023)}+ <a ${seoA()} aria-label="Reviews" href="${urlReviews}">Reviews</a></p>
         </div>
 
 </div>
@@ -600,11 +611,11 @@ const componentProjectProgress = () => {
                 </div>
                 <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${22 + (new Date().getFullYear() - 2023)}</span><span class="txt-gray">+</span></b>
-                    <p class="txt-center">Success projects</p>
+                    <a href="/#projects" class="p txt-center">Success projects</a>
                 </div>
                 <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${random(95, 99)}</span><span class="txt-gray">%</span></b>
-                    <p class="txt-center">Core web vitals</p>
+                    <a ${seoA()} href="https://pagespeed.web.dev/?lfhs=2" class="p txt-center">Core web vitals</a>
                 </div>
                 <div class="row" style="gap: .4em;">
                     <b class="h1 txt-center"><span class="txtStroke">${random(95, 99)}</span><span class="txt-gray">%</span></b>
@@ -999,16 +1010,26 @@ if (!customElements.get('custom-section')) {
     customElements.define('custom-section', CustomSection);
 }
 
+const brandLogo = () => {
+    return `
+    <span class="logo-wrapper brand-logo-wrapper" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+    `;
+};
+
 // ### 404.html | Hero component ###
 // updated hero section
 class HeroSection extends HTMLElement {
     connectedCallback() {
         // Configuration for easy updates
-        const brandLogo = () => {
-            for (i = 0; i <= 10; i++) {
-                console.log(`Brand Logo of ${i}`);
-            }
-        };
 
         // Instantiate Section for current element
         const section = new Section(this);
@@ -1024,8 +1045,15 @@ class HeroSection extends HTMLElement {
         template.innerHTML = `
 
       <section ${seoSection(`hero`)} id="hero" class="fluid-grid-system dark">
-        <div class="container-md row custom-containe" style="position: relative;">
-<svg width="0" height="0">
+        <div class="container-md row items-center custom-containe" style="position: relative; gap: 0; ">
+
+            <div style="padding: 0em; " class="brand-logo-container  tilt mask">
+                <div style="padding: 0em; aspect-ratio: 1; " id="brand-wrapper-container"     class="brand-logo-wrapper-container stacking-container ">
+                    ${brandLogo()}
+                </div>
+            </div>
+
+        <svg width="0" height="0">
         <clipPath id="myClip"
         clipPathUnits="objectBoundingBox">
         <path d="
@@ -1046,37 +1074,19 @@ class HeroSection extends HTMLElement {
             Q 0 0 .1 0
         "/>
         </clipPath>
-</svg>
+        </svg>
 
-        <div style="padding: 0em; margin-block: -4em; transform: scale(.7); max-block-size: 30rem;" class="logo-marquee-wrapper stacking-container mask">
-        <div style="padding: 0em" class="brand-logo-container">
-            <div style="padding: 0em" id="brand-wrapper" class="brand-logo-wrapper">
 
-        ${author.logoOutlineSvg}
-
-            </div>
-        </div>
-
-        <h1 ${seoH(`hero`)} class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">
-            <svg class="infinite-scroller_inner svgDraw" fill="none" height="512" viewBox="0 0 512 512" width="512" height="100%" style="overflow: visible;">
-            <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
-        ${section.heading}
-
-                ${svgAnimateX()}
-            </text>
-            </svg>
-        </h1>
-        </div>
-
-        <div class="row items-center">
-            <span style="padding: .4em .8em; gap: .4em" class="h6 flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> Last seen ${random(1, new Date().getHours())}:${random(0, new Date().getMinutes())}</span>
-
+        <div class="row items-center text-items">
+            <span style="padding: .4em .8em; gap: .4em" class="h6 flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> Last seen ${random(1, new Date().getHours())}H ago</span>
+<h1 ${seoH(`hero`)} class="h1 txt-center gradient-mask infinite-scroller" data-direction="left" data-speed="fast" id="brand-title">${section.heading}</h1>
             <p class="txt-center">${section.description}</p>
             ${componentReviews()}
-            <div class="flex content-center ">
+            <div class="flex content-center " style="gap: 1.6em;">
                 <a ${seoA()} style="text-decoration: none;" href="/resume">
-                    <buttton style="border: 0px solid var(--bg-base); padding: 1em;" class="btn btn-primary txt-black bg-base pointer-button">Resume</button>
+                    <buttton style="border: 0px solid var(--bg-base); padding: 1.2em 1.6em; " class="btn btn-primary txt-black bg-base pill">Resume</button>
                 </a>
+                <a class="h6 pill" href="/#contact" style="border: 0px solid currentColor; ">Contact</a>
             </div>
         </div>
 
@@ -1193,44 +1203,49 @@ class AboutSection extends HTMLElement {
             this.link = link;
             this.linkText = linkText;
             this.ariaLabel = ariaLabel;
-            this.image = image;
+            this.image = image ?? `/assets/img/story/${this.date}/${random(1, 3)}.jpg?v=${VERSION}`;
         }
+
         const stories = [
             new StoriesItem(
                 '2001',
                 'Roots & Passion for Technology',
                 `it's been  ${new Date().getFullYear() - 2001} years, I born with core values of discipline, continuous learning, and creative problem-solving.`,
                 `${author.location}`,
-                'View place',
-                `map`,
-                `/assets/img/personal/img-1.jpg`
+                'View Place',
+                `map`
+            ),
+            new StoriesItem(
+                '2019',
+                'SSC Jashore Technical School &amp; College',
+                `I got Secondary School Certificate of Vocational Education Board, Dhaka on top of Electrical Engineering Fundamentals from <b>Jashore Technical School &amp; College</b>.`,
+                'https://maps.app.goo.gl/Gh1SmtsbHAHBxtCfA',
+                'View College',
+                `map`
             ),
             new StoriesItem(
                 '2022',
                 'Web Design & UI Architecture',
                 'Deep-dived into self-directed UI/UX design, mastering Figma wireframing and frontend logic.',
                 `${urlYoutube}`,
-                'View channels',
-                `youtube`,
-                `/assets/img/personal/img-2.jpg`
+                'View Channels',
+                `youtube`
             ),
             new StoriesItem(
                 '2024',
                 'Diploma in Computer Science and Technology.',
                 'Formalized technical foundation in software logic, database structures, and system engineering.',
                 'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
-                'View institute',
-                `map`,
-                `/assets/img/personal/img-3.jpg`
+                'View Institute',
+                `map`
             ),
             new StoriesItem(
                 '2025',
                 'Utshob Tech Certified & Freelance',
                 `Building high-performing client sites at Sheikh Hasina Software Technology Park and serving international contracts.`,
                 'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
-                'View place',
-                `map`,
-                `/assets/img/brand/app-bg-512.png`
+                'View Place',
+                `map`
             ),
             new StoriesItem(
                 // FIXED: Used backticks to allow double quotes in the HTML string
@@ -1240,7 +1255,7 @@ class AboutSection extends HTMLElement {
                 `/projects`,
                 'View projects',
                 `project`,
-                `/assets/img/brand/app-bg-512.png`
+                `/assets/img/story/2024/${random(1, 3)}.jpg?v=${VERSION}`
             ),
             new StoriesItem(
                 `${thisYear}`,
@@ -1249,7 +1264,7 @@ class AboutSection extends HTMLElement {
                 `/resume`,
                 'Download Resume',
                 `resume`,
-                `/assets/img/brand/app-bg-512.png`
+                `/assets/img/story/2025/${random(1, 3)}.jpg?v=${VERSION}`
             ),
         ];
 
@@ -1274,7 +1289,7 @@ class AboutSection extends HTMLElement {
         <h2>
         <div class="row " style="gap: var(--space-xs); ">
             <p>Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
-            <a class="p fade-in-to " href="#story-1">
+            <a class="p fade-in-to " href="/#story-1">
                 View Story ...❯
             </a>
         </div>
@@ -1288,14 +1303,21 @@ class AboutSection extends HTMLElement {
 
         <span inert aria-hidden="true" class="story-image mas" style="opacity: .3; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
 
-        <svg fill="none" viewBox="0 0 100 100" class="storySvg" style="position: absolute; inset: 0; margin: auto; overflow: visible; " >
+        <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" class="storySvg" style="position: absolute; inset: 0; margin: auto; overflow: visible; user-select: none; " >
             <text class="h1" x="50%" y="50%" text-anchor="middle"
-            style="stroke: var(--txt-gray); stroke-width: .3; fill: transparent; stroke-dasharry: 440; stroke-dashoffset: 50; font-size: calc(--fluidFont(1.4rem, 1.6rem) * 2.2);
+            style="stroke: var(--txt-gray); stroke-width: .3; fill: var(--txt-gray); stroke-dasharry: 100%; stroke-dashoffset: 0%; font-size: calc(--fluidFont(1.4rem, 1.6rem) * 2.2);
             font-weight: 800; opacity: 1; mix-blend-mode: difference; "
             >${story.date}</text>
         </svg>
 
-        <span inert class="story-imageCliped" style="clip-path: inset(30% 30% 30% 30%); opacity: 1; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
+        <span inert aria-hidden="true" class="story-imageCliped" style="clip-path: inset(30% 30% 30% 30%); opacity: 1; position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
+
+        <svg fill="none" viewBox="0 0 100 100" class="storySvg" style="position: absolute; inset: 0; margin: auto; overflow: visible; " >
+            <text class="h1" x="50%" y="50%" text-anchor="middle"
+            style="stroke: var(--txt-gray); stroke-width: .3; fill: transparent; stroke-dasharry: 100%; stroke-dashoffset: 0%; font-size: calc(--fluidFont(1.4rem, 1.6rem) * 2.2);
+            font-weight: 800; opacity: 1; mix-blend-mode: difference; "
+            >${story.date}</text>
+        </svg>
 
         <div class="toCenterContents " >
             <div class="col" style="--col-size: 20rem; gap: 0;  padding-block: 0; ">
@@ -1320,13 +1342,13 @@ class AboutSection extends HTMLElement {
      .join('')}
 
 
-    <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
+    <!-- <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
 
        <div style="gap: .5em;" class="row">
-        <a aria-label="skip to services" class="fade-in-to" href="#services">❯ View Services</a>
+        <a aria-label="skip to services" class="fade-in-to" href="/#services">❯ View Services</a>
        </div>
 
-      </div>
+      </div> -->
 
 
    </section>
@@ -1354,7 +1376,7 @@ class ServicesSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-<section ${seoSection(`services`)} id="services" class="fluid-grid-system  horizontalScroller snappyContainer screenHeight " style="--snapType: mandatory;">
+<section ${seoSection(`services`)} id="services" class="fluid-grid-system  horizontalScroller snappyContainer screenHeight" style="--snapType: mandatory;">
 
 <div class="grid fade-in-top-containe items-center content-center scrollerItem">
     <div class="row itemCard" style="gap: .8em;">
@@ -1367,7 +1389,7 @@ class ServicesSection extends HTMLElement {
         </h2>
         <p>High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${random(95, 100)}%</b> satisfaction.</p>
     <h3 class="h5">
-            <a  class="fade-in-to" href="#service-1">View my primary services ...❯</a>
+            <a  class="fade-in-to" href="/#service-1">View my primary services ...❯</a>
         </h3>
 
     </div>
@@ -1416,7 +1438,7 @@ ${servicesPrimary
 
         <div class="flex j-center">
             <a ${seoA()} href="/vcf">Download VCF</a>
-            <a ${seoA()} href="#contact"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
+            <a ${seoA()} href="/#contact"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
             Contact
             </button></a>
         </div>
@@ -1430,7 +1452,7 @@ ${servicesPrimary
 <div class="grid fade-in-top-containe items-center scrollerItem">
     <div class="row items-center itemCard" style="gap: 1.6em;">
 
-        <a aria-label="skip to projects" class="fade-in-to" style="white-space: nowrap;" href="#projects">❯ View Projects</a>
+        <a aria-label="skip to projects" class="fade-in-to" style="white-space: nowrap;" href="/#projects">❯ View Projects</a>
 
     </div>
 </div>
@@ -1458,7 +1480,7 @@ class ProjectsSection extends HTMLElement {
             this.category = category;
             this.title = title;
             this.link = link;
-            this.image = image;
+            this.image = image ?? `/assets/img/project/${this.date}/1.jpg?v=${VERSION}`;
         }
 
         const projects = [
@@ -1467,35 +1489,26 @@ class ProjectsSection extends HTMLElement {
                 'Portfolio website',
                 `${author.title}`,
                 `/`,
-                `/assets/og-images/og-main.png`
+                `/assets/og-images/og-main.png?v=${VERSION}`
             ),
             new ProjectsItem(
-                '24-Nov-2025',
+                `24-Nov-${thisYear - 1}`,
                 'Design Agency website',
                 'DEVAEC | Website Design & Front-End Development',
-                `#`,
-                `/assets/og-images/og-main.png`
+                `${urlYoutube}`,
+                `/assets/img/project/24-Nov-2025/1.jpg?v=${VERSION}`
             ),
             new ProjectsItem(
-                '13-May-2025',
+                '13-May-2024',
                 'E-commerce website',
                 'TANUVL | Fashion & Clothing',
-                `#`,
-                `/assets/og-images/og-main.png`
+                `https://youtu.be/HTCgsgdRELg?t=17&si=MawSODh4e3nBabPJ`
             ),
             new ProjectsItem(
-                '09-Jul-2024',
-                'Portfolio website',
-                'Shamin Ahmed Choudhuri',
-                `#`,
-                `/assets/og-images/og-main.png`
-            ),
-            new ProjectsItem(
-                '21-Fev-2023',
-                'Personal Website',
+                '09-Jul-2023',
+                'Landing Page',
                 'Md Ezazul Hassan',
-                `https://mdezazulhassan2023.pages.dev`,
-                `/assets/og-images/og-main.png`
+                `https://youtu.be/NcC0lgGDCHc?t=23&si=1ToXGc7JTbbEo3f0`
             ),
         ];
 
@@ -1532,26 +1545,28 @@ With ${new Date().getFullYear() - 2023}+ years of experience, I'm Designing & de
    <article id="project-${index + 1}"><a ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em; border-block-end: 1px solid var(--txt-gray);" class="flex fade-in-top-containe project-item">
 
         <h3 style="padding-block: 0em; flex: 1;" class="h6 fade-in-to"><span class="p txt-gray">[0${index + 1}]</span> ${project.category} <span class="txt-gray">↗</span></h3>
+
+        <span inert class="project-image" style="z-index: -10; ">
+            <img ${seoImg(`${project.image}`, `Project Image`, `100%`)}/>
+        </span>
+
        <h4 class="p fade-in-to">${project.date}</h4>
-   </a></article>
 
- <span inert class="project-image" style="">
-    <img ${seoImg(`${project.image}`, `Project Image`, `100%`)}/>
- </span>
-
+   </a>
+   </article>
  `
      )
      .join('')}
 </div>
 
 
-<div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
+<!-- <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe  screenHeight items-center ">
 
        <div style="gap: .5em;" class="row">
-         <a aria-label="skip to testimonials" class="fade-in-to" href="#testimonials">❯ View Testimonials</a>
+         <a aria-label="skip to testimonials" class="fade-in-to" href="/#testimonials">❯ View Testimonials</a>
        </div>
 
-</div>
+</div> -->
 
 
       </section>
@@ -1600,18 +1615,18 @@ class TestimonialsSection extends HTMLElement {
 
         ${componentProjectProgress()}
 
-        <ul class="carousel bg-raised" style="list-style: none; margin-inline: 2.4em; border-radius: 2em;">
+        <ul class="carousel bg-raise  " style="list-style: none; gap: 0em; border-radius: 2em; inline-size: min(100%, 64rem); " >
             ${personQuotes
                 .map(
                     (person, index) => `
-                <li class="flex carousel-item" style="">
-            <blockquote id="quote-${index + 1}" class="row items-center" style="flex: 1; display: row; gap: .8em; padding: 2em; inline-size: 100%; block-size: 100%;">
+                <li class="flex carousel-item " style="max-inline-size: 100%; ">
+            <blockquote id="quote-${index + 1}" class="row items-center" style="flex: 1; gap: .8em; padding: 1.6em;">
 
                 <b>
                     <span class="star" style="inline-size: .8em;">${person?.star} • 4.9/5</span>
                 </b>
 
-                <i class="h6 quote txt-center">"${person?.quote}"</i>
+                <q class="h6 quote txt-center">${person?.quote}</q>
 
                 <div class="flex j-center txt-left">
                             <img ${seoImg(person?.photo, 'Client')} style="inline-size: 1.5em;" class="photo"/>
@@ -1621,7 +1636,7 @@ class TestimonialsSection extends HTMLElement {
                                 <p class="title">${person?.title}</p>
                             </div>
 
-                            <b class="platform">${person?.platform}</b>
+                            <b class="platform" style="border-inline-start: 1px solid var(--txt-gray); padding-inline-start: 1.6em; ">${person?.platform}</b>
                 </div>
 
             </blockquote>
@@ -1631,7 +1646,7 @@ class TestimonialsSection extends HTMLElement {
                 .join('')}
         </ul>
 
-        <div class="flex j-center">
+        <div class="flex j-center" style="padding-block: 1.6em; ">
             <a ${seoA()} href="${urlReviews}"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary">
             Add Review ↗
             </button></a>
@@ -1661,34 +1676,25 @@ class FaqsSection extends HTMLElement {
         }
         const faqs = [
             new FaqsItem(
-                `Who am I?`,
-                `I'm a Front-End Website Developer | <a ${seoA()} href="#about"><b>${author.name}</b></a>.`
-            ),
-            new FaqsItem(
                 `What do I do?`,
-                `I usually <b> design </b> &amp; <b>develop</b> website<sup class="p">Front-End</sup> using <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
+                `I usually <b> design </b> &amp; <b>develop</b> website<sup style="">Front-End</sup> using latest <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
             ),
             new FaqsItem(
                 `What is my design process?`,
                 `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`
             ),
             new FaqsItem(
-                `Do I provide custom JS functions?`,
-                `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional UI components.`
+                `Do I provide custom JavaScript functions?`,
+                `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional <b>UI components</b>. Also providing CSS functions.`
             ),
             new FaqsItem(
-                `Am I available for hire?`,
-                `Yes, you can hire me throw discussion on <a ${seoA()} href="${urlMessenger}"><b>Messenger</b></a>. <sup class="p"> 24/7
- </sup>`
+                `What is the price range?`,
+                `Not to worry! Price range will be based on budget &amp; then the website's difficulty.`
             ),
             new FaqsItem(
-                `What is my contact number?`,
-                `Mobile: (+880)
-  <a ${seoA()} href="${urlMobile}"><b>1602-873384</b></a>
-  <sup class="p">24/7</sup>
-  </br></br>
-  Whatsapp: (+880)
-  <a ${seoA()} href="${urlWhatsapp}"><b>1602-873384</b></a>`
+                `Am I available for projects or <b>hire</b>?`,
+                `Yes, you can hire me throw discussion on <a ${seoA()} href="${urlMessenger}"><b>Messenger</b></a> <sup class="p"> 24/7</sup> or look at <a ${seoA()} href="/#contact">contact</a> method.
+`
             ),
         ];
 
@@ -1723,7 +1729,7 @@ and how I work
       </div>
 
 
-       <div class="row fluidHovere">
+       <div class="row fluidHovere" style=" ">
  ${faqs
      .map(
          (faq, index) => `
@@ -1858,8 +1864,9 @@ class ContactSection extends HTMLElement {
        )
        .join('')}
  </ul>
-      <div style="flex: 1; gap: var(--space-xs)" class="row even-row">
+      <div style="flex: 1; gap: .6em" class="row ">
  <h3 class="p txt-gray">Links:</h3>
+ <div class="col" style="gap: .6em; ">
        ${linksData
            .map(
                data => `
@@ -1870,6 +1877,7 @@ class ContactSection extends HTMLElement {
        `
            )
            .join('')}
+</div>
       </div>
         </div>
        </div>
@@ -1899,6 +1907,50 @@ class ContactSection extends HTMLElement {
 // Define the custom element
 if (!customElements.get('contact-section')) {
     customElements.define('contact-section', ContactSection);
+}
+
+class CtaSection extends HTMLElement {
+    connectedCallback() {
+        // data array for easy updates
+
+        // Instantiate Section for current element
+        const section = new Section(this);
+        // 2. Create an off-screen Template
+        const template = document.createElement('template');
+
+        // 3. Define the HTML (Top-level element is now your grid section)
+
+        // HTML
+        template.innerHTML = `
+
+    <section ${seoSection(`cta`)} class="cta-section fluid-grid-system bg-base" id="cta">
+        <div class="container-md bg-base row " style="border-radius: 3.2em; gap: .8em; border: 1px solid var(--bg-raised); position: relative; ">
+
+            <span inert class=" dots" style=""></span>
+
+            <h2 ${seoH(`cta`)} class="h1 ">
+                Have project? Need website <span class="txt-gray">or</span> looking for Developer? I'm here!
+            </h2>
+
+            <div class="flex" style="gap: 1.6em; " >
+                ${componentReviews()}
+                <a ${seoA()} href="${urlMobile}"><input class="" type="submit" value="Make a Call" style="background:transparent; flex: 1; max-inline-size: 100%; "/></a>
+            </div>
+
+        </div>
+    </section>
+
+
+    `;
+
+        // 4. THE MAGIC: Synchronous swap
+        // Replaces with the contents of the template immediately.
+        this.replaceWith(template.content);
+    }
+}
+// Define the custom element
+if (!customElements.get('cta-section')) {
+    customElements.define('cta-section', CtaSection);
 }
 
 class FooterSection extends HTMLElement {
@@ -1957,7 +2009,7 @@ class FooterSection extends HTMLElement {
         // HTML
         template.innerHTML = `
 <footer ${footer()} ${seoSection(`footer`)} class="fluid-grid-system" id="footer">
-   <div class="container-xl row gap-4 py-5">
+   <div class="container-lg row gap-4 py-5">
     <div class="flex j-center">
       <form class="flex">
         <label style="opacity: 1;" class="d-non txt-gray" for="system-theme">Choose Theme:</label>
@@ -1970,7 +2022,7 @@ class FooterSection extends HTMLElement {
     </div>
     <div class="col">
      <div class="row" style="position: relative; overflow: clip; border-radius: 1em;">
-     <h2 ${seoH(`footer`)} class ="h5 txt-gray">I craft marketing strategies that elevate brands, <span class="txt-black"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audiences, and drive measurable business growth.</span>
+     <h2 ${seoH(`footer`)} class ="p txt-gray">I craft marketing strategies that elevate brands, <span class="txt-black"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audiences, and drive measurable business growth.</span>
 </h2>
 <article>
       <h3 class ="p">
@@ -2037,7 +2089,7 @@ Resume
        <h4 class="p txt-gray">
         Socials
        </h4>
-      <div class="flex social-links a-center" style="gap: 0.8em;">
+      <div class="flex a-start social-links" style="gap: 0.8em;">
 
                 ${socials
                     .map(
@@ -2056,12 +2108,12 @@ Resume
        <h4 class="p txt-gray">
         Legals
        </h4>
-       <div class="flex legal-links">
+       <div class="flex a-start legal-links">
 
        ${legals
            .map(
                (legal, index) => `
-        <a class="h6" ${seoA()} style="flex: 1; flex-basis: 10ch; text-decoration: none;" href="${legal.link}">
+        <a class="h6" ${seoA()} style="flex: 1; text-decoration: none;" href="${legal.link}">
 <span class="txt-gray">[0${index + 1}]</span> ${legal.name} <span class="txt-gray">↗</span>
         </a>
        `
@@ -2078,7 +2130,7 @@ Resume
      </div>
     </div>
     <div class="col items-center">
-     <div class="flex grow input-group items-center">
+     <div class="flex  input-group items-center">
       <input style="padding: var(--space-s); border: 1px solid var(--primary-50); color: var(--primary-50); background: color-mix(in hsl, var(--bg), transparent 30%); font-weight: bold;" class="pill" placeholder="@hassanbiswas.github.io" readonly type="text"/>
       <a ${seoA()} style="text-decoration: none; block-size: stretch; align-self: stretch;" href="${urlYoutube}">
        <button ${seoButton()} class="btn-primary" style="border: 1px solid var(--primary-50);">Subscribe</button>
@@ -2093,7 +2145,7 @@ Resume
       <text fill="var(--txt-black)" x="50%" y="50%" text-anchor="middle">
        &copy; ${new Date().getFullYear()} ${author.title}
 
-       ${svgAnimateX()}
+       <!-- ${svgAnimateX()} -->
       </text>
      </svg>
     </div>
@@ -2125,11 +2177,11 @@ class NavigationSection extends HTMLElement {
         const navigations = [
             new NavItem(
                 `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em;"/>Home</span>`,
-                '#hero'
+                '/#hero'
             ),
-            new NavItem('About', '#about'),
-            new NavItem('Services', '#services'),
-            new NavItem('Projects', '#projects'),
+            new NavItem('About', '/#about'),
+            new NavItem('Services', '/#services'),
+            new NavItem('Projects', '/#projects'),
         ];
 
         // 2. Create an off-screen Template
@@ -2140,13 +2192,13 @@ class NavigationSection extends HTMLElement {
         // HTML
         template.innerHTML = `
   <section ${navPrimary()} class="fluid-grid-system" id="bottom-navigation">
-   <div style="overflow: visible;" class="container-sm row">
+   <div style="overflow: visible;" class="container-md">
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
        ${navigations
            .map(
                navigation => `
-        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="/${navigation.link}" >
+        <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="${navigation.link}" >
 ${navigation.name}
         </a>
        `
@@ -2648,12 +2700,12 @@ const navObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.6 }
+    { threshold: 0.4 }
 ); // Trigger when section is 60% visible, avoid 1
 document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
 
 // remove lazy loading in screen medias
-const lazyLoading = document.querySelectorAll('a, img, picture, svg, iframe, audio, video');
+const lazyLoading = document.querySelectorAll('img, picture, svg, iframe, audio, video');
 lazyLoading?.forEach(el => {
     el.setAttribute('loading', 'lazy');
 });
@@ -2669,7 +2721,7 @@ const lazyObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.1 }
+    { rootMargin: '-30dvh' }
 ); // Trigger when section is 10% visible, avoid 1
 // threshold: 0.3, or rootMargin: "100px", or "-100px"
 // document.querySelectorAll('[loading', 'lazy]')
