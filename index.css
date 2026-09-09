@@ -1,6 +1,30 @@
 /* @import "style.css"; | ... */ /* bad idea 💡 */
 
-@function --fluidFont(--min-value: 14rem, --max-value: 16rem) {
+/* it's default for html meta-theme */
+@property --brand-color {
+syntax: "<color>";
+inherits: true;
+initial-value: hsl(240 80% 50%); /* 240 80% 50% */
+}
+
+/* CUSTOM FUNCTIONS */
+
+@function --bg-palette(--l: 42%, --s: 10%) {
+    result: light-dark(
+        hsl(from var(--primary-50) h var(--s) calc(50% + var(--l))),
+        hsl(from var(--primary-50) h var(--s) calc(50% - var(--l)))
+    )
+}
+
+@function --txt-palette(--l: 46%, --s: 3%) {
+    result: light-dark(
+        hsl(from var(--primary-50) h var(--s) calc(50% - var(--l))),
+        hsl(from var(--primary-50) h var(--s) calc(50% + var(--l)))
+    )
+}
+
+
+@function --fluidFont(--min-value: 1.4rem, --max-value: 1.6rem) {
     result: clamp(
 var(--min-value),
   calc(var(--min-value) + (var(--max-value) - var(--min-value)) * var(--progress)),
@@ -9,31 +33,30 @@ var(--min-value),
 }
 
 @property --t {
- syntax: "<number>";
-   inherits: false;
-initial-value: 0;
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
 }
 
 .text-container {
  display: inline-block;
  }
 
- .char {
-   display: inline-block;
---t: 0;
+.char {
+    display: inline-block;
+    --t: 0;
 
-/* Drive animation using custom property */
-  animation: lerp-progress 0.8s cubic-bezier(0.37, 0, 0.63, 1) forwards;
-    animation-delay: var(--delay);
+    /* Drive animation using custom property */
+    animation: lerp-progress 0.8s cubic-bezier(0.37, 0, 0.63, 1) forwards;
+        animation-delay: --stagger() --ease();
 
- opacity: var(--t);
-   transform: translate3d(
-  calc(20px * (1 - var(--t))),
- calc(-50% * (1 - var(--t))),
-0
-  );
-  }
-
+    opacity: var(--t);
+    transform: translate3d(
+    calc(20px * (1 - var(--t))),
+    calc(-50% * (1 - var(--t))),
+    0
+    );
+}
 
 .char {
  display: inline-block;
@@ -42,7 +65,7 @@ transform: translate3d(20px, -50%, 0);
 
     /* Sine-based easing via cubic-bezier(0.37, 0, 0.63, 1) */
  animation: char-reveal 0.8s cubic-bezier(0.37, 0, 0.63, 1) forwards;
-   animation-delay: var(--delay);
+   animation-delay: --stagger() --ease();
    }
 
    @keyframes char-reveal {
@@ -105,19 +128,80 @@ calc(4em * var(--steps)),
     );
 }
 
-
-
 .my_card {
     padding: --fluidSpace(2);
     font-size: --fluidPx(24px);
 }
 
-@function --accentBg(--color: var(--primary-50) <color>, --alpha: 30% type(<number> | <percentage>)) return <color> {
+@function --alpha(--color: var(--primary-50) <color>, --alpha: 30% type(<number> | <percentage>)) return <color> {
     result: hsl(from var(--color) h s l / var(--alpha));
 }
 
 @function --innerRadius(--radius, --padding) {
     result: max(0em, calc(var(--radius) - var(--padding)));
+}
+
+
+/* ==========================================================================
+    GSAP-STYLE CSS DYNAMIC FUNCTIONS LIBRARY (MODERN CSS & CSS MODULES LEVEL 5)
+========================================================================== */
+
+/* 1. Linear Interpolation (GSAP lerp)
+Blends between --start and --end based on a 0 to 1 progress value (--t) */
+@function --lerp(--start: 0, --end: 100%, --t: 0) {
+    result: calc(var(--start) * (1 - var(--t)) + var(--end) * var(--t));
+}
+
+/* 2. Stagger Delay (GSAP stagger)
+Calculates item delay using sibling index and optional start delay */
+@function --stagger(--delay: 0.05s, --start-delay: 0s) {
+    result: calc(var(--start-delay) + (sibling-index() - 1) * var(--delay));
+}
+
+/* 3. Reversed Stagger (GSAP stagger { from: "end" })
+Calculates stagger in reverse order using sibling-count() */
+@function --stagger-reverse(--delay: 0.05s, --start-delay: 0s) {
+    result: calc(var(--start-delay) + (sibling-count() - sibling-index()) * var(--delay));
+}
+
+/* 4. Center-Out Stagger (GSAP stagger { from: "center" })
+Calculates stagger radiating outward from the middle child */
+@function --stagger-center(--delay: 0.05s, --start-delay: 0s) {
+    result: calc(
+        var(--start-delay) + abs(sibling-index() - (sibling-count() + 1) / 2) * var(--delay)
+    );
+}
+
+/* 5. Dynamic Duration Scaling
+Scales duration based on total elements or individual position */
+@function --duration(--base: 0.3s, --step: 0.05s) {
+    result: calc(var(--base) + (sibling-index() - 1) * var(--step));
+}
+
+/* 6. Normalized Progress / Relative Index Ratio (0 to 1 scale)
+Useful for smooth progressive transforms across dynamic list lengths */
+@function --index-ratio(--min: 0, --max: 1) {
+    result: calc(
+        var(--min) + (sibling-index() - 1) / max(1, sibling-count() - 1) * (var(--max) - var(--min))
+    );
+}
+
+/* 7. Map Range (GSAP utils.mapRange)
+Maps a value from an input range [inMin, inMax] to an output range [outMin, outMax] */
+@function --map-range(--val: 0, --in-min: 0, --in-max: 100, --out-min: 0px, --out-max: 100px) {
+    result: calc(
+        var(--out-min) + (var(--val) - var(--in-min)) * (var(--out-max) - var(--out-min)) / (var(--in-max) - var(--in-min))
+    );
+}
+
+/* 8. Clamped Value (GSAP utils.clamp) */
+@function --clamp-val(--val: 0px, --min: 0px, --max: 100px) {
+    result: clamp(var(--min), var(--val), var(--max));
+}
+
+/* 9. Ease Bezier Resolver */
+@function --ease(--timingFunction: cubic-bezier(0.37, 0, 0.63, 1)) {
+    result: var(--timingFunction);
 }
 
   /* Loading Screen */
@@ -129,119 +213,89 @@ font-weight: 100 900;
 font-display: swap;
 }
 
-/* it's default for html meta-theme */
-@property --brand-color {
-syntax: "<color>";
-inherits: true;
-initial-value: hsl(240 80% 50%); /* 240 80% 50% */
-}
 
   html,
   body {
-    color-scheme: light dark;
 min-block-size: 100dvh;
+ /* svh prevent jumping */  /* +v8 */
 inline-size: 100dvw;
-font-family: var(--custom-font);
 background: var(--primary-50);
 
-font-size: --fluidFont(1.4rem, 1.6rem);
-font-weight: 400;
-line-height: 1.5; /* 150 */
-color: var(--txt-muted);
+    color-scheme: light dark; /* -v8 */
+font-family: var(--custom-font); /* -v8 */
+font-size: --fluidFont(1.4rem, 1.6rem); /* -v8 */
+font-weight: 400; /* -v8 */
+line-height: 1.5; /* 150 */ /* -v8 */
+color: var(--txt-muted); /* -v8 */
 }
 
   /* 2. Root Element - Accessibility & Base Units */
   html {
-font-size: 62.5%; /* 1rem = 10px */
+    font-size: 62.5%;  /* will 1rem = 10px */
+    -webkit-text-size-adjust: 100%;  /* Prevents font scaling in iOS */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  /* Removes tap highlight */
 
-content-visibility: auto;
+/* overscroll-behavior: contain; */  /* +v8 */
 
-/* scrollbar-gutter: stable; */
+interpolate-size: allow-keywords;  /* animate/transition: height/width */
+transition-behavior: allow-discrete;  /* opacity, display, overlay */
+scroll-behavior: smooth;
+/* scroll-padding: 0em; */   /* +v8 cmnt */
 
-/* for text area */
+/* scrollbar-gutter: stable; */  /* -v8 */
+
+/* for text area */  /* -v8 */
+/* overflow: clip auto; */  /* +v8 cmnt */
 /* scrollbar-gutter: none;
 scrollbar-width: none; */
 
-/* for parrent */
-scroll-behavior: smooth;
-overscroll-behavior: contain;
-/* scroll-snap-type: both proximity; */
-/* scroll-padding: 0em; */ /* for curossel paddin */
+/* for parrent */  /* -v8 */
+scroll-behavior: smooth;  /* -v8 */
+/* overscroll-behavior: contain; */  /* -v8 */
+/* scroll-snap-type: both proximity; */  /* -v8 */
+/* scroll-padding: 0em; */ /* for curossel paddin */  /* -v8 */
 
-/* for child */
-& > * {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  /* scroll-margin: 0em; */ /* if stiky navbar */
-}
+/* for child */  /* -v8 */
+& > * {  /* -v8 */
+  scroll-snap-align: start;  /* -v8 */
+  scroll-snap-stop: always;  /* -v8 */
+  /* scroll-margin: 0em; */ /* if stiky navbar */  /* -v8 */
+}  /* -v8 */
 }
 
-  /* Example Fallback */
-  @supports (interpolate-size: allow-keywords) {
-html {
-  interpolate-size: allow-keywords;
-}
-}  /* 3. Global Variables & Design Tokens */
+
+html { overflow-x: clip; }
+body { overflow-x: clip;  }
+
+/* 3. Global Variables & Design Tokens */
 :root {
-/* 1. Required for light-dark() to function */
-color-scheme: light dark;
-
-interpolate-size: allow-keywords; /* animate/transition: height/width */
-transition-behavior: allow-discrete; /* opacity, display, overlay */
+/* 1. color-scheme: light dark; Required for light-dark() to function */
+    color-scheme: light dark;
 
 /* --- Color System --- */
 /* --color: light-dark(white, black); */
---bg-pastal :
-hsl(212, 33%, 84%)  hsl(141, 47%, 84%)  hsl(14, 99%, 64%)
-hsl(189, 99%, 39%)  hsl(171, 100%, 38%);
-
---random :
-hsl(338, 100%, 71%) hsl(201, 20%, 69%) hsl(18, 92%, 71%) hsl(281, 53%, 65%) hsl(199, 100%, 69%)
-hsl(252, 100%, 75%) hsl(45, 100%, 70%)  hsl(169, 65%, 57%)  hsl(3, 87%, 82%)    hsl(221, 96%, 71%)
-;
-
 /* --- Primary Brand Scale --- */
 /* We use the base color but adjust lightness dynamically */
-/* low shades for text elements */
 
-/* high-contrast text */
---txt-black: light-dark(
-  hsl(0, 0%, 5%) ,
-  hsl(0, 0%, 100%)
-);
-/* secondary text */
---txt-muted: light-dark(
-  hsl(0, 0%, 15%),
-  hsl(0, 0%, 85%)
-);
-/* caption, placeholder */
-/* component's borders */
---txt-gray: hsl(0, 0%, 50%);
+/* high-contrast background */
+--bg-base: --bg-palette(44%);
+--bg-raised: --bg-palette(34%);
+--bg-overlay: --bg-palette(24%);
 
-/* Mid shades for UI elements */
-/* main buttons/actions/branding/html/header/footer */
 --primary-50: hsl(from var(--brand-color) h s 50%);
-/* button hover */
+--primary-50_random: hsl(from var(--brand-color) calc((h / sibling-count()) *  sibling-index()) s l);
+
 --primary-60: light-dark(
   hsl(from var(--primary-50) h s 70%),
   hsl(from var(--primary-50) h s 30%)
 );
 
-/* high-contrast background */
---bg-base: light-dark(
-  hsl(0, 0%, 100%),
-  hsl(0, 0%, 5%)
-);
-/* secondary background */
---bg-raised: light-dark(
-  hsl(0, 0%, 85%),
-  hsl(0, 0%, 15%)
-);
-/* Light shades for backgrounds */
---bg-overlay: light-dark(
-  hsl(0, 0%, 70%),
-  hsl(0, 0%, 30%)
-);
+/* high-contrast text */
+--txt-black: --txt-palette(46%);
+--txt-muted: --txt-palette(20%);
+--txt-gray: --txt-palette(2%);
+
+
 /* --- UI Elements --- */
 --border-clr: var(--txt-gray);
 
@@ -428,11 +482,6 @@ hsl(252, 100%, 75%) hsl(45, 100%, 70%)  hsl(169, 65%, 57%)  hsl(3, 87%, 82%)    
 
 /* Soft and smooth - great for opacity or scale */
 
-
-    /* Modern CSS sibling-index for automated staggering */
---delay: calc(sibling-index() * 0.05s);
---timingFunction: cubic-bezier(0.37, 0, 0.63, 1);
-
 --forwards: forwards;
 
 /* --- 3D / Parallax Logic --- */
@@ -451,8 +500,38 @@ hsl(252, 100%, 75%) hsl(45, 100%, 70%)  hsl(169, 65%, 57%)  hsl(3, 87%, 82%)    
 
     --snapType: proximity; /* proximity mandatory */
     --snapAlign: start;
+
+
+
+
+
+    /* ==========================================================================
+    GSAP EQUIVALENT EASING PRESETS
+    ========================================================================== */
+
+
+    /* Power 1 */
+    --ease-power1-in: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    --ease-power1-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-power1-in-out: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+    /* Power 2 */
+    --ease-power2-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    --ease-power2-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --ease-power2-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    /* Power 3 / Power 4 / Expo */
+    --ease-power3-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease-power4-out: cubic-bezier(0.075, 0.82, 0.165, 1);
+    --ease-expo-out: cubic-bezier(0.19, 1, 0.22, 1);
+
+    /* Back (Overshoot) */
+    --ease-back-out: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --ease-back-in-out: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+
 }  /* 4. Motion Accessibility */
-  /* $no-animation */
+  /* no-animation */
   @media (prefers-reduced-motion: reduce) {
 html {
   scroll-behavior: auto;
@@ -481,8 +560,8 @@ html {
   /* $browser */
 ::target-text,
 ::selection {
-color: currentColor;
-background-color: color-mix(in hsl, var(--primary-50), transparent 10%);
+color: white;
+background-color: var(--brand-color, blue);
 }
 
 ::-webkit-scrollbar {
@@ -535,12 +614,13 @@ backface-visibility: hidden; /* Fixes flickering in 3D transforms */
 
 /* Only apply these styles when launched from the home screen */
 @media (display-mode: standalone) {
-  body {
-background-color: var(--primary-50); /* Your Brand Blue */
-}
-  .install-banner {
-display: none;
-}
+    body {
+        background-color: var(--primary-50); /* Your Brand Blue */
+    }
+
+    .install-banner {
+        display: none;
+    }
 }
 
   /* Apply field-sizing only to inputs for better control */
@@ -572,7 +652,7 @@ color: inherit;
 text-transform: inherit;
 }
 
-  a[href=""] {
+  a:is([href=""], [href="#"], [href="/#"]) {
 text-decoration: none;
 }
 
@@ -614,14 +694,42 @@ content-visibility: auto;
 }
 
   @media (prefers-color-scheme: dark) {
-img:not([src$=".svg"]),
-picture,
-video,
-iframe {
-  filter: brightness(0.8) contrast(1.5);
-}
 
-}
+    img:not([src$=".svg"]),
+    picture,
+    video,
+    iframe {
+    filter: brightness(0.8) contrast(1.5);
+    }
+
+    /* invert, inverse, monochrome */
+    :is(img, svg, iframe).invert { filter: invert(1); }
+    /* invert, inverse, monochrome */
+    :is(img, .img).monochrome {
+        filter: grayscale(100%) brightness(200%);
+    mix-blend-mode: luminosity;
+    }
+
+    :is(svg, .svg).monochrome path
+    /* For Inline SVGs */
+    {
+    fill: currentColor;
+    }
+    :is(svg, .svg).monochrome {
+        color: var(--txt-black );
+        /* color: hsl(0, 0%, 100%); */ /* Adjust to hsl(0, 0%, 0%) for light themes */
+        transition: color 0.3s ease;
+    }
+
+    :is(iframe, .iframe).monochrome {
+    /* Invert all colors, then re-invert hue so roads/pins keep logical colors */
+    filter: grayscale(100%) invert(90%) contrast(120%);
+    border: 0;
+    transition: filter 0.3s ease;
+    }
+
+} /* dark media */
+
 /* invert, inverse, monochrome */
   img.inverse {
   filter: grayscale(1) contrast(1.5);
@@ -772,37 +880,44 @@ font-size: --fluidFont(1.4rem, 1.4rem);
   /* carousel */
   .carousel {
     display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 0em;
-    align-items: stretch;
+    align-items: stretch; justify-content: stretch;
 
-overflow-x: auto;
-overflow-y: clip;
+overflow: auto;
+scrollbar-gutter: none;
+        scrollbar-width: none;
+
 scroll-snap-type: both mandatory;
 anchor-name: --carousel;
 
 
-    scroll-marker-group: after;
+    scroll-marker-group: before;
 
 & > * {
-    scroll-snap-align: center; inline-size: 100%;
+    scroll-snap-align: center;
 }
 
 &::scroll-button(*) {
   position: fixed;
   position-anchor: --carousel;
 
-  padding: .8em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
-  border: 2px solid var(--bg-raised);
-  background: var(--bg-base);
+
+  padding: .8em 1.6em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
+  border: 1px solid var(--bg-raised);
+  background: var(--bg-raised);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  color: currentColor;
 }
 
 &::scroll-button(left) {
-  content: 'Prev';
+    content: '❮';
   position-area: center left;
   transform: translateX(50%);
 }
 
 &::scroll-button(right) {
-  content: 'Next';
+    content: '❯';
   position-area: center right;
   transform: translateX(-50%);
 }
@@ -821,7 +936,7 @@ display: flex;
 
  .carousel-item::scroll-marker {
 content: '';
-    padding: .6rem;
+    padding: .4em;
   border-radius: 100dvw;
  background: var(--bg-raised);
  }
@@ -888,21 +1003,34 @@ padding: var(--space-s) var(--space-m);
 /* Golden Mean Rounding */
 /* border-radius: calc(var(--space-2xs) * var(--scale)); */
 
+text-decoration: none;
 /* += -visiable */
 &:focus {
-  outline: .1em solid currentColor; /* for mouse users */
+  outline: .1em solid currentColor;
   outline-offset: .2em;
   /* Keeps it accessible for High Contrast Mode */
 }
 
+&:focus:not(:focus-visible) { /* for mouse users */
+    outline: none;
+}
+
 &:is(:hover, :focus-visible) {
   cursor: pointer;
-  transform: translateY(-0.1em);
-  filter: hue-rotate(6deg);
+    transform: translateY(-0.2em);
+  filter: hue-rotate(10deg);
 }
 /* &:is(:focus) */
 
 a {text-decoration: none;}
+}
+
+a:has(button,
+  .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"]) {
+    text-decoration: none;
 }
 
   /* main call-to-action with bold background. e.g. hire me, submit */
@@ -1144,6 +1272,43 @@ mask-image: linear-gradient(
   - Text: text-center, text-muted, fw-bold, lh-base
   - Borders border, rounded-pill, border-0
   */
+
+
+
+/* ==========================================================================
+    USAGE EXAMPLES
+========================================================================== */
+
+/* Standard Stagger (Uses default parameters: --delay: 0.05s, --start-delay: 0s) */
+.nav-item {
+    transition-delay: --stagger();
+    transition-duration: 0.4s;
+    transition-timing-function: var(--ease-power3-out);
+    transition-property: transform, opacity;
+}
+
+/* Reverse Stagger using sibling-count() */
+.menu-item-exit {
+    animation-delay: --stagger-reverse(0.08s, 0.1s);
+    animation-duration: 0.3s;
+    animation-timing-function: var(--ease-power2-in);
+}
+
+/* Center-out Stagger Effect */
+.gallery-card {
+    transition-delay: --stagger-center(0.06s);
+    transition-duration: --duration(0.3s, 0.02s);
+    transition-timing-function: var(--ease-back-out);
+}
+
+/* Relative Scaling based on total items count */
+.dynamic-bar {
+    opacity: --index-ratio(0.2, 1);
+    transform: scaleY(--index-ratio(0.5, 1.2));
+    transition: transform 0.3s var(--ease-power4-out);
+}
+
+
 
   /* ===================== container grid & grid start ======================== */
   /* note: use less , container, fluid, etc */
@@ -1528,31 +1693,7 @@ overflow: clip;
 object-fit: scale-down;
 }
 
-/* invert, inverse, monochrome */
-:is(img, svg, iframe).invert { filter: invert(1); }
-/* invert, inverse, monochrome */
-:is(img, .img).monochrome {
-    filter: grayscale(100%) brightness(200%);
-  mix-blend-mode: luminosity;
-}
 
-:is(svg, .svg).monochrome path
-/* For Inline SVGs */
-{
-  fill: currentColor;
-}
-:is(svg, .svg).monochrome {
-    color: var(--txt-black );
-    /* color: hsl(0, 0%, 100%); */ /* Adjust to hsl(0, 0%, 0%) for light themes */
-      transition: color 0.3s ease;
-}
-
-:is(iframe, .iframe).monochrome {
-   /* Invert all colors, then re-invert hue so roads/pins keep logical colors */
-   filter: grayscale(100%) invert(90%) contrast(120%);
-   border: 0;
-   transition: filter 0.3s ease;
-}
 
   .image-container-scaleY:has(img) {
 aspect-ratio: 16/9;
@@ -1721,24 +1862,24 @@ color: var(--bg-raised);
   /* #### global style ends #### */
   .border { border: 1px solid red; }
 
-  /* ##### body style starts here! ##### */
 
 
-body {
-    font-size: --fluidFont(1.4rem, 1.6rem);
-    line-height: 1.5;
-    font-weight: 400;
-    color: var(--txt-muted);
-block-size: 100dvh; /* svh prevent jumping */
-/* border-radius: 0 0 var(--section-radius) var(--section-radius); */
-overflow-y: auto;
-overflow-x: clip; /* clip standalone-app */
 
-/* position: relative; */
+body {  /* -v8 */
+    font-size: --fluidFont(1.4rem, 1.6rem);  /* -v8 */
+    line-height: 1.5;  /* -v8 */
+    font-weight: 400;  /* -v8 */
+    color: var(--txt-muted);  /* -v8 */
+block-size: 100dvh; /* svh prevent jumping */  /* -v8 */
+/* border-radius: 0 0 var(--section-radius) var(--section-radius); */  /* -v8 */
+overflow-y: auto;  /* -v8 */
+overflow-x: clip; /* clip standalone-app */  /* -v8 */
 
-/* -webkit-text-size-adjust: 100%; */ /* Prevents font scaling in iOS */
-/* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */ /* Removes tap highlight */
- }
+/* position: relative; */  /* -v8 */
+
+/* -webkit-text-size-adjust: 100%; */ /* Prevents font scaling in iOS */  /* -v8 */
+/* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */ /* Removes tap highlight */  /* -v8 */
+ }  /* -v8 */
 
 :has([value="light"]:checked) body {color-scheme: light;}
 :has([value="dark"]:checked) body {color-scheme: dark;}
@@ -1782,90 +1923,99 @@ border-radius: var(--section-radius);
 overflow-x: clip;
 }
 
-  /* #body removed */
-  body,
+
+  body,  /* -v8 */
   main {
 display: grid;
 grid-auto-flow: row;
 gap: 0em;
 grid-template-columns: 1fr;
 grid-auto-rows: auto;
-overflow-x: clip;
+overflow-x: clip;  /* -v8 */
+
+    /* overflow-x: clip; */  /* +v8 */
+/* } */  /* +v8 */
+
+
+  /* body { */  /* +v8 */
+/* font-family: var(--custom-font); */  /* +v8 */
+/* font-size: --fluidFont(1.4rem, 1.6rem); */  /* +v8 */
+/* font-weight: 400; */  /* +v8 */
+/* line-height: 1.5; */  /* +v8 */
+/* color: var(--txt-muted); grid-template-columns: unset; */  /* +v8 */
+
+/* block-size: 100dvh; */  /* +v8 */
 position: relative;
 
-/* for parrent */
-overscroll-behavior: contain;
-/* scroll-snap-type: both proximity; */
-contain-intrinsic-size: auto 5rem; /* prevent section jumping */
-scroll-padding: 0em; /* for curossel paddin */
-scroll-margin: 0;
+/* for parrent */  /* -v8 */
+/* overscroll-behavior: contain; */ /* -v8 */
+scroll-snap-type: both proximity;  /* -v8 */
+scroll-padding: 0em; /* for curossel paddin */  /* -v8 */
+scroll-margin: 0;  /* -v8 */
 
-/* for child */
-& > * {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  scroll-margin: 0em; /* if stiky navbar */
-}
-} /* above #main v1 */
+/* for child */  /* -v8 */
+& > * {  /* -v8 */
+  scroll-snap-align: start;  /* -v8 */
+  scroll-snap-stop: always;  /* -v8 */
+  scroll-margin: 0em; /* if stiky navbar */  /* -v8 */
+}  /* -v8 */
+} /* above #main v1 */  /* -v8 */
 
-  /* main v2 */
+/* overflow-y: scroll; */  /* +v8 */
+
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+
+/* scroll-padding: 0; */  /* +v8 */
+    /* scroll-snap-type: both mandatory; */  /* +v8 */
+    /* & > * { */  /* +v8 */
+    /* scroll-snap-align: start; */  /* +v8 */
+        /* scroll-snap-stop: always; */  /* +v8 */
+            /* scroll-margin: 0em; */  /* +v8 */
+    /* } */  /* +v8 */
+/* } */  /* +v8 */
+  /* main v2 */  /* -v8 */
   main {
-scrollbar-gutter: stable;
+scrollbar-gutter: stable;  /* -v8 */
 
-/* for parrent */
-/* overflow-y: auto; */
+perspective: 100px;
+
+/* for parrent */  /* -v8 */
+/* overflow-y: auto; */  /* -v8 */
+
+/* scrollbar-gutter: stable; */  /* +v8 cmnt */
+/* min-block-size: 100dvh; */ /* +v8 */
+/* overflow-y: scroll; */ /* +v8 */
+
+
+    /* scrollbar-gutter: none; */  /* +v8 cmnt */
+        /* scrollbar-width: none; */  /* +v8 cmnt */
+
+            scroll-snap-type: both mandatory;
+
+                /* Ensures touch devices handle both directions without locking */  /* +v8 cmnt */
+                /* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
 
 /* for child */
-> * {
-  padding-block: var(--space-2xl);
+    & > * {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        scroll-margin: 0em;
+
+        padding-block: var(--space-2xl);
+    }
 }
-}  /* Container Setup */
+
+body:first-of-type > main:first-of-type > section:not(:first-of-type) {
+    content-visibility: auto;
+    contain-intrinsic-size: 100dvw 100dvh; /* SEO: standalone fallback dimensions */
+}
+
+/* Container Setup */  /* +v8 cmnt */
   .hero-container {
 color-scheme: dark;
 transition: background 0.3s ease;
-
-.hero-content {
-  text-align: center;
-
-  display: grid;
-  place-items: center; /**/
-}
-
-/* Badge Styling */
-.badge {
-  display: inline-block;
-  padding: var(--space-xs) var(--space-m);
-  background: var(--bg-raised);
-  color: var(--txt-muted);
-  border-radius: var(--pill);
-}
-
-/* Button Group with Responsive Gap */
-.button-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-/* The Buttons with 'Negative Shrink' Padding */
-.btn {
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: var(--pill);
-  transition: all 0.3s ease;
-
-  &:hover {
-transform: translateY(-3px);
-filter: brightness(1.1);
-box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-}
-
-.btn-primary {
-  background-color: var(--primary-50);
-  color: var(--bg-base, white);
-}
 
 .btn-cta {
   background-color: var(--bg-raised);
@@ -1880,9 +2030,12 @@ box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 
 
 #hero {
-padding-block: 0em;
+/* padding-block: 0em; */
 color-scheme: dark;
 background: var(--primary-50);
+min-block-size: 100dvh;
+overflow: auto;
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
 position: relative;
 
   padding-block-start: .7em;
@@ -1946,6 +2099,59 @@ transform: scaleX(1); /* animate */
     }
 }
 
+.container-xsm {
+    justify-content: center;
+}
+
+.text-items {
+    /* margin-block-start: -50%; */
+    padding-block: 1.6rem;
+    border-radius: 1.6rem;
+}
+
+}
+
+
+.brand-logo-container {
+    block-size: min(100%, 20rem);
+    inline-size: min(100%, 20rem);
+    /* mask-image: radial-gradient(
+    circle,
+    color-mix(in lch, var(--bg-base), var(--txt-black, black) 0%),
+    transparent 100%
+    ); */
+
+    /* perspective: 200px; */
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    transform-origin: center;
+
+    .brand-logo-wrapper-container {
+        animation: brand-logo-wrappe 20s linear infinite;
+        transform-style: preserve-3d;
+        transform: translateX(20%) translateY(20%);
+
+        &:is(:hover, :focus-visible) .brand-logo-wrapper {
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -0.5rem * sibling-index()));
+        }
+
+        .brand-logo-wrapper {
+            aspect-ratio: 1;
+            position: relative;
+
+            transform-style: preserve-3d;
+            transform-origin: center;
+            opacity: calc(1.0 / sibling-index());
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -0.4rem * sibling-index()));
+            transition: --stagger() --duration() --ease();
+
+            .brand-logo {
+                color: var(--txt-black);
+                position: absolute;
+                inset: 0;
+            }
+        }
+    }
 }
 
   #hero-transparent {
@@ -2029,31 +2235,121 @@ padding-block: var(--space-xs);
 }
 
   #about {
+    padding-block: 0em;
 background: var(--bg-base);
+
+
+    /* overflow: clip auto; */  /* +v8 */
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+}
+
+.lineClamp {
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;
 }
 
   /* #services */
   #services {
-background: var(--bg-base);
-block-size: 100dvh;
-grid-template-columns: unset;
+    padding-block: 0em;
+    background: var(--bg-base);
+    block-size: 100dvh;
+    grid-template-columns: unset;
 
-overflow: auto auto;
+    overscroll-behavior: contain;
 
-      touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */
+    overflow: auto auto;
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+
+    /* touch-action: pan-x pan-x; */  /* +v8 cmnt */
+    /* Ensures touch devices handle both directions without locking */  /* +v8 cmnt */
 
 
+    & > * {
+        scroll-snap-align: var(--snapAlign, start);
+        scroll-snap-stop: always;
+        scroll-margin: 0em;
+    }
 
-  ul { padding-inline: .8em; }
+
+    ul { padding-inline: .8em; }
+
+
+    .carousel{
+        display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 0em;
+        align-items: stretch; justify-content: stretch;
+
+        overflow: auto;
+        scrollbar-gutter: none;
+        scrollbar-width: none;
+
+        scroll-snap-type: both mandatory;
+        anchor-name: --carousel;
+
+
+        scroll-marker-group: before;
+
+        & > * {
+            scroll-snap-align: center;
+        }
+
+        &::scroll-button(*) {
+            position: fixed;
+            position-anchor: --carousel;
+
+            padding: .8em 1.6em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
+            border: 1px solid var(--bg-raised);
+            background: var(--bg-raised);
+            display: grid;
+            place-items: center;
+            font-weight: bold;
+            color: currentColor;
+        }
+
+        &::scroll-button(left) {
+            content: '❮';
+            position-area: center left;
+            transform: translateX(50%);
+        }
+
+        &::scroll-button(right) {
+            content: '❯';
+            position-area: center right;
+            transform: translateX(-50%);
+        }
+        &::scroll-button(*):disabled {
+            opacity: 0; cursor: unset;
+        }
+
+        &::scroll-marker-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .8em;
+
+            padding-block: 1.6em;
+        }
+
+        .carousel-item::scroll-marker {
+            content: '';
+            padding: .4em;
+            border-radius: 100dvw;
+            background: var(--bg-raised);
+        }
+
+        .carousel-item::scroll-marker:target-current {
+            background: var(--primary-50);
+        }
+    }
 }
 
 .horizontalScroller {
 block-size: 100dvh;
 grid-template-columns: unset;
 
-    overflow: auto auto;
-          touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */
+          touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */  /* -v8 */
 
+    overflow: auto;
 
 padding: 0; margin: 0;
 display: grid;
@@ -2070,23 +2366,23 @@ gap: 0em;
 }
 
 .snappyContainer {
-
-/* border: 1px solid red; */
-
-overflow: clip auto;
+overflow: clip auto;  /* -v8 */
 padding-block: 0;
 
-    /* for parrent */
-    scroll-behavior: smooth;
-    overscroll-behavior: contain;
-    scroll-snap-type: both var(--snapType);
+/* overflow: auto; */  /* +v8 */
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
+    /* for parrent */  /* -v8 */
+    scroll-behavior: smooth;  /* -v8 */
+    /* overscroll-behavior: contain; */  /* -v8 */
+
+    scroll-snap-type: both var(--snapType, proximity);
 
     /* for child */
     & > * {
- scroll-snap-align: var(--snapAlign);
-   scroll-snap-stop: always;
-    scroll-margin: 0em; /* if stiky navbar */
-    scroll-padding: 0;
+ scroll-snap-align: var(--snapAlign, start);
+        scroll-snap-stop: always;
+        scroll-margin: 0em;
 }
 }
  .screenHeight {
@@ -2094,85 +2390,118 @@ padding-block: 0;
     /* border: 1px solid yellow; */
 }
 
+
+.fluidHovere {
+
+    & > * {
+        transition : --duration() --ease();
+        cursor: pointer;
+    }
+
+    &:has( > :is(:hover, :focus-visible)) > :not(:is(:hover, :focus-visible)) {
+        opacity: 0.5;
+    }
+
+     /* & > .scale { scale: .8; } */  /* +v8 cmnt */
+}
+
+
   #projects {
+    padding-block: 0em;
 block-size: 100dvh;
-    overflow-x: clip;
-    overflow-y: scroll;
+    overflow-x: clip;  /* -v8 */
+    overflow-y: scroll;  /* -v8 */
+
+    /* overscroll-behavior: none; */
+
+    /* overflow: clip auto; */  /* +v8 */
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
 
     & > * { block-size: 100dvh; }
 
-    span[inert] { transition: .4s var(--transition);}
-
  & > .row {position: relative;}
-&:has(.project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible)) { opacity: 0.5; }
- .project-item {
-  transition : 200ms linear;
 
-    &:is(:hover, :focus-visible) {
-   cursor: pointer;
-   /* background: var(--bg-raised);
-   padding-inline-start: .8em; */
+    .project-item {
+        --index: calc(sibling-index() * 1);
+        --total: calc(sibling-count() * 1);
+    }
+
+ .project-image {
+        transition: --duration() --ease();
+        aspect-ratio: 16/9;
+        inline-size: clamp(min(100%, 17rem), 3rem + 2dvw, 27rem);
+        overflow: cover;
+        object-fit: contain;
+        position: absolute;
+        inset: var(--top, 0) 0 0 var(--left, 0);
+        margin: auto;
+        opacity: 1 ;
+
+        img { aspect-ratio: 16/9; } /* !important */
+
     }
 }
- .project-image {
-    transition : 350ms linear;
-    aspect-ratio: 1;
-    inline-size: clamp(min(100%, 20rem), 3rem + 2dvw, 30rem);
-    overflow: clip;
-    object-fit: cover;
-    position: absolute;
-  left: var(--left, 0);
-  right: 0;
-  top: var(--top, 0);
-  bottom: 0;
-  margin: auto;
-   /* cursor: pointer;
-  z-index: 100; */
+#projects:has( .project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible))
+.project-image {
+    opacity: 0; transform: scale(0.3);
+}
 
-  img {aspect-ratio: 1;}
-  }
+
+.componentReviews { visibility: visible; }
+.componentProjectProgress {
+    > :is(*, .row) {
+        flex: 1 1 13rem;
+         /* 13 is the 2 of mobileScreen */  /* +v8 cmnt */
+    }
 }
 
   /* #testimonial */
   #testimonials {
 background: var(--bg-base);
+/* max-block-size: 100dvh; */
+overflow: auto;
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
 }
 
   #faqs {
 background: var(--bg-base);
-
-&:has(details:is(:hover, :focus-visible)) details:not(:is(:hover, :focus-visible)) { opacity: 0.6; }
+/* max-block-size: 100dvh; */
+overflow: auto;
 
 details {
   overflow: clip;
+  cursor: pointer;
   /* border: .2rem solid; */
   border-image: linear-gradient(to right, var(--bg-overlay), transparent) 1;
   border-radius: 2em;
-  padding: .5em;
-  transition: 400ms linear;
 
-    &:is(:hover, :focus-visible) {cursor: pointer;}
+  padding: .5em;
+
+    > * {
+        padding: 1em;
+    }
+
   summary {
 
-    h3 {
+            .question {
     list-style-position: outside;
-    margin-inline-start: 1em;
-    padding: .5em;
+        margin-inline-start: -1.6em;
     }
 
 &::marker {
-    content: '+';
+        content: '';
     font-size: inherit;
 }
 }
 &[open] summary::marker  {
-    content: '×';
+        content: '';
 }
 
-  p {
-/* padding-block-start: .5em; */
 
-transition: 400ms linear;
+&[open] :has(.question) .marker  {
+    rotate: 45deg;
 }
 
   &:is(:hover, :focus, :focus-visible) p {
@@ -2182,10 +2511,41 @@ cursor: pointer;
 .d-none { display: none; }
 }
 
+details {
+
+    &::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: block-size 300ms var(--transition),
+    content-visibilitt 300ms allow-discrete;
+    }
+
+    &[open]::details-content { block-size: auto; }
+}
+
   /* #contact */
   /* i want dark scheme */
   #contact {
 background: var(--bg-base);
+/* max-block-size: 100dvh; */
+overflow: auto;
+}
+
+#cta {
+    background: var(--bg-base);
+    /* max-block-size: 100dvh; */
+    overflow: auto;
+
+    .dots {
+        position: absolute;
+        inset: -15% 5% auto auto;
+        inline-size: min(15%, 15rem);
+        aspect-ratio: 1;
+        background: radial-gradient(
+            at center, var(--bg-raised) 50%, transparent 50%
+        );
+        background-size: 20% 20%;
+    }
 }
 
   #footer-transparent {
@@ -2203,10 +2563,6 @@ pointer-events: none;
 user-select: none;
 }
 footer {
-/* color-scheme: light dark; */
-/* background:var(--txt-black, black); v2 */
-border-radius: 0 0 var(--section-radius) var(--section-radius);
-
 padding-block-end: var(--space-xl);
 
 background: linear-gradient(
@@ -2219,6 +2575,8 @@ select {
 padding: 1em;
 background: transparent;
 }
+
+/* .grow-m { flex: 1 1 30rem; } */  /* +v8 */
 
 .footer-card {
   /* grid-column: container-xl; */
@@ -2234,8 +2592,6 @@ background: transparent;
 display: flex; /* commented */
 }
 
-> p { display: none; }
-
 #footer-marquee {
   /* nav-transparent : 0 */
 
@@ -2245,8 +2601,8 @@ display: flex; /* commented */
 
   .svg-wrapper {
 min-block-size: 20dvh;
-/* max-inline-size: 210rem; */
-padding-block: 2em var(--space-m);
+min-inline-size: 20rem;
+padding-block: 1em;
 display: flex;
 
 gap: var(--space-s);
@@ -2256,7 +2612,7 @@ container-type: inline-size;
 }
 
   svg {
-/* color-scheme: dark; */
+color-scheme: dark;
 /* display: inline; */
 fill: none;
 overflow: visible; /* Allows text to show even if coordinates are slightly off */
@@ -2314,54 +2670,59 @@ left: 0;
 bottom: 0;
 right: 0;
 z-index: 789;
-transition: 400ms linear;
+
+    pointer-events: none;
 
 &.scroll { transform: translateY(-200%); }
 
-:has(#header-nav-list) {
+.container-md {
   display: grid;
-  /* align-items: center;
-  justify-content: center; */
   place-content: center;
-  padding: 0 0 1.6em 0;
+    padding: 0;
+    margin-block-end: 2.4rem;
+
+    & > * { pointer-events: all; }
 
   #header-nav-list {
-display: flex; /* grid for equal + liquid animation */
+    margin-inline: auto;
+
+background: var(--bg-base);
+display: grid;
 align-items: center;
 justify-content: center;
-flex-wrap: nowrap;
-gap: 0;
+grid-auto-flow: column;
+grid-auto-columns: auto;
+gap: 0em;
 border-radius: var(--pill);
-/* overflow: clip; */
-padding: .4em;
-background: var(--bg-base);
+overflow: clip;
+padding: 0.4em;
 
-anchor-name: --chatBubble;
+  anchor-name: --active-link;
 
 a {
   border-radius: var(--pill);
-  flex: 1;
   place-content: center;
 
   color: var(--txt-black);
   font-size: --fluidFont(1.1rem, 1.4rem);
   text-transform: uppercase;
 
-  transition: 400ms linear;
+  transition: --duration() --ease();
   text-decoration: none;
   text-align: center;
-  padding: .4em .8em;
+  padding: .6em 1.2em;
+
   block-size: stretch;
+  inline-size: stretch;
 }
 
-a:is(:hover, :focus-visible),
-a.active,
-a:not(.active):nth-child(1) {
+a:is(.active, :hover, :focus-visible)
+{
   anchor-name: --active-link;
 }
 
 .active-bg {
-  background: var(--bg-raised);
+    background: var(--bg-raised);
   z-index: -1;
   pointer-events: none;
   position: absolute;
@@ -2401,7 +2762,7 @@ width: auto;
 padding-right: 50px; /* Space between the clones */
 }
 
-  /* body style ends */
+
   /* animation classes */
   .reveal {
 opacity: 0;
@@ -2424,8 +2785,7 @@ content-visibility: auto;
   animation:
 var(--name, fadeIn)
 var(--duration, 0.4s)
-var(--timingFunction, ease-out)
-var(--delay)
+--stagger() --ease()
 var(--count, 1)
 var(--direction, normal)
 var(--mode, both)
@@ -2466,24 +2826,25 @@ blue
 
   *:is(h6, h2, p) {
 transition: var(--transition);
-transition-delay: var(--delay);
+transition-delay: --stagger() --ease();
 transform: translateY(-100%);
 opacity: 0;
 }
 
   h6 {
-transition-delay: var(--delay);
+transition-delay: --stagger() --ease();
 }
 
   p {
-transition-delay: var(--delay);
+transition-delay: --stagger() --ease();
 }
 
   a {
 text-decoration: none;
 color: var(--primary-50);
 }
-}.text-revel-onscroll {
+}
+.text-revel-onscroll {
 
   background-image: linear-gradient(
 90deg,
@@ -2529,94 +2890,7 @@ var(--txt-black) 100%
 
   /* * {all: revert} */
 
-  .logo-marquee-wrapper {
-perspective: 100rem;
-transform-style: preserve-3d;
 
-mask-image: radial-gradient(
-  circle,
-  color-mix(in lch, var(--bg-base),var(--txt-black, black) 20%),
-  transparent 80%
-);
-
-position: relative;
-}
-
-  .brand-logo-container {
-
-transform: rotateY(60deg) translateZ(5rem); /* 60deg 5rem */
-transform-style: preserve-3d;
-
-backface-visibility: visible;
-transform-origin: center;
-}
-
-  .brand-logo-wrapper {
-animation: brand-logo-wrappe 20s linear infinite;
-
-aspect-ratio: 1/1;
-
-backface-visibility: visible;
-
-position: relative;
-
-transform-style: preserve-3d;
-transform-origin: center;
-color: var(--txt-black);
-}
-
-  .brand-logo {
-opacity: 1;
-transform: translateX(4rem);
-position: absolute;
-inset: 0;
-perspective: 50rem;
-transform-style: preserve-3d;
-border: 0px solid red;
-
-transform: scale(2);
-margin: auto;
-}
-  .brand-logo-2 {
-opacity: .9;
-transform: translateX(3rem);
-
-}
-  .brand-logo-3 {
-opacity: .8;
-transform: translateX(2rem);
-
-}
-  .brand-logo-4 {
-opacity: .7;
-transform: translateX(1rem);
-
-}
-  .brand-logo-5 {
-opacity: .6;
-transform: translateX(0rem);
-
-}
-  .brand-logo-6 {
-opacity: .5;
-transform: translateX(-1rem);
-
-}
-  .brand-logo-7 {
-opacity: .4;
-transform: translateX(-2rem);
-
-}
-  .brand-logo-8 {
-opacity: .3;
-transform: translateX(-3rem);
-
-}
-  .brand-logo-9 {
-opacity: .2;
-transform: translateX(-4rem);
-
-}
 
 
   #brand-title {
