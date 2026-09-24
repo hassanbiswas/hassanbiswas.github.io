@@ -3,6 +3,7 @@
     <head id="meta-container">
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
         <script>
             (function () {
                 const VERSION = new Date()
@@ -12,14 +13,14 @@
                     .join('.');
 
                 let path = window.location.pathname;
-                const originalFullUrl = path;
+                const originalPath = path;
 
                 // 1. Force Lowercase (Path only)
                 if (/[A-Z]/.test(path)) {
                     path = path.toLowerCase();
                 }
 
-                // 2. Remove index.html or index.php from the path
+                // 2. Remove index.html or index.php
                 if (path.endsWith('/index.html') || path.endsWith('/index.php')) {
                     path = path.replace(/index\.(html|php)$/, '');
                 }
@@ -27,13 +28,18 @@
                 // 3. Remove .html or .php extensions
                 path = path.replace(/\.(html|php)$/, '');
 
-                // Redirect only if the URL was actually modified
-                if (path !== originalFullUrl) {
-                    window.location.replace(path);
+                // 4. Strip trailing slash (e.g., /about/ becomes /about)
+                if (path.length > 1 && path.endsWith('/')) {
+                    path = path.slice(0, -1);
+                }
+
+                // Redirect if path structure was normalized
+                if (path !== originalPath) {
+                    window.location.replace(path + window.location.search + window.location.hash);
                     return;
                 }
 
-                // 5. Custom Error Mapping / Fallback
+                // 5. Custom Error Mapping
                 const errorMapping = {
                     '/admin': '/',
                     '/login': '/',
@@ -41,12 +47,49 @@
 
                 if (errorMapping[path]) {
                     window.location.replace(errorMapping[path]);
-                } else {
-                    // Default fallback if no match
-                    window.location.replace('/');
+                    return;
                 }
+
+                // 6. Path Fallback: Validate dynamic path existence
+                if (path !== '/') {
+                    fetch(path, { method: 'HEAD' })
+                        .then(response => {
+                            if (!response.ok) {
+                                window.location.replace('/');
+                            }
+                        })
+                        .catch(() => {
+                            window.location.replace('/');
+                        });
+                }
+
+                // 7. Hash Fallback: Validate section ID existence in DOM
+                function validateHash() {
+                    const hash = window.location.hash;
+                    if (hash && hash.length > 1) {
+                        const targetId = decodeURIComponent(hash.substring(1));
+                        const targetElement = document.getElementById(targetId);
+
+                        // If element with id matching hash doesn't exist, strip hash and fallback to root
+                        if (!targetElement) {
+                            history.replaceState(null, null, window.location.pathname);
+                            window.location.replace('/');
+                        }
+                    }
+                }
+
+                // Run hash check once DOM elements are fully loaded
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', validateHash);
+                } else {
+                    validateHash();
+                }
+
+                // Listen for live hash changes without page reloads
+                window.addEventListener('hashchange', validateHash);
             })();
         </script>
+
         <link
             href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='66 66 52 52'%3E%3Cpath d='M66 66h50v50H66z' fill='transparent'/%3E%3Cpath d='M80.23 79.274h-.185l-.117-.[...]"
         />
