@@ -141,7 +141,7 @@ object-fit: cover;
   dialog {
 --y: .4em;
 --z: .12em;
-border: 0.1em solid var(--txt-gray);
+border: 0.1em solid var(--txt-tertiary);
 border-radius: 1.6em;
 padding: var(--space-xs);
 box-shadow: var(--shadow);
@@ -193,12 +193,12 @@ box-shadow: var(--shadow);
   .glass {
 --blur: .3em;
 
-border-top: .1em solid var(--bg-overlay);
-border-bottom: .1em solid var(--bg-overlay);
+border-top: .1em solid var(--bg-tertiary);
+border-bottom: .1em solid var(--bg-tertiary);
 
 background: linear-gradient(
   to top,
-  var(--bg-overlay),
+  var(--bg-tertiary),
   rgba(255, 255, 255, .2)
 );
 -webkit-backdrop-filter: blur(var(--blur));
@@ -235,12 +235,12 @@ top: 0;
 left: 0;
 block-size: var(--size);
 background: transparent;
-border: .1em solid var(--txt-black);
+border: .1em solid var(--txt-primary);
 }
 
   #custom-cursor-two {
 top: calc(var(--size) / 2.5);
 left: calc(var(--size) / 2.5);
 block-size: .4rem;
-background: var(--txt-black);
+background: var(--txt-primary);
 }
