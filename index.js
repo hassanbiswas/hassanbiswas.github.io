@@ -1,20 +1,34 @@
-// Cache-busting & Logic automation for versioning
-let VERSION = new Date()
-    .toLocaleDateString('en-GB')
-    .split('/')
-    .reverse()
-    .slice(0, 2)
-    .concat('01')
-    .join('.');
-// Results in YY.MM.DD format (e.g., xxxx.xx.xx)
-// Listen for the 'online' event
-window.addEventListener('online', () => {
-    if (navigator.onLine) {
-        let VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
-        window.location.reload();
-    }
-});
-Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
+// Reusable Version Manager & Cache-Buster Module
+(() => {
+    // Generate date version in YY.MM.DD format
+    const getDynamicVersion = (isFallback = false) => {
+        const parts = new Date().toLocaleDateString('en-GB').split('/').reverse();
+        if (isFallback) {
+            parts[2] = '01'; // Force day to '01' when offline/fallback
+        }
+        return parts.join('.');
+    };
+
+    // Determine initial version based on current network status
+    const isOnline = navigator.onLine;
+    const VERSION = getDynamicVersion(!isOnline);
+
+    // Set document level language, direction, and version data attribute
+    Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
+
+    // Listen for reconnection to refresh and sync current dynamic version
+    window.addEventListener('online', () => {
+        if (navigator.onLine) {
+            window.location.reload();
+        }
+    });
+
+    // Log version lifecycle for debugging/verification
+    console.log(
+        `[App] Initialized | Status: ${isOnline ? 'Online' : 'Offline'} | Version: ${VERSION}`
+    );
+})();
+
 // variable
 // function
 // component
@@ -256,10 +270,9 @@ const random = (min, max) => {
 const html = document.documentElement,
     head = document.head || document.getElementsByTagName('head')[0],
     body = document.body || document.getElementsByTagName('body')[0];
-const hues = [8, 240, 256, 270, 334].sort();
+const hues = [8, 14, 240, 256, 270, 334].sort();
 const maxHues = hues.length;
 let brandPrimary = `hsl(240, 80%, 50%)`;
-
 let brandH = hues[random(0, maxHues)] || null;
 if (brandH) {
     html.style.setProperty('--brand-h', brandH);
@@ -965,19 +978,20 @@ const tools = [
 ];
 
 const brandLogo = () => {
+    let j = 0;
+    const brandLogoInterval = setInterval(() => {
+        j++;
+        console.log(j);
+        if (j === 10) clearInterval(brandLogoInterval);
+    }, 500);
+
+    const inertSpan = `<span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true">${author.logoOutlineSvg}</span>`;
+
     return `
         <div style="padding: 0em; " class="brand-logo-container">
             <div style="padding: 0em; aspect-ratio: 1;" class="brand-wrapper-container brand-logo-wrapper-container stacking-container ">
-                <span class="logo-wrapper brand-logo-wrapper" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
-                <span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true" >${author.logoOutlineSvg}</span>
+                <span class="logo-wrapper brand-logo-wrapper">${author.logoOutlineSvg}</span>
+                ${inertSpan.repeat(19)}
             </div>
         </div>
     `;
@@ -988,14 +1002,14 @@ const brandLogo = () => {
 class HeroSection extends HTMLElement {
     connectedCallback() {
         // Configuration for easy updates
-        const scrollerGroup = (style = null, values = null) => {
+        const scrollerGroup = (style = '', values = '', childVal = '') => {
             return `
                 <div ${values} class="scrollerGroup flex nowrap" style="${style};">
 
                 ${skills
                     .map(
                         skill => `
-                        <a ${seoA()} href="${skill.link}" aria-label="${skill.name}">
+                        <a ${seoA()} href="${skill.link}" aria-label="${skill.name}" ${childVal}>
                             <!-- <img ${seoImg(skill.favicon, skill.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/> -->
                             ${skill.name}
                         </a>
@@ -1006,7 +1020,7 @@ class HeroSection extends HTMLElement {
                 ${tools
                     .map(
                         tool => `
-                        <a ${seoA()} href="${tool.link}" aria-label="${tool.name}">
+                        <a ${seoA()} href="${tool.link}" aria-label="${tool.name}" ${childVal}>
                             <!-- <img ${seoImg(tool.favicon, tool.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/> -->
                             ${tool.name}
                         </a>
@@ -1063,7 +1077,7 @@ class HeroSection extends HTMLElement {
 
 
         <div class="row items-center text-items gradient-mask">
-            <span style="padding: .4em .8em; gap: .4em" class="flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> Last seen ${random(1, 3)}H ago</span>
+            <span style="padding: .4em .8em; gap: .4em" class="flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> <!-- Last seen ${random(1, 3)}H ago --> Available for projects</span>
             <h1 data-animate="scaleI" ${seoH(`hero`)}
                 class="h1 txt-center splitWord"
                 id="brand-title">
@@ -1081,7 +1095,7 @@ class HeroSection extends HTMLElement {
             <div class="scrollerWrapper">
                 <div data-visible class="infiniteScroller flex nowrap" style="padding-block: .8em; gap: 0;">
                     ${scrollerGroup(`gap: 2.4em; padding-inline-end: 2.4em;`)}
-                    ${scrollerGroup(`gap: 2.4em;`, `aria-hidden="true"`)}
+                    ${scrollerGroup(`gap: 2.4em;`, `aria-hidden="true"`, `aria-hidden="true" tabindex="-1"`)}
                 </div>
             </div>
 
@@ -1287,7 +1301,7 @@ class AboutSection extends HTMLElement {
         Driven by Quality,<br> Precision & Modern Aesthetics
         </h2>
         <div class="row " style="gap: var(--space-xs); ">
-            <p data-animate="scaleIn" data-origin="right" class="splitWord">Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
+            <p data-animate="scaleIn" class="splitWord">Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
             <a data-visible class="p splitText" href="/#story-1">
                 ❯ View Story
             </a>
@@ -1300,7 +1314,7 @@ class AboutSection extends HTMLElement {
          (story, index) => `
     <div data-pin="true" id="story-${index + 1}" class="row content-center screenHeight" style="padding-block: 0em; overflow: clip; position: relative; ">
 
-        <span inert aria-hidden="true" data-animate="scaleIn" data-scale="1 0" data-origin="bottom" class="story-image mas" style="filter: blur(3px) opacity(.3); position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="bobject-fit: cover; height: 100%;"/></span>
+        <span inert aria-hidden="true" data-animate="scaleIn" class="story-image mas" style="filter: blur(3px) opacity(.3); position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="bobject-fit: cover; height: 100%;"/></span>
 
         <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" style="position: absolute; inset: 0; margin: auto; margin-block: ${svgMarginBlock}; overflow: visible; user-select: none; " >
             ${txtFill(story.date, 'var(--txt-tertiary)', '2.3')}
@@ -1314,7 +1328,7 @@ class AboutSection extends HTMLElement {
 
         <div class="toCenterContents " >
             <div class="col" style="--col-size: 20rem; gap: 0;  padding-block: 0; ">
-                <div><p class="h6 txt-gra"><span class="txt-primary h2">0${index + 1}</span>/${stories.length}</p> <h3  data-animate="scaleIn" data-origin="left" style="padding-block: 0em; mix-blend-mode: difference; display: inline;" class="h1 splitWord">${story.title}</h3></div>
+                <div><p class="h6 txt-gra"><span class="txt-primary h2">0${index + 1}</span>/${stories.length}</p> <h3  data-animate="scaleIn" style="padding-block: 0em; mix-blend-mode: difference; display: inline;" class="h1 splitWord">${story.title}</h3></div>
 
                 <div class="emptyCol"></div>
             </div>
@@ -1378,7 +1392,7 @@ class ServicesSection extends HTMLElement {
             <p class="h6 fade-in-to">
             Services <span class="txt-tertiary">by ${author.name}</span>
             </p>
-            <h2 data-animate="scaleIn" ${seoH(`services`)} class="">
+            <h2 data-animate="scaleI" ${seoH(`services`)} class="">
             Services available in <br> ${locationSecondary}.
             </h2>
             <p class="splitWord">High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${clientSatisfaction}%</b> satisfaction.</p>
