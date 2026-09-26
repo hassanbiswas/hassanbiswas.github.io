@@ -4,7 +4,7 @@
 
 @property --brand-color {
     syntax: "<color>";
-    inherits: false;
+    inherits: true;
     initial-value: hsl(240, 80%, 50%); /* 240 80% 50% */
 }
 
@@ -879,7 +879,10 @@ padding-block: var(--space-s);
 }
 }
   /* ### Design System - Components */
-  /* ### 1. Button hierarchy & types *//* ============= button ================ */  /* [class*="button btn"], */
+  /* ### 1. Button hierarchy & types */
+  /* ============= button ================ */
+  /* [class*="button btn"], */
+  /* [class|="button"] */ /* eg: button-x button-y button-z */
   button,
   .button,
   input[type="button"],
@@ -1352,8 +1355,7 @@ place-content: center;
 
 /* auto-col-genarator */
 .col {
-    --col-count: attr(data-col, 2);
-    --col-size: calc(52rem / var(--col-count));
+    --col-size: calc(30rem / var(--col-count, 1));
     --total-padding: calc(var(--padding-inline, 1.6em) * 2);
 
     border: 0px dotted var(--bg-primary, white);
@@ -1429,8 +1431,7 @@ position: relative;
 }
 
   .flex {
-    --col-count: attr(data-col, 2);
-    --col-size: calc(52rem / var(--col-count));
+    --col-size: calc(30rem / var(--col-count, 1));
     --total-padding: calc(var(--padding-inline, 1.6em) * 2);
 
     display: flex;
@@ -1866,6 +1867,8 @@ right: 0;
 /* block-size: 100dvh; */
 overflow: clip; /* hidden */
 
+    * { color: var(--txt-primary); }
+
 svg {
   display: grid;
   grid-auto-flow: row;
@@ -1969,8 +1972,8 @@ transform: scaleX(1); /* animate */
                 transform-origin: center center;
                 backface-visibility: visible;
 
-            opacity: calc(1.0 / sibling-index());
-            transform: perspective(200px) rotateY(60deg) translateZ(calc( -0.4rem * sibling-index()));
+            opacity: calc(1 / sibling-index());
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -2px * sibling-index()));
             transition: --stagger() --duration() --ease();
 
             .brand-logo {
@@ -2170,7 +2173,7 @@ q,
                 /* animation-delay: calc(3ms * --stagger()); */
                 /* animation-iteration-count: infinite; */
 
-                /* animation-timeline: attr(data-trigger, view()); */
+                /* animation-timeline: var(--data-trigger, view()); */
                 /* animation-range: entry 0% cover 30%; */
         }
 
@@ -2204,7 +2207,7 @@ q,
     }
 
     .scroll-marker:active {
-        content: attr(data-name, 'status');
+        content: var(--data-name, 'status');
         background: var(--brand-primary);
     }
 
@@ -2771,31 +2774,30 @@ filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
 // \\\\\ View-Transitions \\\\\\\
 // ####################### */
 
-/* view trasition API */
+/* View Transition API */
 @view-transition {
     navigation: auto;
 }
 
 /* Styling the overall transition */
-::view-transition,
-::view-transition-image-pair(root),
-::view-transition-old(root),
-::view-transition-new(root),
+/* ::view-transition-image-pair(root), */
+/* ::view-transition-old(root), */
+/* ::view-transition-new(root), */
 ::view-transition-group(root) {
     animation-duration: --duration();
     animation-timing-function: --ease();
     animation-fill-mode: both;
 }
 
-body > :is(#loader, main > section[id]),
-::view-transition-group(body > :is(#loader, main > section[id])) {
+body > :is(#loader, main > section[id]) {
     view-transition-name: pages;
 }
 
 /* Custom @keyframes for the old page _Default_ */
-::view-transition-old(root),
-:active-view-transition-type(back)::view-transition-old(root),
-::view-transition-old(pages) {
+/* ::view-transition-old(root), */
+/* :active-view-transition-type(back)::view-transition-old(root), */
+::view-transition-old(pages),
+:active-view-transition-type(back)::view-transition-old(pages) {
     animation: pagesOld --duration() --ease() both;
 }
 @keyframes pagesOld {
@@ -2803,32 +2805,34 @@ body > :is(#loader, main > section[id]),
     to { transform: translateY(-30%); opacity: 0.3; }
 }
 /* Custom @keyframes for the new page */
-::view-transition-new(root),
-:active-view-transition-type(back)::view-transition-new(root),
-::view-transition-new(pages) {
+/* ::view-transition-new(root), */
+/* :active-view-transition-type(back)::view-transition-new(root), */
+::view-transition-new(pages),
+:active-view-transition-type(back)::view-transition-new(pages) {
     animation: pagesNew --duration() --ease() both;
 }
 @keyframes pagesNew {
-    from { transform: translateY(30%); opacity: 0; clip-path: inset(30% 30% 0% 0%); }
-    to { transform: translateY(0%); opacity: 1; clip-path: inset(100%); }
+    from { transform: translateY(30%); opacity: 0.3; clip-path: inset(30% 30% 0% 0%); }
+    to { transform: translateY(0%); opacity: 1; clip-path: inset(0%); }
 }
 
 
 
-/* img {
-    view-transition-name: img;
+/* Media Elements */
+img {
+    view-transition-name: image;
 }
+
 video {
     view-transition-name: video;
 }
-::view-transition-old(img, video),
-::view-transition-new(img, video) {
-    animation: none;
-    mix-blend-mode: normal;
-    height: 100%;
-    border-radius: 0 0 3.2rem 3.2rem;
-} */
 
+/* ::view-transition-old(image),
+::view-transition-old(video),
+::view-transition-new(image),
+::view-transition-new(video) {
+    animation: none;
+} */
 
 
 
@@ -2869,17 +2873,17 @@ video {
 /* // #######################
 // \\\\\ Keyframes \\\\\\\
 // ####################### */
-:is(.animate, [data-animate]) {
+.animate, [data-animate] {
     --prefix: 1;
     /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
     animation-name: attr(data-animate, none);
-    /* animation-duration: attr(data-duration, 1s); */
-    animation-timing-function: attr(data-ease, --ease());
+    /* animation-duration: var(--data-duration, 1s); */
+    animation-timing-function: var(--data-ease, --ease());
     animation-fill-mode: both;
-    /* animation-delay: attr(data-stagger, --stagger()); */
+    /* animation-delay: var(--data-stagger, --stagger()); */
 
-    animation-timeline: attr(data-trigger, view(10% 5%)); /* view(10% 5%) */ /* end start */
-    animation-range: entry calc(sibling-index() * attr(data-start, 20%)) cover calc(sibling-index() * attr(data-end, 40%));
+    animation-timeline: var(--data-trigger, view(10% 5%)); /* view(10% 5%) */ /* end start */
+    animation-range: entry calc(sibling-index() * var(--data-start, 20%)) cover calc(sibling-index() * var(--data-end, 40%));
 
     &:nth-child(even) {
         --prefix: -1;
@@ -2922,7 +2926,7 @@ Note:
     }
 }
 /* set Animation to parent */
-.spin3DInfinite {
+.spin3DInfinite[data-visible="true"] {
     animation: spin3DInfinite 20s linear infinite;
     animation-play-state: running;
 
@@ -2971,12 +2975,12 @@ Note:
 }
 /* 4. Skeleton Pulse Loader */
 @keyframes wordsSkeleton {
-    0%, 75% {
+    0%, 100% {
         background: --alpha(var(--currentColor), 1);
         color: --alpha(var(--currentColor), 1);
         opacity: .3;
     }
-    25%, 100% {
+    50% {
         background: --alpha(var(--currentColor), 1);
         color: --alpha(var(--currentColor), 1);
         opacity: .6;
@@ -2990,7 +2994,7 @@ Note:
         margin-block: 2px;
         border-radius: 100dvw;
         animation: wordsSkeleton
-         calc(--duration() * 3) --ease() --stagger() infinite;
+         calc(--duration() * 1.5) --ease() --stagger() infinite;
         animation-delay: random(calc(-1 * --stagger()), 0s);
 }
 
@@ -3022,20 +3026,20 @@ Note:
     100% { stroke-dashoffset: 0; }
 }
 
-
+/* reversed */
 @keyframes clipIn {
     0% { clip-path: inset(0%); }
-    100% { clip-path: inset(attr(data-clip, 100%)); }
+    100% { clip-path: inset(var(--data-clip, 100%)); }
 }
 @keyframes clipOut {
-    0% { clip-path: inset(attr(data-clip, 30%)); }
+    0% { clip-path: inset(var(--data-clip, 30%)); }
     100% { clip-path: inset(0%); }
 }
 @keyframes scaleIn {
-    from { transform: scale(attr(data-scale, 0 .3)); opacity: 0; }
+    from { transform: scale(var(--data-scale, 0 .3)); opacity: 0; }
 }
 [data-animate="scaleIn"] {
-    transform-origin: attr(data-origin, bottom);
+    transform-origin: var(--data-origin, bottom);
 }
 
 @keyframes infiniteScroller {
@@ -3092,7 +3096,7 @@ Note:
     0% { background-size: 0% 100%; }
     100% { background-size: 100% 100%; }
 }
-[data-animate="textReveal"] {
+[data-animate="textReveal"], .textReveal {
     /* animation-range: entry 0% cover 30%; */
     --currentColor: currentColor;
     background-image: linear-gradient(
