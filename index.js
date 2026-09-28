@@ -816,7 +816,7 @@ class LoaderSection extends HTMLElement {
                     loader.style.visibility = 'hidden';
                     loader.remove();
                     document.getElementsByTagName('body')[0].removeAttribute('inert');
-                }, 2000); // 400
+                }, 1000); // 400
             } else if (i >= greetings.length) {
                 i = 0;
             }
@@ -979,6 +979,7 @@ const tools = [
 
 const brandLogo = () => {
     let j = 0;
+    let totalLogo = 10;
     const brandLogoInterval = setInterval(() => {
         j++;
         console.log(j);
@@ -991,7 +992,7 @@ const brandLogo = () => {
         <div style="padding: 0em; " class="brand-logo-container">
             <div style="padding: 0em; aspect-ratio: 1;" class="brand-wrapper-container brand-logo-wrapper-container stacking-container ">
                 <span class="logo-wrapper brand-logo-wrapper">${author.logoOutlineSvg}</span>
-                ${inertSpan.repeat(19)}
+                ${inertSpan.repeat(totalLogo - 1)}
             </div>
         </div>
     `;
