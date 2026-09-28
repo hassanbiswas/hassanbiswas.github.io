@@ -393,7 +393,7 @@ html {
     scrollbar-gutter: none;
     scrollbar-width: none;
 
-    scroll-snap-type: both proximity;
+    /* scroll-snap-type: both proximity; */
     scroll-padding: 0em;
 
     & > * {
@@ -1973,7 +1973,7 @@ transform: scaleX(1); /* animate */
                 backface-visibility: visible;
 
             opacity: calc(1 / sibling-index());
-            transform: perspective(200px) rotateY(60deg) translateZ(calc( -2px * sibling-index()));
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -3px * sibling-index()));
             transition: --stagger() --duration() --ease();
 
             .brand-logo {
@@ -2078,7 +2078,7 @@ padding-block: var(--space-xs);
     padding-block: 0em;
     background: var(--bg-primary);
 
-    scroll-snap-type: proximity;
+    scroll-snap-type: revert;
     scroll-snap-align: start;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -2478,6 +2478,10 @@ select {
 padding: 1em;
 background: transparent;
 cursor: pointer;
+}
+
+a {
+    white-space: nowrap;
 }
 
 /* .grow-m { flex: 1 1 30rem; } */  /* +v8 */
