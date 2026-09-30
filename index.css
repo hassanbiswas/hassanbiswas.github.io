@@ -18,15 +18,15 @@
 
 /* CUSTOM FUNCTIONS */
 
-@function --bg-palette(--l: 42%, --s: 20%) {
-    result: light-dark(
+@function --bg-palette(--l <percentage>: 42%, --s <percentage>: 20%) {
+    result : light-dark(
         hsl(from var(--brand-primary) h var(--s) calc(50% + var(--l))),
         hsl(from var(--brand-primary) h var(--s) calc(50% - var(--l)))
     )
 }
 
-@function --txt-palette(--l: 46%, --s: 4%) {
-    result: light-dark(
+@function --txt-palette(--l <percentage>: 46%, --s <percentage>: 4%) {
+    result : light-dark(
         hsl(from var(--brand-primary) h var(--s) calc(50% - var(--l))),
         hsl(from var(--brand-primary) h var(--s) calc(50% + var(--l)))
     )
@@ -49,7 +49,7 @@
     )
 }
 
-@function --space(--step: 1, --base: 10px) {
+@function --space(--step <number>: 1, --base: 10px) {
     result: calc((((
         8px,
         (8px + (16px - 8px) * var(--progress)),
@@ -82,13 +82,13 @@
     )
 }
 
-@function --hue(--h) {
+@function --hue(--h <number>: 240) {
     result: hsl(
         from var(--brand-primary) var(--h) s l
     )
 }
 
-@function --alpha(--color, --opacity) {
+@function --alpha(--color <color>, --opacity type(<number> | <percentage>)) {
     result: hsl(
         from var(--color) h s l / var(--opacity)
     )
@@ -2784,10 +2784,7 @@ filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
 }
 
 /* Styling the overall transition */
-/* ::view-transition-image-pair(root), */
-/* ::view-transition-old(root), */
-/* ::view-transition-new(root), */
-::view-transition-group(root) {
+::view-transition-group(*) {
     animation-duration: --duration();
     animation-timing-function: --ease();
     animation-fill-mode: both;
@@ -2798,45 +2795,27 @@ body > :is(#loader, main > section[id]) {
 }
 
 /* Custom @keyframes for the old page _Default_ */
-/* ::view-transition-old(root), */
-/* :active-view-transition-type(back)::view-transition-old(root), */
+::view-transition-old(root),
+:active-view-transition-type(back)::view-transition-old(root),
 ::view-transition-old(pages),
 :active-view-transition-type(back)::view-transition-old(pages) {
-    animation: pagesOld --duration() --ease() both;
+    animation-name: pagesOld;
 }
 @keyframes pagesOld {
     from { transform: translateY(0%); opacity: 1; }
     to { transform: translateY(-30%); opacity: 0.3; }
 }
 /* Custom @keyframes for the new page */
-/* ::view-transition-new(root), */
-/* :active-view-transition-type(back)::view-transition-new(root), */
+::view-transition-new(root),
+:active-view-transition-type(back)::view-transition-new(root),
 ::view-transition-new(pages),
 :active-view-transition-type(back)::view-transition-new(pages) {
-    animation: pagesNew --duration() --ease() both;
+    animation-name: pagesNew;
 }
 @keyframes pagesNew {
     from { transform: translateY(30%); opacity: 0.3; clip-path: inset(30% 30% 0% 0%); }
     to { transform: translateY(0%); opacity: 1; clip-path: inset(0%); }
 }
-
-
-
-/* Media Elements */
-img {
-    view-transition-name: image;
-}
-
-video {
-    view-transition-name: video;
-}
-
-/* ::view-transition-old(image),
-::view-transition-old(video),
-::view-transition-new(image),
-::view-transition-new(video) {
-    animation: none;
-} */
 
 
 
@@ -2880,7 +2859,7 @@ video {
 .animate, [data-animate] {
     --prefix: 1;
     /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
-    animation-name: attr(data-animate, none);
+    animation-name: attr(data-animate, 'name');
     /* animation-duration: var(--data-duration, 1s); */
     animation-timing-function: var(--data-ease, --ease());
     animation-fill-mode: both;
