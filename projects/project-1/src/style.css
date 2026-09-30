@@ -1,4 +1,35 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+
+@theme {
+    --color-brand-primary: hsl(240, 80%, 50%);
+}
+
+@layer base {
+    html {
+        color-scheme: light dark;
+    }
+
+    p {
+        @apply overflow-clip;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.componentReviews ul li:not(:last-child) {
+    margin-right: -15px;
+}
+
+@layer components {
+
+    .btn {
+        @apply decoration-0 text-white rounded-[100dvw] border-0 py-3 px-4;
+    }
+    .tag {
+        @apply rounded-[100dvw] bg-black/40 px-2.5 py-1.5;
+    }
+}
