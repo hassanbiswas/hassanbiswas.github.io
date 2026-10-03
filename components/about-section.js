@@ -1,4 +1,4 @@
-import * as App from '/index.js';
+import * as App from '../../../../../../../index.js';
 
 // Destructure array, function, and variables directly
 const { VERSION, brandColor, categories, getTheme } = App;
