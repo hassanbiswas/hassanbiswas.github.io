@@ -60,7 +60,7 @@
         />
         <script defer="">
             const rootUrl = `/`;
-            let VERSION = new Date()
+            const VERSION = new Date()
                 .toLocaleDateString('en-GB')
                 .split('/')
                 .reverse()
@@ -70,7 +70,7 @@
             // Results in YY.MM.DD format (e.g., xxxx.xx.xx)
 
             const handleConnectionChange = () => {
-                let VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+                // const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
                 // if (navigator.onLine) {
                 window.location.reload();
