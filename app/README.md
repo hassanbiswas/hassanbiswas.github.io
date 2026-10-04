@@ -34,12 +34,6 @@ This app allows user & client to stay connected with Web developer | Hassan Bisw
 - User friendly UI
 - 24/7 support
 
-![1](https://github.com/user-attachments/assets/8bfef1cd-5183-42c5-a42b-8aa7b1e54140)
-
-![2](https://github.com/user-attachments/assets/6c26b8bd-f875-4140-9ad1-216e846a2263)
-
-![3](https://github.com/user-attachments/assets/17b55414-bdeb-4fc4-bd08-60d751972712)
-
 This project is a simple webview application that opens a specified URL and dynamically changes its color scheme based on the device's preferences.
 
 This will start a local server and open the webview application in your default browser.
