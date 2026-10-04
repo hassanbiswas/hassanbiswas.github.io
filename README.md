@@ -93,8 +93,7 @@ I’m collaborating with:
 
 ## Acknowledgements:
 
-Serving clients worldwide.
-Thank's to <a href="https://github.com/hiradEmami">Hirad Emami</a>
+Serving clients worldwide. <a href="https://hassanbiswas.github.io">https://hassanbiswas.github.io</a>
 
 [![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)
 
