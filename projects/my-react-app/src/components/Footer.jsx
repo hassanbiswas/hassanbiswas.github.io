@@ -270,7 +270,7 @@ const Footer = () => {
                                 stroke: 'currentColor',
                                 strokeWidth: 0.5,
                                 fill: 'currentColor',
-                                fontSize: 'calc(var(--p) * 2.8)',
+                                fontSize: 'calc(var(--p) * 3)',
                                 fontWeight: 800,
                                 strokeDasharray: 100,
                                 strokeDashoffset: 0,
