@@ -1,0 +1,3119 @@
+/* @import "/assets/css/animation.css"; | ... */ /* !bad idea 💡 */
+
+/* CUSTOM PROPERTIES */
+
+@property --brand-color {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: hsl(240, 80%, 50%); /* 240 80% 50% */
+}
+
+/* Animated radial progress or dynamic transform driver */
+@property --lerp-val {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
+
+/* CUSTOM FUNCTIONS */
+
+@function --bg-palette(--l <percentage>: 42%, --s <percentage>: 20%) {
+    result : light-dark(
+        hsl(from var(--brand-primary) h var(--s) calc(50% + var(--l))),
+        hsl(from var(--brand-primary) h var(--s) calc(50% - var(--l)))
+    )
+}
+
+@function --txt-palette(--l <percentage>: 46%, --s <percentage>: 4%) {
+    result : light-dark(
+        hsl(from var(--brand-primary) h var(--s) calc(50% - var(--l))),
+        hsl(from var(--brand-primary) h var(--s) calc(50% + var(--l)))
+    )
+}
+
+
+@function --font(--min: 1.4rem, --max: 1.6rem) {
+    result: clamp(
+        var(--min),
+        calc(var(--min) + (var(--max) - var(--min)) * var(--progress)),
+        var(--max)
+    )
+}
+
+@function --size(--min: 1.6rem, --max: 3.2rem) {
+    result: clamp(
+        var(--min),
+        calc(var(--min) + (var(--max) - var(--min)) * var(--progress)),
+        var(--max)
+    )
+}
+
+@function --space(--step <number>: 1, --base: 10px) {
+    result: calc((((
+        8px,
+        (8px + (16px - 8px) * var(--progress)),
+        16px
+    ) / var(--base)) * var(--step)) * 1rem)
+}
+
+@function --pxToRem(--px: 18px, --base: 10px) {
+    result: ((var(--px) / var(--base)) * 1rem)
+}
+
+@function --pxToEm(--px: 18px, --base: 10px) {
+    result: ((var(--px) / var(--base)) * 1em)
+}
+
+@function --pxToCqi(--px: 18px, --containerSize: 1024px) {
+    result: ((var(--px) / var(--containerSize)) * 100cqi)
+}
+
+/* 540;720;960px */
+@function --breakpoint(
+    --sm,
+    --md,
+    --lg: var(--md)
+    ) {
+    result: if(
+        @container (inline-size <= 600px) : var(--sm);
+        @container (inline-size <= 1000px) : var(--md);
+        else : var(--lg);
+    )
+}
+
+@function --hue(--h <number>: 240) {
+    result: hsl(
+        from var(--brand-primary) var(--h) s l
+    )
+}
+
+@function --alpha(--color <color>, --opacity type(<number> | <percentage>)) {
+    result: hsl(
+        from var(--color) h s l / var(--opacity)
+    )
+}
+
+@function --innerRadius(--radius, --padding) {
+    result: max(0em, calc(var(--radius) - var(--padding)));
+}
+
+
+
+/* ==========================================================================
+    GSAP-STYLE CSS DYNAMIC FUNCTIONS LIBRARY (MODERN CSS & CSS MODULES LEVEL 5)
+========================================================================== */
+
+/* 1. Linear Interpolation (GSAP lerp)
+Blends between --start and --end based on a 0 to 1 progress value (--t) */
+@function --lerp(--start: 0, --end: 100%, --t: 0) {
+    result: calc(var(--start) * (1 - var(--t)) + var(--end) * var(--t));
+}
+
+/* 2. Stagger Delay (GSAP stagger)
+Calculates item delay using sibling index and optional start delay */
+@function --stagger(--delay: 0.05s, --start-delay: 0s) {
+    result: calc(var(--start-delay) + (sibling-index() - 1) * var(--delay));
+}
+
+/* 3. Reversed Stagger (GSAP stagger { from: "end" })
+Calculates stagger in reverse order using sibling-count() */
+@function --stagger-reverse(--delay: 0.05s, --start-delay: 0s) {
+    result: calc(var(--start-delay) + (sibling-count() - sibling-index()) * var(--delay));
+}
+
+/* 4. Center-Out Stagger (GSAP stagger { from: "center" })
+Calculates stagger radiating outward from the middle child */
+@function --stagger-center(--delay: 0.05s, --start-delay: 0s) {
+    result: calc(
+        var(--start-delay) + abs(sibling-index() - (sibling-count() + 1) / 2) * var(--delay)
+    );
+}
+
+/* 5. Dynamic Duration Scaling
+Scales duration based on total elements or individual position */
+@function --duration(--base: 0.3s, --step: 0.05s) {
+    result: calc(var(--base) + (sibling-index() - 1) * var(--step));
+}
+
+/* 6. Normalized Progress / Relative Index Ratio (0 to 1 scale)
+Useful for smooth progressive transforms across dynamic list lengths */
+@function --index-ratio(--min: 0, --max: 1) {
+    result: calc(
+        var(--min) + (sibling-index() - 1) / max(1, sibling-count() - 1) * (var(--max) - var(--min))
+    );
+}
+
+/* 7. Map Range (GSAP utils.mapRange)
+Maps a value from an input range [inMin, inMax] to an output range [outMin, outMax] */
+@function --map-range(--val: 0, --in-min: 0, --in-max: 100, --out-min: 0px, --out-max: 100px) {
+    result: calc(
+        var(--out-min) + (var(--val) - var(--in-min)) * (var(--out-max) - var(--out-min)) / (var(--in-max) - var(--in-min))
+    );
+}
+
+/* 8. Clamped Value (GSAP utils.clamp) */
+@function --clamp-val(--val: 0px, --min: 0px, --max: 100px) {
+    result: clamp(var(--min), var(--val), var(--max));
+}
+
+/* 9. Ease Bezier Resolver */
+@function --ease(--timingFunction: cubic-bezier(0.37, 0, 0.63, 1)) {
+    result: var(--timingFunction);
+}
+
+/* Loading Screen */
+/* Hide elements in App Mode */  /* Inter Variable Font (Headings) */
+/* @font-face {
+    font-family: "Custom-Font";
+    src: url("assets/fonts/inter/Inter-VariableFont_wght.ttf") format("truetype-variations");
+    font-weight: 100 900;
+    font-display: swap;
+} */
+
+
+
+/* 3. Global Variables & Design Tokens */
+:root {
+    color-scheme: light dark;
+
+/* --- Color System --- */
+/* We use the base color but adjust lightness dynamically */
+
+/* high-contrast background */
+--bg-primary: --bg-palette(44%);
+--bg-secondary: --bg-palette(34%);
+--bg-tertiary: --bg-palette(24%);
+
+/* --brand-h: ''; is undefined to inherit from Brand Color or JS */
+--brand-primary: hsl(from var(--brand-color) var(--brand-h, h) s l);
+--brand-primary_random: hsl(from var(--brand-primary) calc((h / sibling-count()) *  sibling-index()) s l);
+
+/* high-contrast text */
+--txt-primary: --txt-palette(46%);
+--txt-secondary: --txt-palette(20%);
+--txt-tertiary: --txt-palette(2%);
+
+/* --- UI Elements --- */
+--border-clr: var(--txt-tertiary);
+
+/* Semantic Colors */
+--clr-success: --hue(142);
+--clr-error:   --hue(0);
+--clr-warning: --hue(38);
+--clr-info: --hue(196);
+
+/* ====== font ====== */
+/* --custom-font: "Custom-Font", "Ubuntu", sans-serif; */
+--custom-font: "Ubuntu", sans-serif;
+
+/* fluidity min & max */
+--max-width: 102.4rem;  /* 1024px M */
+--min-width: 37.5rem; /* 375px M */
+/* Progress ratio: 0 at min-width, 1 at max-width */
+--progress: calc((100cqi - var(--min-width)) / (var(--max-width) - var(--min-width)));
+
+--h1: --font(3rem, 4rem);
+--h2: --font(2.4rem, 3rem);
+--h3: --font(2rem, 2.4rem);
+--h4: --font(1.8rem, 2rem);
+--h5: --font(1.6rem, 1.8rem);
+--h6: --font(1.4rem, 1.6rem);
+--p: --font(1.4rem, 1.6rem);
+
+--p-sm: --font(1.2rem, 1.4rem);
+--p-xsm: --font(1rem, 1.2rem);
+
+/* - fluid spacing
+/* --space(1) */
+--space-2xs: clamp(
+  .4rem,
+  calc(.4rem + (.8rem - .4rem) * var(--progress)),
+  .8rem
+);
+
+--space-xs: clamp(
+  .8rem,
+  calc(.8rem + (1.6rem - .8rem) * var(--progress)),
+  1.6rem
+);
+
+--space-s: clamp(
+  1.6rem,
+  calc(1.6rem + (2.4rem - 1.6rem) * var(--progress)),
+  2.4rem
+);
+
+--space-m: clamp(
+  2.4rem,
+  calc(2.4rem + (3.2rem - 2.4rem) * var(--progress)),
+  3.2rem
+);
+
+--space-l: clamp(
+  3.2rem,
+  calc(3.2rem + (4.8rem - 3.2rem) * var(--progress)),
+  4.8rem
+);
+
+--space-xl: clamp(
+  4.8rem,
+  calc(4.8rem + (6.4rem - 4.8rem) * var(--progress)),
+  6.4rem
+);
+
+--space-2xl: clamp(
+  6.4rem,
+  calc(6.4rem + (8rem - 6.4rem) * var(--progress)),
+  8rem
+);
+
+--space-3xl: clamp(
+  8rem,
+  calc(8rem + (12.8rem - 8rem) * var(--progress)),
+  12.8rem
+);
+
+/* --- Bootstrap Breakpoint Definitions --- */
+/* Container Widths */
+--container-fluid: 100dvw;
+--container-xxl: 140rem;
+--container-xl: 128rem;
+--container-lg: 102.4rem;
+--container-md: 76.8rem;
+--container-sm: 64rem;
+--container-xsm: 37.5rem;
+--col-md-1: 23rem; /* 23rem */
+
+
+--padding-inline: var(--space-s); /* 1.6 to 3.2em  */
+/* new */
+--col-1: span 1;
+--col-2: span 2;
+--col-3: span 3;
+--col-4: span 4;
+--col-5: span 5;
+--col-6: span 6;
+--col-7: span 7;
+--col-8: span 8;
+--col-9: span 9;
+--col-10: span 10;
+--col-11: span 11;
+--col-12: span 12;
+
+/*
+--padding-inline: clamp(
+  1.6rem,
+  calc(1.6rem + (2.4rem - 1.6rem) * var(--progress)),
+  2.4rem
+);
+*/
+--padding-inline: var(--space-s); /* 1.6 to 3.2em */
+/* ends */
+--container-xxl-size: calc((var(--container-xxl) - var(--container-xl)) / 2);
+--container-xl-size: calc((var(--container-xl) - var(--container-lg)) / 2);
+--container-lg-size: calc((var(--container-lg) - var(--container-md)) / 2);
+--container-md-size: calc((var(--container-md) - var(--container-sm)) / 2);
+--container-sm-size: calc((var(--container-sm) - var(--container-xsm)) / 2);
+--section-radius: 4rem;
+--radius: 2rem;
+--pill: 100dvw;
+
+/* Glass Effect */
+--blur: blur(12px);
+--duration: 350ms;
+
+/* Soft and smooth - great for opacity or scale */
+
+--forwards: forwards;
+
+/* --- 3D / Parallax Logic --- */
+--perspective: 100rem;
+--translate-z: 0rem;
+--paralax-scale: calc(1 + ((var(--translate-z) * -1) / var(--perspective)));
+/* Scaling for hover effects */
+--scale-hover: scale(1.05);
+--scale-active: scale(0.95);
+
+--aspect-ratio: 16/9;
+
+/* transition: [property] [duration] [timing-function] [delay]; */
+/* transition: background-color 0.5s ease 1s; */
+
+
+    --snapType: proximity; /* proximity mandatory */
+    --snapAlign: start;
+
+
+
+
+
+    /* ==========================================================================
+    GSAP EQUIVALENT EASING PRESETS
+    ========================================================================== */
+
+
+    /* Power 1 */
+    --ease-power1-in: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    --ease-power1-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-power1-in-out: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+    /* Power 2 */
+    --ease-power2-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    --ease-power2-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --ease-power2-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    /* Power 3 / Power 4 / Expo */
+    --ease-power3-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease-power4-out: cubic-bezier(0.075, 0.82, 0.165, 1);
+    --ease-expo-out: cubic-bezier(0.19, 1, 0.22, 1);
+
+    /* Back (Overshoot) */
+    --ease-back-out: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --ease-back-in-out: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+}
+
+
+/* 2. Root Element - Accessibility & Base Units */
+html {
+    font-size: 62.5%;  /* will 1rem = 10px */
+    block-size: 100dvh;
+    inline-size: 100dvw;
+    background: var(--brand-primary);
+    -webkit-text-size-adjust: 100%;  /* Prevents font scaling in iOS */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  /* Removes tap highlight */
+
+    interpolate-size: allow-keywords;  /* animate/transition: height/width */
+    transition-behavior: allow-discrete;  /* opacity, display, overlay */
+    scroll-behavior: smooth;
+
+    /* overflow: clip; */
+    /* to make standalone/Landing_Page */
+    scrollbar-gutter: none;
+    scrollbar-width: none;
+
+    /* scroll-snap-type: both proximity; */
+    scroll-padding: 0em;
+
+    & > * {
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        scroll-margin: 0em;
+    }
+}
+
+/* 4. Motion Accessibility */
+/* no-animation */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    :root {
+        /* Disable parallax scaling by forcing scale to 1 */
+        --paralax-scale: 1 !important;
+        /* Reset translate for static view */
+        --translate-z: 0px !important;
+    }
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* $browser */
+::target-text,
+::selection {
+    color: white;
+    background-color: var(--brand-primary, blue);
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+
+    inline-size: .8rem;
+    block-size: .8rem;
+    border-radius: var(--pill);
+    margin-block: .8em;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: var(--pill);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-secondary);
+    border-radius: var(--pill);
+    /* border: 0.1em solid var(--bg-primary); */
+}
+
+::-webkit-scrollbar-thumb:is(:hover, :focus-visible) {
+    background: var(--bg-tertiary);
+}
+
+::placeholder {
+    color: inherit;
+}
+
+/* $* */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    /* Interactive UI Colors */
+    accent-color: var(--brand-primary);
+    caret-color: var(--brand-primary);
+
+    /* Typography & Layout */
+    hanging-punctuation: first-last;
+
+    /* Performance & Rendering */
+    isolation: isolate; /* Prevents z-index issues */
+    backface-visibility: hidden; /* Fixes flickering in 3D transforms */
+}
+
+/* Only apply these styles when launched from the home screen */
+@media (display-mode: standalone) {
+    body {
+        background-color: var(--brand-primary); /* Your Brand Blue */
+    }
+
+    .install-banner {
+        display: none;
+    }
+}
+
+  /* Apply field-sizing only to inputs for better control */
+  /* button, */
+  textarea, select {
+field-sizing: content;
+}
+
+  /* Optimized Transitions (Targeted instead of Global) */
+  /* Moving transition off '*' prevents lag during initial page render */
+  a, button, .interactive {
+transition: --duration() --ease();
+}
+
+  /* Responsive Images & Media */
+  img, picture, video, canvas, svg {
+display: block;
+max-width: 100%;
+}
+
+  /* $component */
+  /* ============ a ============ */
+  /* a:is(:not(:visited, :hover, :active, :focus-visible)) { */
+  a {
+/* user-select: text; */
+color: inherit;
+text-transform: inherit;
+}
+
+  a:is([href=""], [href="#"], [href="/#"]) {
+text-decoration: none;
+}
+
+  /* =========== ul li ============ */
+
+#services ul {
+    padding-inline-start: var(--gap-1);
+
+    li { list-style-type: disc; }
+
+    li.done::marker {
+        content: '✓';
+        color: inherit;
+    }
+}
+/* --- Layout Utilities --- */
+
+/* Component: Modern Button */
+/* The Component Card (Relume Style) */  /* 2. Design System Components */  img,
+picture,
+video,
+iframe {
+    display: block;
+    max-width: 100%;
+    height: auto; /* Maintains natural proportions by default */
+
+    transition: filter --duration() --ease();
+
+    /* Responsive behavior */
+    object-fit: cover;
+    object-position: center center; /* for animation perpose */
+    /* aspect-ratio: 16 / 9; */
+
+    /* Placeholder background while loading */
+    /* background: color-mix(in hsl, var(--brand-primary), transparent 95%); */
+
+    /* Performance */
+    content-visibility: auto;
+}
+
+  @media (prefers-color-scheme: dark) {
+
+    img:not([src$=".svg"]),
+    picture,
+    video,
+    iframe {
+        filter: brightness(0.8) contrast(1.5);
+    }
+
+    /* invert, inverse, monochrome */
+    :is(img, svg, iframe).invert { filter: invert(1); }
+    /* invert, inverse, monochrome */
+    :is(img, .img).monochrome {
+        filter: grayscale(100%) brightness(200%);
+    mix-blend-mode: luminosity;
+    }
+
+    :is(svg, .svg).monochrome path
+    /* For Inline SVGs */
+    {
+    fill: currentColor;
+    }
+    :is(svg, .svg).monochrome {
+        color: var(--txt-primary );
+        /* color: hsl(0, 0%, 100%); */ /* Adjust to hsl(0, 0%, 0%) for light themes */
+        transition: color --duration() --ease();
+    }
+
+    :is(iframe, .iframe).monochrome {
+    /* Invert all colors, then re-invert hue so roads/pins keep logical colors */
+    filter: grayscale(100%) invert(90%) contrast(120%);
+    border: 0;
+    transition: filter --duration() --ease();
+    }
+
+} /* dark media */
+
+/* invert, inverse, monochrome */
+  img.inverse {
+  filter: grayscale(1) contrast(1.5);
+}
+
+  /* Use a class for forced aspect ratios rather than global */
+  .horizontal-ratio {
+aspect-ratio: 16 / 9;
+}
+  .aspect-ratio {
+aspect-ratio: var(--aspect-ratio);
+}  .focus:has(img:hover) img:not(:hover) { opacity: 0.9; }  /* ============= input ============= */
+::placeholder { color: inherit; }
+/* checkout */
+  input {
+outline: 0.1em solid currentColor;
+background: hsl(from currentColor h s l / 0.2);
+scrollbar-width: none;
+/* inline-size: fit-content; */
+}
+
+  input[type="radio"] { border: 0em solid currentColor; border-radius: var(--pill);}
+
+  input[type="option"] { border: 0em solid currentColor; }
+
+  input:user-valid { outline-color: var(--clr-success); }
+
+  input:user-invalid { outline-color: var(--clr-error); }
+
+  details {
+overflow: clip;
+transition:
+  block-size --duration() --ease(),
+  content-visibility --duration() --ease()
+;
+
+/* > p {
+  padding-block: var(--gap-1);
+} */
+}
+  details::details-content {block-size: 0;}
+  details[open]::details-content {block-size: auto;}
+  summary {
+list-style-position: outside;
+margin-inline-start: 1.6em;
+}
+  summary::marker {
+/* content: '+'; */
+font-size: inherit;
+padding-inline: var(--gap-1);
+}
+  details[open] summary::marker {
+/* content: '×'; */
+font-size: inherit;
+}
+
+  .drop-down {border: .1em solid;}
+
+  .modal {border: .1em solid;}
+
+  dialog {border: .1em solid;}
+
+  mark,
+  .mark {
+font-weight: bold;
+filter: brightness(1.2);
+}
+
+  .note {
+background: color-mix(in hsl, var(--brand-primary), transparent 50%);
+border-left: 0.4em solid var(--brand-primary);
+}
+
+  .alert-error {
+padding: var(--gap-2);/* Using fluid gap */
+color: var(--clr-error);
+background-color: var(--clr-error-bg);
+border: 0px solid var(--clr-error);
+border-radius: calc(var(--gap-1) / var(--scale)); /* Scaled rounding */
+}
+
+/* ============= font ================== */
+h1, h2, h3, h4, h5, h6 {
+      /* font: 500 16px/1.4 Arial, sans-serif; */
+font-weight: 700;
+letter-spacing: -0.022em;
+color: var(--txt-primary);
+text-wrap: balance;
+margin: 0; /* Prevents unwanted spacing at the top of sections */
+
+}
+
+  /* 6. Typography Application */
+  h1, .h1 { font-size: var(--h1); line-height: 1.1; }
+  h2, .h2 { font-size: var(--h2); line-height: 1.2; }
+  h3, .h3 { font-size: var(--h3); line-height: 1.3; }
+  h4, .h4 { font-size: var(--h4); line-height: 1.4; }
+  h5, .h5 { font-size: var(--h5); line-height: 1.5; }
+  h6, .h6 { font-size: var(--h6); line-height: 1.6; }
+
+
+  p, .p {
+    font-size: var(--p);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--txt-secondary);
+/* display: inline; */
+/* Use block or inline-block so max-inline-size works */
+display: inline-block;
+/* display: block; */
+max-inline-size: 65ch; /* 'ch' is more precise for character counts */
+text-align: left; /* left center right justify */
+}
+
+.p-small {
+font-size: var(--p-sm);
+}
+
+  /* ======== bg & txt ============= */
+  .bg-primary {background: var(--bg-primary);}
+  .bg-secondary {background: var(--bg-secondary);}
+  .bg-tertiary {background: var(--bg-tertiary);}
+
+  .txt-primary {color: var(--txt-primary)}
+  .txt-secondary {color: var(--txt-secondary)}
+  .txt-tertiary {color: var(--txt-tertiary)}
+
+  /* spaching */
+  .space-0 { gap: 0em; }
+  .gap-1,
+  .space-2xs { gap: var(--space-2xs); }
+  .gap-2,
+  .space-xs { gap: var(--space-xs); }
+  .gap-3,
+  .space-s { gap: var(--space-s); }
+  .gap-4,
+  .space-m { gap: var(--space-m); }
+  .gap-5,
+  .space-l { gap: var(--space-l); }
+  .gap-6,
+  .space-xl { gap: var(--space-xl); }
+  .gap-7,
+  .space-2xl { gap: var(--space-2xl); }
+
+  /* carousel */
+  .carousel {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 0em;
+    align-items: stretch; justify-content: stretch;
+
+overflow: auto;
+scrollbar-gutter: none;
+        scrollbar-width: none;
+
+scroll-snap-type: both mandatory;
+anchor-name: --carousel;
+
+
+    scroll-marker-group: before;
+
+& > * {
+    scroll-snap-align: center;
+}
+
+&::scroll-button(*) {
+  position: fixed;
+  position-anchor: --carousel;
+
+
+  padding: .8em 1.6em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
+  border: 1px solid transparent;
+  background: --alpha(var(--brand-primary), .2);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  color: var(--brand-primary);
+}
+
+&::scroll-button(left) {
+    content: '❮';
+  position-area: center left;
+  transform: translateX(50%);
+}
+
+&::scroll-button(right) {
+    content: '❯';
+  position-area: center right;
+  transform: translateX(-50%);
+}
+&::scroll-button(*):disabled {
+   opacity: 0; cursor: unset;
+   }
+
+  &::scroll-marker-group {
+display: flex;
+    align-items: center;
+   justify-content: center;
+  gap: .8em;
+
+ padding-block: 1.6em;
+ }
+
+ .carousel-item::scroll-marker {
+content: '';
+    padding: .4em;
+  border-radius: 100dvw;
+ background: var(--bg-secondary);
+ }
+
+ .carousel-item::scroll-marker:target-current {
+background: var(--brand-primary);
+}
+
+}
+
+.carousel {
+    container-type: scroll-state;
+    container-name: carousel;
+}
+/* @container carousel scroll-state(
+    snaped: x
+    ) {
+    .carousel > * {
+        opacity: 1;
+        transform: scale(1);
+    }
+} */
+ .carousel::-webkit-scrollbar { display: none; }
+
+select { appearance: base-select; }
+select::picker-icon { content: '+'; }
+select:open::picker-icon { transform: rotate(45deg); }
+select:open {
+    border-color: var(--brand-primary);
+    /* border-radius: 0; */
+}
+option:checked { background: var(--brand-primary); }
+option::checkmark { content: '+'; }
+
+svg {
+    fill: none; object-view-box: 0 0 100 100; overflow: visible;
+
+    text {
+        stroke-linejoin: round;
+        dominant-baseline: middle;
+        stroke-dasharray: 100%; /* animate offset 0%; forwards at 100% */
+        stroke-dashoffset: 0%; /* same + same = none */
+    }
+}
+
+  .bg-clrs,
+  .tags,
+  .badges,
+  .catagorys,
+  .tooltips {
+display: flex;
+flex-wrap: wrap;
+gap: var(--gap-1);
+
+> * {
+  color: var(--brand-primary);
+  background: color-mix(in hsl, var(--brand-primary), transparent 40%);
+}
+}  /* shadow */
+  .shadow {
+background: var(--bg-secondary);
+box-shadow: var(--shadow);
+}
+  #design-system {
+background: var(--bg-primary);
+
+#color-palate {
+
+  * {
+padding-block: var(--space-s);
+}
+}
+}
+  /* ### Design System - Components */
+  /* ### 1. Button hierarchy & types */
+  /* ============= button ================ */
+  /* [class*="button btn"], */
+  /* [class|="button"] */ /* eg: button-x button-y button-z */
+  button,
+  .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+min-inline-size: fit-content;
+text-wrap: nowrap;
+word-spacing: .2em;
+text-align: center;
+font-weight: 500;
+
+display: flex;
+gap: var(--space-2xs);
+white-space: no-wrap;
+place-content: center;
+border-radius: var(--pill);
+
+transition: --duration() --ease();
+
+padding: var(--space-s) var(--space-m);
+
+/* Golden Mean Rounding */
+/* border-radius: calc(var(--space-2xs) * var(--scale)); */
+
+text-decoration: none;
+/* += -visiable */
+/* &:focus { */
+  /* outline: .1em solid currentColor; */
+  /* outline-offset: .2em; */
+  /* Keeps it accessible for High Contrast Mode */
+/* } */
+
+&:focus:not(:focus-visible) { /* for mouse users */
+    outline: none;
+}
+
+&:is(:hover, :focus-visible) {
+  cursor: pointer;
+    transform: translateY(-0.2em);
+  filter: hue-rotate(10deg);
+}
+/* &:is(:focus) */
+
+a {text-decoration: none;}
+}
+
+a:has(button,
+  .button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"]) {
+    text-decoration: none;
+}
+
+  /* primary call-to-action with bold background. e.g. hire me, submit */
+
+  .btn-primary {
+/* Color Scale */
+background-color: var(--brand-primary);
+border: .1em solid var(--brand-primary);
+color:  white; /* perfect with accent+white */
+
+transition: --duration() --ease(), background-color --duration() --ease();
+
+&:hover {
+  background-color: --alpha(var(--brand-primary), 50%);
+}
+}  .btn-outline {
+color: var(--brand-primary);
+background: transparent;
+border: .1em solid currentColor;
+}
+
+  /* Use the Accent for your most important CTA */
+  .btn-cta {
+background-color: var(--brand-primary);
+color: var(--bg-primary, white);
+font-weight: 700;
+}
+
+  .pill {border-radius: var(--pill); overflow: clip; }
+
+  /* for alternative action. has border. e.g. view projects */
+  .btn-secondary,
+  .btn-outline {
+color: var(--brand-primary);
+background: color-mix(in hsl, var(--brand-primary), transparent 20%);
+border: .1em solid var(--brand-primary);
+}
+
+
+
+
+
+
+  #notch,
+  #toast {
+/* display: none; */
+pointer-events: none;
+
+position: fixed;
+z-index: 798;
+block-size: auto;
+overflow: clip;
+transition: --duration() --ease();
+
+/* delete */
+.dialog-wrapper {
+  display: grid;
+  place-content: center;
+  padding-block: var(--space-m);
+}
+
+.dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  overflow: clip;
+  padding-block: 0em; /* var(--space-2xs) */
+
+  border-radius: var(--pill);
+    pointer-events: all;
+  /* ends */
+
+  .flex {
+   display: flex;
+   flex-wrap: wrap;
+   /* place-items: center; */
+
+   align-items: center;
+   justify-content: start;
+   gap: var(--space-xs);
+
+   overflow: clip;
+   padding-block: var(--space-xs);
+}
+
+  * {
+background: var(--bg-secondary);
+color: var(--txt-secondary);
+}
+
+  p {
+display: flex;
+align-items: center;
+padding: var(--space-s);
+text-align: center;
+border-radius: var(--section-radius);
+}
+
+  button {
+/* padding:  var(--space-s); */
+aspect-ratio: 1/1;
+border-radius: var(--pill);
+}
+}
+/* &.collapse {
+  block-size: 0rem;
+} */
+}
+
+  #notch {
+top: 0;
+left: 0;
+bottom: auto;
+right: 0;
+
+&.collapse {
+  block-size: 0rem;
+  transform: translateY(-200%);
+}
+}/* #notch ends */
+
+  #toast {
+top: auto;
+left: 0;
+bottom: 0;
+right: 0;
+
+.dialog {
+  flex-wrap: reverse; /* wrap reverse */
+}
+
+&.collapse {
+  block-size: 0rem;
+  transform: translateY(200%);
+}
+}/* #toast ends */
+  /* ===================== container grid & grid end ======================== */  /* #### global style ### shorting A to Z (group name) #### */
+
+  /* #### A */
+
+  /* #### B */
+  .b { filter: brightness(1.2); }
+  .bg-primary { background: var(--bg-primary); }
+  .bg-secondary { background: var(--bg-secondary); }
+  .bg-tertiary { background: var(--bg-tertiary); }
+
+  .bg-percent {
+--skills: 80%;
+
+color: var(--brand-primary);
+background: linear-gradient(
+  to right,
+  hsl(from var(--brand-primary), h s l / .5) var(--skills),
+
+  transparent 100%
+);
+}
+
+  /* #### C */
+
+  /* clay morphism */
+
+
+  /* #### D */
+  .dark { color-scheme: dark; color: var(--txt-secondary); }
+  .disable { opacity: .7; }
+  .d-none { display: none; }
+
+
+  /* #### E */
+
+  /* #### F */
+
+  .tags,
+  .tag-container {
+display: flex;
+flex-wrap: wrap;
+
+align-items: center;
+justify-content: center;
+
+text-align: center;
+
+gap: var(--space-s);
+
+> *, .tag {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: var(--flex-size, auto);
+  border-radius: var(--pill);
+  padding: var(--space-2xs) var(--space-s);
+  background: color-mix(in srgb, var(--brand-primary) 50%, transparent 50%);
+}
+/* Don't force growth; stay natural size */
+
+/* Grow to fill space, shrink if needed, with a 300px base */
+}
+
+  /* for carousel */
+  .fade-out,
+  .gradient-mask,
+  .mask {
+mask-image: linear-gradient(
+  to var(--direction, right),
+  transparent,
+ var(--txt-primary, black) 15%,
+ var(--txt-primary, black) 85%,
+  transparent
+);
+}
+
+  /* #### G */
+  /* 1. The Grid & Layout */
+  /*
+  - .container: Centers your content and provides padding.
+
+  - .row: Wraps columns and ensures proper alignment.
+
+  - .col-{breakpoint}-{size}: Defines how much space an element takes (e.g., col-md-6)
+  */  /* 2. Spacing Utilities */
+  /*
+  - Margin: m-, mt- (top), mb- (bottom), ms- (start/left), me- (end/right), mx- (left/right), my- (top/bottom).
+  - Padding: Same prefixes but with p- (e.g., pt-3, px-5).
+  - Sizes: Range from 0 to 5 (plus auto).
+  */  /* 3. Flexbox Power Tools */
+  /*
+  - d-flex
+  - justify-content-between
+  - align-items-center
+  */
+
+  /* *** Common Component Shortcuts */
+  /*
+  - Buttons: btn btn-primary, btn-outline-secondary, btn-lg
+  - Cards: card, card-body, card-title, shadow-sm
+  - Text: text-center, text-muted, fw-bold, lh-base
+  - Borders border, rounded-pill, border-0
+  */
+
+
+
+/* ==========================================================================
+    USAGE EXAMPLES
+========================================================================== */
+
+/* Standard Stagger (Uses default parameters: --delay: 0.05s, --start-delay: 0s) */
+.nav-item {
+    transition-delay: --stagger();
+    transition-duration: 0.4s;
+    transition-timing-function: var(--ease-power3-out);
+    transition-property: transform, opacity;
+}
+
+/* Reverse Stagger using sibling-count() */
+.menu-item-exit {
+    animation-delay: --stagger-reverse(0.08s, 0.1s);
+    animation-duration: 0.3s;
+    animation-timing-function: var(--ease-power2-in);
+}
+
+/* Center-out Stagger Effect */
+.gallery-card {
+    transition-delay: --stagger-center(0.06s);
+    transition-duration: --duration(0.3s, 0.02s);
+    transition-timing-function: var(--ease-back-out);
+}
+
+/* Relative Scaling based on total items count */
+.dynamic-bar {
+    opacity: --index-ratio(0.2, 1);
+    transform: scaleY(--index-ratio(0.5, 1.2));
+    transition:  --duration() --ease();
+}
+
+
+
+  /* ===================== container grid & grid start ======================== */
+  /* note: use less , container, fluid, etc */
+
+/* ---- Grid Configuration ---- */
+/* Fluid-Grid-System */
+  /* Notch, Loader, Header, (Main > *), Footer, Nav, Toast ... */
+body > :not(noscript, main, script),
+body > main > * {
+    inline-size: 100dvw;
+    display: grid;
+/* Grid Template with Bootstrap Named Breakpoints */
+grid-template-columns:
+  [container-fluid-start]
+  minmax(var(--padding-inline), 1fr)
+
+[container-xxl-start]
+minmax(0, var(--container-xxl-size))
+
+  [container-xl-start]
+  minmax(0, var(--container-xl-size))
+
+[container-lg-start]
+minmax(0, var(--container-lg-size))
+
+  [container-md-start]
+  minmax(0, var(--container-md-size))
+
+[container-sm-start]
+minmax(0, var(--container-sm-size))
+
+  [container-xsm-start]
+min(100% - (var(--padding-inline) * 2), var(--container-xsm))
+  [container-xsm-end]
+
+minmax(0, var(--container-sm-size))
+[container-sm-end]
+
+  minmax(0, var(--container-md-size))
+  [container-md-end]
+
+minmax(0, var(--container-lg-size))
+[container-lg-end]
+
+  minmax(0, var(--container-xl-size))
+  [container-xl-end]
+
+minmax(0, var(--container-xxl-size))
+[container-xxl-end]
+
+  minmax(var(--padding-inline), 1fr)
+  [container-fluid-end]
+;
+
+  /* (Notch, Loader, Header, (Main > *), Footer, Nav, Toast ...) > * ... */
+    & > * {
+        grid-column: container-md;
+        container-type: inline-size;
+    }
+}
+
+/* .container-fluid { inline-size: min(100%, 100dvw); margin-inline: 0; }
+.container-xxl { inline-size: min(100%, 140rem); margin-inline: auto; }
+.container-xl { inline-size: min(100%, 128rem); margin-inline: auto; }
+.container-lg { inline-size: min(100%, 102.4rem); margin-inline: auto; }
+.container-md { inline-size: min(100%, 76.8rem); margin-inline: auto; }
+.container-sm { inline-size: min(100%, 64rem); margin-inline: auto; }
+.container-xsm { inline-size: min(100%, 37.5rem); margin-inline: auto; } */
+
+  /* 3. Utility Classes for the Fluid Grid System */
+  /* --- Placement Utilities --- */
+.container-fluid {
+    grid-column: container-fluid;
+    display: grid;
+    grid-template-columns: inherit;
+
+    & > * {
+        grid-column: container-md;
+        container-type: inline-size;
+    }
+}
+
+  /* 1400px */
+  .container-xxl {
+grid-column: container-xxl;
+}
+
+  /* 1280px */
+  .container-xl {
+grid-column: container-xl;
+}
+
+  /* 1024px */
+  .container-lg {
+grid-column: container-lg;
+}
+
+ /* Default behavior: stay in 768px content */
+  /* 768px */
+  .container,
+  .container-md {
+  grid-column: container-md;
+}
+
+  /* 640px */
+  .container-sm {
+grid-column: container-sm;
+}
+
+  /* 375px */
+  .container-xsm {
+grid-column: container-xsm;
+}
+
+  /* (container/col/row) margin -1 only inline */
+  [class*="container"]:not([class="container-fluid"]) {
+border: 0px dashed red;
+
+/* margin-inline?, padding-inline */
+margin-inline: calc(-1 * var(--padding-inline));
+padding-inline: var(--padding-inline);
+
+/* Bootstrap my5 mx-auto px-1em */
+/* padding-block: var(--space-l); */
+/* default alignment N/A */
+
+display: grid;
+grid-auto-flow: row;
+grid-auto-rows: auto;
+grid-template-columns: 1fr;
+gap: 0;
+
+place-content: center;
+}
+
+  .auto-fill { --type: auto-fill; }
+
+  /* 1. Advanced Auto-Responsive Column */
+  /* for :empty child, grid col 1fr but row auto */
+  /* The responsive columns: no media queries needed */
+
+/* auto-col-genarator */
+.col {
+    --col-size: calc(30rem / var(--col-count, 1));
+    --total-padding: calc(var(--padding-inline, 1.6em) * 2);
+
+    border: 0px dotted var(--bg-primary, white);
+    display: grid;
+    grid-template-columns: repeat(
+        var(--type, auto-fit),
+        minmax(min(100% - var(--total-padding), var(--col-size)), 1fr)
+    );
+
+    grid-auto-rows: var(--row-size, auto);
+    gap: var(--space-s);
+    /* place-items: start; */
+    align-items: start;
+    justify-content: start;
+
+    /* margin-inline, padding */
+    margin-inline: calc(-1 * var(--padding-inline)); /* inline */
+    padding: var(--padding-inline);
+    position: relative;
+
+    /* > * {
+        border: 0px solid var(--txt-primary);
+    } */
+}
+
+  /* - while repeat 12, 1fr */
+.col-1 { grid-column: var(--col-1); }
+.col-2 { grid-column: var(--col-2); }
+.col-3 { grid-column: var(--col-3); }
+.col-4 { grid-column: var(--col-4); }
+.col-5 { grid-column: var(--col-5); }
+.col-6 { grid-column: var(--col-6); }
+.col-7 { grid-column: var(--col-7); }
+.col-8 { grid-column: var(--col-8); }
+.col-9 { grid-column: var(--col-9); }
+.col-10 { grid-column: var(--col-10); }
+.col-11 { grid-column: var(--col-11); }
+.col-12 { grid-column: var(--col-12); }
+
+  /* 2. Optimized Auto-Responsive Row */
+  /* auto-row-genarator */
+
+  /* 2. Optimized Auto-Responsive Row */
+  .even-row { --row-size: 1fr; }
+
+  .row {
+border: 0px dottedvar(--txt-primary, black);
+
+display: grid;
+grid-auto-flow: row;
+/* Ensures rows don't collapse and respect your custom sizing */
+grid-auto-rows: var(--row-size, auto);
+/* Forces content to fill the width while staying stacked */
+/* Ensures the row takes up full width even if content is small */
+grid-template-columns: 1fr; /* don't remove/touch !important */
+align-items: start;
+justify-content: start;
+gap: var(--space-s);
+
+/* margin-inline, padding */
+margin-inline: calc(-1 * var(--padding-inline)); /* inline */
+padding: var(--padding-inline);
+
+/* place-items: start; */
+align-items: start;
+justify-content: start;
+
+position: relative;
+
+/* > * {
+  border: 0px solid var(--txt-primary);
+} */
+}
+
+  .flex {
+    --col-size: calc(30rem / var(--col-count, 1));
+    --total-padding: calc(var(--padding-inline, 1.6em) * 2);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: start;
+    gap: var(--space-xs);
+
+    /* & > * {
+        flex-basis: min(100% - var(--total-padding), var(--col-size));
+    } */
+}
+
+  .flex.even-col {
+
+  > * {
+  flex: 1;
+  /* flex-basis: 23rem; */
+}
+}
+
+/* removed */
+  .flex-col-md-1 { --flex-col-size: 23rem; }
+  .flec-col-md-2 { --flex-col-size: 11.5rem; }
+  .flex-col-md-3 { --flex-col-size: 7rem; }
+   .d-grid { display: grid; }
+  .d-flex { display: flex; }
+
+  .flex-col { flex-direction: column; > * { flex: 0;} }
+  .flex-row { flex-direction: row; }
+
+  /* bs */
+.align-items-start { align-items: start;}
+.align-items-center { align-items: center;}
+.align-items-end { align-items: end;}  /* set items Y : */
+  .a-start { align-items: start;}
+  .a-center { align-items: center;}
+  .a-end { align-items: end;}
+  .a-stretch { align-items: stretch;}
+
+/* bs */
+.justify-content-start { justify-content: start;}
+.justify-content-center { justify-content: center}
+.justify-content-end { justify-content: end;}
+
+.justify-content-around,
+.justify-content-between { justify-content: space-between;}
+
+  /* set content X -- */
+  /* make variable */
+  .j-start { justify-content: start;}
+  .j-center { justify-content: center}
+  .j-end { justify-content: end;}
+  .j-between { justify-content: space-between;}
+  .j-evenly { justify-content: space-evenly;}
+
+  .items-start { /* commented */
+place-items: start;
+}
+  .items-center {
+place-items: center;
+}
+  .items-end {
+place-items: end;
+}
+
+  .content-start {
+place-content: start;
+}
+  .content-center {
+place-content: center;
+}
+  .content-end {
+place-content: end;
+}
+
+  .wrap { flex-wrap: wrap; }
+  .no-wrap { flex-wrap: nowrap; }
+
+  .grow > * { flex: 1; }
+  .grow-double { flex: 2; }
+  .no-grow { flex: 0; }
+
+  /* grid dense start */
+  .dense-container {
+/* aspect-ratio: 16 / 9; */ /* golden rato */
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+/* This gives the dense algorithm a structured "map" to fill holes */
+grid-auto-flow: dense;
+
+/* place-content: center; */
+gap: var(--space-2xs);
+
+> * {
+  block-size: stretch;
+  aspect-ratio: 1/1;
+}
+
+> :first-child {aspect-ratio: 16/9;}
+> :nth-child(2) {aspect-ratio: 9/16;}
+> :nth-last-child(2) {aspect-ratio: 16/9;}
+> :last-child {aspect-ratio: 9/16;}
+}
+
+  /* staking content start */
+  .stacking-container {
+display: grid;
+/* grid-template-areas: 'stack'; */
+
+align-items: center;
+justify-content: center;
+/* place-items: center; */
+
+> * {
+  /* grid-area: stack; */
+  grid-area: 1 / 1;
+}
+}
+
+
+  /* #### H */
+
+  /* #### I */
+  .favicon,
+  .icon {
+  overflow: clip;
+  inline-size: 2rem;
+  aspect-ratio: 1;
+}
+
+  img.square {
+aspect-ratio: 1/1;
+
+overflow: clip;
+object-fit: scale-down;
+}
+
+
+
+  .image-container-scaleY:has(img) {
+aspect-ratio: 16/9;
+
+img {
+  aspect-ratio: 16/9;
+  transform: scaleY(1);
+  transition: --duration() --ease();
+}
+
+&:hover img {
+  transform: scaleY(1); /* animate */
+}
+}
+
+  /* Specific handling for iframes (like YouTube) */
+  iframe {
+border: none;
+aspect-ratio: 16 / 9;
+inline-size: 100%;
+}
+
+  /* #### J */
+
+  /* #### K */
+
+  /* #### L */
+  .light { color-scheme: light; color: var(--txt-secondary); }
+
+  /* 5. Implementation Rule */
+  /* Your typography variables now depend on this container being defined */
+  /* *:has(p, h1, h2, h3, h4, h5, h6), */
+  .layout-context {
+container-type: inline-size; /* Enables your fluid --h1 units */
+}
+
+  /* #### M */
+  /* .m-auto {margin-inline: minmax(0, 1fr);} */
+  .m-auto { margin-inline: auto; }
+
+  /* #### N */
+  /* neo morphism */
+
+  /* #### O */
+
+  /* #### P */
+  .brand-primary { background: var(--brand-primary); }
+
+  .py-0 { padding-block: 0em; }
+  .py-1 { padding-block: var(--space-2xs); }
+  .py-2 { padding-block: var(--space-xs); }
+  .py-3 { padding-block: var(--space-s); }
+  .py-4 { padding-block: var(--space-m); }
+  .py-5 { padding-block: var(--space-l); }
+  .py-6 { padding-block: var(--space-xl); }
+  .py-7 { padding-block: var(--space-2xl); }
+
+  /* also for m, g */
+
+  /* #### Q */
+
+  /* #### R */
+  .rounded {
+overflow: clip;
+border-radius: var(--pill);
+}
+
+  /* #### S */
+  .square {
+aspect-ratio: 1/1;
+}
+
+.txtStroke {
+color: transparent;
+-webkit-text-stroke: 1px var(--txt-primary);
+
+/* -webkit-background-clip: text; */
+/* background-clip: text; */
+}
+
+  /* #### T */
+  .txt-primary {color: var(--brand-primary);}
+  .txt-primary { color: var(--txt-primary); }
+  .txt-secondary { color: var(--txt-secondary); }
+  .txt-tertiary { color: var(--txt-tertiary); }
+
+  .txt-left {text-align: left}
+  .txt-center {text-align: center}
+  .txt-right {text-align: right}
+
+  .txt-clip {
+--direction: right;
+--clr-1: var(--brand-primary);
+--clr-2: var(--brand-primary_random);
+
+background: linear-gradient(
+  to var(--direction),
+  var(--clr-1),
+  var(--clr-2),
+  var(--clr-1)
+);
+
+color: transparent;
+-webkit-text-stroke: .1em var(--brand-primary);
+
+-webkit-background-clip: text;
+background-clip: text;
+}
+
+  .txt-bg-primary,
+  .txt-bg-primary-fluid {
+color-scheme: dark;
+background: var(--brand-primary);
+}
+
+  .txt-bg-primary-fluid {
+/* box-shadow: 0 0 0 100vmax var(--brand-primary);
+clip-path: inset(0 -100vmax); */
+
+/* Using 100vw ensures it covers the full viewport width */
+box-shadow: 0 0 0 100vw var(--brand-primary);
+clip-path: inset(0 -100vw);
+transition: --duration() --ease();
+}
+
+  .txt-bg-inverse,
+  .txt-bg-inverse-fluid {
+color-scheme: dark;
+background: var(--bg-primary);
+}
+
+  .txt-bg-inverse-fluid {
+/* box-shadow: 0 0 0 100vmax var(--bg-primary);
+clip-path: inset(0 -100vmax); */
+
+/* Using 100vw ensures it covers the full viewport width */
+box-shadow: 0 0 0 100vw var(--bg-primary);
+clip-path: inset(0 -100vw);
+transition: --duration() --ease();
+}
+
+  .txt-bg-invert {
+background: var(--txt-primary);
+color: var(--bg-secondary);
+}
+
+  /* #### U */
+
+  /* #### V */
+
+  /* #### W */
+
+  /* #### X */
+
+  /* #### Y */
+
+  /* #### Z */
+
+  /* #### global style ends #### */
+.border { border: 1px solid red; }
+
+/* base location */
+body {
+    min-block-size: 100dvh;
+    background: var(--brand-primary);
+
+    font-family: var(--custom-font);
+    font-size: var(--p);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--txt-secondary);
+
+    text-wrap: pretty;
+    text-box: trim-both cap text; /* text/alphabetic */
+
+    display: grid;
+    grid-auto-flow: row;
+    gap: 0em;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    overflow-x: clip;
+
+    position: relative;
+
+}
+
+:has([value="light"]:checked) body {color-scheme: light;}
+:has([value="dark"]:checked) body {color-scheme: dark;}
+
+  @media (prefers-color-scheme: light) {
+ :is([value="light"]) { display: none;}
+}
+  @media (prefers-color-scheme: dark) {
+ :is([value="dark"]) { display: none;}
+}
+
+  #loader {
+    /* cursor: hidden; */
+color-scheme: dark;
+background: var(--brand-primary);
+position: fixed;
+inset: 0;
+z-index: 1000;
+block-size: 100vh;
+inline-size: 100vw;
+margin: 0;
+
+> * { place-items: center; }
+}
+
+
+header {
+background: var(--bg-primary);
+padding-block: 0;
+
+.flex {
+  justify-content: space-between;
+  gap: 1.6em;
+
+  a {
+text-decoration: none;
+}
+
+}
+}/* #header ends */
+
+  .section-radius {
+border-radius: var(--section-radius);
+overflow-x: clip;
+}
+
+
+body > main > :not(:first-of-type) {
+    content-visibility: auto;
+    contain-intrinsic-size: 100dvw 100dvh; /* SEO: standalone fallback dimensions */
+}
+
+/* base location */
+  main {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 0em;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    overflow-x: clip;
+
+    /* touch-action: pan-x pan-y; */
+
+    & > * {
+
+        padding-block: var(--space-2xl);
+    }
+}
+
+
+/* Container Setup */  /* +v8 cmnt */
+  .hero-container {
+color-scheme: dark;
+transition: --duration() --ease();
+
+.btn-cta {
+  background-color: var(--bg-secondary);
+  color: var(--txt-primary);
+}
+}
+
+.custom-container {
+  clip-path: url("#myClip");
+  background-color: var(--brand-primary);
+}
+
+
+#hero {
+/* padding-block: 0em; */
+color-scheme: dark;
+background: var(--brand-primary);
+min-block-size: 100dvh;
+overflow: auto;
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+position: relative;
+
+  padding-block-start: .7em;
+/* color: var(--bg-primary, white); */
+/* position: fixed; */ /* absolute of parent */
+/* inset: 0 0 0 auto; */
+/* z-index: 1; */
+/*
+top: 0;
+left: 0;
+right: 0;
+*/
+/* block-size: 100dvh; */
+overflow: clip; /* hidden */
+
+    * { color: var(--txt-primary); }
+
+svg {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: auto;
+
+  text {
+font-size: 104px;
+font-weight: 900;
+/* fill: var(--txt-primary); */
+}
+}
+
+h1 {
+  /* color: var(--bg-primary); */
+
+  img {
+transform: scaleX(.4);
+border-radius: .5em;
+block-size: 2em;
+}
+
+  &:hover img {
+transform: scaleX(1); /* animate */
+}
+}
+
+.pointer-button {
+    display: grid;
+    place-items: center;
+   background: var(--bg-primary);
+
+   max-inline-size: 8rem;
+    aspect-ratio: 1;
+    border-radius: 100vw;
+    transition: --duration() --ease();
+
+    /* position: absolute; */
+  left: var(--left, 0);
+  right: 0;
+  top: var(--top, 0);
+  bottom: 0;
+    margin: auto;
+
+    &:is(:hover, :focus-visiable) {
+   scale: 1.1;
+    }
+}
+
+.container-xsm {
+    justify-content: center;
+}
+
+.text-items {
+    /* margin-block-start: -50%; */
+    padding-block: 1.6rem;
+    border-radius: 1.6rem;
+}
+
+}
+
+#hero .brand-logo-container{
+    position: sticky;
+    top: 0;
+    z-index: 300;
+}
+
+.brand-logo-container {
+    block-size: min(100%, 20rem);
+    inline-size: min(100%, 20rem);
+    /* mask-image: radial-gradient(
+    circle,
+    color-mix(in lch, var(--bg-primary), var(--txt-primary, black) 0%),
+    transparent 100%
+    ); */
+
+    pointer-events: none;
+
+    perspective: 200px;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+
+    .brand-logo-wrapper-container {
+                /* perspective: 200px; */
+                transform-style: preserve-3d;
+                transform-origin: center center;
+                backface-visibility: visible;
+
+                transform: translateX(20%) translateY(20%);
+
+        &:has(.brand-logo-wrapper:first-child .brand-logo:is(:hover, :focus-visible)) .brand-logo-wrapper {
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -0.5rem * sibling-index()));
+        }
+
+        .brand-logo-wrapper {
+            aspect-ratio: 1;
+            position: relative;
+            background-clip: content-box;
+
+                perspective: 1000px;
+                transform-style: preserve-3d;
+                transform-origin: center center;
+                backface-visibility: visible;
+
+            opacity: calc(1 / sibling-index());
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -3px * sibling-index()));
+            transition: --stagger() --duration() --ease();
+
+            .brand-logo {
+                /* pointer-events: all; */
+                color: var(--txt-primary);
+                position: absolute;
+                inset: 0;
+
+                perspective: 200px;
+                transform-style: preserve-3d;
+                transform-origin: center center;
+                backface-visibility: visible;
+            }
+        }
+    }
+}
+
+  #hero-transparent {
+display: none;
+min-block-size: 60dvh;
+
+background: linear-gradient(
+  to bottom,
+  transparent,
+  var(--brand-primary)
+);
+}
+
+  #youtubers {
+background: var(--bg-primary);
+padding-block: var(--space-s);
+
+/*
+
+:is([class^="container"]).row {
+  gap: var(--space-s);
+}
+
+.flex-wrapper {
+  background: radial-gradient(
+color-mix(in oklab, var(--txt-primary), var(--bg-primary) 70%),
+var(--bg-primary) 50%
+  );
+  place-items: center;
+
+  > * {
+flex-basis: 8rem;
+flex-grow: 1;
+
+> * {
+  flex-basis: 8rem;
+  flex-grow: 1;
+}
+}
+}.col { gap: var(--space-2xs); }
+.row { gap: var(--space-2xs); }
+.flex { gap: var(--space-2xs); }
+
+.flex {
+  place-items: center;
+}
+  */
+  ul { list-style: none; }
+
+li {
+    color: var(--txt-tertiary);
+  list-style: none;
+  white-space: nowrap;
+  text-align: center;
+  display: block;
+  padding: var(--space-xs);
+  border-radius: .4rem;
+
+a {
+  padding: var(--space-2xs);
+}
+}
+
+
+:has(details).col {
+  --col-size: 23rem; /* commented */
+}
+
+details {
+
+  summary {
+padding: var(--space-xs);
+}
+
+  ul {
+list-style: disc;
+gap: var(--space-2xs);
+padding-block: var(--space-xs);
+}
+}
+}
+
+#about {
+    /* color-scheme: dark; */
+    position: relative;
+
+    padding-block: 0em;
+    background: var(--bg-primary);
+
+    scroll-snap-type: revert;
+    scroll-snap-align: start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+
+    /* overflow: clip auto; */  /* +v8 */
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+    a, b { color: var(--txt-primary); }
+    & > :not(:first-child) p { color: var(--txt-primary); }
+
+    img {
+        transition: all --duration() --ease();
+
+        @starting-style {
+            opacity: 0.3;
+        }
+    }
+}
+
+
+p,
+q,
+.lineClamp {
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;
+}
+
+  /* #services */
+  #services {
+    padding-block: 0em;
+    background: var(--bg-primary);
+    block-size: 100dvh;
+    position: relative;
+
+    scroll-snap-align: start;
+    overscroll-behavior: contain;
+
+    overflow: clip auto;
+    scrollbar-gutter: none;
+    scrollbar-width: none;
+
+    /* touch-action: pan-x pan-x; */  /* +v8 cmnt */
+    /* Ensures touch devices handle both directions without locking */  /* +v8 cmnt */
+
+    svg {
+        margin-top: -3.2rem;
+        mask-image: linear-gradient(
+            to var(--direction, bottom),
+            transparent,
+            var(--txt-primary, black) 0%,
+            var(--txt-primary, black) 30%,
+            transparent
+        );
+    }
+
+    ul {
+        padding-inline: .8em;
+
+        li:not([class], [id], :last-child) {
+            border-bottom: 1px solid var(--border-clr);
+        }
+    }
+
+
+    .servicesCarousel{
+        all: revert;
+        display: flex;
+        flex-direction: var(--direction, column);
+        gap: 0em;
+        align-items: stretch;
+        justify-content: stretch;
+
+        overflow: clip auto;
+        /* scrollbar-gutter: none; */
+        /* scrollbar-width: none; */
+
+        scroll-snap-type: both mandatory;
+
+        /* position: relative; */
+            anchor-name: --serviceCarousel;
+            /* scroll-marker-group: after; */
+
+        & > * {
+            scroll-snap-align: start;
+            overflow: clip;
+            block-size: 100dvh;
+            padding-inline: var(--padding-inline);
+
+                /* animation-name: carouselClip; */
+                /* animation-duration: 3ms; */
+                /* animation-timing-function: --ease(); */
+                /* animation-delay: calc(3ms * --stagger()); */
+                /* animation-iteration-count: infinite; */
+
+                /* animation-timeline: var(--data-trigger, view()); */
+                /* animation-range: entry 0% cover 30%; */
+        }
+
+    }
+
+    .scroll-marker-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .8em;
+
+        padding-block-end: 2.4rem;
+        flex-direction: row;
+        position: fixed;
+        position-anchor: --serviceCarousel;
+        position-area: top center;
+        /* top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto; */
+        margin-block-start: 2.4rem;
+        margin-block-end: auto;
+        clip-path: var(--clip-path);
+    }
+
+    .scroll-marker {
+        /* content: ''; */
+        padding: .4em .8em;
+        border-radius: 100dvw;
+        background: var(--bg-tertiary);
+    }
+
+    .scroll-marker:active {
+        content: var(--data-name, 'status');
+        background: var(--brand-primary);
+    }
+
+
+    .service-image {
+        transition: --duration() --ease();
+        aspect-ratio: 16/9;
+        inline-size: clamp(min(100%, 17rem), 3rem + 2dvw, 27rem);
+        overflow: clip;
+        object-fit: contain;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        opacity: 1 ;
+
+        img { aspect-ratio: 16/9; } /* !important */
+
+    }
+}
+
+.horizontalScroller {
+block-size: 100dvh;
+grid-template-columns: unset;
+
+          touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */  /* -v8 */
+
+    overflow: auto;
+
+padding: 0; margin: 0;
+display: grid;
+grid-auto-flow: column;
+grid-auto-columns: 100%;
+gap: 0em;
+
+    .scrollerItem { grid-column: unset; padding: 0; margin: 0;
+        block-size: 100dvh; overflow: clip;
+        display: grid;
+
+        .itemCard { inline-size: min(100%, 76.8rem); }
+    }
+}
+
+.snappyContainer {
+overflow: clip auto;  /* -v8 */
+padding-block: 0;
+
+/* overflow: auto; */  /* +v8 */
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
+    /* for parrent */  /* -v8 */
+    scroll-behavior: smooth;  /* -v8 */
+    /* overscroll-behavior: contain; */  /* -v8 */
+
+    scroll-snap-type: both var(--snapType, proximity);
+
+    /* for child */
+    & > * {
+ scroll-snap-align: var(--snapAlign, start);
+        scroll-snap-stop: always;
+        scroll-margin: 0em;
+}
+}
+ .screenHeight {
+    block-size: 100dvh;
+    /* border: 1px solid yellow; */
+}
+
+
+.fluidHovere {
+
+    & > * {
+        transition : --duration() --ease();
+        cursor: pointer;
+    }
+
+    &:has( > :is(:hover, :focus-visible)) > :not(:is(:hover, :focus-visible)) {
+        opacity: 0.5;
+    }
+
+     /* & > .scale { scale: .8; } */  /* +v8 cmnt */
+}
+
+
+  #projects {
+    padding-block: 0em;
+block-size: 100dvh;
+    overflow-x: clip;  /* -v8 */
+    /* overflow-y: scroll; */  /* -v8 */
+
+    scroll-snap-align: start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    /* overflow: clip auto; */  /* +v8 */
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+
+    & > * { block-size: 100dvh; }
+
+.projects-list { position: relative; }
+
+    .project-item {
+        --index: calc(sibling-index() * 1);
+        --total: calc(sibling-count() * 1);
+        z-index: calc(sibling-count() - sibling-index());
+
+        &:not(:last-child) { border-block-end: 1px solid var(--txt-tertiary); }
+    }
+
+ .project-image {
+        aspect-ratio: 16/9;
+
+        inline-size: minmax(min(100%, 15rem), 25rem);
+        overflow: clip;
+        object-fit: cover;
+        position: absolute;
+        inset: 30%;
+        margin: auto;
+        transition: all --duration() --ease();
+
+        @starting-style {
+            opacity: 0; transform: scale(0.3);
+        }
+
+        img { aspect-ratio: 16/9; block-size: 100%; }
+
+    }
+}
+#projects:has( .project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible))
+.project-image {
+    opacity: 0; transform: scale(0.3);
+}
+
+
+.componentReviews { visibility: visible; }
+.componentProjectProgress {
+    > :is(*, .row) {
+        flex: 1 1 13rem;
+         /* 13 is the 2 of mobileScreen */  /* +v8 cmnt */
+    }
+}
+
+  /* #testimonial */
+  #testimonials {
+background: var(--bg-primary);
+/* max-block-size: 100dvh; */
+overflow: auto;
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
+}
+
+  #faqs {
+background: var(--bg-primary);
+/* max-block-size: 100dvh; */
+overflow: auto;
+
+details {
+  overflow: clip;
+  cursor: pointer;
+  /* border: .2rem solid; */
+  border-image: linear-gradient(to right, var(--bg-tertiary), transparent) 1;
+  border-radius: 2em;
+  background: var(--bg-secondary);
+
+  padding: .5em;
+
+    > * {
+        padding: 1em;
+    }
+
+  summary {
+
+            .question {
+    list-style-position: outside;
+        margin-inline-start: -1.6em;
+    }
+
+&::marker {
+        content: '';
+    font-size: inherit;
+}
+}
+&[open] summary::marker  {
+        content: '';
+}
+
+.marker {
+    background: var(--txt-secondary);
+    color: transparent;
+    inline-size: .8em;
+    block-size: .6em;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: --duration() --ease();
+}
+
+&[open] :has(.question) .marker  {
+    rotate: -180deg;
+}
+
+  &:is(:hover, :focus, :focus-visible) p {
+cursor: pointer;
+}
+}
+.d-none { display: none; }
+
+}
+
+details {
+
+    &::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: --duration() --ease() allow-discrete;
+    }
+
+    &[open]::details-content { block-size: auto; }
+}
+
+  /* #contact */
+  /* i want dark scheme */
+  #contact {
+background: var(--bg-primary);
+/* max-block-size: 100dvh; */
+overflow: auto;
+}
+
+#cta {
+    background: var(--bg-primary);
+    /* max-block-size: 100dvh; */
+    overflow: auto;
+
+    .dots {
+        position: absolute;
+        inset: -10% 5% auto auto;
+        inline-size: min(20%, 20rem);
+        aspect-ratio: 1;
+        background: radial-gradient(
+            at center, var(--bg-secondary) 50%, transparent 50%
+        );
+        background-size: 20% 20%;
+    }
+}
+
+  #footer-transparent {
+display: none;
+
+min-block-size: 100dvh;
+
+background: linear-gradient(
+  to bottom,
+  var(--brand-primary),
+  transparent 90%
+);
+
+pointer-events: none;
+user-select: none;
+}
+footer {
+padding-block-end: var(--space-xl);
+
+background: linear-gradient(
+  to bottom,
+  var(--bg-primary) 50%,
+  var(--brand-primary)
+);> * { grid-column: container-xl; }
+
+select {
+padding: 1em;
+background: transparent;
+cursor: pointer;
+}
+
+a {
+    white-space: nowrap;
+}
+
+/* .grow-m { flex: 1 1 30rem; } */  /* +v8 */
+
+
+#footer-marquee.marquee_outer {
+    padding-block: 0;
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+.svg-wrapper.marquee_inner {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+
+    align-items: center;
+    justify-content: start;
+    container-type: inline-size;
+}
+
+svg {
+    max-block-size: 30rem; margin-block: -10%;
+
+  .copyright {
+font-weight: 200;
+}
+
+}
+}
+
+#chat-bubble {
+z-index: 1000; /* 969 */
+inline-size: 7em;
+border-radius: var(--pill);
+aspect-ratio: 1;
+overflow: clip;
+
+position: absolute;
+position-anchor: --chatBubble;
+position-area: top span-right;
+
+display: none;
+}
+}/* #footer ends */
+
+.clipCircle { clip-path: circle(var(--size, 30%) at var(--x, 30%) var(--y, 50%)); }
+
+  /* for fluid nav with large center */
+#bottom-navigation {
+position: fixed;
+top: auto;
+left: 0;
+bottom: 0;
+right: 0;
+z-index: 789;
+
+    pointer-events: none;
+
+&.scroll { transform: translateY(-200%); }
+
+.container-md {
+  display: grid;
+  place-content: center;
+    padding: 0;
+    margin-block-end: 2.4rem;
+
+    & > * { pointer-events: all; }
+
+  #header-nav-list {
+    margin-inline: auto;
+
+background: var(--bg-primary);
+display: grid;
+align-items: center;
+justify-content: center;
+grid-auto-flow: column;
+grid-auto-columns: auto;
+gap: 0em;
+border-radius: var(--pill);
+overflow: clip;
+padding: 0.4em;
+
+  anchor-name: --active-link;
+
+a {
+  border-radius: var(--pill);
+  place-content: center;
+
+  color: var(--txt-primary);
+  font-size: --font(1.1rem, 1.3rem);
+  text-transform: uppercase;
+
+  transition: --duration() --ease();
+  text-decoration: none;
+  text-align: center;
+  padding: 1rem 1.2rem;
+
+  block-size: stretch;
+  inline-size: stretch;
+}
+
+a:is(.active, :hover, :focus-visible)
+{
+  anchor-name: --active-link;
+}
+
+.active-bg {
+    background: var(--bg-secondary);
+  z-index: -1;
+  pointer-events: none;
+  position: absolute;
+
+  position-anchor: --active-link;
+  left: anchor(left);
+  right: anchor(right);
+  top: anchor(top);
+  bottom: anchor(bottom);
+}
+}
+}
+}/* #nav-list-item */
+ svg text.outline {
+  fill: transparent;
+stroke: var(--bg-primary, white);
+  stroke-width: 1px;
+}
+
+  .marquee-wrapper {
+  overflow: hidden;
+width: 100%;
+  background: var(--brand-primary);
+border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+  .marquee-content {
+display: flex;
+  width: max-content; /* Critical: allows content to exceed 100% width */
+}
+
+  .marquee svg {
+height: 80px;
+width: auto;
+padding-right: 50px; /* Space between the clones */
+}
+
+.bg-linear-gradient {
+    --direction: top;
+    --clr-1: var(--brand-primary);
+    --clr-2: var(--brand-primary_random);
+    background: linear-gradient(
+        to var(--direction),
+        var(--clr-1),
+        var(--clr-2),
+    );
+}
+
+  /* reset all */
+  /* .element { all: revert; } */
+
+
+#brand-title {
+    transform: scale(2.4);
+    transform-style: preserve-3d;
+
+    filter: brightness(1);
+}
+
+
+.infinite-scroller {
+    /* max-inline-size: 60rem; */
+    overflow: clip;
+
+    ul {
+        list-style: none;
+    }
+
+    .infinite-scroller_inner {
+        /* padding-block: 1rem; */
+        display: flex;
+        /* flex-wrap: wrap; */
+        gap: 1rem;
+    }
+}
+
+/*
+.infinite-scroller[data-visible="true"] {
+    overflow: clip;
+    -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, white) 20%,
+        var(--bg-primary, white) 80%,
+        transparent
+    );
+    mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, white) 20%,
+        var(--bg-primary, white) 80%,
+        transparent
+    );
+
+    .infinite-scroller_inner {
+        inline-size: max-content;
+        flex-wrap: nowrap;
+        animation: infiniteScroll --duration() --ease() infinite;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+    }
+}
+
+.infinite-scroller[data-direction="left"] {
+    --animation-direction: forwards;
+}
+
+.infinite-scroller[data-direction="right"] {
+    --animation-direction: reverse;
+}
+.infinite-scroller[data-speed="fast"] {
+    --animation-duration: 20s;
+}
+.infinite-scroller[data-speed="slow"] {
+    --animation-duration: 120s;
+} */
+
+/* //JS */
+/*
+.svg-logo-perspective {
+perspective: 1000px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+max-width: 400px;
+margin: 0 auto;
+padding: 2rem;
+}
+
+.svg-logo-tilt-card {
+width: 100%;
+height: auto;
+transform-style: preserve-3d;
+transition: transform 0.15s cubic-bezier(0.2, 0.8, 1, 1);
+will-change: transform;
+}
+
+
+.svg-logo-element {
+width: 100%;
+height: auto;
+display: block;
+overflow: visible;
+filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
+}
+
+`;
+}; */
+/* JS// */
+
+.text-container {
+    display: inline-block;
+}
+
+.card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: --duration() --ease() --stagger();
+}
+
+.box {
+    --lerp-val: 0;
+    transform: rotate(calc(var(--lerp-val) * 1deg)) scale(calc(1 + var(--lerp-val) * 0.01));
+
+    opacity: --lerp(0.7, 1, var(--lerp-val));
+
+    transition: --lerp-val --duration() --ease();
+    /* animation: --lerp-val; */
+    &:hover {
+        --lerp-val: 180; /* Smoothly interpolates 0 -> 180 as a true number */
+    }
+    &:nth-of-type(even) {
+        transform: translateX(calc(var(--lerp-val) * -1%));
+    }
+}
+
+
+
+
+
+/* // #######################
+// \\\\\ View-Transitions \\\\\\\
+// ####################### */
+
+/* View Transition API */
+@view-transition {
+    navigation: auto;
+}
+
+/* Styling the overall transition */
+::view-transition-group(*) {
+    animation-duration: --duration();
+    animation-timing-function: --ease();
+    animation-fill-mode: both;
+}
+
+body > :is(#loader, main > section[id]) {
+    view-transition-name: pages;
+}
+
+/* Custom @keyframes for the old page _Default_ */
+::view-transition-old(root),
+:active-view-transition-type(back)::view-transition-old(root),
+::view-transition-old(pages),
+:active-view-transition-type(back)::view-transition-old(pages) {
+    animation-name: pagesOld;
+}
+@keyframes pagesOld {
+    from { transform: translateY(0%); opacity: 1; }
+    to { transform: translateY(-30%); opacity: 0.3; }
+}
+/* Custom @keyframes for the new page */
+::view-transition-new(root),
+:active-view-transition-type(back)::view-transition-new(root),
+::view-transition-new(pages),
+:active-view-transition-type(back)::view-transition-new(pages) {
+    animation-name: pagesNew;
+}
+@keyframes pagesNew {
+    from { transform: translateY(30%); opacity: 0.3; clip-path: inset(30% 30% 0% 0%); }
+    to { transform: translateY(0%); opacity: 1; clip-path: inset(0%); }
+}
+
+
+
+
+/* // #######################
+// \\\\\ Transitions \\\\\\\
+// ####################### */
+.transition {
+    transition: opacity --duration() --ease(), transform --duration() --ease();
+    transition-delay: --stagger();
+}
+
+
+
+
+/* // #######################
+// \\\\\ Starting-Styles \\\\\\\
+// ####################### */
+
+/* 1. Base Element State (Final/Visible state & transition rules) */
+.starting-style {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity --duration() --ease(), transform --duration() --ease();
+    transition-delay: --stagger();
+
+    /* 2. Entry State (Before element renders / transitions in) */
+    @starting-style {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+}
+
+
+
+
+
+/* // #######################
+// \\\\\ Keyframes \\\\\\\
+// ####################### */
+.animate, [data-animate] {
+    --prefix: 1;
+    /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
+    animation-name: attr(data-animate, 'name');
+    /* animation-duration: var(--data-duration, 1s); */
+    animation-timing-function: var(--data-ease, --ease());
+    animation-fill-mode: both;
+    /* animation-delay: var(--data-stagger, --stagger()); */
+
+    animation-timeline: var(--data-trigger, view(10% 5%)); /* view(10% 5%) */ /* end start */
+    animation-range: entry calc(sibling-index() * var(--data-start, 20%)) cover calc(sibling-index() * var(--data-end, 40%));
+
+    &:nth-child(even) {
+        --prefix: -1;
+
+        & > :nth-child(even) {
+            --prefix: -1;
+        }
+    }
+}
+/* // #######################
+Note:
+// ####################### */
+@keyframes splitTextLink {
+    50% { transform: rotateY(360deg); }
+}
+/* :is(a, button, input)[data-visible="true"]:has(.char) .char, */
+:is(a, button, input):has(.char):is(:hover, :focus-visible) .char {
+    animation: splitTextLink --duration() --ease() --stagger();
+}
+
+@keyframes splitWordLink {
+    100% { transform: rotateX(360deg); }
+}
+:is(:is(a, button, input):has(.word)):is(:hover, :focus-visible) .word {
+    animation: splitWordLink --duration() --ease() --stagger();
+}
+
+@keyframes loaderSvgDraw {
+    0%, 100% { stroke-dashoffset: 100; }
+    50% { stroke-dashoffset: 0; }
+}
+.loaderSvgDraw {
+    stroke-dashoffset: 100;
+    animation: loaderSvgDraw 1s --ease() both infinite;
+}
+
+@keyframes spin3DInfinite {
+    to {
+        transform: rotateZ(-360deg);
+    }
+}
+/* set Animation to parent */
+.spin3DInfinite[data-visible="true"] {
+    animation: spin3DInfinite 20s linear infinite;
+    animation-play-state: running;
+
+    &[data-visible="true"] {
+        animation-play-state: running;
+    }
+}
+
+@keyframes carouselClip {
+    to { clip-path: inset(100% 100% 0% 0%); transform: scale(1 0); }
+}
+
+@keyframes charReveal {
+    from {
+        opacity: 0;
+        transform: translate3d(2em, -50%, 0);
+    }
+}
+.charReveal {
+
+    & > * {
+        /* white-space: pre-wrap; */
+        animation-name: charReveal --duration() --ease() --stagger();
+    }
+}
+
+
+@keyframes marqueeLoop {
+    to { transform: translateX(-50%); } /* Moves exactly half the width to reset perfectly */
+}
+/* fadeIn --ease(var(--spring)) */
+@keyframes fadeIn {
+    from { opacity: 0.3; transform: translate(0 50%) scale(.3); }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translate(0 calc(var(--prefix) * 3em)) scale(1 .3); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(calc(var(--prefix) * 50px)); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(calc(var(--prefix) * 50px)); }
+}
+/* 4. Skeleton Pulse Loader */
+@keyframes wordsSkeleton {
+    0%, 100% {
+        background: --alpha(var(--currentColor), 1);
+        color: --alpha(var(--currentColor), 1);
+        opacity: .3;
+    }
+    50% {
+        background: --alpha(var(--currentColor), 1);
+        color: --alpha(var(--currentColor), 1);
+        opacity: .6;
+    }
+}
+[data-skeleton][data-visible="true"].dataLoading :is(.word, img),
+[data-skeleton][data-visible="true"] .dataLoading :is(.word, img),
+[data-skeleton][data-visible="true"]:has(> .dataLoading) :is(.word, img),
+[data-skeleton][data-visible="true"]:has(.dataLoading) :is(.word, img) {
+        --currentColor: currentColor;
+        margin-block: 2px;
+        border-radius: 100dvw;
+        animation: wordsSkeleton
+         calc(--duration() * 1.5) --ease() --stagger() infinite;
+        animation-delay: random(calc(-1 * --stagger()), 0s);
+}
+
+
+@keyframes gradientShift {
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+[data-animate="gradientShift"], .gradientSshift {
+    /* background: linear-gradient(
+        260deg,
+        red,
+        orangered,
+        blue
+    ); */
+    animation-name: gradientShift;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes svgDrawFill {
+    0% { stroke-dashoffset: 100; fill: transparent; }
+    90% { stroke-dashoffset: 0; fill: transparent; }
+    100% { fill: currentColor; }
+}
+@keyframes svgDrawStroke {
+    0%  { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* reversed */
+@keyframes clipIn {
+    0% { clip-path: inset(0%); }
+    100% { clip-path: inset(var(--data-clip, 100%)); }
+}
+@keyframes clipOut {
+    0% { clip-path: inset(var(--data-clip, 30%)); }
+    100% { clip-path: inset(0%); }
+}
+@keyframes scaleIn {
+    from { transform: scale(var(--data-scale, 0 .3)); opacity: 0; }
+}
+[data-animate="scaleIn"] {
+    transform-origin: var(--data-origin, bottom);
+}
+
+@keyframes infiniteScroller {
+    to { transform: translateX(-50%); }
+}
+:has(> .infiniteScroller) {
+    max-inline-size: 20rem;
+    overflow-x: clip;
+    -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, black) 20%,
+        var(--bg-primary, black) 80%,
+        transparent
+    );
+    mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, black) 20%,
+        var(--bg-primary, black) 80%,
+        transparent
+    );
+
+    .infiniteScroller {
+        min-inline-size: max-content;
+        display: flex;
+        flex-wrap: nowrap;
+
+        &[data-visible="true"] {
+            animation: infiniteScroller 20s linear infinite;
+        }
+    }
+}
+
+
+@keyframes slideFromRight {
+    from { transform: translateX(100%); opacity: 0; }
+}
+@keyframes slideFromLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+}
+@keyframes scrollScale {
+    0%, 100% {
+        opacity: 0.25;
+        scale: 0.5;
+    }
+    35%, 65% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes textReveal {
+    0% { background-size: 0% 100%; }
+    100% { background-size: 100% 100%; }
+}
+[data-animate="textReveal"], .textReveal {
+    /* animation-range: entry 0% cover 30%; */
+    --currentColor: currentColor;
+    background-image: linear-gradient(
+        90deg,
+        var(--currentColor),
+        var(--currentColor)
+    );
+    color: --alpha(var(--currentColor), .5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+
+    /* background-image: linear-gradient(
+        90deg,
+        var(--txt-secondary),
+        var(--txt-secondary)
+    );
+    color: --alpha(var(--txt-secondary), .3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 0% 100%; */
+}
+
+[data-animate="bgWave"], .bgWave {
+    background : linear-gradient(
+        to right,
+        var(--txt-primary) 0%,
+        var(--txt-secondary) 10%,
+        var(--txt-primary) 100%
+    );
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation-iteration-count: infinite;
+}

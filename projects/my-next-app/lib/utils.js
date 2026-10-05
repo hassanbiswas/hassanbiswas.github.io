@@ -6,4 +6,10 @@ export function cn(...inputs) {
 }
 
 // Dynamic release versioning (YY.MM.DD)
-export const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+export const VERSION = new Date()
+    .toLocaleDateString('en-GB')
+    .split('/')
+    .reverse()
+    .slice(0, 2)
+    .concat('01')
+    .join('.');

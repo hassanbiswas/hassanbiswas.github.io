@@ -1,0 +1,1 @@
+txt file added to not to delete directory automatically!
