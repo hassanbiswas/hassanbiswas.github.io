@@ -18,7 +18,7 @@ Thumbs.db
 # --- Dependency Management ---
 node_modules/
 bower_components/
-package-lock.json
+# package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
@@ -35,10 +35,8 @@ obj/
 
 # --- Environment & Security (Fallback Security) ---
 .env
+.env.*.local
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
 *.pem
 *.key
 cert.ppk
@@ -60,3 +58,4 @@ auth.json
 # --- Custom Logic Preservation ---
 # Ensure README.md is NEVER ignored as it is your release note source
 !app/README.md
+!*/README.md
