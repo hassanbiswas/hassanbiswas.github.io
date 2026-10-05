@@ -1,6 +1,8 @@
 import '@/app/globals.css';
 import { VERSION } from '@/lib/utils';
+import Loader from '@/components/navigation/loader';
 import Navbar from '@/components/navigation/navbar';
+import Header from '@/components/navigation/header';
 import Footer from '@/components/navigation/footer';
 
 export const metadata = {
@@ -15,6 +17,8 @@ export default function RootLayout({ children }) {
                 <link rel="icon" href="/favicon.svg" sizes="any" />
             </head>
             <body className="min-h-screen bg-background text-foreground flex flex-col justify-between antialiased">
+                <Loader />
+                <Header />
                 <Navbar />
                 <main className="grow">{children}</main>
                 <Footer />

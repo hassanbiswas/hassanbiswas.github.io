@@ -1,0 +1,1708 @@
+/* =========== ul li ============ */
+#services ul {
+    padding-inline-start: var(--gap-1);
+
+    li { list-style-type: disc; }
+
+    li.done::marker {
+        content: '✓';
+        color: inherit;
+    }
+}
+
+
+
+  details {
+overflow: clip;
+transition:
+  block-size --duration() --ease(),
+  content-visibility --duration() --ease()
+;
+
+/* > p {
+  padding-block: var(--gap-1);
+} */
+}
+  details::details-content {block-size: 0;}
+  details[open]::details-content {block-size: auto;}
+  summary {
+list-style-position: outside;
+margin-inline-start: 1.6em;
+}
+  summary::marker {
+/* content: '+'; */
+font-size: inherit;
+padding-inline: var(--gap-1);
+}
+  details[open] summary::marker {
+/* content: '×'; */
+font-size: inherit;
+}
+
+  .drop-down {border: .1em solid;}
+
+  .modal {border: .1em solid;}
+
+  dialog {border: .1em solid;}
+
+  mark,
+  .mark {
+font-weight: bold;
+filter: brightness(1.2);
+}
+
+  .note {
+background: color-mix(in hsl, var(--brand-primary), transparent 50%);
+border-left: 0.4em solid var(--brand-primary);
+}
+
+  .alert-error {
+padding: var(--gap-2);/* Using fluid gap */
+color: var(--clr-error);
+background-color: var(--clr-error-bg);
+border: 0px solid var(--clr-error);
+border-radius: calc(var(--gap-1) / var(--scale)); /* Scaled rounding */
+}
+
+  /* carousel */
+  .carousel {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: 0em;
+    align-items: stretch; justify-content: stretch;
+
+overflow: auto;
+scrollbar-gutter: none;
+        scrollbar-width: none;
+
+scroll-snap-type: both mandatory;
+anchor-name: --carousel;
+
+
+    scroll-marker-group: before;
+
+& > * {
+    scroll-snap-align: center;
+}
+
+&::scroll-button(*) {
+  position: fixed;
+  position-anchor: --carousel;
+
+
+  padding: .8em 1.6em; aspect-ratio: 1; border-radius: 100dvw; cursor: pointer;
+  border: 1px solid transparent;
+  background: --alpha(var(--brand-primary), .2);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  color: var(--brand-primary);
+}
+
+&::scroll-button(left) {
+    content: '❮';
+  position-area: center left;
+  transform: translateX(50%);
+}
+
+&::scroll-button(right) {
+    content: '❯';
+  position-area: center right;
+  transform: translateX(-50%);
+}
+&::scroll-button(*):disabled {
+   opacity: 0; cursor: unset;
+   }
+
+  &::scroll-marker-group {
+display: flex;
+    align-items: center;
+   justify-content: center;
+  gap: .8em;
+
+ padding-block: 1.6em;
+ }
+
+ .carousel-item::scroll-marker {
+content: '';
+    padding: .4em;
+  border-radius: 100dvw;
+ background: var(--bg-secondary);
+ }
+
+ .carousel-item::scroll-marker:target-current {
+background: var(--brand-primary);
+}
+
+}
+
+.carousel {
+    container-type: scroll-state;
+    container-name: carousel;
+}
+/* @container carousel scroll-state(
+    snaped: x
+    ) {
+    .carousel > * {
+        opacity: 1;
+        transform: scale(1);
+    }
+} */
+ .carousel::-webkit-scrollbar { display: none; }
+
+select { appearance: base-select; }
+select::picker-icon { content: '+'; }
+select:open::picker-icon { transform: rotate(45deg); }
+select:open {
+    border-color: var(--brand-primary);
+    /* border-radius: 0; */
+}
+option:checked { background: var(--brand-primary); }
+option::checkmark { content: '+'; }
+
+svg {
+    fill: none; object-view-box: 0 0 100 100; overflow: visible;
+
+    text {
+        stroke-linejoin: round;
+        dominant-baseline: middle;
+        stroke-dasharray: 100%; /* animate offset 0%; forwards at 100% */
+        stroke-dashoffset: 0%; /* same + same = none */
+    }
+}
+
+  .bg-clrs,
+  .tags,
+  .badges,
+  .catagorys,
+  .tooltips {
+display: flex;
+flex-wrap: wrap;
+gap: var(--gap-1);
+
+> * {
+  color: var(--brand-primary);
+  background: color-mix(in hsl, var(--brand-primary), transparent 40%);
+}
+}  /* shadow */
+  .shadow {
+background: var(--bg-secondary);
+box-shadow: var(--shadow);
+}
+
+  .tags,
+  .tag-container {
+display: flex;
+flex-wrap: wrap;
+
+align-items: center;
+justify-content: center;
+
+text-align: center;
+
+gap: var(--space-s);
+
+> *, .tag {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: var(--flex-size, auto);
+  border-radius: var(--pill);
+  padding: var(--space-2xs) var(--space-s);
+  background: color-mix(in srgb, var(--brand-primary) 50%, transparent 50%);
+}
+/* Don't force growth; stay natural size */
+
+/* Grow to fill space, shrink if needed, with a 300px base */
+}
+
+  /* for carousel */
+  .fade-out,
+  .gradient-mask,
+  .mask {
+mask-image: linear-gradient(
+  to var(--direction, right),
+  transparent,
+ var(--txt-primary, black) 15%,
+ var(--txt-primary, black) 85%,
+  transparent
+);
+}
+
+
+
+/* ==========================================================================
+    USAGE EXAMPLES
+========================================================================== */
+
+/* Standard Stagger (Uses default parameters: --delay: 0.05s, --start-delay: 0s) */
+.nav-item {
+    transition-delay: --stagger();
+    transition-duration: 0.4s;
+    transition-timing-function: var(--ease-power3-out);
+    transition-property: transform, opacity;
+}
+
+/* Reverse Stagger using sibling-count() */
+.menu-item-exit {
+    animation-delay: --stagger-reverse(0.08s, 0.1s);
+    animation-duration: 0.3s;
+    animation-timing-function: var(--ease-power2-in);
+}
+
+/* Center-out Stagger Effect */
+.gallery-card {
+    transition-delay: --stagger-center(0.06s);
+    transition-duration: --duration(0.3s, 0.02s);
+    transition-timing-function: var(--ease-back-out);
+}
+
+/* Relative Scaling based on total items count */
+.dynamic-bar {
+    opacity: --index-ratio(0.2, 1);
+    transform: scaleY(--index-ratio(0.5, 1.2));
+    transition:  --duration() --ease();
+}
+
+
+
+  /* ===================== container grid & grid start ======================== */
+  /* note: use less , container, fluid, etc */
+
+/* ---- Grid Configuration ---- */
+/* Fluid-Grid-System */
+  /* Notch, Loader, Header, (Main > *), Footer, Nav, Toast ... */
+body > :not(noscript, main, script),
+body > main > * {
+    inline-size: 100dvw;
+    display: grid;
+/* Grid Template with Bootstrap Named Breakpoints */
+grid-template-columns:
+  [container-fluid-start]
+  minmax(var(--padding-inline), 1fr)
+
+[container-xxl-start]
+minmax(0, var(--container-xxl-size))
+
+  [container-xl-start]
+  minmax(0, var(--container-xl-size))
+
+[container-lg-start]
+minmax(0, var(--container-lg-size))
+
+  [container-md-start]
+  minmax(0, var(--container-md-size))
+
+[container-sm-start]
+minmax(0, var(--container-sm-size))
+
+  [container-xsm-start]
+min(100% - (var(--padding-inline) * 2), var(--container-xsm))
+  [container-xsm-end]
+
+minmax(0, var(--container-sm-size))
+[container-sm-end]
+
+  minmax(0, var(--container-md-size))
+  [container-md-end]
+
+minmax(0, var(--container-lg-size))
+[container-lg-end]
+
+  minmax(0, var(--container-xl-size))
+  [container-xl-end]
+
+minmax(0, var(--container-xxl-size))
+[container-xxl-end]
+
+  minmax(var(--padding-inline), 1fr)
+  [container-fluid-end]
+;
+
+  /* (Notch, Loader, Header, (Main > *), Footer, Nav, Toast ...) > * ... */
+    & > * {
+        grid-column: container-md;
+        container-type: inline-size;
+    }
+}
+
+/* .container-fluid { inline-size: min(100%, 100dvw); margin-inline: 0; }
+.container-xxl { inline-size: min(100%, 140rem); margin-inline: auto; }
+.container-xl { inline-size: min(100%, 128rem); margin-inline: auto; }
+.container-lg { inline-size: min(100%, 102.4rem); margin-inline: auto; }
+.container-md { inline-size: min(100%, 76.8rem); margin-inline: auto; }
+.container-sm { inline-size: min(100%, 64rem); margin-inline: auto; }
+.container-xsm { inline-size: min(100%, 37.5rem); margin-inline: auto; } */
+
+  /* 3. Utility Classes for the Fluid Grid System */
+  /* --- Placement Utilities --- */
+.container-fluid {
+    grid-column: container-fluid;
+    display: grid;
+    grid-template-columns: inherit;
+
+    & > * {
+        grid-column: container-md;
+        container-type: inline-size;
+    }
+}
+
+  /* 1400px */
+  .container-xxl {
+grid-column: container-xxl;
+}
+
+  /* 1280px */
+  .container-xl {
+grid-column: container-xl;
+}
+
+  /* 1024px */
+  .container-lg {
+grid-column: container-lg;
+}
+
+ /* Default behavior: stay in 768px content */
+  /* 768px */
+  .container,
+  .container-md {
+  grid-column: container-md;
+}
+
+  /* 640px */
+  .container-sm {
+grid-column: container-sm;
+}
+
+  /* 375px */
+  .container-xsm {
+grid-column: container-xsm;
+}
+
+  /* (container/col/row) margin -1 only inline */
+  [class*="container"]:not([class="container-fluid"]) {
+border: 0px dashed red;
+
+/* margin-inline?, padding-inline */
+margin-inline: calc(-1 * var(--padding-inline));
+padding-inline: var(--padding-inline);
+
+/* Bootstrap my5 mx-auto px-1em */
+/* padding-block: var(--space-l); */
+/* default alignment N/A */
+
+display: grid;
+grid-auto-flow: row;
+grid-auto-rows: auto;
+grid-template-columns: 1fr;
+gap: 0;
+
+place-content: center;
+}
+
+  .auto-fill { --type: auto-fill; }
+
+  /* 1. Advanced Auto-Responsive Column */
+  /* for :empty child, grid col 1fr but row auto */
+  /* The responsive columns: no media queries needed */
+
+/* auto-col-genarator */
+.col {
+    --col-size: calc(30rem / var(--col-count, 1));
+    --total-padding: calc(var(--padding-inline, 1.6em) * 2);
+
+    border: 0px dotted var(--bg-primary, white);
+    display: grid;
+    grid-template-columns: repeat(
+        var(--type, auto-fit),
+        minmax(min(100% - var(--total-padding), var(--col-size)), 1fr)
+    );
+
+    grid-auto-rows: var(--row-size, auto);
+    gap: var(--space-s);
+    /* place-items: start; */
+    align-items: start;
+    justify-content: start;
+
+    /* margin-inline, padding */
+    margin-inline: calc(-1 * var(--padding-inline)); /* inline */
+    padding: var(--padding-inline);
+    position: relative;
+
+    /* > * {
+        border: 0px solid var(--txt-primary);
+    } */
+}
+
+
+  /* 2. Optimized Auto-Responsive Row */
+  /* auto-row-genarator */
+
+  /* 2. Optimized Auto-Responsive Row */
+  .even-row { --row-size: 1fr; }
+
+  .row {
+border: 0px dottedvar(--txt-primary, black);
+
+display: grid;
+grid-auto-flow: row;
+/* Ensures rows don't collapse and respect your custom sizing */
+grid-auto-rows: var(--row-size, auto);
+/* Forces content to fill the width while staying stacked */
+/* Ensures the row takes up full width even if content is small */
+grid-template-columns: 1fr; /* don't remove/touch !important */
+align-items: start;
+justify-content: start;
+gap: var(--space-s);
+
+/* margin-inline, padding */
+margin-inline: calc(-1 * var(--padding-inline)); /* inline */
+padding: var(--padding-inline);
+
+/* place-items: start; */
+align-items: start;
+justify-content: start;
+
+position: relative;
+
+/* > * {
+  border: 0px solid var(--txt-primary);
+} */
+}
+
+  .flex {
+    --col-size: calc(30rem / var(--col-count, 1));
+    --total-padding: calc(var(--padding-inline, 1.6em) * 2);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: start;
+    gap: var(--space-xs);
+
+    /* & > * {
+        flex-basis: min(100% - var(--total-padding), var(--col-size));
+    } */
+}
+
+  .flex.even-col {
+
+  > * {
+  flex: 1;
+  /* flex-basis: 23rem; */
+}
+}
+
+  /* grid dense start */
+  .dense-container {
+/* aspect-ratio: 16 / 9; */ /* golden rato */
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+/* This gives the dense algorithm a structured "map" to fill holes */
+grid-auto-flow: dense;
+
+/* place-content: center; */
+gap: var(--space-2xs);
+
+> * {
+  block-size: stretch;
+  aspect-ratio: 1/1;
+}
+
+> :first-child {aspect-ratio: 16/9;}
+> :nth-child(2) {aspect-ratio: 9/16;}
+> :nth-last-child(2) {aspect-ratio: 16/9;}
+> :last-child {aspect-ratio: 9/16;}
+}
+
+  /* staking content start */
+  .stacking-container {
+display: grid;
+/* grid-template-areas: 'stack'; */
+
+align-items: center;
+justify-content: center;
+/* place-items: center; */
+
+> * {
+  /* grid-area: stack; */
+  grid-area: 1 / 1;
+}
+}
+
+
+  /* #### H */
+
+  /* #### I */
+  .favicon,
+  .icon {
+  overflow: clip;
+  inline-size: 2rem;
+  aspect-ratio: 1;
+}
+
+  img.square {
+aspect-ratio: 1/1;
+
+overflow: clip;
+object-fit: scale-down;
+}
+
+
+
+  .image-container-scaleY:has(img) {
+aspect-ratio: 16/9;
+
+img {
+  aspect-ratio: 16/9;
+  transform: scaleY(1);
+  transition: --duration() --ease();
+}
+
+&:hover img {
+  transform: scaleY(1); /* animate */
+}
+}
+
+  /* 5. Implementation Rule */
+  /* Your typography variables now depend on this container being defined */
+  /* *:has(p, h1, h2, h3, h4, h5, h6), */
+.layout-context {
+    container-type: inline-size; /* Enables your fluid --h1 units */
+}
+
+  /* #### P */
+  .brand-primary { background: var(--brand-primary); }
+
+
+  /* #### S */
+  .square {
+aspect-ratio: 1/1;
+}
+
+.txtStroke {
+color: transparent;
+-webkit-text-stroke: 1px var(--txt-primary);
+
+/* -webkit-background-clip: text; */
+/* background-clip: text; */
+}
+
+
+  .txt-clip {
+--direction: right;
+--clr-1: var(--brand-primary);
+--clr-2: var(--brand-primary_random);
+
+background: linear-gradient(
+  to var(--direction),
+  var(--clr-1),
+  var(--clr-2),
+  var(--clr-1)
+);
+
+color: transparent;
+-webkit-text-stroke: .1em var(--brand-primary);
+
+-webkit-background-clip: text;
+background-clip: text;
+}
+
+  .txt-bg-primary,
+  .txt-bg-primary-fluid {
+color-scheme: dark;
+background: var(--brand-primary);
+}
+
+  .txt-bg-primary-fluid {
+/* box-shadow: 0 0 0 100vmax var(--brand-primary);
+clip-path: inset(0 -100vmax); */
+
+/* Using 100vw ensures it covers the full viewport width */
+box-shadow: 0 0 0 100vw var(--brand-primary);
+clip-path: inset(0 -100vw);
+transition: --duration() --ease();
+}
+
+  .txt-bg-inverse,
+  .txt-bg-inverse-fluid {
+color-scheme: dark;
+background: var(--bg-primary);
+}
+
+  .txt-bg-inverse-fluid {
+/* box-shadow: 0 0 0 100vmax var(--bg-primary);
+clip-path: inset(0 -100vmax); */
+
+/* Using 100vw ensures it covers the full viewport width */
+box-shadow: 0 0 0 100vw var(--bg-primary);
+clip-path: inset(0 -100vw);
+transition: --duration() --ease();
+}
+
+  .txt-bg-invert {
+background: var(--txt-primary);
+color: var(--bg-secondary);
+}
+
+  .section-radius {
+border-radius: var(--section-radius);
+overflow-x: clip;
+}
+
+
+
+.custom-container {
+  clip-path: url("#myClip");
+  background-color: var(--brand-primary);
+}
+
+
+#hero {
+/* padding-block: 0em; */
+color-scheme: dark;
+background: var(--brand-primary);
+min-block-size: 100dvh;
+overflow: auto;
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+position: relative;
+
+  padding-block-start: .7em;
+/* color: var(--bg-primary, white); */
+/* position: fixed; */ /* absolute of parent */
+/* inset: 0 0 0 auto; */
+/* z-index: 1; */
+/*
+top: 0;
+left: 0;
+right: 0;
+*/
+/* block-size: 100dvh; */
+overflow: clip; /* hidden */
+
+    * { color: var(--txt-primary); }
+
+svg {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: auto;
+
+  text {
+font-size: 104px;
+font-weight: 900;
+/* fill: var(--txt-primary); */
+}
+}
+
+h1 {
+  /* color: var(--bg-primary); */
+
+  img {
+transform: scaleX(.4);
+border-radius: .5em;
+block-size: 2em;
+}
+
+  &:hover img {
+transform: scaleX(1); /* animate */
+}
+}
+
+.pointer-button {
+    display: grid;
+    place-items: center;
+   background: var(--bg-primary);
+
+   max-inline-size: 8rem;
+    aspect-ratio: 1;
+    border-radius: 100vw;
+    transition: --duration() --ease();
+
+    /* position: absolute; */
+  left: var(--left, 0);
+  right: 0;
+  top: var(--top, 0);
+  bottom: 0;
+    margin: auto;
+
+    &:is(:hover, :focus-visiable) {
+   scale: 1.1;
+    }
+}
+
+.container-xsm {
+    justify-content: center;
+}
+
+.text-items {
+    /* margin-block-start: -50%; */
+    padding-block: 1.6rem;
+    border-radius: 1.6rem;
+}
+
+}
+
+#hero .brand-logo-container{
+    position: sticky;
+    top: 0;
+    z-index: 300;
+}
+
+.brand-logo-container {
+    block-size: min(100%, 20rem);
+    inline-size: min(100%, 20rem);
+    /* mask-image: radial-gradient(
+    circle,
+    color-mix(in lch, var(--bg-primary), var(--txt-primary, black) 0%),
+    transparent 100%
+    ); */
+
+    pointer-events: none;
+
+    perspective: 200px;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+
+    .brand-logo-wrapper-container {
+                /* perspective: 200px; */
+                transform-style: preserve-3d;
+                transform-origin: center center;
+                backface-visibility: visible;
+
+                transform: translateX(20%) translateY(20%);
+
+        &:has(.brand-logo-wrapper:first-child .brand-logo:is(:hover, :focus-visible)) .brand-logo-wrapper {
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -0.5rem * sibling-index()));
+        }
+
+        .brand-logo-wrapper {
+            aspect-ratio: 1;
+            position: relative;
+            background-clip: content-box;
+
+                perspective: 1000px;
+                transform-style: preserve-3d;
+                transform-origin: center center;
+                backface-visibility: visible;
+
+            opacity: calc(1 / sibling-index());
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -3px * sibling-index()));
+            transition: --stagger() --duration() --ease();
+
+            .brand-logo {
+                /* pointer-events: all; */
+                color: var(--txt-primary);
+                position: absolute;
+                inset: 0;
+
+                perspective: 200px;
+                transform-style: preserve-3d;
+                transform-origin: center center;
+                backface-visibility: visible;
+            }
+        }
+    }
+}
+
+  #hero-transparent {
+display: none;
+min-block-size: 60dvh;
+
+background: linear-gradient(
+  to bottom,
+  transparent,
+  var(--brand-primary)
+);
+}
+
+  #youtubers {
+background: var(--bg-primary);
+padding-block: var(--space-s);
+
+/*
+
+:is([class^="container"]).row {
+  gap: var(--space-s);
+}
+
+.flex-wrapper {
+  background: radial-gradient(
+color-mix(in oklab, var(--txt-primary), var(--bg-primary) 70%),
+var(--bg-primary) 50%
+  );
+  place-items: center;
+
+  > * {
+flex-basis: 8rem;
+flex-grow: 1;
+
+> * {
+  flex-basis: 8rem;
+  flex-grow: 1;
+}
+}
+}.col { gap: var(--space-2xs); }
+.row { gap: var(--space-2xs); }
+.flex { gap: var(--space-2xs); }
+
+.flex {
+  place-items: center;
+}
+  */
+  ul { list-style: none; }
+
+li {
+    color: var(--txt-tertiary);
+  list-style: none;
+  white-space: nowrap;
+  text-align: center;
+  display: block;
+  padding: var(--space-xs);
+  border-radius: .4rem;
+
+a {
+  padding: var(--space-2xs);
+}
+}
+
+
+:has(details).col {
+  --col-size: 23rem; /* commented */
+}
+
+details {
+
+  summary {
+padding: var(--space-xs);
+}
+
+  ul {
+list-style: disc;
+gap: var(--space-2xs);
+padding-block: var(--space-xs);
+}
+}
+}
+
+#about {
+    /* color-scheme: dark; */
+    position: relative;
+
+    padding-block: 0em;
+    background: var(--bg-primary);
+
+    scroll-snap-type: revert;
+    scroll-snap-align: start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+
+    /* overflow: clip auto; */  /* +v8 */
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+    a, b { color: var(--txt-primary); }
+    & > :not(:first-child) p { color: var(--txt-primary); }
+
+    img {
+        transition: all --duration() --ease();
+
+        @starting-style {
+            opacity: 0.3;
+        }
+    }
+}
+
+
+p,
+q,
+.lineClamp {
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;
+}
+
+  /* #services */
+  #services {
+    padding-block: 0em;
+    background: var(--bg-primary);
+    block-size: 100dvh;
+    position: relative;
+
+    scroll-snap-align: start;
+    overscroll-behavior: contain;
+
+    overflow: clip auto;
+    scrollbar-gutter: none;
+    scrollbar-width: none;
+
+    /* touch-action: pan-x pan-x; */  /* +v8 cmnt */
+    /* Ensures touch devices handle both directions without locking */  /* +v8 cmnt */
+
+    svg {
+        margin-top: -3.2rem;
+        mask-image: linear-gradient(
+            to var(--direction, bottom),
+            transparent,
+            var(--txt-primary, black) 0%,
+            var(--txt-primary, black) 30%,
+            transparent
+        );
+    }
+
+    ul {
+        padding-inline: .8em;
+
+        li:not([class], [id], :last-child) {
+            border-bottom: 1px solid var(--border-clr);
+        }
+    }
+
+
+    .servicesCarousel{
+        all: revert;
+        display: flex;
+        flex-direction: var(--direction, column);
+        gap: 0em;
+        align-items: stretch;
+        justify-content: stretch;
+
+        overflow: clip auto;
+        /* scrollbar-gutter: none; */
+        /* scrollbar-width: none; */
+
+        scroll-snap-type: both mandatory;
+
+        /* position: relative; */
+            anchor-name: --serviceCarousel;
+            /* scroll-marker-group: after; */
+
+        & > * {
+            scroll-snap-align: start;
+            overflow: clip;
+            block-size: 100dvh;
+            padding-inline: var(--padding-inline);
+
+                /* animation-name: carouselClip; */
+                /* animation-duration: 3ms; */
+                /* animation-timing-function: --ease(); */
+                /* animation-delay: calc(3ms * --stagger()); */
+                /* animation-iteration-count: infinite; */
+
+                /* animation-timeline: var(--data-trigger, view()); */
+                /* animation-range: entry 0% cover 30%; */
+        }
+
+    }
+
+    .scroll-marker-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .8em;
+
+        padding-block-end: 2.4rem;
+        flex-direction: row;
+        position: fixed;
+        position-anchor: --serviceCarousel;
+        position-area: top center;
+        /* top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto; */
+        margin-block-start: 2.4rem;
+        margin-block-end: auto;
+        clip-path: var(--clip-path);
+    }
+
+    .scroll-marker {
+        /* content: ''; */
+        padding: .4em .8em;
+        border-radius: 100dvw;
+        background: var(--bg-tertiary);
+    }
+
+    .scroll-marker:active {
+        content: var(--data-name, 'status');
+        background: var(--brand-primary);
+    }
+
+
+    .service-image {
+        transition: --duration() --ease();
+        aspect-ratio: 16/9;
+        inline-size: clamp(min(100%, 17rem), 3rem + 2dvw, 27rem);
+        overflow: clip;
+        object-fit: contain;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        opacity: 1 ;
+
+        img { aspect-ratio: 16/9; } /* !important */
+
+    }
+}
+
+.horizontalScroller {
+block-size: 100dvh;
+grid-template-columns: unset;
+
+          touch-action: pan-x pan-y; /* Ensures touch devices handle both directions without locking */  /* -v8 */
+
+    overflow: auto;
+
+padding: 0; margin: 0;
+display: grid;
+grid-auto-flow: column;
+grid-auto-columns: 100%;
+gap: 0em;
+
+    .scrollerItem { grid-column: unset; padding: 0; margin: 0;
+        block-size: 100dvh; overflow: clip;
+        display: grid;
+
+        .itemCard { inline-size: min(100%, 76.8rem); }
+    }
+}
+
+.snappyContainer {
+overflow: clip auto;  /* -v8 */
+padding-block: 0;
+
+/* overflow: auto; */  /* +v8 */
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
+    /* for parrent */  /* -v8 */
+    scroll-behavior: smooth;  /* -v8 */
+    /* overscroll-behavior: contain; */  /* -v8 */
+
+    scroll-snap-type: both var(--snapType, proximity);
+
+    /* for child */
+    & > * {
+ scroll-snap-align: var(--snapAlign, start);
+        scroll-snap-stop: always;
+        scroll-margin: 0em;
+}
+}
+ .screenHeight {
+    block-size: 100dvh;
+    /* border: 1px solid yellow; */
+}
+
+
+.fluidHovere {
+
+    & > * {
+        transition : --duration() --ease();
+        cursor: pointer;
+    }
+
+    &:has( > :is(:hover, :focus-visible)) > :not(:is(:hover, :focus-visible)) {
+        opacity: 0.5;
+    }
+
+     /* & > .scale { scale: .8; } */  /* +v8 cmnt */
+}
+
+
+  #projects {
+    padding-block: 0em;
+block-size: 100dvh;
+    overflow-x: clip;  /* -v8 */
+    /* overflow-y: scroll; */  /* -v8 */
+
+    scroll-snap-align: start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    /* overflow: clip auto; */  /* +v8 */
+    /* scrollbar-gutter: none; */  /* +v8 */
+    /* scrollbar-width: none; */  /* +v8 */
+
+    & > * { block-size: 100dvh; }
+
+.projects-list { position: relative; }
+
+    .project-item {
+        --index: calc(sibling-index() * 1);
+        --total: calc(sibling-count() * 1);
+        z-index: calc(sibling-count() - sibling-index());
+
+        &:not(:last-child) { border-block-end: 1px solid var(--txt-tertiary); }
+    }
+
+ .project-image {
+        aspect-ratio: 16/9;
+
+        inline-size: minmax(min(100%, 15rem), 25rem);
+        overflow: clip;
+        object-fit: cover;
+        position: absolute;
+        inset: 30%;
+        margin: auto;
+        transition: all --duration() --ease();
+
+        @starting-style {
+            opacity: 0; transform: scale(0.3);
+        }
+
+        img { aspect-ratio: 16/9; block-size: 100%; }
+
+    }
+}
+#projects:has( .project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible))
+.project-image {
+    opacity: 0; transform: scale(0.3);
+}
+
+
+.componentReviews { visibility: visible; }
+.componentProjectProgress {
+    > :is(*, .row) {
+        flex: 1 1 13rem;
+         /* 13 is the 2 of mobileScreen */  /* +v8 cmnt */
+    }
+}
+
+  /* #testimonial */
+  #testimonials {
+background: var(--bg-primary);
+/* max-block-size: 100dvh; */
+overflow: auto;
+/* touch-action: pan-x pan-y; */  /* +v8 cmnt */
+
+}
+
+
+
+
+  #footer-transparent {
+display: none;
+
+min-block-size: 100dvh;
+
+background: linear-gradient(
+  to bottom,
+  var(--brand-primary),
+  transparent 90%
+);
+
+pointer-events: none;
+user-select: none;
+}
+
+
+
+.clipCircle { clip-path: circle(var(--size, 30%) at var(--x, 30%) var(--y, 50%)); }
+
+
+ svg text.outline {
+  fill: transparent;
+stroke: var(--bg-primary, white);
+  stroke-width: 1px;
+}
+
+  .marquee-wrapper {
+  overflow: hidden;
+width: 100%;
+  background: var(--brand-primary);
+border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+  .marquee-content {
+display: flex;
+  width: max-content; /* Critical: allows content to exceed 100% width */
+}
+
+  .marquee svg {
+height: 80px;
+width: auto;
+padding-right: 50px; /* Space between the clones */
+}
+
+.bg-linear-gradient {
+    --direction: top;
+    --clr-1: var(--brand-primary);
+    --clr-2: var(--brand-primary_random);
+    background: linear-gradient(
+        to var(--direction),
+        var(--clr-1),
+        var(--clr-2),
+    );
+}
+
+  /* reset all */
+  /* .element { all: revert; } */
+
+
+#brand-title {
+    transform: scale(2.4);
+    transform-style: preserve-3d;
+
+    filter: brightness(1);
+}
+
+
+.infinite-scroller {
+    /* max-inline-size: 60rem; */
+    overflow: clip;
+
+    ul {
+        list-style: none;
+    }
+
+    .infinite-scroller_inner {
+        /* padding-block: 1rem; */
+        display: flex;
+        /* flex-wrap: wrap; */
+        gap: 1rem;
+    }
+}
+
+/*
+.infinite-scroller[data-visible="true"] {
+    overflow: clip;
+    -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, white) 20%,
+        var(--bg-primary, white) 80%,
+        transparent
+    );
+    mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, white) 20%,
+        var(--bg-primary, white) 80%,
+        transparent
+    );
+
+    .infinite-scroller_inner {
+        inline-size: max-content;
+        flex-wrap: nowrap;
+        animation: infiniteScroll --duration() --ease() infinite;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+    }
+}
+
+.infinite-scroller[data-direction="left"] {
+    --animation-direction: forwards;
+}
+
+.infinite-scroller[data-direction="right"] {
+    --animation-direction: reverse;
+}
+.infinite-scroller[data-speed="fast"] {
+    --animation-duration: 20s;
+}
+.infinite-scroller[data-speed="slow"] {
+    --animation-duration: 120s;
+} */
+
+/* //JS */
+/*
+.svg-logo-perspective {
+perspective: 1000px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+max-width: 400px;
+margin: 0 auto;
+padding: 2rem;
+}
+
+.svg-logo-tilt-card {
+width: 100%;
+height: auto;
+transform-style: preserve-3d;
+transition: transform 0.15s cubic-bezier(0.2, 0.8, 1, 1);
+will-change: transform;
+}
+
+
+.svg-logo-element {
+width: 100%;
+height: auto;
+display: block;
+overflow: visible;
+filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
+}
+
+`;
+}; */
+/* JS// */
+
+.text-container {
+    display: inline-block;
+}
+
+.card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: --duration() --ease() --stagger();
+}
+
+.box {
+    --lerp-val: 0;
+    transform: rotate(calc(var(--lerp-val) * 1deg)) scale(calc(1 + var(--lerp-val) * 0.01));
+
+    opacity: --lerp(0.7, 1, var(--lerp-val));
+
+    transition: --lerp-val --duration() --ease();
+    /* animation: --lerp-val; */
+    &:hover {
+        --lerp-val: 180; /* Smoothly interpolates 0 -> 180 as a true number */
+    }
+    &:nth-of-type(even) {
+        transform: translateX(calc(var(--lerp-val) * -1%));
+    }
+}
+
+
+
+
+
+/* // #######################
+// \\\\\ View-Transitions \\\\\\\
+// ####################### */
+
+/* View Transition API */
+@view-transition {
+    navigation: auto;
+}
+
+/* Styling the overall transition */
+::view-transition-group(*) {
+    animation-duration: --duration();
+    animation-timing-function: --ease();
+    animation-fill-mode: both;
+}
+
+body > :is(#loader, main > section[id]) {
+    view-transition-name: pages;
+}
+
+/* Custom @keyframes for the old page _Default_ */
+::view-transition-old(root),
+:active-view-transition-type(back)::view-transition-old(root),
+::view-transition-old(pages),
+:active-view-transition-type(back)::view-transition-old(pages) {
+    animation-name: pagesOld;
+}
+@keyframes pagesOld {
+    from { transform: translateY(0%); opacity: 1; }
+    to { transform: translateY(-30%); opacity: 0.3; }
+}
+/* Custom @keyframes for the new page */
+::view-transition-new(root),
+:active-view-transition-type(back)::view-transition-new(root),
+::view-transition-new(pages),
+:active-view-transition-type(back)::view-transition-new(pages) {
+    animation-name: pagesNew;
+}
+@keyframes pagesNew {
+    from { transform: translateY(30%); opacity: 0.3; clip-path: inset(30% 30% 0% 0%); }
+    to { transform: translateY(0%); opacity: 1; clip-path: inset(0%); }
+}
+
+
+
+
+/* // #######################
+// \\\\\ Transitions \\\\\\\
+// ####################### */
+.transition {
+    transition: opacity --duration() --ease(), transform --duration() --ease();
+    transition-delay: --stagger();
+}
+
+
+
+
+/* // #######################
+// \\\\\ Starting-Styles \\\\\\\
+// ####################### */
+
+/* 1. Base Element State (Final/Visible state & transition rules) */
+.starting-style {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity --duration() --ease(), transform --duration() --ease();
+    transition-delay: --stagger();
+
+    /* 2. Entry State (Before element renders / transitions in) */
+    @starting-style {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+}
+
+
+
+
+
+/* // #######################
+// \\\\\ Keyframes \\\\\\\
+// ####################### */
+.animate, [data-animate] {
+    --prefix: 1;
+    /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
+    animation-name: attr(data-animate, 'name');
+    /* animation-duration: var(--data-duration, 1s); */
+    animation-timing-function: var(--data-ease, --ease());
+    animation-fill-mode: both;
+    /* animation-delay: var(--data-stagger, --stagger()); */
+
+    animation-timeline: var(--data-trigger, view(10% 5%)); /* view(10% 5%) */ /* end start */
+    animation-range: entry calc(sibling-index() * var(--data-start, 20%)) cover calc(sibling-index() * var(--data-end, 40%));
+
+    &:nth-child(even) {
+        --prefix: -1;
+
+        & > :nth-child(even) {
+            --prefix: -1;
+        }
+    }
+}
+/* // #######################
+Note:
+// ####################### */
+@keyframes splitTextLink {
+    50% { transform: rotateY(360deg); }
+}
+/* :is(a, button, input)[data-visible="true"]:has(.char) .char, */
+:is(a, button, input):has(.char):is(:hover, :focus-visible) .char {
+    animation: splitTextLink --duration() --ease() --stagger();
+}
+
+@keyframes splitWordLink {
+    100% { transform: rotateX(360deg); }
+}
+:is(:is(a, button, input):has(.word)):is(:hover, :focus-visible) .word {
+    animation: splitWordLink --duration() --ease() --stagger();
+}
+
+@keyframes loaderSvgDraw {
+    0%, 100% { stroke-dashoffset: 100; }
+    50% { stroke-dashoffset: 0; }
+}
+.loaderSvgDraw {
+    stroke-dashoffset: 100;
+    animation: loaderSvgDraw 1s --ease() both infinite;
+}
+
+@keyframes spin3DInfinite {
+    to {
+        transform: rotateZ(-360deg);
+    }
+}
+/* set Animation to parent */
+.spin3DInfinite[data-visible="true"] {
+    animation: spin3DInfinite 20s linear infinite;
+    animation-play-state: running;
+
+    &[data-visible="true"] {
+        animation-play-state: running;
+    }
+}
+
+@keyframes carouselClip {
+    to { clip-path: inset(100% 100% 0% 0%); transform: scale(1 0); }
+}
+
+@keyframes charReveal {
+    from {
+        opacity: 0;
+        transform: translate3d(2em, -50%, 0);
+    }
+}
+.charReveal {
+
+    & > * {
+        /* white-space: pre-wrap; */
+        animation-name: charReveal --duration() --ease() --stagger();
+    }
+}
+
+
+@keyframes marqueeLoop {
+    to { transform: translateX(-50%); } /* Moves exactly half the width to reset perfectly */
+}
+/* fadeIn --ease(var(--spring)) */
+@keyframes fadeIn {
+    from { opacity: 0.3; transform: translate(0 50%) scale(.3); }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translate(0 calc(var(--prefix) * 3em)) scale(1 .3); }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(calc(var(--prefix) * 50px)); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(calc(var(--prefix) * 50px)); }
+}
+/* 4. Skeleton Pulse Loader */
+@keyframes wordsSkeleton {
+    0%, 100% {
+        background: --alpha(var(--currentColor), 1);
+        color: --alpha(var(--currentColor), 1);
+        opacity: .3;
+    }
+    50% {
+        background: --alpha(var(--currentColor), 1);
+        color: --alpha(var(--currentColor), 1);
+        opacity: .6;
+    }
+}
+[data-skeleton][data-visible="true"].dataLoading :is(.word, img),
+[data-skeleton][data-visible="true"] .dataLoading :is(.word, img),
+[data-skeleton][data-visible="true"]:has(> .dataLoading) :is(.word, img),
+[data-skeleton][data-visible="true"]:has(.dataLoading) :is(.word, img) {
+        --currentColor: currentColor;
+        margin-block: 2px;
+        border-radius: 100dvw;
+        animation: wordsSkeleton
+         calc(--duration() * 1.5) --ease() --stagger() infinite;
+        animation-delay: random(calc(-1 * --stagger()), 0s);
+}
+
+
+@keyframes gradientShift {
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+[data-animate="gradientShift"], .gradientSshift {
+    /* background: linear-gradient(
+        260deg,
+        red,
+        orangered,
+        blue
+    ); */
+    animation-name: gradientShift;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes svgDrawFill {
+    0% { stroke-dashoffset: 100; fill: transparent; }
+    90% { stroke-dashoffset: 0; fill: transparent; }
+    100% { fill: currentColor; }
+}
+@keyframes svgDrawStroke {
+    0%  { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* reversed */
+@keyframes clipIn {
+    0% { clip-path: inset(0%); }
+    100% { clip-path: inset(var(--data-clip, 100%)); }
+}
+@keyframes clipOut {
+    0% { clip-path: inset(var(--data-clip, 30%)); }
+    100% { clip-path: inset(0%); }
+}
+@keyframes scaleIn {
+    from { transform: scale(var(--data-scale, 0 .3)); opacity: 0; }
+}
+[data-animate="scaleIn"] {
+    transform-origin: var(--data-origin, bottom);
+}
+
+@keyframes infiniteScroller {
+    to { transform: translateX(-50%); }
+}
+:has(> .infiniteScroller) {
+    max-inline-size: 20rem;
+    overflow-x: clip;
+    -webkit-mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, black) 20%,
+        var(--bg-primary, black) 80%,
+        transparent
+    );
+    mask: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-primary, black) 20%,
+        var(--bg-primary, black) 80%,
+        transparent
+    );
+
+    .infiniteScroller {
+        min-inline-size: max-content;
+        display: flex;
+        flex-wrap: nowrap;
+
+        &[data-visible="true"] {
+            animation: infiniteScroller 20s linear infinite;
+        }
+    }
+}
+
+
+@keyframes slideFromRight {
+    from { transform: translateX(100%); opacity: 0; }
+}
+@keyframes slideFromLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+}
+@keyframes scrollScale {
+    0%, 100% {
+        opacity: 0.25;
+        scale: 0.5;
+    }
+    35%, 65% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes textReveal {
+    0% { background-size: 0% 100%; }
+    100% { background-size: 100% 100%; }
+}
+[data-animate="textReveal"], .textReveal {
+    /* animation-range: entry 0% cover 30%; */
+    --currentColor: currentColor;
+    background-image: linear-gradient(
+        90deg,
+        var(--currentColor),
+        var(--currentColor)
+    );
+    color: --alpha(var(--currentColor), .5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+
+    /* background-image: linear-gradient(
+        90deg,
+        var(--txt-secondary),
+        var(--txt-secondary)
+    );
+    color: --alpha(var(--txt-secondary), .3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 0% 100%; */
+}
+
+[data-animate="bgWave"], .bgWave {
+    background : linear-gradient(
+        to right,
+        var(--txt-primary) 0%,
+        var(--txt-secondary) 10%,
+        var(--txt-primary) 100%
+    );
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation-iteration-count: infinite;
+}
