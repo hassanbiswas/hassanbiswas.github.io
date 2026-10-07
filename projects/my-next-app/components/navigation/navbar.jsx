@@ -1,41 +1,12 @@
-import { VERSION } from '@/lib/utils';
-// import * as Data from '@/index.js';
-
-const seoA = () => {
-    return `loading="lazy"
-        rel="noopener noreferrer"
-        target="_blank"`;
-};
-const getFavicon = (domain = `hassanbiswas.github.io`, size = 24) =>
-    `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
-const faviconAuthor = getFavicon(`hassanbiswas.github.io`);
-const navPrimary = () => {
-    return `aria-label="Primary Navigation"`;
-};
-const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
-    return `src="${url}"
-        alt="${alt}"
-        width="${width}"
-        aspect-ratio="${aspectRatio}"
-        aria-hidden="true"
-        height="auto"
-        size="any"
-        loading="lazy"
-        draggable="false"
-        decoding="async"`;
-};
-// Constructor Function
-function NavItem(name, link, icon = null) {
-    this.name = name;
-    this.link = link;
-    this.icon = icon;
-}
-const navigations = [
-    new NavItem('Home', '/#hero', faviconAuthor),
-    new NavItem('About', '/#about'),
-    new NavItem('Services', '/#services'),
-    new NavItem('Projects', '/#projects'),
-];
+import {
+    VERSION,
+    seoA,
+    getFavicon,
+    faviconAuthor,
+    navPrimary,
+    seoImg,
+    navigations,
+} from '@/lib/utils';
 
 const toHtmlProps = string =>
     Object.fromEntries(

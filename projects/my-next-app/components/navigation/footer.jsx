@@ -1,130 +1,29 @@
-import { VERSION } from '@/lib/utils';
-// import * as Data from '@/index.js';
-
-const author = {
-    name: `Hassan Biswas`,
-    siteUrl: `hassanbiswas.github.io`,
-    photo: `https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s96-c-no?v=${VERSION}`,
-};
-const seoA = () => {
-    return `loading="lazy"
-        rel="noopener noreferrer"
-        target="_blank"`;
-};
-const getFavicon = (domain = `hassanbiswas.github.io`, size = 24) =>
-    `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
-const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
-    faviconMessenger = getFavicon(`m.me`);
-const footer = () => {
-    return `id="footer" role="contentinfo"`;
-};
-const urlMessenger = `https://m.me/hassanbiswas.github.io`;
-const seoImg = (url = `#`, alt = `alt`, width = `100%`, aspectRatio = `1`) => {
-    return `src="${url}"
-        alt="${alt}"
-        width="${width}"
-        aspect-ratio="${aspectRatio}"
-        aria-hidden="true"
-        height="auto"
-        size="any"
-        loading="lazy"
-        draggable="false"
-        decoding="async"`;
-};
-const jashore = `https://maps.app.goo.gl/ZGs1U2sq8Rs4NVfz9`,
-    khulna = `https://maps.app.goo.gl/FM6vxDsAPLaQErnd6`,
-    bangladesh = `https://maps.app.goo.gl/uJNBv8L6a6zFTrgi9`;
-const locationPrimary = `
-<a ${seoA()} aria-label="Jashore" href="${jashore}">Jashore</a> <a ${seoA()} aria-label="Khulna" href="${khulna}">Khulna</a> <a ${seoA()} aria-label="Bangladesh" href="${bangladesh}">Bangladesh</a>
-`;
-const urlYoutube = `https://youtube.com/@hassanbiswas-github-io`,
-    seoButton = () => {
-        return `type="button" aria-expanded="false"`;
-    };
-const seoH = (sectionName = `sectionName`) => {
-    // section id="about" > h2 id="aboutHeading"
-    return `id="${sectionName}Heading"`;
-};
-const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`,
-    dhaka = `https://maps.app.goo.gl/epey14ek8i1j2dyv5`;
-const asia = `https://maps.app.goo.gl/eMssXoAjXHkpfcry8`,
-    africa = `https://maps.app.goo.gl/tenD5kgxxPRemmHy9`,
-    northAmerica = `https://maps.app.goo.gl/Z7oSTNzY7TETsesz7`,
-    southAmerica = `https://maps.app.goo.gl/pmqqPp2w7RF2ve9KA`,
-    antarctica = `https://maps.app.goo.gl/3gspcf93bA8qZRD69`,
-    europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`,
-    oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
-const worldwide = `<a ${seoA()} aria-label="Asia" href="${asia}">Asia</a>, <a ${seoA()} aria-label="Africa" href="${africa}">Africa</a>, <a ${seoA()} aria-label="North America" href="${northAmerica}">North America</a>, <a ${seoA()} aria-label="South America" href="${southAmerica}">South America</a>, <a ${seoA()} aria-label="Europe" href="${europe}">Europe</a>, <a ${seoA()} aria-label="Oceania" href="${oceania}">Oceania</a>`;
-const locationSecondary = `
-    <a ${seoA()} aria-label="Dhaka" href="${dhaka}">Dhaka</a>,
-    <a ${seoA()} aria-label="Bangladesh" href="${bangladesh}">Bangladesh</a> &amp; Worldwide<span class="d-non" style="visibility: visible; position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: clip; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; aria-hidden="true"">(${worldwide})</span>`;
-const faviconAndroid = getFavicon(`developer.android.com`),
-    faviconFacebook = getFavicon(`facebook.com`),
-    faviconInstagram = getFavicon(`instagram.com`),
-    faviconThreads = getFavicon(`threads.com`),
-    faviconX = getFavicon(`x.com`);
-const urlMobile = `tel:+8801602873384`,
-    urlMeet = `https://meet.google.com/qjc-bvdp-azd`,
-    urlBkash = `/bkash`,
-    faviconMeet = getFavicon(`meet.google.com`),
-    faviconBkash = getFavicon(`https://bka.sh/`),
-    urlFacebook = `https://facebook.com/hassanbiswas.github.io`,
-    urlInstagram = `https://instagram.com/hassanbiswas.github.io`,
-    urlThreads = `https://threads.com/hassanbiswas.github.io`,
-    urlX = `https://x.com/o1602873384`;
-const seoSection = (sectionName = `sectionName`) => {
-    // section id="about" > h2 id="aboutHeading"
-    return `aria-labelledby="${sectionName}Heading"`;
-};
-// Constructor Function
-function NavItem(name, link, icon = null) {
-    this.name = name;
-    this.link = link;
-    this.icon = icon;
-}
-
-// Clean & readable initialization
-const pages = [
-    new NavItem(`Home`, `/`),
-    new NavItem(`About`, `/about`),
-    new NavItem(`Services`, `/services`),
-    new NavItem(`Projects`, `/projects`),
-    new NavItem(`Contact`, `/contact`),
-    new NavItem(`Case Studies`, `/github`),
-];
-function MethodsItem(name, link, title, alt, favicon) {
-    this.name = name;
-    this.link = link;
-    this.title = title;
-    this.alt = alt;
-    this.favicon = favicon;
-}
-const methods = [
-    new MethodsItem(`Meet`, `${urlMeet}`, `Video Conference`, `Google Meet`, `${faviconMeet}`),
-    new MethodsItem(`bKash`, `${urlBkash}`, `Payment by bKash`, `bKash`, `${faviconBkash}`),
-];
-function SocialsItem(name, link, favicon) {
-    this.name = name;
-    this.link = link;
-    this.favicon = favicon;
-}
-
-const socials = [
-    new SocialsItem(`Facebook`, `${urlFacebook}`, `${faviconFacebook}`),
-    new SocialsItem(`Instagram`, `${urlInstagram}`, `${faviconInstagram}`),
-    new SocialsItem(`Threads`, `${urlThreads}`, `${faviconThreads}`),
-    new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
-];
-
-function LegalsItem(name, link) {
-    this.name = name;
-    this.link = link;
-}
-const legals = [
-    new LegalsItem(`Privacy Policy`, `/privacy-policy`),
-    new LegalsItem(`Terms of Service`, `/terms-of-service`),
-    new LegalsItem(`Refund &amp; Cancelation Policy`, `/refund_and_cancelation-policy`),
-];
+import {
+    VERSION,
+    author,
+    seoA,
+    faviconAuthor,
+    faviconMessenger,
+    faviconAndroid,
+    footer,
+    urlMessenger,
+    seoImg,
+    begaritola,
+    locationPrimary,
+    urlYoutube,
+    seoButton,
+    seoH,
+    bangladesh,
+    asia,
+    worldwide,
+    locationSecondary,
+    seoSection,
+    pages,
+    methods,
+    socials,
+    legals,
+} from '@/lib/utils';
+import ThemeButton from '@/components/ui/themeButton';
 
 const toHtmlProps = string =>
     Object.fromEntries(
@@ -149,24 +48,14 @@ export default function Footer() {
         <footer
             {...seoSectionProps}
             {...seoFooterProps}
-            className="flex items-center justify-center gap-6"
+            className="flex flex-wrap items-center justify-center gap-6 pt-12"
             id="footer"
             data-version={VERSION}
         >
-            <form className="flex flex-nowrap items-center justify-center gap-6">
-                <label className="d-non txt-tertiary" htmlFor="system-theme">
-                    Choose Theme:
-                </label>
-                <select
-                    id="system-theme"
-                    name="system-theme"
-                    className="pill btn-primary cursor-pointer"
-                >
-                    <option value="default">Default</option>
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                </select>
-            </form>
+            <div className=" flex items-center justify-center gap-6" style={{ display: 'none' }}>
+                <span className="txt-tertiary ">Choose Theme</span>
+                <ThemeButton />
+            </div>
 
             <div className="w-full max-w-[1024px] flex flex-wrap gap-6">
                 <div className="max-w-[375px] flex flex-col gap-4">
@@ -189,14 +78,18 @@ export default function Footer() {
                     </h2>
                     <h3 className="p">
                         Providing high-quality web design and front-end development services to
-                        clients in <span dangerouslySetInnerHTML={{ __html: locationSecondary }} />.
+                        clients in{' '}
+                        <a {...seoAProps} href={asia}>
+                            {locationSecondary}
+                        </a>
+                        .
                     </h3>
 
                     <div className="flex gap-4 items-stretch justify-start">
                         <a
                             {...seoAProps}
                             href="/resume"
-                            className="btn-primary pill items-center txt-center splitText nowrap"
+                            className="btn btn-primary pill items-center txt-center splitText nowrap"
                             style={{
                                 flex: 0,
                                 blockSize: 'stretch',
@@ -226,7 +119,7 @@ export default function Footer() {
                                 className="squar"
                             />
                             <span style={{ lineHeight: '100%' }} className="d-non splitWord">
-                                Install App
+                                App
                             </span>
                         </button>
                     </div>
@@ -246,16 +139,7 @@ export default function Footer() {
                 </nav>
 
                 <nav className="flex-1 flex flex-col gap-4">
-                    <h4
-                        className="p txt-tertiary"
-                        style={
-                            {
-                                /* whiteSpace: 'no-wrap', */
-                            }
-                        }
-                    >
-                        Conference &amp; Payment
-                    </h4>
+                    <h4 className="p txt-tertiary">Conference &amp; Payment</h4>
                     <div className="flex flex-wrap items-start justify-start gap-4 methode-links">
                         {methods.map((method, index) => (
                             <a
@@ -304,7 +188,7 @@ export default function Footer() {
                             href={urlMessenger}
                         >
                             <img
-                                src={getFavicon(`m.me`, 50)}
+                                src={faviconMessenger}
                                 alt="Messenger"
                                 className="pill squar rounded"
                                 style={{ inlineSize: '1.6em' }}
@@ -329,14 +213,13 @@ export default function Footer() {
 
             <div className="w-full max-w-[640px] flex flex-nowrap gap-6 input-group items-center justify-center">
                 <input
+                    className="btn pill text-center py-3"
                     style={{
-                        padding: 'var(--space-s)',
                         border: '1px solid var(--brand-primary)',
                         color: 'var(--brand-primary)',
                         background: 'color-mix(in hsl, var(--bg), transparent 30%)',
                         fontWeight: 'bold',
                     }}
-                    className="pill text-center"
                     placeholder="@hassanbiswas.github.io"
                     readOnly
                     type="text"
@@ -357,7 +240,7 @@ export default function Footer() {
             </div>
 
             <div
-                className="w-full max-w-[1024px] flex txt-primary flex-col gap-6 mask marquee_outer"
+                className="w-full max-w-[1024px] flex txt-primary flex-col gap-6 pt-8 mask marquee_outer"
                 id="footer-marquee"
                 style={{ colorScheme: 'dark' }}
             >

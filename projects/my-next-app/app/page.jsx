@@ -1,8 +1,9 @@
 import Hero from '@/components/sections/hero';
 import About from '@/components/sections/about';
 import Services from '@/components/sections/services';
-import Portfolio from '@/components/sections/portfolio';
+import Projects from '@/components/sections/projects';
 import Contact from '@/components/sections/contact';
+import Faqs from '@/components/sections/faqs';
 
 export default function HomePage() {
     return (
@@ -10,8 +11,9 @@ export default function HomePage() {
             <Hero />
             <About />
             <Services />
-            <Portfolio />
+            <Projects />
             <Contact />
+            <Faqs />
         </>
     );
 }

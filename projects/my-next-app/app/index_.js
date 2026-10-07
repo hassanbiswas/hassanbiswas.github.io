@@ -18,6 +18,24 @@ let VERSION = new Date()
 // return parts.join('.');
 // };
 
+// Determine initial version based on current network status
+const isOnline = navigator.onLine;
+// const VERSION = getDynamicVersion(!isOnline);
+
+// Set document level language, direction, and version data attribute
+Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
+
+// Listen for reconnection to refresh and sync current dynamic version
+window.addEventListener('online', () => {
+    if (navigator.onLine) {
+        window.location.reload();
+    }
+});
+
+// Log version lifecycle for debugging/verification
+console.log(`[App] Initialized | Status: ${isOnline ? 'Online' : 'Offline'} | Version: ${VERSION}`);
+// })();
+
 // variable
 // function
 // component
@@ -255,17 +273,19 @@ export const random = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min) || 0;
 };
 
-const hasDOM = typeof document !== 'undefined';
-export const html = hasDOM ? document.documentElement : null,
-    head = hasDOM ? document.head || document.getElementsByTagName('head')[0] : null,
-    body = hasDOM ? document.body || document.getElementsByTagName('body')[0] : null;
+export const html = document.documentElement,
+    head = document.head || document.getElementsByTagName('head')[0],
+    body = document.body || document.getElementsByTagName('body')[0];
 const hues = [8, 14, 240, 256, 270, 334].sort();
 const maxHues = hues.length;
 let brandPrimary = `hsl(240, 80%, 50%)`;
 let brandH = hues[random(0, maxHues)] || null;
+if (brandH) {
+    html.style.setProperty('--brand-h', brandH);
+}
 
 // 2. Get the computed style of the html
-export const styleSheet = html && typeof getComputedStyle === 'function' ? getComputedStyle(html) : null;
+export const styleSheet = getComputedStyle(html);
 
 // <a ${seoA()} href=""></a>
 // review
@@ -536,6 +556,10 @@ export const socials = [
   injectIcons();
   */
 
+const ogImg = document.querySelector('meta[property="og:image"]');
+// Remove everything after .png and append ?v=${VERSION}
+if (ogImg) ogImg.content = ogImg.content.replace(/\.png.*/i, `.png?v=${VERSION}`);
+
 // /index.html only
 //document.title = `${author.title}`;
 
@@ -706,22 +730,7 @@ const componentSkipSection = () => {
 
 // document.querySelector('#say-hello').textContent = 'JS';
 
-const HTMLElementBase = typeof HTMLElement === 'undefined' ? class {} : HTMLElement;
-
-const defineCustomElement = (name, elementClass) => {
-    if (
-        typeof window === 'undefined' ||
-        typeof HTMLElement === 'undefined' ||
-        typeof customElements === 'undefined' ||
-        customElements.get(name)
-    ) {
-        return;
-    }
-
-    customElements.define(name, elementClass);
-};
-
-class HeaderSection extends HTMLElementBase {
+class HeaderSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
         const template = document.createElement('template');
@@ -748,7 +757,9 @@ class HeaderSection extends HTMLElementBase {
     }
 }
 // Define the custom element
-defineCustomElement('header-section', HeaderSection);
+if (!customElements.get('header-section')) {
+    customElements.define('header-section', HeaderSection);
+}
 
 // Global Constructor Function for Section Data
 export function Section(element) {
@@ -759,9 +770,8 @@ export function Section(element) {
     this.img = element.getAttribute('img') || 'attribute: img';
 
     // 1. Calculate 'h' directly based on DOM position
-    const parent =
-        element.parentElement || (typeof document !== 'undefined' ? document.querySelector('main') : null);
-    const index = parent ? Array.from(parent.children).indexOf(element) : 0;
+    const parent = this.parentElement || document.querySelector('main')[0];
+    const index = parent ? Array.from(parent.children).indexOf(this) : 0;
     const h = index === 0 ? 0 : 1;
 
     // 2. Safely clamp tag level between 1 and 6
@@ -824,7 +834,7 @@ const brandLogo = () => {
 
 // ### 404.html | Hero component ###
 // updated hero section
-class HeroSection extends HTMLElementBase {
+class HeroSection extends HTMLElement {
     connectedCallback() {
         // Configuration for easy updates
         const scrollerGroup = (style = '', values = '', childVal = '') => {
@@ -938,9 +948,11 @@ class HeroSection extends HTMLElementBase {
     }
 }
 // Define the custom element
-defineCustomElement('hero-section', HeroSection);
+if (!customElements.get('hero-section')) {
+    customElements.define('hero-section', HeroSection);
+}
 
-class ClientsSection extends HTMLElementBase {
+class ClientsSection extends HTMLElement {
     connectedCallback() {
         const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
         const ytLogoSize = `=s48-c-k-c0x00ffffff-no-rj`;
@@ -1023,9 +1035,11 @@ class ClientsSection extends HTMLElementBase {
     }
 }
 // Define the custom element
-defineCustomElement('clients-section', ClientsSection);
+if (!customElements.get('clients-section')) {
+    customElements.define('clients-section', ClientsSection);
+}
 
-class AboutSection extends HTMLElementBase {
+class AboutSection extends HTMLElement {
     connectedCallback() {
         // Story data array for easy updates
         function StoriesItem(date, title, desc, link, linkText, ariaLabel, image) {
@@ -1182,9 +1196,11 @@ class AboutSection extends HTMLElementBase {
     }
 }
 // Define the custom element
-defineCustomElement('about-section', AboutSection);
+if (!customElements.get('about-section')) {
+    customElements.define('about-section', AboutSection);
+}
 
-class ServicesSection extends HTMLElementBase {
+class ServicesSection extends HTMLElement {
     connectedCallback() {
         // Instantiate Section for current element
         const section = new Section(this);
@@ -1302,9 +1318,11 @@ class ServicesSection extends HTMLElementBase {
     }
 }
 // Define the custom element
-defineCustomElement('services-section', ServicesSection);
+if (!customElements.get('services-section')) {
+    customElements.define('services-section', ServicesSection);
+}
 
-class ProjectsSection extends HTMLElementBase {
+class ProjectsSection extends HTMLElement {
     connectedCallback() {
         // Project data array for easy updates
         function ProjectsItem(date, category, title, link, image) {
@@ -1406,9 +1424,11 @@ With ${experience}+ years of experience, I'm Designing & developing websites in 
     }
 }
 // Define the custom element
-defineCustomElement('projects-section', ProjectsSection);
+if (!customElements.get('projects-section')) {
+    customElements.define('projects-section', ProjectsSection);
+}
 
-class TestimonialsSection extends HTMLElementBase {
+class TestimonialsSection extends HTMLElement {
     connectedCallback() {
         // let randomIndex = random(0, personQuotes?.length);
 
@@ -1488,7 +1508,9 @@ class TestimonialsSection extends HTMLElementBase {
     }
 }
 // Define the custom element
-defineCustomElement('testimonials-section', TestimonialsSection);
+if (!customElements.get('testimonials-section')) {
+    customElements.define('testimonials-section', TestimonialsSection);
+}
 
 function FaqsItem(question, answer) {
     this.question = question;
@@ -1604,54 +1626,13 @@ export const navigations = [
 // inits custom elements done!
 // ###################
 
-export const scrollPrev = (value = typeof window === 'undefined' ? 0 : window.innerHeight) => {
-    if (typeof window === 'undefined') return;
-    window.scrollBy({
-        top: -value,
-        behavior: 'smooth',
-    });
-};
-
-export const scrollNext = (value = typeof window === 'undefined' ? 0 : window.innerHeight) => {
-    if (typeof window === 'undefined') return;
-    window.scrollBy({
-        top: value,
-        behavior: 'smooth',
-    });
-};
-
-export const scrollTop = (value = 0) => {
-    if (typeof window === 'undefined') return;
-    window.scrollTo({
-        top: value,
-        behavior: 'smooth',
-    });
-};
-
-export function initBrowserFeatures() {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-
-    if (brandH && html) {
-        html.style.setProperty('--brand-h', brandH);
-    }
-
-    const isOnline = window.navigator?.onLine ?? false;
-    Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
-    window.addEventListener('online', () => {
-        if (window.navigator?.onLine) window.location.reload();
-    });
-    console.log(`[App] Initialized | Status: ${isOnline ? 'Online' : 'Offline'} | Version: ${VERSION}`);
-
-    const ogImg = document.querySelector('meta[property="og:image"]');
-    if (ogImg) ogImg.content = ogImg.content.replace(/\.png.*/i, `.png?v=${VERSION}`);
-
 const injectMetaTheme = () => {
     let metaTheme = document.querySelector('meta[name="theme-color"]');
 
     if (!metaTheme) {
         metaTheme = document.createElement('meta');
         metaTheme.setAttribute('name', 'theme-color');
-        document.head?.appendChild(metaTheme);
+        head.appendChild(metaTheme);
     }
 
     metaTheme.content = brandPrimary;
@@ -1665,20 +1646,16 @@ if (document.readyState === 'loading') {
     injectMetaTheme();
 }
 // 3. Fallback logic: Ensure the value exists and isn't just an empty string
-if (typeof window.getComputedStyle === 'function') {
-    brandPrimary =
-        window.getComputedStyle(document.documentElement).getPropertyValue('--brand-primary').trim() ||
-        'hsl(240, 80%, 50%)';
-}
+brandPrimary = styleSheet.getPropertyValue('--brand-primary').trim() || 'hsl(240, 80%, 50%)';
 
 // detect if a user is running your web app as an installed PWA (standalone mode)
-if (typeof window.matchMedia === 'function') {
-    window.matchMedia('(display-mode: standalone)').addEventListener?.('change', evt => {
-        if (evt.matches) {
-            document.body.dataset.mode = 'standalone';
-        }
-    });
-}
+window.matchMedia('(display-mode: standalone)').addEventListener('change', evt => {
+    if (evt.matches) {
+        // console.log("Switched to Standalone Mode");
+        // Run your VERSION logic or reset UI
+        document.getElementsByTagName('body')[0].dataMode = 'standalone';
+    }
+});
 
 const scrollPrevBtns = document.querySelectorAll('.scrollPrevBtn');
 scrollPrevBtns.forEach(btn => {
@@ -1686,6 +1663,12 @@ scrollPrevBtns.forEach(btn => {
         scrollPrev();
     });
 });
+const scrollPrev = (value = window.innerHeight) => {
+    window.scrollBy({
+        top: -value,
+        behavior: 'smooth',
+    });
+};
 
 const scrollNextBtns = document.querySelectorAll('.scrollNextBtn');
 scrollNextBtns.forEach(btn => {
@@ -1693,6 +1676,20 @@ scrollNextBtns.forEach(btn => {
         scrollNext();
     });
 });
+export const scrollNext = (value = window.innerHeight) => {
+    window.scrollBy({
+        top: value,
+        behavior: 'smooth',
+    });
+};
+
+// scroll to top/to
+export const scrollTop = (value = 0) => {
+    window.scrollTo({
+        top: value,
+        behavior: 'smooth',
+    });
+};
 
 // !*** before animation, init custom Elements ***
 // #######################
@@ -1719,22 +1716,19 @@ window.addEventListener('scroll', () => {
 // #######################
 
 // ResizeObserver on Root Element (:root / <html>)
-if (typeof ResizeObserver === 'function') {
-    const resizeObserver = new ResizeObserver(entries => {
-        for (const entry of entries) {
-            const root = entry.target;
-            root.style.setProperty('--inline-size', `${window.innerWidth}px`);
-            root.style.setProperty('--block-size', `${window.innerHeight}px`);
-        }
-    });
+const resizeObserver = new ResizeObserver(entries => {
+    for (const entry of entries) {
+        const html = entry.target;
+        html.style.setProperty('--inline-size', `${window.innerWidth}px`);
+        html.style.setProperty('--block-size', `${window.innerHeight}px`);
+    }
+});
 
-    resizeObserver.observe(document.documentElement);
-}
+resizeObserver.observe(document.documentElement);
 
 // #######################
 // \\\\\ IntersectionObserver \\\\\\\
 // #######################
-if (typeof IntersectionObserver === 'function') {
 const visibilityObserver = new IntersectionObserver(
     entries => {
         entries.forEach(entry => {
@@ -1836,176 +1830,161 @@ const scrollSnapObserver = new IntersectionObserver(
     { threshold: 0.15 }
 );
 scrollSnapItems?.forEach(el => scrollSnapObserver.observe(el));
-}
 
 // ------ install app --------
-const setupDOMEnhancements = () => {
-    let deferredPrompt;
-    const installBtn = document.getElementById('installApp');
+let deferredPrompt;
+const installBtn = document.getElementById('installApp');
 
-    window.addEventListener('beforeinstallprompt', e => {
-        if (!installBtn) return;
+window.addEventListener('beforeinstallprompt', e => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    // Update UI to notify the user they can install the PWA
+    installBtn.style.display = 'block';
 
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        e.preventDefault();
-        // Stash the event so it can be triggered later
-        deferredPrompt = e;
-        // Update UI to notify the user they can install the PWA
-        installBtn.style.display = 'block';
-
-        installBtn.addEventListener('click', () => {
-            // Hide our custom install button
-            installBtn.style.display = 'none';
-            // Show the prompt
-            deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
-            deferredPrompt.userChoice.then(choiceResult => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
+    installBtn.addEventListener('click', () => {
+        // Hide our custom install button
+        installBtn.style.display = 'none';
+        // Show the prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice.then(choiceResult => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
         });
     });
+});
 
-    // Logic to hide button if already installed
-    window.addEventListener('appinstalled', () => {
-        console.log('PWA was installed');
-        if (installBtn) installBtn.style.display = 'none';
-    });
+// Logic to hide button if already installed
+window.addEventListener('appinstalled', () => {
+    console.log('PWA was installed');
+    installBtn.style.display = 'none';
+});
 
-    // - 1. inject HTML element above ##############
-    // - 2. get HTML element ###############
-    // - 3. create functions/animations ###############
+// - 1. inject HTML element above ##############
+// - 2. get HTML element ###############
+// - 3. create functions/animations ###############
 
-    // ###### HTML dom goes above ######
+// ###### HTML dom goes above ######
 
-    // define custom elements before get dom element || seoMedia || function || call
+// define custom elements before get dom element || seoMedia || function || call
 
-    // ###### JavaScript function goes bellow ######
-    // const dynamicElements = document.querySelectorAll('img:not([loading])');
-    //
-    const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
-    const links = document.querySelectorAll('a');
-    const photos = document.querySelectorAll('img, picture');
-    const videos = document.querySelectorAll('video');
-    const iframes = document.querySelectorAll('iframe');
-    const svgs = document.querySelectorAll('svg');
+// ###### JavaScript function goes bellow ######
+// const dynamicElements = document.querySelectorAll('img:not([loading])');
+//
+const medias = document.querySelectorAll('a, img, picture, svg, video, iframe');
+const links = document.querySelectorAll('a');
+const photos = document.querySelectorAll('img, picture');
+const videos = document.querySelectorAll('video');
+const iframes = document.querySelectorAll('iframe');
+const svgs = document.querySelectorAll('svg');
 
-    // medias a, img, picture, video, iframe, svg
-    medias?.forEach(el => {
-        el.setAttribute('loading', 'lazy');
-        el.setAttribute('draggable', 'false');
-    });
+// medias a, img, picture, video, iframe, svg
+medias?.forEach(el => {
+    el.setAttribute('loading', 'lazy');
+    el.setAttribute('draggable', 'false');
+});
 
-    // a
-    // links?.forEach(el => {
-    //     el.setAttribute(``);
-    // });
+// a
+// links?.forEach(el => {
+//     el.setAttribute(``);
+// });
 
-    // photo
-    // photos?.forEach(el => {
-    //     el.setAttribute(``);
-    // });
+// photo
+// photos?.forEach(el => {
+//     el.setAttribute(``);
+// });
 
-    // video
-    videos?.forEach(el => {
-        el.setAttribute('muted');
-        el.setAttribute('loop');
-        el.setAttribute('autoplay');
-        el.setAttribute('playsinline');
-    });
-    // svg
-    svgs?.forEach(el => {
-        el.setAttribute('sizes', 'any');
-        el.style.objectFit = `scale-down`;
-    });
+// video
+videos?.forEach(el => {
+    el.setAttribute('muted');
+    el.setAttribute('loop');
+    el.setAttribute('autoplay');
+    el.setAttribute('playsinline');
+});
+// svg
+svgs?.forEach(el => {
+    el.setAttribute('sizes', 'any');
+    el.style.objectFit = `scale-down`;
+});
 
-    // const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
-    // color from image
-    // imageContainers?.forEach(container => {
-    //     let image = container.querySelector('img'),
-    //         width = image.innerWidth,
-    //         height = image.innerHeight,
-    //         canvas = document.createElement('canvas'),
-    //         ctx = canvas.getContext('2d');
+// const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
+// color from image
+// imageContainers?.forEach(container => {
+//     let image = container.querySelector('img'),
+//         width = image.innerWidth,
+//         height = image.innerHeight,
+//         canvas = document.createElement('canvas'),
+//         ctx = canvas.getContext('2d');
 
-    //     canvas.innerWidth = width;
-    //     canvas.innerHeight = height;
-    // ctx.drawImage(image, 0, 0, width, height);
+//     canvas.innerWidth = width;
+//     canvas.innerHeight = height;
+// ctx.drawImage(image, 0, 0, width, height);
 
-    // let imageData = ctx.getImageData(x, y, 1, 1).data,
-    //     r = imageData[0],
-    //     g = imageData[1],
-    //     b = imageData[2];
+// let imageData = ctx.getImageData(x, y, 1, 1).data,
+//     r = imageData[0],
+//     g = imageData[1],
+//     b = imageData[2];
 
-    // convrt rgb to hex
-    //     let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-    //     container.style.setProperty(`--brand-primary`, imageColor);
-    // });
+// convrt rgb to hex
+//     let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+//     container.style.setProperty(`--brand-primary`, imageColor);
+// });
 
-    // #######################
-    // \\ Animations \\// #######################
+// #######################
+// \\\\\ Animations \\\\\\\
+// #######################
 
-    // Methodes in use of paragraph!
-    // let text = "Hello World! I'm Hassan. 
- it's awesome!";
-    // let chars = [...text]; // to chars
-    // let words = text.split(/\s+/); // to words
-    // let wordsStrippedPuntuation = text.match(/[\w'-]+/g) || []; // to words (striped puntuation)
-    // let sentences = text.split(/(?<=[.!?])\s+/); // to sentences
-    // let centencesLineBreak = text.split(/?
-/).map(line.trim()).filter(Boolean); // to sentences (lineBreak)
+// Methodes in use of paragraph!
+// let text = "Hello World! I'm Hassan. \n it's awesome!";
+// let chars = [...text]; // to chars
+// let words = text.split(/\s+/); // to words
+// let wordsStrippedPuntuation = text.match(/\b[\w'-]+\b/g) || []; // to words (striped puntuation)
+// let sentences = text.split(/(?<=[.!?])\s+/); // to sentences
+// let centencesLineBreak = text.split(/\r?\n/).map(line.trim()).filter(Boolean); // to sentences (lineBreak)
 
-    const initializeTextSplitting = () => {
-        const splitText = (selector = '.splitText') => {
-            const selectors = document.querySelectorAll(selector);
-            if (!selectors.length) return;
+document.addEventListener('DOMContentLoaded', () => {
+    const splitText = (selector = '.splitText') => {
+        const selectors = document.querySelectorAll(selector);
+        if (!selectors.length) return;
 
-            selectors.forEach(el => {
-                const text = el.textContent.trim();
-                el.innerHTML = [...text]
-                    .map(char => {
-                        const displayChar = char === ' ' ? '&nbsp;' : char;
-                        return `<span class="char split" style="display: inline-block; white-space: pre; will-change: transform, opacity;">${displayChar}</span>`;
-                    })
-                    .join('');
-            });
-        };
-
-        splitText();
-
-        const splitWord = (selector = '.splitWord') => {
-            const selectors = document.querySelectorAll(selector);
-            if (!selectors.length) return;
-
-            selectors.forEach(el => {
-                const text = el.textContent.trim();
-                el.innerHTML = text
-                    .split(/\s+/)
-                    .map(word => {
-                        const displayWord = word === ' ' ? '&nbsp;' : word;
-                        return `<span class="word split" style="display: inline-block; white-space: pre; will-change: transform, opacity;">${displayWord}</span>`;
-                    })
-                    .join(' ');
-            });
-        };
-
-        splitWord();
+        selectors.forEach(el => {
+            const text = el.textContent.trim();
+            el.innerHTML = [...text]
+                .map(char => {
+                    const displayChar = char === ' ' ? '&nbsp;' : char;
+                    return `<span class="char split" style="display: inline-block; white-space: pre; will-change: transform, opacity;">${displayChar}</span>`;
+                })
+                .join('');
+        });
     };
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeTextSplitting, { once: true });
-    } else {
-        initializeTextSplitting();
-    }
-};
+    splitText();
 
-if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-    setupDOMEnhancements();
-}
+    const splitWord = (selector = '.splitWord') => {
+        const selectors = document.querySelectorAll(selector);
+        if (!selectors.length) return;
+
+        selectors.forEach(el => {
+            const text = el.textContent.trim();
+            el.innerHTML = text
+                .split(/\s+/)
+                .map(word => {
+                    const displayWord = word === ' ' ? '&nbsp;' : word;
+                    return `<span class="word split" style="display: inline-block; white-space: pre; will-change: transform, opacity;">${displayWord}</span>`;
+                })
+                .join(' ');
+        });
+    };
+
+    splitWord();
+});
+
 // const x = this.lerp(20, 0, t);
 // const y = this.lerp(-50, 0, t);
 // const opacity = this.lerp(0, 1, t);
