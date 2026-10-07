@@ -1,18 +1,6 @@
 'use client';
-import { VERSION } from '@/lib/utils';
 import React, { useEffect, useState } from 'react';
-// import * as Data from '@/app/index';
-
-const greetings = [
-    'Hello',
-    'لسلام ليكم',
-    'Olá!',
-    'еHola!',
-    'Ciao!',
-    'Привет!',
-    'Hallo!',
-    'Bonjour!',
-];
+import { VERSION, greetings } from '@/lib/utils';
 
 export default function Loader() {
     const [greeting, setGreeting] = useState(greetings[0] || '');
@@ -20,21 +8,6 @@ export default function Loader() {
     const [isPageLoaded, setIsPageLoaded] = useState(
         typeof document !== 'undefined' ? document.readyState === 'complete' : false
     );
-
-    // useEffect(() => {
-    //     if (typeof document === 'undefined') return;
-
-    //     const body = document.body;
-    //     if (body) {
-    //         body.setAttribute('inert', '');
-    //     }
-
-    //     return () => {
-    //         if (body) {
-    //             body.removeAttribute('inert');
-    //         }
-    //     };
-    // }, []);
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
@@ -77,7 +50,11 @@ export default function Loader() {
     if (!visible) return null;
 
     return (
-        <section id="loader" className="flex flex-col items-center justify-center text-center">
+        <section
+            id="loader"
+            className="flex flex-col items-center justify-center text-center"
+            data-version={VERSION}
+        >
             <h3 className="greeting">
                 <svg
                     data-visible

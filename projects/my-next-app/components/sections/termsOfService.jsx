@@ -1,6 +1,6 @@
-import React from 'react'
+import { VERSION } from '@/lib/utils';
 
-const TermsOfService = () => {
+export default function TermsOfService() {
   return (
 <section ${seoSection(`termsOfService`)} style="background: var(--bg-primary); color: (--txt-secondary);" class=" info-section">
 <div class="container-md">
@@ -117,5 +117,3 @@ For any legal inquiries regarding these terms, please reach out.
 </section>
   )
 }
-
-export default TermsOfService
