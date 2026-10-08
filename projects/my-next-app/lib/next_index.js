@@ -22,7 +22,7 @@ export default function BrowserEffects() {
         let cleanup;
         let cancelled = false;
 
-        import('../lib/site-browser').then(({ initBrowserFeatures }) => {
+        import('./site-browser').then(({ initBrowserFeatures }) => {
             if (!cancelled) cleanup = initBrowserFeatures();
         });
 

@@ -1,0 +1,43 @@
+# Web Developer | Hassan Biswas — UI/UX & Front-End Architecture APK
+
+@hassanbiswas.github.io
+
+[![Portoflio](https://hassanbiswas.github.io/assets/og-images/og-main.png)](https://hassanbiswas.github.io)
+
+## Webview Application
+
+## Overview
+
+This app allows user & client to stay connected with Web developer | Hassan Biswas.
+
+## Installation
+
+- download the app from https://hassanbiswas.github.io/app
+- or
+- visit https://hassanbiswas.github.io & you will get prompt to install app
+- or
+- visit https://hassanbiswas.github.io & from your browsers > menu > cast, save, share > install page as app.
+
+## Usage:
+
+- Install & open the app
+- Browse products
+- Choose product
+- Contact me
+- Buy product
+
+## Features
+
+- Easier connection & access
+- Multiple browser support
+- Multiple devices support
+- User friendly UI
+- 24/7 support
+
+This project is a simple webview application that opens a specified URL and dynamically changes its color scheme based on the device's preferences.
+
+This will start a local server and open the webview application in your default browser.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
