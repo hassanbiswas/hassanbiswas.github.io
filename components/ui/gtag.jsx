@@ -46,7 +46,7 @@ export default function Gtag() {
         `;
 
         document.head.appendChild(tagScript);
-    }, [ ]);
+    }, []);
 
     return null;
 }
