@@ -1,64 +1,69 @@
 name: Deploy
-# moved to private
+
 on:
-    push:
-        branches:
-            - main
-        paths:
-            - '**'
-    workflow_run:
-        workflows: ["compression.yml", "seo-assets.yml", "seo-pulse.yml", "seo-update.yml", "version-sync.yml", "dynamic-og.yml", "prettier.yml"]
-        types:
-            - completed
-        schedule:
-            # Zero Maintenance: Executes automatically on Sunday
-            - cron: '0 0 * * 0'
-    workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "**"
+  workflow_run:
+    workflows:
+      - compression.yml
+      - seo-assets.yml
+      - seo-pulse.yml
+      - seo-update.yml
+      - version-sync.yml
+      - dynamic-og.yml
+      - prettier.yml
+    types:
+      - completed
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
 
 permissions:
-    contents: write
-    pages: write
-    id-token: write
+  contents: write
+  pages: write
+  id-token: write
 
 concurrency:
-    group: "pages"
-    cancel-in-progress: false
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-    process-and-deploy:
-        runs-on: ubuntu-latest
-        # Logic Preservation: Only runs if push/schedule/dispatch OR successful compression
-        if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+  process-and-deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-        steps:
-            - name: Checkout Code
-            uses: actions/checkout@v4
-            with:
-                fetch-depth: 0
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-            - name: Setup Node.js
-            uses: actions/setup-node@v4
-            with:
-                node-version: '20'
-            cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
 
-            - name: Install Dependencies and Build
-            run: |
-                npm ci
-                npm run build
+      - name: Install Dependencies and Build
+        run: |
+          npm ci
+          npm run build
 
-            - name: Setup Pages
-            uses: actions/configure-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-            - name: Upload Artifact
-            uses: actions/upload-pages-artifact@v3
-            with:
-                path: './out'
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./out"
 
-            - name: Deploy to GitHub Pages
-            id: deployment
-            uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
