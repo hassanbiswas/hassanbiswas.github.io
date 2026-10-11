@@ -1,11 +1,23 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@/*": ["./*"],
-            "@/lib/*": ["./lib/*"],
-            "@/components/*": ["./components/*"],
-            "@/components/ui/*": ["./components/ui/*"]
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/app/*": ["./app/*"],
+      "@/components/*": ["./components/*"],
+      "@/components/ui/*": ["./components/ui/*"],
+      "@/lib/*": ["./lib/*"]
     }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "out",
+    ".next"
+  ]
 }
