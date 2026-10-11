@@ -10,7 +10,7 @@ import {
 
 const Reviews = () => {
     return (
-        <div className="flex items-center componentReviews gap-4" data-version={VERSION}>
+        <div className="flex items-center flex-wrap componentReviews gap-4" data-version={VERSION}>
             <ul className="list-none flex flex-wrap gap-0">
                 {personQuotes.map((person, index) => (
                     <li
@@ -30,7 +30,7 @@ const Reviews = () => {
                     {totalReviews - personQuotes?.length}+
                 </li>
             </ul>
-            <div className="row items-start gap-4">
+            <div className="flex flex-col items-start gap-2 text-left ">
                 <b className="txt-primary">★★★★★ • 4.9/5</b>
                 <p>
                     {successProjects}+{' '}

@@ -1,17 +1,47 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Title: Standard .gitignore for Hassan Biswas — UI/UX & Front-End Architecture
+# Logic: Automation-ready, Performance-focused, and Android-optimized
+# Last Updated: 2026-03-04 (Auto-logic: const VERSION = 04;)
+
+# --- System & Device (Oppo A53 / Android / Linux) ---
+.DS_Store
+Thumbs.db
+.thumbnails/
+.cache/
+*.log
+*.tmp
+.studio/
+.idea/
+# .vscode/
+*.swp
+*~
 
 # dependencies
 /node_modules
+bower_components/
+# package-lock.json
 /.pnp
 .pnp.*
+yarn.lock
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+pnpm-lock.yaml
 
 # testing
 /coverage
+
+# --- Build & Distribution ---
+# Keeps your root clean for your "Flattening Logic" in release.yml
+dist/
+build/
+out/
+.parcel-cache/
+.next/
+.nuxt/
+bin/
+obj/
 
 # next.js
 /.next/
@@ -30,8 +60,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# --- Environment & Security (Fallback Security) ---
+.env
 .env*
+.env.*.local
+.env.local
+*.pem
+*.key
+cert.ppk
+auth.json
 
 # vercel
 .vercel
@@ -39,3 +76,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# --- Design Tools (Figma / Framer / Webflow) ---
+*.fig
+*.framer
+.webflow/
+.import/
+
+# --- Automation & Archives ---
+# Prevents re-uploading the zips created by your release.yml
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# --- Custom Logic Preservation ---
+# Ensure README.md is NEVER ignored as it is your release note source
+!app/README.md
+!*/README.md

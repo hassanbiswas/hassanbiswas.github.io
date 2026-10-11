@@ -1,0 +1,53 @@
+name: Deploy
+# moved to private
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**'
+  workflow_run:
+    workflows: ["compression.yml", "seo-assets.yml", "seo-pulse.yml", "seo-update.yml", "version-sync.yml", "dynamic-og.yml", "prettier.yml"]
+    types:
+      - completed
+  schedule:
+    # Zero Maintenance: Executes automatically on Sunday
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  process-and-deploy:
+    runs-on: ubuntu-latest
+    # Logic Preservation: Only runs if push/schedule/dispatch OR successful compression
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0      
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

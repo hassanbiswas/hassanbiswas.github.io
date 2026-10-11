@@ -311,7 +311,10 @@ export const urlGithub = `https://github.com/hassanbiswas`,
     urlYoutube = `https://youtube.com/@hassanbiswas-github-io`,
     urlPinterest = `https://pinterest.com/hassanbiswas_github_io`,
     urlTiktok = `https://tiktok.com/@hassanbiswas.github.io`,
-    urlLinkedin = `https://linkedin.com/in/hassanbiswas-github-io`;
+    urlLinkedin = `https://linkedin.com/in/hassanbiswas-github-io`,
+    urlApp = `https://github.com/hassanbiswas/hassanbiswas.github.io/releases/download/%E2%88%9E/hassanbiswas.apk`,
+    urlImo = `https://s.imoim.net/DMLnb2`,
+    urlLocation = `https://maps.app.goo.gl/Gnpj9uSDc7c2HLvdA`;
 
 // dribble, behance, etc.
 
@@ -658,43 +661,6 @@ beginning.`,
  */
 // ------------------- Reusable Components ------------------
 
-export const componentProjectProgress = () => {
-    return `
-          <div class="flex a-start componentProjectProgress" style="gap: 1.6em; padding-inline: 1.6em;">
-
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${experience}</span>
-                        <span class="txt-tertiary">+</span>
-                    </b>
-                    <p class="txt-center">Experience</p>
-                </div>
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${successProjects}</span>
-                        <span class="txt-tertiary">+</span>
-                    </b>
-                    <a href="/#projects" class="p txt-center">Success projects</a>
-                </div>
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${coreWebVitals}</span>
-                        <span class="txt-tertiary">%</span>
-                    </b>
-                    <a ${seoA()} href="${urlCoreWebVitals}" class="p txt-center">Core web vitals</a>
-                </div>
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${clientSatisfaction}</span>
-                        <span class="txt-tertiary">%</span>
-                    </b>
-                    <p class="txt-center">Client satisfaction</p>
-                </div>
-
-        </div>
-            `;
-};
-
 const componentSkipSection = () => {
     const style = `
         padding: .8em 1.6em;
@@ -811,7 +777,7 @@ const tools = [
     new DevTool(`GitHub`, `${faviconGithub}`),
 ];
 
-const brandLogo = () => {
+export const brandLogo = () => {
     let j = 0;
     let totalLogo = 10;
     const brandLogoInterval = setInterval(() => {
@@ -832,13 +798,9 @@ const brandLogo = () => {
     `;
 };
 
-// ### 404.html | Hero component ###
-// updated hero section
-class HeroSection extends HTMLElement {
-    connectedCallback() {
-        // Configuration for easy updates
-        const scrollerGroup = (style = '', values = '', childVal = '') => {
-            return `
+// Configuration for easy updates
+export const scrollerGroup = (style = '', values = '', childVal = '') => {
+    return `
                 <div ${values} class="scrollerGroup flex nowrap" style="${style};">
 
                 ${skills
@@ -865,27 +827,13 @@ class HeroSection extends HTMLElement {
 
                 </div>
             `;
-        };
+};
 
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // section.heading = author.title;
-        // section.description = author.description;
-        const color = `var(--txt-primary)`,
-            fontSize = `--font(1.2rem, 1.8rem)`,
-            text = section.heading;
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
+template.innerHTML = `
 
       <section ${seoSection(`hero`)} id="hero" class=" dark">
         <div class="container-md row items-center custom-containe" style="position: relative; gap: 0; ">
 
-        ${brandLogo()}
 
         <svg width="0" height="0">
         <clipPath id="myClip"
@@ -911,46 +859,9 @@ class HeroSection extends HTMLElement {
         </svg>
 
 
-        <div class="row items-center text-items gradient-mask">
-            <span style="padding: .4em .8em; gap: .4em" class="flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> <!-- Last seen ${random(1, 3)}H ago --> Available for projects</span>
-            <h1 data-animate="scaleI" ${seoH(`hero`)}
-                class="h1 txt-center splitWord"
-                id="brand-title">
-                    ${section.heading}
-            </h1>
-            <p class="txt-center txt-primary lineClamp splitText">${section.description}</p>
-            <div class="flex content-center" style="gap: 1.6em; padding-block-start: 1.6em;">
-                <a ${seoA()} style="text-decoration: none;" href="/resume">
-                    <buttton style="border: 0px solid var(--bg-primary); padding: 1.2em 1.6em; " class="btn btn-primary txt-primary bg-primary pill splitText">Resume</button>
-                </a>
-                <a class="h6 txt-primary pill splitText" href="/#contact" style="border: 0px solid currentColor; ">Contact</a>
-            </div>
-            ${componentReviews()}
-
-            <div class="scrollerWrapper">
-                <div data-visible class="infiniteScroller flex nowrap" style="padding-block: .8em; gap: 0;">
-                    ${scrollerGroup(`gap: 2.4em; padding-inline-end: 2.4em;`)}
-                    ${scrollerGroup(`gap: 2.4em;`, `aria-hidden="true"`, `aria-hidden="true" tabindex="-1"`)}
-                </div>
-            </div>
-
-        </div>
-
-
-
         </div>
     </section>
     `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('hero-section')) {
-    customElements.define('hero-section', HeroSection);
-}
 
 class ClientsSection extends HTMLElement {
     connectedCallback() {
@@ -1039,478 +950,119 @@ if (!customElements.get('clients-section')) {
     customElements.define('clients-section', ClientsSection);
 }
 
-class AboutSection extends HTMLElement {
-    connectedCallback() {
-        // Story data array for easy updates
-        function StoriesItem(date, title, desc, link, linkText, ariaLabel, image) {
-            this.date = date;
-            this.title = title;
-            this.desc = desc;
-            this.link = link;
-            this.linkText = linkText;
-            this.ariaLabel = ariaLabel;
-            this.image = image ?? `/assets/img/story/${this.date}/${random(1, 4)}.jpg?v=${VERSION}`;
-        }
-
-        const stories = [
-            new StoriesItem(
-                '2001',
-                'Roots & Passion for Technology',
-                `I born with core values of discipline, continuous learning, and creative problem-solving.`,
-                `${author.location}`,
-                'View Place',
-                `map`
-            ),
-            new StoriesItem(
-                '2019',
-                'Secondary School Certificate',
-                `I got SSC of Vocational Education Board, Dhaka on top of Electrical Engineering Fundamentals from <b>Jashore Technical School &amp; College</b>.`,
-                'https://maps.app.goo.gl/Gh1SmtsbHAHBxtCfA',
-                'View College',
-                `map`
-            ),
-            new StoriesItem(
-                '2022',
-                'Web Design & UI Architecture',
-                'Deep-dived into self-directed UI/UX design, mastering Figma wireframing and frontend logic.',
-                `${urlYoutube}`,
-                'View Channels',
-                `youtube`
-            ),
-            new StoriesItem(
-                '2024',
-                'Diploma in CS and Technology.',
-                'Formalized technical foundation in software logic, database structures, and system engineering.',
-                'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
-                'View Institute',
-                `map`
-            ),
-            new StoriesItem(
-                '2025',
-                'Utshob Tech Certified & Freelance',
-                `Building high-performing client sites at Sheikh Hasina Software Technology Park and serving international contracts.`,
-                'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
-                'View Place',
-                `map`
-            ),
-            new StoriesItem(
-                // FIXED: Used backticks to allow double quotes in the HTML string
-                `${thisYear - 1}`,
-                'Designing and developing website.',
-                `${author.description}`,
-                `/projects`,
-                'View projects',
-                `project`,
-                `/assets/img/story/2024/${random(1, 4)}.jpg?v=${VERSION}`
-            ),
-            new StoriesItem(
-                `${thisYear}`,
-                'Junior Front-End Developer',
-                'Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.',
-                `/resume`,
-                'Download Resume',
-                `resume`,
-                `/assets/img/story/2025/${random(1, 4)}.jpg?v=${VERSION}`
-            ),
-        ];
-
-        const svgMarginBlock = 'auto auto'; // -30px auto
-
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
-
-<section ${seoSection(`about`)} class=" bg-primary  screenHeight snappyContainer " style="--snapType: mandatory;" id="about">
-    <div style="gap: 0em;" class="row content-center screenHeight">
-      <p data-animate="scaleIn" class="h6">
-        <span class="txt-tertiary">${author.name}</span> <i>2001 - ${thisYear}</i>
-      </p>
-      <div style="padding-block: 0em; gap: .8em;" class="col ">
-        <h2 ${seoH(`about`)} data-animate="scaleIn" class="h3 splitWord" style="padding-block-start: .4em;">
-        Driven by Quality,<br> Precision & Modern Aesthetics
-        </h2>
-        <div class="row " style="gap: var(--space-xs); ">
-            <p data-animate="scaleIn" class="splitWord">Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
-            <a data-visible class="p splitText" href="/#story-1">
-                ❯ View Story
-            </a>
-        </div>
-      </div>
-    </div>
-
- ${stories
-     .map(
-         (story, index) => `
-    <div data-pin="true" id="story-${index + 1}" class="row content-center screenHeight" style="padding-block: 0em; overflow: clip; position: relative; ">
-
-        <span inert aria-hidden="true" data-animate="scaleIn" class="story-image mas" style="filter: blur(3px) opacity(.3); position: absolute; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="bobject-fit: cover; height: 100%;"/></span>
-
-        <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" style="position: absolute; inset: 0; margin: auto; margin-block: ${svgMarginBlock}; overflow: visible; user-select: none; " >
-            ${txtFill(story.date, 'var(--txt-tertiary)', '2.3')}
-        </svg>
-
-        <span inert aria-hidden="true" data-animate="clipIn" class="story-imageCliped " style="clip-path: inset(30%); opacity: 1; position: absolute; inset: 0; filter: brightness(.7); "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
-
-        <svg fill="none" viewBox="0 0 100 100" style="position: absolute; inset: 0; margin: auto; margin-block: ${svgMarginBlock}; overflow: visible; " >
-            ${txtStroke(story.date, 'var(--txt-tertiary)', '2.3')}
-        </svg>
-
-        <div class="toCenterContents " >
-            <div class="col" style="--col-size: 20rem; gap: 0;  padding-block: 0; ">
-                <div><p class="h6 txt-gra"><span class="txt-primary h2">0${index + 1}</span>/${stories.length}</p> <h3  data-animate="scaleIn" style="padding-block: 0em; mix-blend-mode: difference; display: inline;" class="h1 splitWord">${story.title}</h3></div>
-
-                <div class="emptyCol"></div>
-            </div>
-
-            <div class="col" style="--col-size: 20rem; gap: 0;  padding-block: 0; ">
-                <div class="emptyCol"></div>
-
-                <div data-animate="fadeI" style="gap: .4em;" class="row">
-                    <p class="fade-in-to h6 lineClamp splitWord" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip; mix-blend-mode: difference; ">${story.desc}</p>
-                    <a data-visible ${seoA()} aria-label="${story.ariaLabel}" class="splitText" href="${story.link}">${story.linkText} ↗</a>
-                </div>
-            </div>
-        </div>
-      </div>
-
- `
-     )
-     .join('')}
-
-     ${componentSkipSection()}
-
-
-   </section>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('about-section')) {
-    customElements.define('about-section', AboutSection);
+// Story data array for easy updates
+function StoriesItem(date, title, desc, link, linkText, ariaLabel, image) {
+    this.date = date;
+    this.title = title;
+    this.desc = desc;
+    this.link = link;
+    this.linkText = linkText;
+    this.ariaLabel = ariaLabel;
+    this.image = image ?? `/assets/img/story/${this.date}/${random(1, 4)}.jpg?v=${VERSION}`;
 }
 
-class ServicesSection extends HTMLElement {
-    connectedCallback() {
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
+const stories = [
+    new StoriesItem(
+        '2001',
+        'Roots & Passion for Technology',
+        `I born with core values of discipline, continuous learning, and creative problem-solving.`,
+        `${author.location}`,
+        'View Place',
+        `map`
+    ),
+    new StoriesItem(
+        '2019',
+        'Secondary School Certificate',
+        `I got SSC of Vocational Education Board, Dhaka on top of Electrical Engineering Fundamentals from <b>Jashore Technical School &amp; College</b>.`,
+        'https://maps.app.goo.gl/Gh1SmtsbHAHBxtCfA',
+        'View College',
+        `map`
+    ),
+    new StoriesItem(
+        '2022',
+        'Web Design & UI Architecture',
+        'Deep-dived into self-directed UI/UX design, mastering Figma wireframing and frontend logic.',
+        `${urlYoutube}`,
+        'View Channels',
+        `youtube`
+    ),
+    new StoriesItem(
+        '2024',
+        'Diploma in CS and Technology.',
+        'Formalized technical foundation in software logic, database structures, and system engineering.',
+        'https://maps.app.goo.gl/ZqrnSyByZTL95pMJ8',
+        'View Institute',
+        `map`
+    ),
+    new StoriesItem(
+        '2025',
+        'Utshob Tech Certified & Freelance',
+        `Building high-performing client sites at Sheikh Hasina Software Technology Park and serving international contracts.`,
+        'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
+        'View Place',
+        `map`
+    ),
+    new StoriesItem(
+        // FIXED: Used backticks to allow double quotes in the HTML string
+        `${thisYear - 1}`,
+        'Designing and developing website.',
+        `${author.description}`,
+        `/projects`,
+        'View projects',
+        `project`,
+        `/assets/img/story/2024/${random(1, 4)}.jpg?v=${VERSION}`
+    ),
+    new StoriesItem(
+        `${thisYear}`,
+        'Junior Front-End Developer',
+        'Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.',
+        `/resume`,
+        'Download Resume',
+        `resume`,
+        `/assets/img/story/2025/${random(1, 4)}.jpg?v=${VERSION}`
+    ),
+];
 
-        // 3. Define the HTML (Top-level element is now your grid section)
+// Project data array for easy updates
+function ProjectsItem(date, category, title, link, image) {
+    this.date = date;
+    this.category = category;
+    this.title = title;
+    this.link = link;
+    this.image = image;
 
-        // HTML
-        const clipedSection = (
-            value = 1,
-            direction = null,
-            wrap = null,
-            style = null,
-            attribute = null,
-            clipPath = null
-        ) => {
-            return `
-<div class="servicesCarousel container-xl" ${attribute} style="--direction: ${direction}; --value: ${value}; --wrap: ${wrap}; position: absolute; inset: 0; user-select: non; --clip-pat: polygon(${clipPath}); clip-path: var(--clip-path); ${style}">
-
-    <div class="grid  fade-in-top-containe items-center content-center ">
-        <div class="row screenHeight content-center itemCard" style="gap: .8em;">
-
-            <p class="h6 fade-in-to">
-            Services <span class="txt-tertiary">by ${author.name}</span>
-            </p>
-            <h2 data-animate="scaleI" ${seoH(`services`)} class="">
-            Services available in <br> ${locationSecondary}.
-            </h2>
-            <p class="splitWord">High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${clientSatisfaction}%</b> satisfaction.</p>
-
-        </div>
-    </div>
-
-
-    ${servicesPrimary
-        .map(
-            (service, index) => `
-    <div id="service-${index + 1}_${direction}" class="service-${index + 1} grid  fade-in-top-containe screenHeight items-center content-center  serviceCard">
-        <div class="stacking-container itemCard screenHeight" style="gap: .8em; position: relative;">
-
-            <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" style="overflow: visible; user-select: none;" >
-                ${txtStroke(stripedCurrency(service.price), 'var(--txt-primary)', '2.8')}
-            </svg>
-
-            <div class="row even-row items-center content-center" style="gap: 0.8em;">
-                <div class="empty "></div>
-                <div class="empty "></div>
-
-                <span data-animate="clipOu" class="service-image"><img ${seoImg(
-                    `${service.getImage(index)}`,
-                    `Service Image`,
-                    `100%`
-                )} style="height: 100%;"/></span>
-
-                <div class="flex items-center content-center " style="flex-direction: column; gap: .8em;">
-                    <h3 class="h5 txt-center splitText">${service.name}</h3>
-                    <h4 class="txt-center">
-                        <span class="p txt-tertiary splitWord">Starting from</span>
-                        <b>${service.price}</b>
-                    </h4>
-                    <b class="txt-center txt-primary">${service.star} • 4.9/5</b>
-                    <p class="txt-center splitWord">${service.description}</p>
-
-                    <ul class="fle items-center content-center d-none" style="column-gap: 2.4em;">
-                        <li class="done">Responsive Layout</li>
-                        <li class="done">Pixel-perfect accuracy</li>
-                        <li class="done">Lighthouse score ${coreWebVitals}+ (<b class="txt-primary">Pro</b>)</li>
-                        <li class="done">Modern dark/light theme</li>
-                        <li class="done">Multi-page architecture (<b class="txt-primary">Pro</b>)</li>
-                    </ul>
-
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-    `
-        )
-        .join('')}
-
-        ${componentSkipSection()}
-
-
-</div>
-        `;
-        };
-
-        //  CallBack
-
-        template.innerHTML = `
-
-<section ${seoSection(`services`)} class="" id="services" style="--snapType: mandatory; position: relative;">
-
-
-        <!-- //Right Part ; original, base & main -->
-        ${clipedSection(1, `column`, `wrap`, `background: --alpha(#00ff00, 0);`, `data-type="original" `, `50% 0, 100% 0, 100% 100%, 50% 100%`)}
-        <!-- Left Part// -->
-
-
-        <!-- //Left Part ; duplicate & clip -->
-        <!-- ${clipedSection(-1, `column-reverse`, `wrap-reverse`, `z-index: -2;`, `aria-hidden="true" data-type="duplicate"`, `0 0, 50% 0, 50% 100%, 0 100%`)} -->
-        <!-- Right Part// -->
-
-
-</section>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('services-section')) {
-    customElements.define('services-section', ServicesSection);
+    this.getImage = (index = 0, image = this.image) => {
+        return image ?? `/assets/img/project/${index + 1}.jpg?v=${VERSION}`;
+    };
 }
 
-class ProjectsSection extends HTMLElement {
-    connectedCallback() {
-        // Project data array for easy updates
-        function ProjectsItem(date, category, title, link, image) {
-            this.date = date;
-            this.category = category;
-            this.title = title;
-            this.link = link;
-            this.image = image;
-
-            this.getImage = (index = 0, image = this.image) => {
-                return image ?? `/assets/img/project/${index + 1}.jpg?v=${VERSION}`;
-            };
-        }
-
-        const projects = [
-            new ProjectsItem(
-                `01-Jan-${thisYear}`,
-                'Portfolio website',
-                `${author.title}`,
-                `/`,
-                `/assets/og-images/og-main.png?v=${VERSION}`
-            ),
-            new ProjectsItem(
-                `24-Nov-${thisYear - 1}`,
-                'Design Agency website',
-                'DEVAEC | Website Design & Front-End Development',
-                `${urlYoutube}`
-            ),
-            new ProjectsItem(
-                '13-May-2024',
-                'E-commerce website',
-                'TANUVL | Fashion & Clothing',
-                `https://youtu.be/HTCgsgdRELg?t=17&si=MawSODh4e3nBabPJ`
-            ),
-            new ProjectsItem(
-                '09-Jul-2023',
-                'Landing Page',
-                'Md Ezazul Hassan',
-                `https://youtu.be/NcC0lgGDCHc?t=23&si=1ToXGc7JTbbEo3f0`
-            ),
-        ];
-
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
-
-      <section ${seoSection(`projects`)} class=" bg-primary snappyContainer" style="--snapType: mandatory;" id="projects">
-
-      <div class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip; gap: .8em;">
- <p class="fade-in-to txt-tertiary">Selected <span class="txt-secondary">Projects</span> <i>2023 - ${thisYear}</i></p>
- <div>
-    <h2 data-animate="scaleIn" ${seoH(`projects`)} class="h2 splitWord" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
-</h2>
- <p data-animate="scaleIn" class="h2 txt-tertiary" style="font-weight: bold; display: inline;">
-<span class="text-revel-onscrol">
-With ${experience}+ years of experience, I'm Designing & developing websites in ${locationSecondary}.
-</span>
-</p>
-</div>
- </div>
-
- <div style="gap: 0em;" class=" row content-center projects-list screenHeight fluidHovere">
- ${projects
-     .map(
-         (project, index) => `
-
-   <a id="project-${index + 1}" ${seoA()} href="${project.link}" style="text-decoration: none; padding-block: 1em; gap: .8em;" class="flex fade-in-top-containe project-item">
-
-        <h3 style="padding-block: 0em; flex: 1; z-index: 1;" class="h6 fade-in-to"><span class="p txt-tertiary">[0${index + 1}]</span> <span class="splitWord">${project.category}</span> <span class="txt-tertiary">↗</span></h3>
-
-        <span inert class="project-image" style="z-index: -20;">
-            <img ${seoImg(`${project.getImage(index)}`, `Project Image`, `100%`)}/>
-        </span>
-
-       <i class="p fade-in-to" style="z-index: 1;">${project.date}</i>
-   </a>
- `
-     )
-     .join('')}
-</div>
-
-
-     ${componentSkipSection()}
-
-
-      </section>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <contact-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('projects-section')) {
-    customElements.define('projects-section', ProjectsSection);
-}
-
-class TestimonialsSection extends HTMLElement {
-    connectedCallback() {
-        // let randomIndex = random(0, personQuotes?.length);
-
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
-        template.innerHTML = `
-<section ${seoSection(`testimonials`)} class="" id="testimonials">
-    <div class="container-md row items-center" style="gap: .8em;">
-
-        <div class="row txt-center">
-            <p class="txt-center">Testimonials</p>
-            <h2 data-animate="scaleIn" ${seoH(`testimonials`)} class="text-revel-onscrol">
-            <span class="txt-tertiary splitWord">Real People,</span> <br/><span class="splitWord">Real Results Feedback<span>
-            </h2>
-            <p class="txt-center">
-                <span data-animate="textReveal" class="splitWor" style="">
-        What clients and colleagues say about my front-end architecture and design work. See what my users are truly accomplishing with honest, and project-based reviews
-                </span>
-            </p>
-        </div>
-
-        ${componentProjectProgress()}
-
-        ${componentReviews()}
-
-        <ul class="carousel bg-raise" style="list-style: none; gap: 0em; border-radius: 2em; inline-size: min(100%, 64rem); " >
-            ${personQuotes
-                .map(
-                    (person, index) => `
-                <li data-skeleton data-visible class="flex carousel-item " style="max-inline-size: 100%; ">
-            <blockquote id="quote-${index + 1}" class="row items-center" style="flex: 1; gap: .8em; padding: 1.6em;">
-
-                <b>
-                    <span class="star txt-primary splitWord" style="inline-size: .8em;">${person?.star} • 4.9/5</span>
-                </b>
-
-                <q class="h6 quote txt-center splitWord">${person?.quote}</q>
-
-                <div class="flex j-center txt-left">
-                            <img ${seoImg(person?.photo, 'Client')} style="inline-size: 1.5em;" class="photo"/>
-
-                            <div class="row" style="margin-inline-end: 1em; gap: .4em;">
-                                <a ${seoA()} href="${person?.link}" class="link"><b class="name txt-primary splitWord">${person?.name}</b></a>
-                                <p class="title splitWord">${person?.title}</p>
-                            </div>
-
-                            <b class="platform txt-primary splitWord" style="border-inline-start: 1px solid var(--txt-tertiary); padding-inline-start: 1.6em;">${person?.platform}</b>
-                </div>
-
-            </blockquote>
-            </li>
-                `
-                )
-                .join('')}
-        </ul>
-
-        <div class="flex j-center" style="padding-block: 1.6em; ">
-            <a ${seoA()} href="${urlReviews}"><button ${seoButton()} style="inline-size: fit-content;"  class="btn-primary splitWord">
-            Add Review ↗
-            </button></a>
-        </div>
-
-
-    </div>
-   </section>
-
-    `;
-
-        // 3. Swap the live component
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('testimonials-section')) {
-    customElements.define('testimonials-section', TestimonialsSection);
-}
+const projects = [
+    new ProjectsItem(
+        `01-Jan-${thisYear}`,
+        'Portfolio website',
+        `${author.title}`,
+        `/`,
+        `/assets/og-images/og-main.png?v=${VERSION}`
+    ),
+    new ProjectsItem(
+        `24-Nov-${thisYear - 1}`,
+        'Design Agency website',
+        'DEVAEC | Website Design & Front-End Development',
+        `${urlYoutube}`
+    ),
+    new ProjectsItem(
+        '13-May-2024',
+        'E-commerce website',
+        'TANUVL | Fashion & Clothing',
+        `https://youtu.be/HTCgsgdRELg?t=17&si=MawSODh4e3nBabPJ`
+    ),
+    new ProjectsItem(
+        '09-Jul-2023',
+        'Landing Page',
+        'Md Ezazul Hassan',
+        `https://youtu.be/NcC0lgGDCHc?t=23&si=1ToXGc7JTbbEo3f0`
+    ),
+];
 
 function FaqsItem(question, answer) {
     this.question = question;

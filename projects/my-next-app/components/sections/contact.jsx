@@ -18,7 +18,11 @@ import {
 
 export default function Contact() {
     return (
-        <section id="contact" className="flex flex-col items-center justify-center gap-6 px-6">
+        <section
+            id="contact"
+            className="flex flex-col items-center justify-center gap-6 px-6"
+            data-version={VERSION}
+        >
             <div className="flex flex-col w-full max-w-[640px] background-map overflow-clip object-cover">
                 <iframe
                     className="monochrome border-0"
@@ -37,14 +41,14 @@ export default function Contact() {
             </div>
 
             <div className="ph-wrapper w-full max-w-[640px]">
-                <h2 data-animate="scaleIn" className="h2 txt-primary inline">
+                <h2 data-animate="scaleIn" className="h2 txt-primary inline text-4xl">
                     <span className="splitWord">I help ambitious brands stand out through</span>{' '}
                     <a aria-label="Home Page" href="/">
                         <img src={faviconAuthor} className="square inline w-[1em]" />
                     </a>{' '}
                     <span className="splitWord">bold design and digital strategies.</span>
                 </h2>{' '}
-                <p data-animate="scaleIn" className="h2 txt-tertiary inline font-bold">
+                <p data-animate="scaleIn" className="h2 txt-tertiary inline font-bold text-4xl">
                     <span className="splitWord">Ready to scale your brand with</span>{' '}
                     <a aria-label="Business Profile" href={begaritola}>
                         <img src={author.photo} className="square rounded-full inline w-[1em]" />

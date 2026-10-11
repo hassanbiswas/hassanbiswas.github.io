@@ -52,7 +52,7 @@ export default function Loader() {
     return (
         <section
             id="loader"
-            className="flex flex-col items-center justify-center text-center"
+            className="flex dark flex-col items-center justify-center text-center"
             data-version={VERSION}
         >
             <h3 className="greeting">
@@ -63,15 +63,16 @@ export default function Loader() {
                     width="100%"
                     sizes="any"
                     className="inline"
+                    style={{ overflow: 'visible' }}
                 >
                     <text
                         x="50"
                         y="50"
                         textAnchor="middle"
                         id="say-hello"
-                        className="loaderSvgDraw font-bold text-[--font(2rem, 3.2rem)]"
+                        className="loaderSvgDraw font-bold text-2xl text-white"
                         stroke="currentColor"
-                        strokeWidth=".5"
+                        strokeWidth="1"
                         fill="transparent"
                         strokeDasharray="100"
                         strokeDashoffset="50"

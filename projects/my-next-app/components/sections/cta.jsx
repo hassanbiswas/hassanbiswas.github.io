@@ -13,23 +13,28 @@ import {
     urlMobile,
 } from '@/lib/utils';
 
-const toHtmlProps = string =>
-    Object.fromEntries(
-        [...string.matchAll(/(\w+)=(?:"([^"]*)"|'([^']*)'|([^\s]+))/g)].map(
-            ([, key, dq, sq, bare]) => [key, dq ?? sq ?? bare ?? '']
-        )
+const Cta = () => {
+    const toHtmlProps = string =>
+        Object.fromEntries(
+            [...string.matchAll(/(\w+)=(?:"([^"]*)"|'([^']*)'|([^\s]+))/g)].map(
+                ([, key, dq, sq, bare]) => [key, dq ?? sq ?? bare ?? '']
+            )
+        );
+
+    const getSeoImgProps = (src, alt, size = '1.6em', border = '1') =>
+        toHtmlProps(seoImg(src, alt, size, border));
+
+    const seoAProps = toHtmlProps(seoA());
+    const seoSectionProps = toHtmlProps(seoSection('cta'));
+    const seoHProps = toHtmlProps(seoH('cta'));
+
+    const authorPhotoProps = getSeoImgProps(
+        author.photo,
+        `${author.name} profile image`,
+        '1.6em',
+        '1'
     );
 
-const getSeoImgProps = (src, alt, size = '1.6em', border = '1') =>
-    toHtmlProps(seoImg(src, alt, size, border));
-
-const seoAProps = toHtmlProps(seoA());
-const seoSectionProps = toHtmlProps(seoSection('cta'));
-const seoHProps = toHtmlProps(seoH('cta'));
-
-const authorPhotoProps = getSeoImgProps(author.photo, `${author.name} profile image`, '1.6em', '1');
-
-const Cta = () => {
     return (
         <section
             {...seoSectionProps}
@@ -45,13 +50,13 @@ const Cta = () => {
             >
                 <span inert className="dots"></span>
 
-                <h2 {...seoHProps} data-animate="scaleIn" className="h1">
+                <h2 {...seoHProps} data-animate="scaleIn" className="h1 text-4xl">
                     <span className="splitWord">Have project? Need website</span>{' '}
                     <span className="txt-tertiary splitWord">or</span>{' '}
                     <span className="splitWord">looking for Developer? I'm here!</span>
                 </h2>
 
-                <div className="flex gap-6">
+                <div className="flex items-center gap-6">
                     <Reviews />
                     <a {...seoAProps} href={urlMobile} className="btn btn-primary splitWord">
                         Make a Call

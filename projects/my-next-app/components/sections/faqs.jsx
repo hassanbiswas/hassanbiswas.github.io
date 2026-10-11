@@ -13,23 +13,28 @@ import {
     faqs,
 } from '@/lib/utils';
 
-const toHtmlProps = string =>
-    Object.fromEntries(
-        [...string.matchAll(/(\w+)=(?:"([^"]*)"|'([^']*)'|([^\s]+))/g)].map(
-            ([, key, dq, sq, bare]) => [key, dq ?? sq ?? bare ?? '']
-        )
+const Faqs = () => {
+    const toHtmlProps = string =>
+        Object.fromEntries(
+            [...string.matchAll(/(\w+)=(?:"([^"]*)"|'([^']*)'|([^\s]+))/g)].map(
+                ([, key, dq, sq, bare]) => [key, dq ?? sq ?? bare ?? '']
+            )
+        );
+
+    const getSeoImgProps = (src, alt, size = '1.6em', border = '1') =>
+        toHtmlProps(seoImg(src, alt, size, border));
+
+    const seoAProps = toHtmlProps(seoA());
+    const seoSectionProps = toHtmlProps(seoSection('faqs'));
+    const seoHProps = toHtmlProps(seoH('faqs'));
+
+    const authorPhotoProps = getSeoImgProps(
+        author.photo,
+        `${author.name} profile image`,
+        '1.6em',
+        '1'
     );
 
-const getSeoImgProps = (src, alt, size = '1.6em', border = '1') =>
-    toHtmlProps(seoImg(src, alt, size, border));
-
-const seoAProps = toHtmlProps(seoA());
-const seoSectionProps = toHtmlProps(seoSection('faqs'));
-const seoHProps = toHtmlProps(seoH('faqs'));
-
-const authorPhotoProps = getSeoImgProps(author.photo, `${author.name} profile image`, '1.6em', '1');
-
-const Faqs = () => {
     return (
         <section
             {...seoSectionProps}
@@ -39,7 +44,7 @@ const Faqs = () => {
         >
             <div className="w-full max-w-3xl flex flex-col text-center gap-3">
                 <p className="text-center">FAQ's</p>
-                <h2 {...seoHProps} data-animate="scaleIn">
+                <h2 {...seoHProps} data-animate="scaleIn" className="text-5xl">
                     <span className="splitWord">Got questions?</span> <br />
                     <span className="txt-tertiary splitText">I’ve got answers</span>
                 </h2>
@@ -50,7 +55,7 @@ const Faqs = () => {
                 </p>
             </div>
 
-            <div className="w-full max-w-3xl grid md:grid-cols-2 items-start gap-4 fluidHovere">
+            <div className="w-full max-w-3xl grid md:grid-cols-2 items-start gap-4 pt-8 fluidHovere">
                 {faqs.map((faq, index) => (
                     <details key={index} name="flex flex-col question">
                         <summary className="flex flex-nowrap items-center justify-between gap-2">

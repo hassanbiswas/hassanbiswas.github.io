@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+            /* WebAR Status Overlay */
+            .ar-ui-overlay {
+                position: fixed;
+                top: 16px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 9999;
+                backdrop-filter: blur(8px);
+                padding: 10px 20px;
+                border-radius: 30px;
+                font-size: 14px;
+                font-weight: 500;
+                border: 1px solid;
+                box-shadow: 0 4px 12px;
+                pointer-events: none;
+                text-align: center;
+                white-space: nowrap;
+            }
+            .ar-ui-overlay::before {
+                content: '';
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                margin-right: 8px;
+                border-radius: 50%;
+                animation: pulse 1.5s infinite;
+            }
+            @keyframes pulse {
+                0% {
+                    opacity: 0.4;
+                    transform: scale(0.9);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.2);
+                }
+                100% {
+                    opacity: 0.4;
+                    transform: scale(0.9);
+                }
+            }
+
+            /* Native Redirection Loader UI */
+            .redirect-container {
+                position: fixed;
+                inset: 0;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+            .loader {
+                width: 48px;
+                height: 48px;
+                border: 4px solid;
+                border-left-color: var(--brand-color);
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin-bottom: 20px;
+            }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            a.ios-ar-btn {
+                display: inline-block;
+                margin-top: 15px;
+                padding: 12px 24px;
+                background-color: var(--brand-color);
+                color: #ffffff;
+                text-decoration: none;
+                border-radius: 25px;
+                font-weight: 600;
+            }

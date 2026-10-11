@@ -25,41 +25,46 @@ import {
 } from '@/lib/utils';
 import ThemeButton from '@/components/ui/themeButton';
 
-const toHtmlProps = string =>
-    Object.fromEntries(
-        [...string.matchAll(/(\w+)=(?:"([^"]*)"|'([^']*)'|([^\s]+))/g)].map(
-            ([, key, dq, sq, bare]) => [key, dq ?? sq ?? bare ?? '']
-        )
+export default function Footer() {
+    const toHtmlProps = string =>
+        Object.fromEntries(
+            [...string.matchAll(/(\w+)=(?:"([^"]*)"|'([^']*)'|([^\s]+))/g)].map(
+                ([, key, dq, sq, bare]) => [key, dq ?? sq ?? bare ?? '']
+            )
+        );
+
+    const getSeoImgProps = (src, alt, size = '1.6em', border = '1') =>
+        toHtmlProps(seoImg(src, alt, size, border));
+
+    const seoAProps = toHtmlProps(seoA());
+    const seoButtonProps = toHtmlProps(seoButton());
+    const seoFooterProps = toHtmlProps(footer());
+    const seoSectionProps = toHtmlProps(seoSection('footer'));
+    const seoHProps = toHtmlProps(seoH('footer'));
+
+    const authorPhotoProps = getSeoImgProps(
+        author.photo,
+        `${author.name} profile image`,
+        '1.6em',
+        '1'
     );
 
-const getSeoImgProps = (src, alt, size = '1.6em', border = '1') =>
-    toHtmlProps(seoImg(src, alt, size, border));
-
-const seoAProps = toHtmlProps(seoA());
-const seoButtonProps = toHtmlProps(seoButton());
-const seoFooterProps = toHtmlProps(footer());
-const seoSectionProps = toHtmlProps(seoSection('footer'));
-const seoHProps = toHtmlProps(seoH('footer'));
-
-const authorPhotoProps = getSeoImgProps(author.photo, `${author.name} profile image`, '1.6em', '1');
-
-export default function Footer() {
     return (
         <footer
             {...seoSectionProps}
-            {...seoFooterProps}
             className="flex flex-wrap items-center justify-center gap-6 pt-12"
             id="footer"
+            role="contentinfo"
             data-version={VERSION}
         >
-            <div className=" flex items-center justify-center gap-6" style={{ display: 'none' }}>
+            <div className=" flex items-center justify-center gap-6" style={{ display: 'non' }}>
                 <span className="txt-tertiary ">Choose Theme</span>
                 <ThemeButton />
             </div>
 
             <div className="w-full max-w-[1024px] flex flex-wrap gap-6">
                 <div className="max-w-[375px] flex flex-col gap-4">
-                    <h2 {...seoHProps} className="p txt-tertiary">
+                    <h2 {...seoHProps} className="p txt-tertiary text-2xl">
                         I craft marketing strategies that elevate brands,{' '}
                         <span className="txt-primary">
                             <a {...seoAProps} aria-label="Business Profile" href={begaritola}>
@@ -127,7 +132,7 @@ export default function Footer() {
 
                 <nav className="flex-1 flex flex-col gap-4">
                     <h4 className="p txt-tertiary">Pages</h4>
-                    <div className="flex flex-wrap items-start justify-start gap-4 navigation-links">
+                    <div className="flex flex-wrap items-start justify-start gap-4 navigation-links fluidHovere">
                         {pages.map((page, index) => (
                             <a key={page.name} className="h6" {...seoAProps} href={page.link}>
                                 <span className="p txt-tertiary">[0{index + 1}]</span>{' '}
@@ -140,7 +145,7 @@ export default function Footer() {
 
                 <nav className="flex-1 flex flex-col gap-4">
                     <h4 className="p txt-tertiary">Conference &amp; Payment</h4>
-                    <div className="flex flex-wrap items-start justify-start gap-4 methode-links">
+                    <div className="flex flex-wrap items-start justify-start gap-4 methode-links fluidHovere">
                         {methods.map((method, index) => (
                             <a
                                 key={method.name}
@@ -175,7 +180,7 @@ export default function Footer() {
                                         overflow: 'clip',
                                         inlineSize: '1.6em',
                                     }}
-                                    className="pill squar rounded monochrome"
+                                    className="pill squar rounded-full "
                                 />
                             </a>
                         ))}
@@ -200,7 +205,7 @@ export default function Footer() {
 
             <nav className="w-full max-w-[1024px] flex flex-col items-center gap-4">
                 <h4 className="p txt-tertiary">Legals</h4>
-                <div className="flex flex-wrap items-start justify-center legal-links gap-4">
+                <div className="flex flex-wrap items-start justify-center legal-links gap-4 fluidHovere">
                     {legals.map((legal, index) => (
                         <a key={legal.name} className="h6" {...seoAProps} href={legal.link}>
                             <span className="txt-tertiary">[0{index + 1}]</span>{' '}
@@ -211,7 +216,7 @@ export default function Footer() {
                 </div>
             </nav>
 
-            <div className="w-full max-w-[640px] flex flex-nowrap gap-6 input-group items-center justify-center">
+            <div className="w-full max-w-[640px] flex flex-nowrap gap-3 py-6 input-group items-center justify-center">
                 <input
                     className="btn pill text-center py-3"
                     style={{
@@ -242,10 +247,14 @@ export default function Footer() {
             <div
                 className="w-full max-w-[1024px] flex txt-primary flex-col gap-6 pt-8 mask marquee_outer"
                 id="footer-marquee"
-                style={{ colorScheme: 'dark' }}
             >
                 <div className="svg-wrapper marquee_inner">
-                    <svg fill="none" viewBox="0 0 300 100" style={{ overflow: 'visible' }}>
+                    <svg
+                        fill="none"
+                        viewBox="0 0 300 100"
+                        className="dark"
+                        style={{ overflow: 'visible', colorScheme: 'dark' }}
+                    >
                         <text
                             data-animate="svgDrawFil"
                             x="0%"
@@ -255,7 +264,7 @@ export default function Footer() {
                                 stroke: 'currentColor',
                                 strokeWidth: 0.5,
                                 fill: 'currentColor',
-                                fontSize: 'calc(var(--p) * 3)',
+                                fontSize: 'calc(var(--p) * 2.8)',
                                 fontWeight: 800,
                                 strokeDasharray: 100,
                                 strokeDashoffset: 0,

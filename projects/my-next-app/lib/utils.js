@@ -162,7 +162,7 @@ export const author = {
     siteUrl: `hassanbiswas.github.io`,
     photo: `https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s96-c-no?v=${VERSION}`,
     mainFaviconSvg: `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="none" viewBox="66 66 52 52"%3E%3Cpath d="M66 66h50v50H66z" fill="transparent"/%3E%3Cpath d="M80.23 79.274h-.185l-.117-.119.091.036.062-.014c-.035.001-12.08-11.502-12.08-11.502h23.071v-.059c12.979 0 23.5 10.521 23.5 23.5s-10.521 23.5-23.5 23.5v-.266l-11.091-11.284c-.624-.518-3.277-3.216-5.879-5.848-2.959-2.997-5.902-6.006-5.902-6.006V79.274h11.845l11.027 11.205v1.116c-3.035-.101-11.147-.41-11.147-.41-.068-.066.162 10.558.19 11.84h10.957v-.158c6.49 0 11.75-5.26 11.75-11.75s-5.26-11.75-11.75-11.75v-.171H80.03ZM92.2 91.625c0 .005-.43-.007-1.128-.031v-1.116Z" fill="%231a1ae6" stroke="%231a1ae6"/%3E%3C/svg%3E`,
-    description: `<b>Freelance</b> <b>Front-End Developer</b> & Website Designer specializing in transforming Figma designs into <b>high-performance</b>, <b>SEO-friendly</b> digital experiences. Leveraging a modern stack of <b>HTML</b>, <b>CSS</b>, and <b>JavaScript</b>, I build <b>responsive</b>, <b>pixel-perfect</b> websites with a focus on clean logic and award-winning aesthetics inspired by <b>Awwwards</b>.`,
+    description: `Freelance Front-End Developer & Website Designer specializing in transforming Figma designs into high-performance, SEO-friendly digital experiences. Leveraging a modern stack of HTML, CSS, and JavaScript, I build responsive, pixel-perfect websites with a focus on clean logic and award-winning aesthetics inspired by Awwwards.`,
     faviconBase64: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSJub25lIiB2aWV3Qm94PSI2NiA2NiA1MiA1MiI+PHBhdGggZD0iTTY2IDY2aDUwdjUwSDY2eiIgZmlsbD0idHJhbnNwYXJlbnQiLz48cGF0aCBkPSJNODAuMjMgNzkuMjc0aC0uMTg1bC0uMTE3LS4xMTkuMDkxLjAzNi4wNjItLjAxNGMtLjAzNS4wMDEtMTIuMDgtMTEuNTAyLTEyLjA4LTExLjUwMmgyMy4wNzF2LS4wNTljMTIuOTc5IDAgMjMuNSAxMC41MjEgMjMuNSAyMy41cy0xMC41MjEgMjMuNS0yMy41IDIzLjV2LS4yNjZsLTExLjA5MS0xMS4yODRjLS42MjQtLjUxOC0zLjI3Ny0zLjIxNi01Ljg3OS01Ljg0OC0yLjk1OS0yLjk5Ny01LjkwMi02LjAwNi01LjkwMi02LjAwNlY3OS4yNzRoMTEuODQ1bDExLjAyNyAxMS4yMDV2MS4xMTZjLTMuMDM1LS4xMDEtMTEuMTQ3LS40MTAtMTEuMTQ3LS40MTAtLjA2OC0uMDY2LjE2MiAxMC41NTguMTkgMTEuODRoMTAuOTU3di0uMTU4YzYuNDkgMCAxMS43NS01LjI2IDExLjc1LTExLjc1cy01LjI2LTExLjc1LTExLjc1LTExLjc1di0uMTcxSDgwLjAzWk05Mi4yIDkxLjYyNWMwIC4wMDUtLjQzLS4wMDctMS4xMjgtLjAzMXYtMS4xMTZaIiBmaWxsPSIjMTkxOWU2IiBzdHJva2U9IiMxOTE5ZTYiLz48L3N2Zz4=`,
     logoBase64v2: `data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiBzaXplcz0iYW55IiBsb2FkaW5nPSJsYXp5IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ikhhc3NhbiBCaXN3YXMgTG9nbyIgc3R5bGU9IndpZHRoOiAxMDAlOyBoZWlnaHQ6IGF1dG87IGRpc3BsYXk6IGJsb2NrOyI+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBkPSJNMCAwaDE5MnYxOTJIMHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PHBhdGggZmlsbD0iaHNsKDI0MCwgODAlLCA1MCUpIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMyIgZD0iTTY2LjQ4MSA2NC41MTloLS40OTNsLS4zMDgtLjMxOS4yNDQuMDkzLjE1NC0uMDQ2Yy0uMDkgMC0zMi4zNTItMzAuNTk5LTMyLjM1Mi0zMC41OTloNjEuODE1VjMzLjVjMzQuNzY5IDAgNjIuOTU5IDI3Ljk4OSA2Mi45NTkgNjIuNDk5IDAgMzQuNTE2LTI4LjE5IDYyLjUwMS02Mi45NTkgNjIuNTAxdi0uNzFsLTMwLjA4NC0zMC42NjJjLTEuNjkzLTEuNDA5LTguODktOC43NDAtMTUuOTQ3LTE1Ljg5MS04LjAyNy04LjE0NS0xNi4wMS0xNi4zMi0xNi4wMS0xNi4zMlY2NC41MTloMzIuMTNsMjkuOTExIDMwLjQ0OXYzLjAzMWMtOC4yMzMtLjI3NS0zMC4yMzYtMS4xMTUtMzAuMjM2LTEuMTE1LS4xODYtLjE3OC40MzkgMjguNjkwLjUxNSAzMi4xNzVoMjkuNzIxdi0uNDI4YzE3LjYwNSAwIDMxLjg3Mi0xNC4yOTQgMzEuODcyLTMxLjkzcy0xNC4yNjctMzEuOTI5LTMxLjg3Mi0zMS45Mjl2LS40NjVINTYuOTQ1ek05OC41NjYgOTcuMzVjMCAuMDI3LTEuMTU4LS4wMjEtMy4wMjUtLjA3di0yLjk3OHoiIHN0eWxlPSJwb2ludGVyLWV2ZW50czpub25lIi8+PC9zdmc+`,
     logoOutlineSvg: `<svg data-visible class="logo brand-logo spin3DInfinite" fill="none" height="192" viewbox="0 0 192 192" width="192" xmlns="http://www.w3.org/2000/svg">
@@ -176,13 +176,13 @@ export const author = {
     phone: `8801602873384`,
     phoneText: `1602-873384`,
 };
-
+author.ogImage = `${author.siteUrl}/assets/og-images/og-main.png?v=${VERSION}`;
 // Cleaning the domain string for the display text (e.g., "example.com" instead of "example.com")
 author.domain = author.siteUrl.replace(/^(?:https?:\/\/)?(?:www\.)?/i, '');
 
 // Now safely add the dynamic title
 author.title = `Web Developer | ${author.name} — UI/UX & Front-End Architecture`;
-author.subTitle = `Website Designer`;
+author.subTitle = `Front-End Architect`;
 // maps.app.goo.gl/LPouGF9mtLHFjcDJ7
 // maps.app.goo.gl/ibD4URe7LHMcNtPaA
 author.location = `/location`;
@@ -225,7 +225,7 @@ export const begaritola = `https://maps.app.goo.gl/Q3pP1HzDSEdKv1Zr8`,
     europe = `https://maps.app.goo.gl/qCo2TTNbzsi6x4rM9`,
     oceania = `https://maps.app.goo.gl/DjizYXiH4QhbKRTu7`;
 
-export const worldwide = `<a ${seoA()} aria-label="Asia" href="${asia}">Asia</a>, <a ${seoA()} aria-label="Africa" href="${africa}">Africa</a>, <a ${seoA()} aria-label="North America" href="${northAmerica}">North America</a>, <a ${seoA()} aria-label="South America" href="${southAmerica}">South America</a>, <a ${seoA()} aria-label="Europe" href="${europe}">Europe</a>, <a ${seoA()} aria-label="Oceania" href="${oceania}">Oceania</a>`;
+export const worldwide = `<a  aria-label="Asia" href="${asia}">Asia</a>, <a  aria-label="Africa" href="${africa}">Africa</a>, <a  aria-label="North America" href="${northAmerica}">North America</a>, <a  aria-label="South America" href="${southAmerica}">South America</a>, <a  aria-label="Europe" href="${europe}">Europe</a>, <a  aria-label="Oceania" href="${oceania}">Oceania</a>`;
 
 export const locationPrimary = `Jashore Khulna Bangladesh`,
     locationSecondary = `Dhaka Bangladesh & Worldwide`;
@@ -253,7 +253,12 @@ export const urlGithub = `https://github.com/hassanbiswas`,
     urlYoutube = `https://youtube.com/@hassanbiswas-github-io`,
     urlPinterest = `https://pinterest.com/hassanbiswas_github_io`,
     urlTiktok = `https://tiktok.com/@hassanbiswas.github.io`,
-    urlLinkedin = `https://linkedin.com/in/hassanbiswas-github-io`;
+    urlLinkedin = `https://linkedin.com/in/hassanbiswas-github-io`,
+    urlContribution = `https://maps.app.goo.gl/FXki2G9XHkEWFuc9A`,
+    urlDev = `https://github.dev/hassanbiswas/hassanbiswas.github.io`,
+    urlDocs = `https://drive.google.com/drive/folders/1UpXVQ4CNzZTXnyzrmjyu7DbGJ9kbSkIw`,
+    urlDrive = `/`,
+    urlFreefire = `https://ffshare.garena.com/?action=qrcode_add_friend&amp;region=BD&amp;lang=en&amp;uid=8083908360&amp;version=OB49`;
 
 // dribble, behance, etc.
 
@@ -351,7 +356,7 @@ const specializing = [
     ),
 ];
 
-export function ServicesPrimaryItem(name, price, description, star, image) {
+function ServicesPrimaryItem(name, price, description, star, image) {
     this.name = name;
     this.price = money(price);
     this.description = description;
@@ -362,7 +367,7 @@ export function ServicesPrimaryItem(name, price, description, star, image) {
         return image ?? `/assets/img/service/${index + 1}.jpg?v=${VERSION}`;
     };
 }
-const servicesPrimary = [
+export const servicesPrimary = [
     new ServicesPrimaryItem(
         `UI/UX design`,
         80,
@@ -455,7 +460,7 @@ export const socials = [
 // methods & functions
 // ###################
 
-const stripedCurrency = val => {
+export const stripedCurrency = val => {
     const str = String(val).trim();
     // Matches the integer portion between symbol/space and optional decimals (.00)
     const match = str.match(/(?:[^\d]|^)(\d{1,3}(?:[,\s]\d{3})*|\d+)(?=\.\d{2}|$)/);
@@ -464,7 +469,7 @@ const stripedCurrency = val => {
 };
 
 // Corrected function with default 't' value of 3m
-const timeout = (el, t = 3000) => {
+export const timeout = (el, t = 3000) => {
     if (!el) return; // Guard clause if element is missing
 
     // Outer delay before removing the 'show' class
@@ -542,75 +547,6 @@ beginning.`,
     ),
 ];
 
-// ------------------- Reusable Components ------------------
-export const componentProjectProgress = () => {
-    return `
-        <div class="flex a-start componentProjectProgress" style="gap: 1.6em; padding-inline: 1.6em;">
-
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${experience}</span>
-                        <span class="txt-tertiary">+</span>
-                    </b>
-                    <p class="txt-center">Experience</p>
-                </div>
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${successProjects}</span>
-                        <span class="txt-tertiary">+</span>
-                    </b>
-                    <a href="/#projects" class="p txt-center">Success projects</a>
-                </div>
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${coreWebVitals}</span>
-                        <span class="txt-tertiary">%</span>
-                    </b>
-                    <a ${seoA()} href="${urlCoreWebVitals}" class="p txt-center">Core web vitals</a>
-                </div>
-                <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
-                        <span class="txtStroke">${clientSatisfaction}</span>
-                        <span class="txt-tertiary">%</span>
-                    </b>
-                    <p class="txt-center">Client satisfaction</p>
-                </div>
-
-        </div>
-            `;
-};
-
-const componentSkipSection = () => {
-    const style = `
-        padding: .8em 1.6em;
-        border-radius: 100dvw;
-        cursor: pointer;
-        display: grid;
-        place-items: center;
-        border: 1px solid transparent;
-    `,
-        styleA = `
-        background: transparent;
-        color: var(--txt-primary);`,
-        styleB = `
-        aspect-ratio: 1;
-        background: --alpha(var(--brand-primary), .2);
-        color: var(--brand-primary);
-        font-weight: bold;
-    `;
-
-    return `
-        <div style="padding-block: 0em; overflow: clip;" class="row fade-in-top-containe">
-
-            <div style="gap: .5em;" class="flex  screenHeight items-center content-center">
-                <button onclick="scrollPrev()" class="scrollPrevBtn fade-in-to" aria-label="skip to previous" style="${style} ${styleA}">❮——</button>
-                <button onclick="scrollNext()" class="scrollNextBtn fade-in-to" aria-label="skip to next" style="${style} ${styleB}">❯</button>
-            </div>
-
-        </div>
-    `;
-};
-
 // Configuration for easy updates
 const devLanguages = [new List(`HTML`), new List(`CSS`), new List(`JavaScript`)];
 const devLibraries = [new List(`Bootstrap`), new List(`GSAP`)];
@@ -624,7 +560,7 @@ export function DevSkill(name, favicon, link = '#') {
     this.favicon = favicon;
     this.link = link;
 }
-const skills = [
+export const skills = [
     new DevSkill(`HTML`, `${faviconHtml}`),
     new DevSkill(`CSS`, `${faviconCss}`),
     new DevSkill(`JavaScript`, `${faviconJs}`),
@@ -635,7 +571,7 @@ export function DevTool(name, favicon, link = '#') {
     this.favixon = favicon;
     this.link = link;
 }
-const tools = [
+export const tools = [
     new DevTool(`VScode`, `${faviconVscode}`),
     new DevTool(`Bootstrap`, `${faviconBootstrap}`),
     new DevTool(`Figma`, `${faviconFigma}`),
@@ -644,38 +580,15 @@ const tools = [
     new DevTool(`GitHub`, `${faviconGithub}`),
 ];
 
-const brandLogo = () => {
-    let j = 0;
-    let totalLogo = 10;
-    const brandLogoInterval = setInterval(() => {
-        j++;
-        console.log(j);
-        if (j === 10) clearInterval(brandLogoInterval);
-    }, 500);
-
-    const inertSpan = `<span class="logo-wrapper brand-logo-wrapper" inert aria-hidden="true">${author.logoOutlineSvg}</span>`;
-
+// Configuration for easy updates
+export const scrollerGroup = (style = '', values = '', childVal = '') => {
     return `
-        <div style="padding: 0em; " class="brand-logo-container">
-            <div style="padding: 0em; aspect-ratio: 1;" class="brand-wrapper-container brand-logo-wrapper-container stacking-container ">
-                <span class="logo-wrapper brand-logo-wrapper">${author.logoOutlineSvg}</span>
-                ${inertSpan.repeat(totalLogo - 1)}
-            </div>
-        </div>
-    `;
-};
-
-const HeroSection = () => {
-    // Configuration for easy updates
-    const scrollerGroup = (style = '', values = '', childVal = '') => {
-        return `
                 <div ${values} class="scrollerGroup flex nowrap" style="${style};">
 
                 ${skills
                     .map(
                         skill => `
-                        <a ${seoA()} href="${skill.link}" aria-label="${skill.name}" ${childVal}>
-                            <!-- <img ${seoImg(skill.favicon, skill.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/> -->
+                        <a  href="${skill.link}" aria-label="${skill.name}" ${childVal}>
                             ${skill.name}
                         </a>
                     `
@@ -685,8 +598,7 @@ const HeroSection = () => {
                 ${tools
                     .map(
                         tool => `
-                        <a ${seoA()} href="${tool.link}" aria-label="${tool.name}" ${childVal}>
-                            <!-- <img ${seoImg(tool.favicon, tool.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/> -->
+                        <a  href="${tool.link}" aria-label="${tool.name}" ${childVal}>
                             ${tool.name}
                         </a>
                     `
@@ -695,52 +607,7 @@ const HeroSection = () => {
 
                 </div>
             `;
-    };
-
-    const color = `var(--txt-primary)`,
-        fontSize = `--font(1.2rem, 1.8rem)`,
-        text = section.heading;
 };
-
-const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
-const ytLogoSize = `=s48-c-k-c0x00ffffff-no-rj`;
-
-function YouTuber(name, photo, link = `${urlYoutube}/featured`) {
-    this.name = name;
-    this.photo = photo;
-    this.link = link;
-}
-const youtubers = [
-    new YouTuber(
-        `Kevin Powell`,
-        `gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak`
-    ),
-    new YouTuber(
-        `DesignCourse`,
-        `ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL`
-    ),
-    new YouTuber(
-        `Flux Academy`,
-        `D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg`
-    ),
-    new YouTuber(`Web Dev Simplified`, `ytc/AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw`),
-    new YouTuber(
-        `Codex Community`,
-        `ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ`
-    ),
-    new YouTuber(
-        `Jesse Showalter`,
-        `cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg`
-    ),
-    new YouTuber(
-        `Olivier Larose`,
-        `rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw`
-    ),
-    new YouTuber(
-        `Arnau Ros`,
-        `cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw`
-    ),
-];
 
 // Story data array for easy updates
 function StoriesItem(date, title, desc, link, linkText, ariaLabel, image) {
@@ -753,19 +620,11 @@ function StoriesItem(date, title, desc, link, linkText, ariaLabel, image) {
     this.image = image ?? `/assets/img/story/${this.date}/${random(1, 4)}.jpg?v=${VERSION}`;
 }
 
-const stories = [
-    new StoriesItem(
-        '2001',
-        'Roots & Passion for Technology',
-        `I born with core values of discipline, continuous learning, and creative problem-solving.`,
-        `${author.location}`,
-        'View Place',
-        `map`
-    ),
+export const stories = [
     new StoriesItem(
         '2019',
         'Secondary School Certificate',
-        `I got SSC of Vocational Education Board, Dhaka on top of Electrical Engineering Fundamentals from <b>Jashore Technical School &amp; College</b>.`,
+        `I got SSC of Vocational Education Board, Dhaka on top of Electrical Engineering Fundamentals from Jashore Technical School & College.`,
         'https://maps.app.goo.gl/Gh1SmtsbHAHBxtCfA',
         'View College',
         `map`
@@ -803,100 +662,7 @@ const stories = [
         `project`,
         `/assets/img/story/2024/${random(1, 4)}.jpg?v=${VERSION}`
     ),
-    new StoriesItem(
-        `${thisYear}`,
-        'Junior Front-End Developer',
-        'Actively seeking roles where I can apply my focus on performance and SEO-friendly architecture.',
-        `/resume`,
-        'Download Resume',
-        `resume`,
-        `/assets/img/story/2025/${random(1, 4)}.jpg?v=${VERSION}`
-    ),
 ];
-
-const svgMarginBlock = 'auto auto'; // -30px auto
-
-// HTML
-const clipedSection = (
-    value = 1,
-    direction = null,
-    wrap = null,
-    style = null,
-    attribute = null,
-    clipPath = null
-) => {
-    return `
-<div class="servicesCarousel container-xl" ${attribute} style="--direction: ${direction}; --value: ${value}; --wrap: ${wrap}; position: absolute; inset: 0; user-select: non; --clip-pat: polygon(${clipPath}); clip-path: var(--clip-path); ${style}">
-
-    <div class="grid  fade-in-top-containe items-center content-center ">
-        <div class="row screenHeight content-center itemCard" style="gap: .8em;">
-
-            <p class="h6 fade-in-to">
-            Services <span class="txt-tertiary">by ${author.name}</span>
-            </p>
-            <h2 data-animate="scaleI" ${seoH(`services`)} class="">
-            Services available in <br> ${locationSecondary}.
-            </h2>
-            <p class="splitWord">High-performance static web development starting from affordable rates (<b>${money(random(75, 80))}</b> – <b>${money(300)}+</b>). Clear pricing, zero hidden fees, and guaranteed <b>${clientSatisfaction}%</b> satisfaction.</p>
-
-        </div>
-    </div>
-
-
-    ${servicesPrimary
-        .map(
-            (service, index) => `
-    <div id="service-${index + 1}_${direction}" class="service-${index + 1} grid  fade-in-top-containe screenHeight items-center content-center  serviceCard">
-        <div class="stacking-container itemCard screenHeight" style="gap: .8em; position: relative;">
-
-            <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" style="overflow: visible; user-select: none;" >
-                ${txtStroke(stripedCurrency(service.price), 'var(--txt-primary)', '2.8')}
-            </svg>
-
-            <div class="row even-row items-center content-center" style="gap: 0.8em;">
-                <div class="empty "></div>
-                <div class="empty "></div>
-
-                <span data-animate="clipOu" class="service-image"><img ${seoImg(
-                    `${service.getImage(index)}`,
-                    `Service Image`,
-                    `100%`
-                )} style="height: 100%;"/></span>
-
-                <div class="flex items-center content-center " style="flex-direction: column; gap: .8em;">
-                    <h3 class="h5 txt-center splitText">${service.name}</h3>
-                    <h4 class="txt-center">
-                        <span class="p txt-tertiary splitWord">Starting from</span>
-                        <b>${service.price}</b>
-                    </h4>
-                    <b class="txt-center txt-primary">${service.star} • 4.9/5</b>
-                    <p class="txt-center splitWord">${service.description}</p>
-
-                    <ul class="fle items-center content-center d-none" style="column-gap: 2.4em;">
-                        <li class="done">Responsive Layout</li>
-                        <li class="done">Pixel-perfect accuracy</li>
-                        <li class="done">Lighthouse score ${coreWebVitals}+ (<b class="txt-primary">Pro</b>)</li>
-                        <li class="done">Modern dark/light theme</li>
-                        <li class="done">Multi-page architecture (<b class="txt-primary">Pro</b>)</li>
-                    </ul>
-
-                </div>
-            </div>
-
-
-        </div>
-
-    </div>
-    `
-        )
-        .join('')}
-
-        ${componentSkipSection()}
-
-
-</div>
-        `;
-};
 
 // Project data array for easy updates
 function ProjectsItem(date, category, title, link, image) {
@@ -911,7 +677,7 @@ function ProjectsItem(date, category, title, link, image) {
     };
 }
 
-const projects = [
+export const projects = [
     new ProjectsItem(
         `01-Jan-${thisYear}`,
         'Portfolio website',
@@ -946,23 +712,23 @@ function FaqsItem(question, answer) {
 export const faqs = [
     new FaqsItem(
         `What do I do?`,
-        `I usually <b> design </b> &amp; <b>develop</b> website<sup class="txt-tertiary" style="">Front-End</sup> using latest <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
+        `I usually design  & develop website<sup >Front-End</sup> using latest HTML, CSS, JS, TailwindCSS & reactJS.`
     ),
     new FaqsItem(
         `What is my design process?`,
-        `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b>/<b>Webflow</b> for high-fidelity development to bridge the gap between design and logic.`
+        `I use Figma for initial wireframing, followed by NextJS for high-fidelity development to bridge the gap between design and logic.`
     ),
     new FaqsItem(
         `Do I provide components?`,
-        `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional <b>UI components</b>. Also providing CSS functions.`
+        `Yes, I specialize in latest JavaScript to create custom logic, API integrations, and reactJS UI components. Also providing CSS functions.`
     ),
     new FaqsItem(
         `What is the price range?`,
-        `Not to worry! Price range will be based on budget &amp; then the website's difficulty.`
+        `Not to worry! Price range will be based on budget & then the website's difficulty.`
     ),
     new FaqsItem(
-        `Am I available for projects or <b>hire</b>?`,
-        `Yes, you can hire me throw discussion on <a ${seoA()} href="${urlMessenger}"><b>Messenger</b></a> <sup class="txt-tertiary"> 24/7</sup> or look at <a ${seoA()} class="txt-primary" href="/#contact"><b>contact</b></a> method.
+        `Am I available for projects or hire?`,
+        `Yes, you can hire me throw discussion on <a  href="${urlMessenger}">Messenger</a> <sup class="txt-tertiary"> 24/7</sup> or look at <a  class="txt-primary" href="/#contact">contact</a> method.
 `
     ),
 ];
@@ -1035,7 +801,7 @@ function LegalsItem(name, link) {
 export const legals = [
     new LegalsItem(`Privacy Policy`, `/privacy-policy`),
     new LegalsItem(`Terms of Service`, `/terms-of-service`),
-    new LegalsItem(`Refund &amp; Cancelation Policy`, `/refund_and_cancelation-policy`),
+    new LegalsItem(`Refund & Cancelation Policy`, `/refund_and_cancelation-policy`),
 ];
 
 export const navigations = [
