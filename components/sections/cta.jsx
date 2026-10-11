@@ -1,4 +1,4 @@
-import Reviews from '@/components/ui/reviews';
+import Reviews from '../ui/reviews';
 import {
     VERSION,
     faviconAuthor,
@@ -11,7 +11,7 @@ import {
     author,
     faviconMessenger,
     urlMobile,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 const Cta = () => {
     const toHtmlProps = string =>

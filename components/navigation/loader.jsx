@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { VERSION, greetings } from '@/lib/utils';
+import { VERSION, greetings } from '../../lib/utils';
 
 export default function Loader() {
     const [greeting, setGreeting] = useState(greetings[0] || '');

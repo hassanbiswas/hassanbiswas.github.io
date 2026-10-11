@@ -11,7 +11,7 @@ import {
     faviconMessenger,
     urlMobile,
     faqs,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 const Faqs = () => {
     const toHtmlProps = string =>

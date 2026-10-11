@@ -1,5 +1,5 @@
-import BrandLogo from '@/components/ui/brandLogo';
-import Reviews from '@/components/ui/reviews';
+import BrandLogo from '../ui/brandLogo';
+import Reviews from '../ui/reviews';
 import {
     VERSION,
     author,
@@ -9,7 +9,7 @@ import {
     txtFill,
     txtStroke,
     scrollerGroup,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 export default function Hero() {
     const svgMarginBlock = 'auto auto'; // -30px auto

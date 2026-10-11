@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { VERSION } from '@/lib/utils';
+import { VERSION } from '../../lib/utils';
 
 const themeButton = () => {
     const [theme, setTheme] = useState(() => {

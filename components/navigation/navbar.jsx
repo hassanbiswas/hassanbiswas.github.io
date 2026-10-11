@@ -6,7 +6,7 @@ import {
     navPrimary,
     seoImg,
     navigations,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 export default function Navbar() {
     const toHtmlProps = string =>

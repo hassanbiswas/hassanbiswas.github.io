@@ -14,7 +14,7 @@ import {
     faviconMap,
     preferedLanguages,
     linksData,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 export default function Contact() {
     return (

@@ -6,7 +6,7 @@ import {
     urlReviews,
     seoA,
     author,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 const Reviews = () => {
     return (

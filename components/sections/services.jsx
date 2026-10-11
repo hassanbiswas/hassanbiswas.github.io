@@ -14,7 +14,7 @@ import {
     txtFill,
     txtStroke,
     componentSkipSection,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 export default function Services() {
     return (

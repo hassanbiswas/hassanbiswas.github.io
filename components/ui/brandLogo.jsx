@@ -1,4 +1,4 @@
-import { author } from '@/lib/utils';
+import { author } from '../../lib/utils';
 
 const BrandLogo = () => {
     const totalLogo = 10;

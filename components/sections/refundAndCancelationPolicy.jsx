@@ -1,4 +1,4 @@
-import { VERSION, author } from '@/lib/utils';
+import { VERSION, author } from '../../lib/utils';
 
 const RefundAndCancelationPolicy = () => {
     return (

@@ -1,11 +1,11 @@
-import '@/app/globals.css';
-import { VERSION, author } from '@/lib/utils';
-import Loader from '@/components/navigation/loader';
-import Navbar from '@/components/navigation/navbar';
-import Header from '@/components/navigation/header';
-import Cta from '@/components/sections/cta';
-import Footer from '@/components/navigation/footer';
-import Gtag from '@/components/ui/gtag';
+import './globals.css';
+import { VERSION, author } from '../lib/utils';
+import Loader from '../components/navigation/loader';
+import Navbar from '../components/navigation/navbar';
+import Header from '../components/navigation/header';
+import Cta from '../components/sections/cta';
+import Footer from '../components/navigation/footer';
+import Gtag from '../components/ui/gtag';
 
 export const metadata = {
     title: author.title,

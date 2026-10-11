@@ -9,7 +9,7 @@ import {
     txtFill,
     txtStroke,
     componentSkipSection,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 export default function About() {
     const svgMarginBlock = 'auto auto'; // -30px auto

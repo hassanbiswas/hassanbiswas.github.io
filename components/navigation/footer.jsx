@@ -22,8 +22,8 @@ import {
     methods,
     socials,
     legals,
-} from '@/lib/utils';
-import ThemeButton from '@/components/ui/themeButton';
+} from '../../lib/utils';
+import ThemeButton from '../ui/themeButton';
 
 export default function Footer() {
     const toHtmlProps = string =>

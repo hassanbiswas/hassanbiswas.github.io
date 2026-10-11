@@ -5,7 +5,7 @@ import {
     coreWebVitals,
     urlCoreWebVitals,
     clientSatisfaction,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 const ProjectsProgress = () => {
     return (

@@ -1,4 +1,12 @@
-import { VERSION, author, seoA, header, urlMessenger, jashore, locationPrimary } from '@/lib/utils';
+import {
+    VERSION,
+    author,
+    seoA,
+    header,
+    urlMessenger,
+    jashore,
+    locationPrimary,
+} from '../../lib/utils';
 
 export default function Header() {
     const toHtmlProps = string =>

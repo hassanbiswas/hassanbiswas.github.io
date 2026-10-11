@@ -1,5 +1,5 @@
-import Reviews from '@/components/ui/reviews';
-import ProjectsProgress from '@/components/ui/projectsProgress';
+import Reviews from '../ui/reviews';
+import ProjectsProgress from '../ui/projectsProgress';
 import {
     VERSION,
     author,
@@ -7,7 +7,7 @@ import {
     locationPrimary,
     urlReviews,
     personQuotes,
-} from '@/lib/utils';
+} from '../../lib/utils';
 
 export default function Testimonials() {
     return (
