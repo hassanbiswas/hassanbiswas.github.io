@@ -1,4 +1,4 @@
-import Bkash from '@/components/sections/bkash';
+import Bkash from '../../components/sections/bkash';
 
 export default function BkashPage() {
     return <Bkash />;

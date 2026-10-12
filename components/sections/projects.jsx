@@ -18,7 +18,7 @@ export default function Projects() {
             className="flex flex-col items-center justify-center gap-6 px-6 bg-primary"
             data-version={VERSION}
         >
-            <div className="flex flex-col items-center  gap-6 w-full max-w-[640px] ">
+            <div className="flex flex-col items-center  gap-6 w-full max-w-[768px] ">
                 <div className="flex flex-col gap-2">
                     <p className="fade-in-to txt-tertiary">
                         Selected <span className="txt-secondary">Projects</span>{' '}
@@ -65,9 +65,7 @@ export default function Projects() {
                                 <span className="txt-tertiary">↗</span>
                             </h3>
 
-                            <span inert className="project-image" style={{ zIndex: -20 }}>
-                                <img src={project.getImage(index)} alt="project image" />
-                            </span>
+                            <span inert className="project-image" style={{ zIndex: -20 }}></span>
 
                             <i className="p fade-in-to" style={{ zIndex: 1 }}>
                                 {project.date}

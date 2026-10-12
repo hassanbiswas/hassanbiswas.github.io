@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-export default function MetaRedirect({ url = '/', delay = 6 }) {
+export default function MetaRedirect({ url = '/', delay = 1 }) {
     useEffect(() => {
         const meta = document.createElement('meta');
         meta.httpEquiv = 'refresh';

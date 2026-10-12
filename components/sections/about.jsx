@@ -20,7 +20,7 @@ export default function About() {
             className="flex flex-col items-center justify-center gap-8 px-6 bg-primary  "
             data-version={VERSION}
         >
-            <div className="flex flex-col items-center gap-6 w-full max-w-[768px] ">
+            <div className="flex flex-col items-center gap-6 w-full max-w-[1080px] ">
                 <p data-animate="scaleIn" className="h6 text-left w-full">
                     <span className="txt-tertiary">{author.name}</span>{' '}
                     <i>2001 - {new Date().getFullYear()}</i>
@@ -49,7 +49,7 @@ export default function About() {
                     key={index}
                     data-pin="true"
                     id={'story-' + (index + 1)}
-                    className="flex flex-col items-center gap-6 w-full max-w-[768px] "
+                    className="flex flex-col items-center gap-6 w-full max-w-[1080px] "
                     style={{ paddingBlock: '0em', overflow: 'clip', position: 'relative' }}
                 >
                     <span
@@ -62,13 +62,7 @@ export default function About() {
                             position: 'absolute',
                             inset: 0,
                         }}
-                    >
-                        <img
-                            src={story.image}
-                            alt="Story Image"
-                            style={{ bobjectFit: 'cover', height: '100%' }}
-                        />
-                    </span>
+                    ></span>
 
                     <span
                         inert
@@ -82,13 +76,7 @@ export default function About() {
                             inset: 0,
                             filter: 'brightness(.7)',
                         }}
-                    >
-                        <img
-                            src={story.image}
-                            alt="Story Image"
-                            style={{ objectFit: 'cover', height: '100%' }}
-                        />
-                    </span>
+                    ></span>
 
                     <div className="toCenterContents ">
                         <div className="grid md:grid-cols-2 gap-4 py-0">

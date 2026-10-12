@@ -57,13 +57,13 @@ export default function Footer() {
             role="contentinfo"
             data-version={VERSION}
         >
-            <div className=" flex items-center justify-center gap-6" style={{ display: 'non' }}>
+            <div className=" flex items-center justify-center gap-6" style={{ display: 'none' }}>
                 <span className="txt-tertiary ">Choose Theme</span>
                 <ThemeButton />
             </div>
 
-            <div className="w-full max-w-[1024px] flex flex-wrap gap-6">
-                <div className="max-w-[375px] flex flex-col gap-4">
+            <div className="w-full max-w-[1080px] flex flex-wrap gap-6">
+                <div className="max-w-[512px] flex flex-col gap-4">
                     <h2 {...seoHProps} className="p txt-tertiary text-2xl">
                         I craft marketing strategies that elevate brands,{' '}
                         <span className="txt-primary">
@@ -203,7 +203,7 @@ export default function Footer() {
                 </nav>
             </div>
 
-            <nav className="w-full max-w-[1024px] flex flex-col items-center gap-4">
+            <nav className="w-full max-w-[1080px] flex flex-col items-center gap-4">
                 <h4 className="p txt-tertiary">Legals</h4>
                 <div className="flex flex-wrap items-start justify-center legal-links gap-4 fluidHovere">
                     {legals.map((legal, index) => (
@@ -245,7 +245,7 @@ export default function Footer() {
             </div>
 
             <div
-                className="w-full max-w-[1024px] flex txt-primary flex-col gap-6 pt-8 mask marquee_outer"
+                className="w-full max-w-[1080px] flex txt-primary flex-col gap-6 pt-8 mask marquee_outer"
                 id="footer-marquee"
             >
                 <div className="svg-wrapper marquee_inner">
@@ -264,7 +264,7 @@ export default function Footer() {
                                 stroke: 'currentColor',
                                 strokeWidth: 0.5,
                                 fill: 'currentColor',
-                                fontSize: 'calc(var(--p) * 2.8)',
+                                fontSize: 'calc(1em * 2.8)',
                                 fontWeight: 800,
                                 strokeDasharray: 100,
                                 strokeDashoffset: 0,

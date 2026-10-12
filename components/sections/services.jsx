@@ -24,7 +24,7 @@ export default function Services() {
             data-version={VERSION}
         >
             <div
-                className="flex flex-col fade-in-top-containe items-center justify-center  gap-6 w-full max-w-[640px] "
+                className="flex flex-col fade-in-top-containe items-center justify-center  gap-6 w-full max-w-[768px] "
                 style={{ gap: '.8em' }}
             >
                 <p className="h6 fade-in-to">
@@ -40,7 +40,7 @@ export default function Services() {
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-6 w-full max-w-[768px] fluidHovere">
+            <div className="grid md:grid-cols-2 items-center justify-center gap-6 w-full max-w-[768px] fluidHovere">
                 {servicesPrimary.map((service, index) => (
                     <div
                         key={index}

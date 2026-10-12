@@ -1,4 +1,4 @@
-import { VERSION, author } from '@/lib/utils';
+import { VERSION, author } from '../../lib/utils';
 
 const Bkash = () => {
     return (
@@ -20,7 +20,7 @@ const Bkash = () => {
                 </p>
 
                 <div className="">
-                    <img src={'/public/01602873384.png.jpg'} alt="bKash QR code" />
+                    <img src={'../../public/01602873384.png.jpg'} alt="bKash QR code" />
                 </div>
 
                 <div>

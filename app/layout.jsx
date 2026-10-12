@@ -303,7 +303,7 @@ export default function RootLayout({ children }) {
                 <meta content="website" property="og:type" />
                 <meta content={author.siteUrl} property="og:url" />
                 <meta content={author.ogImage} property="og:image" />
-                <link href="/manifest.json" rel="manifest" />
+                {/* <link href="/manifest.json" rel="manifest" /> */}
 
                 <meta
                     content="Hassan Biswas, Home, UI/UX, Front-End, Web Design, Bangladesh, ReactJs, NextJs, tailwindCSS"

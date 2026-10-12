@@ -27,7 +27,7 @@ export default function Header() {
             role="banner"
             data-version={VERSION}
         >
-            <nav className="w-full max-w-3xl flex flex-nowrap items-center justify-between gap-4 py-2">
+            <nav className="w-full max-w-[1080px] flex flex-nowrap items-center justify-between gap-4 py-2">
                 <a {...seoAProps} href={jashore} aria-label="Primary service location">
                     {locationPrimary}
                 </a>
