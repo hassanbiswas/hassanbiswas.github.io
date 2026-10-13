@@ -36,7 +36,7 @@ jobs:
           try {
             // Updated Versioning Logic: YY.MM.DD format
             const now = new Date();
-            const VERSION = now.toLocaleDateString('en-GB').split('/').reverse().join('.');
+            const VERSION = now.toLocaleDateString('en-GB').split('/').reverse().slice(0, 2).concat('01').join('.');
             const VERSION_DATE = now.toISOString().split('T')[0];
 
             const BASE_URL = 'https://hassanbiswas.github.io';

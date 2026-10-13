@@ -1,9 +1,9 @@
 name: Refresh Release Assets
 
 on:
-  schedule:
+  # schedule:
     # Monthly Schedule: Runs at 00:00 on day 1 of every month
-    - cron: '0 0 1 * *'
+    # - cron: '0 0 1 * *'
   #push:
     #branches: [ main ]
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
       - name: Set Version and Metadata
         run: |
           # Use your preferred YY.MM.DD format
-          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "VERSION=$(date +'%y.%m.01')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=Release - Stable Build" >> $GITHUB_ENV
 
       - name: Process Assets and Release
@@ -50,7 +50,7 @@ jobs:
           if [ -d "app/assets" ]; then
             SUB_DIRS=$(ls -d app/assets/*/ 2>/dev/null | wc -l)
             FILES=$(ls -p app/assets | grep -v / | wc -l)
-            
+
             if [ "$SUB_DIRS" -eq 1 ] && [ "$FILES" -eq 0 ]; then
               WRAPPER=$(ls -d app/assets/*/ | head -n 1)
               echo "Flattening: Moving contents from $WRAPPER to app/assets/"
@@ -71,7 +71,7 @@ jobs:
           # 5. Create Release: Title "V∞" with automated notes
           # Logic Preservation: Uses app/README.md as primary source for notes
           NOTES_CONTENT=$(cat app/README.md 2>/dev/null || echo "Monthly update")
-          
+
           gh release create ∞ \
             --title "V∞" \
             --notes "Release Version: ${{ env.VERSION }} | ${{ env.COMMITTEE_MSG }} | Notes: $NOTES_CONTENT" \

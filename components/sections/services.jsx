@@ -30,7 +30,7 @@ export default function Services() {
                 <p className="h6 fade-in-to">
                     Services <span className="txt-tertiary">by {author.name}</span>
                 </p>
-                <h2 data-animate="scaleI" className="text-4xl">
+                <h2 data-animate="scaleI" className="sm:text-4xl text-3xl">
                     Services available in <br /> {locationSecondary}.
                 </h2>
                 <p className="text-center splitWord">
@@ -56,7 +56,7 @@ export default function Services() {
                             <b className="text-center txt-primary">{service.star} • 4.9/5</b>
                         </div>
                         <p className="text-center splitWord">{service.description}</p>
-                        <ul className="flex flex-col gap-0.5 text-left d-non list-disc">
+                        <ul className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-sm text-left list-none">
                             <li className="done">Responsive Layout</li>
                             <li className="done">Pixel-perfect accuracy</li>
                             <li className="done">Modern dark/light theme</li>

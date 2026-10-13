@@ -14,14 +14,14 @@ const ProjectsProgress = () => {
             data-version={VERSION}
         >
             <div className="flex flex-col items-center justify-center" style={{ gap: '.4em' }}>
-                <b className="h1">
+                <b className="h1 text-5xl">
                     <span className="txtStroke">{experience}</span>
                     <span className="txt-tertiary">+</span>
                 </b>
                 <p className="txt-center">Experience</p>
             </div>
             <div className="flex flex-col items-center justify-center" style={{ gap: '.4em' }}>
-                <b className="h1 ">
+                <b className="h1 text-5xl">
                     <span className="txtStroke">{successProjects}</span>
                     <span className="txt-tertiary">+</span>
                 </b>
@@ -30,7 +30,7 @@ const ProjectsProgress = () => {
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center" style={{ gap: '.4em' }}>
-                <b className="h1 ">
+                <b className="h1 text-5xl">
                     <span className="txtStroke">{coreWebVitals}</span>
                     <span className="txt-tertiary">%</span>
                 </b>
@@ -39,7 +39,7 @@ const ProjectsProgress = () => {
                 </a>
             </div>
             <div className="flex flex-col items-center justify-center" style={{ gap: '.4em' }}>
-                <b className="h1 ">
+                <b className="h1 text-5xl">
                     <span className="txtStroke">{clientSatisfaction}</span>
                     <span className="txt-tertiary">%</span>
                 </b>

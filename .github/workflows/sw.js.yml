@@ -18,7 +18,7 @@ jobs:
       - name: Generate sw.js with Dynamic Version
         run: |
           # Generate version tag for the commit message
-          VERSION_TAG=$(date +'%y.%m.%d')
+          VERSION_TAG=$(date +'%y.%m.01')
 
           cat <<EOF > sw.js
           /**

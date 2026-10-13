@@ -64,7 +64,7 @@ export default function Footer() {
 
             <div className="w-full max-w-[1080px] flex flex-wrap gap-6">
                 <div className="max-w-[512px] flex flex-col gap-4">
-                    <h2 {...seoHProps} className="p txt-tertiary text-2xl">
+                    <h2 {...seoHProps} className="p txt-tertiary text-3xl">
                         I craft marketing strategies that elevate brands,{' '}
                         <span className="txt-primary">
                             <a {...seoAProps} aria-label="Business Profile" href={begaritola}>
@@ -218,7 +218,7 @@ export default function Footer() {
 
             <div className="w-full max-w-[640px] flex flex-nowrap gap-3 py-6 input-group items-center justify-center">
                 <input
-                    className="btn pill text-center py-3"
+                    className="btn pill text-center text-sm py-3"
                     style={{
                         border: '1px solid var(--brand-primary)',
                         color: 'var(--brand-primary)',
@@ -260,11 +260,12 @@ export default function Footer() {
                             x="0%"
                             y="50%"
                             textAnchor="left"
+                            className="text-5xl"
                             style={{
                                 stroke: 'currentColor',
                                 strokeWidth: 0.5,
                                 fill: 'currentColor',
-                                fontSize: 'calc(1em * 2.8)',
+                                // fontSize: 'calc(1em * 2.8)',
                                 fontWeight: 800,
                                 strokeDasharray: 100,
                                 strokeDashoffset: 0,

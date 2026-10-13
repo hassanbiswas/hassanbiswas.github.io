@@ -16,9 +16,12 @@ export default function Testimonials() {
             className="flex flex-col items-center justify-center gap-6 px-6 bg-primary"
             data-version={VERSION}
         >
-            <div className="flex flex-col items-center justify-center gap-6 w-full max-w-[640px] text-center">
+            <div className="flex flex-col items-center justify-center gap-4 w-full max-w-[640px] text-center">
                 <p className="text-center">Testimonials</p>
-                <h2 data-animate="scaleIn" className="text-center text-revel-onscrol splitWord">
+                <h2
+                    data-animate="scaleIn"
+                    className="text-center text-revel-onscrol splitWord sm:text-4xl text-3xl"
+                >
                     <span className="txt-tertiary splitWord">Real People,</span> <br />
                     Real Results Feedback
                 </h2>
@@ -74,10 +77,7 @@ export default function Testimonials() {
                                         className="photo"
                                     />
 
-                                    <div
-                                        className="flex flex-col text-left"
-                                        style={{ marginInlineEnd: '1em', gap: '.4em' }}
-                                    >
+                                    <div className="flex flex-col text-left mr-1.5">
                                         <a href={person?.link} className="link">
                                             <b className="name txt-primary splitWord">
                                                 {person?.name}

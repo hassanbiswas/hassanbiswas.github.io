@@ -28,7 +28,7 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "VERSION=$(date +'%y.%m.01')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=Release - Stable Build" >> $GITHUB_ENV
 
       - name: Create manifest.json

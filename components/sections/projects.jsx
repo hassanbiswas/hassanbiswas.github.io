@@ -24,27 +24,16 @@ export default function Projects() {
                         Selected <span className="txt-secondary">Projects</span>{' '}
                         <i>2023 - {new Date().getFullYear()}</i>
                     </p>
-                    <div>
-                        <h2
-                            data-animate="scaleIn"
-                            className="h2 splitWord text-3xl"
-                            style={{ display: 'inline' }}
-                        >
-                            I am providing the best value at a reasonable price with a focus on
-                            performance and SEO-friendly architecture.
-                        </h2>
-                        <p
-                            data-animate="scaleIn"
-                            className="h2 txt-tertiary text-3xl"
-                            style={{ fontWeight: 'bold', display: 'inline' }}
-                        >
-                            {' '}
-                            <span className="text-revel-onscrol">
-                                With {experience}+ years of experience, I'm Designing & developing
-                                websites in {locationSecondary}.
-                            </span>
-                        </p>
-                    </div>
+                    <h2 data-animate="scaleIn" className="h2 splitWord sm:text-3xl text-2xl">
+                        I am providing the best value at a reasonable price with a focus on
+                        performance and SEO-friendly architecture.
+                    </h2>
+                    <p data-animate="scaleIn" style={{ display: 'inline' }}>
+                        <span className="text-revel-onscrol">
+                            With {experience}+ years of experience, I'm Designing & developing
+                            websites in {locationSecondary}.
+                        </span>
+                    </p>
                 </div>
 
                 <div className="w-full flex flex-col items-stretch justify-stretch gap-0 projects-list screenHeight fluidHovere">

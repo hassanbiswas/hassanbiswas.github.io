@@ -43,20 +43,20 @@ const Cta = () => {
             data-version={VERSION}
         >
             <div
-                className="w-full max-w-[640px] bg-primary p-6 flex flex-col relative rounded-4xl gap-6"
+                className="w-full max-w-[640px] bg-primary p-6 flex flex-col relative rounded-4xl gap-4"
                 style={{
                     border: '1px solid var(--bg-secondary)',
                 }}
             >
                 <span inert className="dots"></span>
 
-                <h2 {...seoHProps} data-animate="scaleIn" className="h1 text-4xl">
+                <h2 {...seoHProps} data-animate="scaleIn" className="h1 sm:text-4xl text-3xl">
                     <span className="splitWord">Have project? Need website</span>{' '}
                     <span className="txt-tertiary splitWord">or</span>{' '}
                     <span className="splitWord">looking for Developer? I'm here!</span>
                 </h2>
 
-                <div className="flex items-center gap-6">
+                <div className="flex flex-wrap items-center gap-4">
                     <Reviews />
                     <a {...seoAProps} href={urlMobile} className="btn btn-primary splitWord">
                         Make a Call

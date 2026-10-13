@@ -32,7 +32,7 @@ jobs:
       - name: Set Version Logic
         run: |
           # Using your preferred YY.MM.DD format
-          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "VERSION=$(date +'%y.%m.01')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=Release - Stable Build" >> $GITHUB_ENV
 
       - name: Sync Version in Manifest and Service Worker
@@ -40,7 +40,7 @@ jobs:
           # Update version and version_name in manifest.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" manifest.json
           sed -i "s/\"version_name\": \".*\"/\"version_name\": \"$VERSION\"/" manifest.json
-          
+
           # Update the VERSION constant in sw.js for cache-busting
           # Matches: const VERSION = '...'; or const VERSION = "...";
           sed -i "s/const VERSION = .*;/const VERSION = '$VERSION';/" sw.js
@@ -56,9 +56,9 @@ jobs:
         run: |
           git config --global user.name "hassanbiswas"
           git config --global user.email "hassanbiswas.github.io@gmail.com"
-          
+
           git add manifest.json sw.js
-          
+
           if git diff --staged --quiet; then
             echo "No version changes to commit."
           else
@@ -66,4 +66,3 @@ jobs:
             # Using the generated app token for the push
             git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git
           fi
-          

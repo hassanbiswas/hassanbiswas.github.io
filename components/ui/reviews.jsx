@@ -30,7 +30,7 @@ const Reviews = () => {
                     {totalReviews - personQuotes?.length}+
                 </li>
             </ul>
-            <div className="flex flex-col items-start gap-2 text-left ">
+            <div className="flex flex-col items-start gap-1 text-left ">
                 <b className="txt-primary">★★★★★ • 4.9/5</b>
                 <p>
                     {successProjects}+{' '}

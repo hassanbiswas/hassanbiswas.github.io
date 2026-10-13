@@ -26,19 +26,12 @@ export default function Hero() {
             <BrandLogo />
 
             <div className="flex flex-col items-center justify-center gap-6 w-full max-w-[768px] text-items text-center gradient-mas">
-                <span
-                    style={{ padding: '.4em .8em', gap: '.4em' }}
-                    className="flex badge bg-secondary pill rounded-full items-center"
-                >
-                    <i
-                        className="pill rounded-full"
-                        style={{ background: '#14db14', padding: '.4em' }}
-                    ></i>{' '}
-                    Available for projects
+                <span className="flex bg-secondary py-1.5 px-2.5 gap-1 text-sm rounded-full items-center justify-center">
+                    <i className="bg-green-400 p-1.5 rounded-full"></i> Available for projects
                 </span>
                 <h1
                     data-animate="scaleI"
-                    className="h1 txt-center splitWord text-5xl"
+                    className="h1 txt-center splitWord sm:text-5xl text-4xl"
                     id="brand-titl"
                 >
                     Crafting digital experiences that inspire, <br />
@@ -60,17 +53,11 @@ export default function Hero() {
                     </a>
                 </div>
                 {Reviews()}
-                {
-                    <div className="scrollerWrappe">
-                        <div
-                            data-visible
-                            className="infiniteScrolle flex nowrap"
-                            style={{ paddingBlock: '.8em', gap: 0 }}
-                        >
-                            HTML CSS JavaScript Tailwind React NextJS VScode GitHub ...
-                        </div>
-                    </div>
-                }
+                <ul className="flex flex-wrap items-center justify-center gap-2 text-sm">
+                    <li>HTML</li> <li>CSS</li> <li>JavaScript</li>
+                    <li>TailwindCSS</li> <li>ReactJS</li> <li>NextJS</li>
+                    <li>VScode</li> <li>GitHub</li> <li>Figma</li>
+                </ul>
             </div>
         </section>
     );

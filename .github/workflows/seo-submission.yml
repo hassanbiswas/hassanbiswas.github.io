@@ -24,11 +24,11 @@ jobs:
       - name: 🔑 Generate Automation Version
         # Logic: YY.MM.DD format for cache-busting and tracking
         run: |
-          VERSION=$(date +'%y.%m.%d')
+          VERSION=$(date +'%y.%m.01')
           COMMITTEE_MSG="SEO Release - Stable Build"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=$COMMITTEE_MSG" >> $GITHUB_ENV
-          
+
           echo "------------------------------------------------"
           echo "Committee Message: $COMMITTEE_MSG"
           echo "Data Attribute (Version): $VERSION"
@@ -63,4 +63,3 @@ jobs:
           echo "SEO for version $VERSION completed successfully."
           echo "Message: $COMMITTEE_MSG"
           echo "Reference: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          

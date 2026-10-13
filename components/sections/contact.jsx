@@ -41,14 +41,17 @@ export default function Contact() {
             </div>
 
             <div className="ph-wrapper w-full max-w-[640px]">
-                <h2 data-animate="scaleIn" className="h2 txt-primary inline text-4xl">
+                <h2 data-animate="scaleIn" className="h2 txt-primary inline sm:text-4xl text-3xl">
                     <span className="splitWord">I help ambitious brands stand out through</span>{' '}
                     <a aria-label="Home Page" href="/">
                         <img src={faviconAuthor} className="square inline w-[1em]" />
                     </a>{' '}
                     <span className="splitWord">bold design and digital strategies.</span>
                 </h2>{' '}
-                <p data-animate="scaleIn" className="h2 txt-tertiary inline font-bold text-4xl">
+                <p
+                    data-animate="scaleIn"
+                    className="h2 txt-tertiary inline font-bold sm:text-4xl text-3xl"
+                >
                     <span className="splitWord">Ready to scale your brand with</span>{' '}
                     <a aria-label="Business Profile" href={begaritola}>
                         <img src={author.photo} className="square rounded-full inline w-[1em]" />

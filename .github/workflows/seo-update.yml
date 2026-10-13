@@ -54,7 +54,7 @@ jobs:
 
               with open(file_path, 'r', encoding='utf-8') as f:
                   soup = BeautifulSoup(f, 'lxml')
-              
+
               if not soup.head:
                   return
 
@@ -63,7 +63,7 @@ jobs:
               first_p = soup.find('p')
               h1_text = page_h1.get_text(strip=True) if page_h1 else folder_label
               snippet = first_p.get_text(strip=True)[:150] if first_p else "Expert UI/UX and Front-End Architecture."
-              
+
               current_date = datetime.now().strftime("%B %Y")
               unique_desc = f"{h1_text}: {snippet} Updated {current_date}."
               unique_keys = f"Hassan Biswas, {folder_label}, {h1_text}, UI/UX, Front-End, Web Design, Bangladesh"
@@ -112,9 +112,8 @@ jobs:
         run: |
           git config --global user.name 'Hassan Biswas'
           git config --global user.email 'hassanbiswas.github.io@gmail.com'
-          VERSION=$(date +'%y.%m.%d')
+          VERSION=$(date +'%y.%m.01')
           COMMITTEE_MSG="SEO Release - Stable Build $VERSION"
           git add .
           git commit -m "$COMMITTEE_MSG" || exit 0
           git push
-          

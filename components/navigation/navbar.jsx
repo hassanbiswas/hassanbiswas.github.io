@@ -30,7 +30,7 @@ export default function Navbar() {
             data-version={VERSION}
         >
             <nav
-                className="nav-list p-2 items-center txt-center flex gap-2 justify-center rounded-full"
+                className="nav-list p-2 items-center txt-center sm:text-sm text-xs flex flex-nowrap gap-0 justify-center rounded-full"
                 id="header-nav-list"
                 aria-label="Primary Navigation"
             >
@@ -41,7 +41,7 @@ export default function Navbar() {
                             blockSize: 'stretch',
                             ...(navigation.style || {}),
                         }}
-                        className={`flex items-center justify-center text-center gap-2 ${navigation.class || ''}`}
+                        className={`flex items-center justify-center text-center gap-2 rounded-full ${navigation.class || ''}`}
                         href={navigation.link}
                     >
                         {navigation.icon && (
