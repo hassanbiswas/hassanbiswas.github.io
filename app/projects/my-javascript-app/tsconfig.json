@@ -12,7 +12,7 @@
         "allowUnreachableCode": false,
 
         // Optional but Highly Suggested
-        "noUncheckedIndexAccess": true,
+        // "noUncheckedIndexAccess": true,
         "noPropertyAccessFromIndexSignature": true,
         "verbatimModuleSyntax": true, // Often used for 'erasableSyntaxOnly' behavior
 

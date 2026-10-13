@@ -16,13 +16,6 @@
     // Set document level language, direction, and version data attribute
     Object.assign(document.documentElement, { lang: 'en', dir: 'ltr' }).dataset.version = VERSION;
 
-    // Listen for reconnection to refresh and sync current dynamic version
-    window.addEventListener('online', () => {
-        if (navigator.onLine) {
-            window.location.reload();
-        }
-    });
-
     // Log version lifecycle for debugging/verification
     console.log(
         `[App] Initialized | Status: ${isOnline ? 'Online' : 'Offline'} | Version: ${VERSION}`
@@ -835,67 +828,6 @@ if (!customElements.get('loader-section')) {
     customElements.define('loader-section', LoaderSection);
 }
 
-// document.querySelector('#say-hello').textContent = 'JS';
-
-class NotchSection extends HTMLElement {
-    connectedCallback() {
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML
-
-        // collapse
-        template.innerHTML = `
-  <section class="container-sm collapse" id="notch">
-    <div class="col dialog" id="notchDialog">
-     <p class="notification">
-      Developing in "OPPO A53" handset!
-     </p>
-     <button ${seoButton()} onclick="notch.classList.toggle('collapse')">
-      ×
-     </button>
-    </div>
-  </section>
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('notch-section')) {
-    customElements.define('notch-section', NotchSection);
-}
-
-class ToastSection extends HTMLElement {
-    connectedCallback() {
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML
-
-        template.innerHTML = `
-  <section class="container-sm collapse" id="toast">
-    <div class="col dialog" id="toastDialog">
-     <p class="notification">
-      This is a toast dialog!
-     </p>
-     <button ${seoButton()} onclick="toast.classList.toggle('collapse')">
-      ×
-     </button>
-    </div>
-  </section>
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('toast-section')) {
-    customElements.define('toast-section', ToastSection);
-}
-
 class HeaderSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -952,23 +884,23 @@ const devIdes = [new List(`VScode`), new List(`Antigravity`), new List(`Claude`)
 const aiModels = [new List(`Gemini`), new List(`Gemma`)];
 const versionControlls = [new List(`GitHub`)];
 
-export function DevSkill(name, favicon, link = '#') {
+function DevSkill(name, favicon, link = '#') {
     this.name = name;
     this.favicon = favicon;
     this.link = link;
 }
-const skills = [
+export const skills = [
     new DevSkill(`HTML`, `${faviconHtml}`),
     new DevSkill(`CSS`, `${faviconCss}`),
     new DevSkill(`JavaScript`, `${faviconJs}`),
 ];
 
-export function DevTool(name, favicon, link = '#') {
+function DevTool(name, favicon, link = '#') {
     this.name = name;
     this.favixon = favicon;
     this.link = link;
 }
-const tools = [
+export const tools = [
     new DevTool(`VScode`, `${faviconVscode}`),
     new DevTool(`Bootstrap`, `${faviconBootstrap}`),
     new DevTool(`Figma`, `${faviconFigma}`),
@@ -977,7 +909,7 @@ const tools = [
     new DevTool(`GitHub`, `${faviconGithub}`),
 ];
 
-const brandLogo = () => {
+export const brandLogo = () => {
     let j = 0;
     let totalLogo = 10;
     const brandLogoInterval = setInterval(() => {
@@ -1116,93 +1048,6 @@ class HeroSection extends HTMLElement {
 // Define the custom element
 if (!customElements.get('hero-section')) {
     customElements.define('hero-section', HeroSection);
-}
-
-class ClientsSection extends HTMLElement {
-    connectedCallback() {
-        const ytLogoBaseUrl = `https://yt3.googleusercontent.com/`;
-        const ytLogoSize = `=s48-c-k-c0x00ffffff-no-rj`;
-
-        function YouTuber(name, photo, link = `${urlYoutube}/featured`) {
-            this.name = name;
-            this.photo = photo;
-            this.link = link;
-        }
-        const youtubers = [
-            new YouTuber(
-                `Kevin Powell`,
-                `gABekKWtQFmLIjVuhKwoPfd9nIRxAPPhyymO3XaOCc9wko28S9R_8CO125NFjZToZuLlSyfdrak`
-            ),
-            new YouTuber(
-                `DesignCourse`,
-                `ieTt1p2twEf4cz0vhOtB-0UXPN4vk9-8HM8OqxcX8sRU3nm5Di8sohyFOvxR3M-pN_bo4rnL`
-            ),
-            new YouTuber(
-                `Flux Academy`,
-                `D-wuZT2I_1Y_DKzP6pg-jZIJwfiBanfX1YN7iIvk_u6thQT2bH7jO7tQor6PvoFMp_q7MeW4vg`
-            ),
-            new YouTuber(
-                `Web Dev Simplified`,
-                `ytc/AIdro_nO3F7DfVXaf6wsHPS_hF327ggeWUCwZSELb5DCWBL1aw`
-            ),
-            new YouTuber(
-                `Codex Community`,
-                `ZsCDzP6-efEF5FoaHuNd_i2VpUBJk3ONZtrc6OrKgWAKIF1hLli-9ZEHvuHbbVZDEn2fwG2eAQ`
-            ),
-            new YouTuber(
-                `Jesse Showalter`,
-                `cVPZMhEZR_Zqoa6M1R7TzMBnckcKdA-phCZcFhpaHy6Tu3YqkfDLpIw5c3EIQ6Xkruv55D_Vxg`
-            ),
-            new YouTuber(
-                `Olivier Larose`,
-                `rN8CVAXHTUIWco0HHnWA2XbVYynYOIZg1lvIibcIhglASOFyczyUFRIy2HGeaFeUulzDObvZXw`
-            ),
-            new YouTuber(
-                `Arnau Ros`,
-                `cBrnJmahf00Q8p38dnx4Rvdl-TBekL5MFaFOicB5DPxzVGWmtUqaGXHHuhIoxQZH7YL_mPpydw`
-            ),
-        ];
-
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML (Top-level element is now your grid section)
-        // HTML
-        template.innerHTML = `
-<section ${seoSection(`youtubers`)} class=" bg-primary" id="youtubers" style="display: none; ">
-    <div class="container-lg row infinite-scroller mask" data-direction="left" data-speed="slow">
-        <h2 ${seoH(`youtubers`)} class="h4 d-none">Subscriptioned by ${author.name} on YouTube </h2>
-
-      <ul style="gap: var(--space-m);" class="flex no-wrap infinite-scroller_inner">
-       ${youtubers
-           .map(
-               youtuber => `
-<li class="items-center" style="display: flex; gap: var(--space-2xs); flex-grow: 1;">
-  <img ${seoImg(`${ytLogoBaseUrl}${youtuber.photo}${ytLogoSize}`, `YouTube: ${youtuber.name}`)} class="rounded-circle rounded square pill" style="max-width: 3rem; height: auto; opacity: .8;"/>
-  <a ${seoA()} href="${youtuber.link}">${youtuber.name}
-  </a>
-</li>
-       `
-           )
-           .join('')}
-      </ul>
-
-
-    </div>
-   </section>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        // Replaces <*-section> with the contents of the template immediately.
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('clients-section')) {
-    customElements.define('clients-section', ClientsSection);
 }
 
 class AboutSection extends HTMLElement {
@@ -2231,393 +2076,6 @@ if (!customElements.get('navigation-section')) {
     customElements.define('navigation-section', NavigationSection);
 }
 
-class PrivacyPolicySection extends HTMLElement {
-    connectedCallback() {
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML
-
-        template.innerHTML = `
-
-<section ${seoSection(`privacyPolicy`)} style="background: var(--bg-primary); color: (--txt-secondary);" class=" info-section">
-<div class="container-md">
-<div class="row">
-
-<div class="row">
-<h1 ${seoH(`privacyPolicy`)}>
-Privacy Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
-</h1>
-<p>
-<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
-</p>
-
-<p>
-As a Web Developer, I value your privacy and am committed to protecting any personal information you share with me.
-</p>
-</div>
-
-
-<ol class="row">
-<li>
-<h2>
-Information I Collect
-</h2>
-<p>
-I may collect the following types of information:
-</p>
-<ul>
-<li>
-<strong>
-Contact Data:
-</strong>
-Name, email and phone number.
-</li>
-<li>
-<strong>
-Technical Data:
-</strong>
-IP address, browser type, and usage patterns collected via cookies or analytics tools.
-</li>
-<li>
-<strong>
-Project Data:
-</strong>
-Information regarding your website requirements and design preferences.
- </li>
- </ul>
- </li>
-
-
-<li>
- <h2>
-How I Use Your Information
- </h2>
-<p>
-The information collected is used to:
- </p>
-<ul>
- <li>
-Provide and improve services.
-</li>
-<li>
- Communicate with regarding project inquiries or updates.
- </li>
- <li>
-Analyze website performance to enhance user experience.
-</li>
- </ul>
-</li>
-
-
-<li>
-<h2>
-Third-Party Services
-</h2>
-<p>
- I do not sell or trade your personal information. However, if website is hosted on GitHub Pages, which may collect server logs. Also use tools like Google Analytics to monitor traffic.
-</p>
-    </li>
-
-
-    <li>
-      <h2>
-        Your Rights
-      </h2>
-      <p>
-        You have the right to request access to the personal data I hold about you, or to request that I delete any personal information by contacting me directly.
-      </p>
-    </li>
-
-
-    <li>
-      <h2>
-        Contact Me
-      </h2>
-      <p>
-        If you have any questions about this Privacy Policy, please contact me.
-      </p>
-    </li>
-
-  </ol>
-
-</div>
-</div>
-      </section>
-
-    `;
-
-        // 4. THE MAGIC: Synchronous swap
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('privacy-policy-section')) {
-    customElements.define('privacy-policy-section', PrivacyPolicySection);
-}
-
-class TermsOfServiceSection extends HTMLElement {
-    connectedCallback() {
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML
-
-        template.innerHTML = `
-
-<section ${seoSection(`termsOfService`)} style="background: var(--bg-primary); color: (--txt-secondary);" class=" info-section">
-<div class="container-md">
-<div class="row">
-
-<div class="row">
-<h1 ${seoH(`termsOfService`)}>
-Terms of Service <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
-</h1>
-<p>
-<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
-</p>
-
-<p>
-These terms govern the web design and front-end development services provided by
-<strong>
-Hassan Biswas
-</strong>
-through the website
-.
-</p>
-</div>
-
-
-<ol class="row">
-<li>
-<h2>
-Acceptance of Terms
-</h2>
-<p>
-By engaging in a project or using this website, you agree to be bound by these Terms of Service. If you do not agree, please do not use my services.
-</p>
-</li>
-
-
-<li>
-<h2>
-Scope of Work
-</h2>
-<p>
-I provide front-end development and web design services. The specific deliverables, timelines, and costs will be outlined in a separate project proposal or email agreement for each individual client.
-</p>
-</li>
-
-
-<li>
-<h2>
-Intellectual Property &amp; Ownership
-</h2>
-<p>
-Upon final payment, the ownership of the final front-end code (<b>HTML, CSS, JS</b>) and design <b>assets</b> is transferred to the client. However, I reserve the right to:
-<ul>
-<li>
-Display the completed work in my professional portfolio.
-</li>
-<li>
-Reuse generic code snippets or libraries developed during the project.
-</li>
-</ul>
-</p>
-</li>
-
-
-<li>
-<h2>
-Payment Terms
-</h2>
-<p>
-Invoices are sent via the agreed-upon <a ${seoA()} href="/payment">method</a>. A deposit is required to start work. Final files will be delivered or deployed only after the full remaining balance is cleared.
-</p>
-</li>
-
-
-<li>
-<h2>
-Client Responsibilities
-</h2>
-<p>
-The client is responsible for providing all necessary content (<b>text, images, branding</b>) in a timely manner. Delays in providing content will result in a shift in the project deadline.
-</p>
-</li>
-
-
-<li>
-<h2>
-Limitation of Liability
-</h2>
-<p>
-I strive for perfection, but I am not liable for any lost profits, data loss, or service interruptions caused by third-party hosting, browser updates, or client-side modifications after the project is handed over.
-</p>
-</li>
-
-
-<li>
-<h2>
-Governing Law
-</h2>
-<p>
-These terms are governed by the laws of
-<mark>
-Bangladesh
-</mark>
-. Any disputes shall be resolved through mutual discussion or within the jurisdiction of local courts.
-</p>
-</li>
-
-
-
-<li>
-<h2>
-Contact Me
-</h2>
-<p>
-For any legal inquiries regarding these terms, please reach out.
-</p>
-</li>
-
-
-</ol>
-
-
-</div>
-</div>
-</section>
-
-`;
-
-        // 4. THE MAGIC: Synchronous swap
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('terms-of-service-section')) {
-    customElements.define('terms-of-service-section', TermsOfServiceSection);
-}
-
-class RefundAndCancelationPolicySection extends HTMLElement {
-    connectedCallback() {
-        // 2. Create an off-screen Template
-        const template = document.createElement('template');
-
-        // 3. Define the HTML
-
-        template.innerHTML = `
-
-<section ${seoSection(`refundAndCancelationPolicy`)} style="background: var(--bg-primary); color: (--txt-secondary);" class=" info-section">
- <div class="container-md">
-<div class="row">
-
-<div class="row">
- <h1 ${seoH(`refundAndCancelationPolicy`)}>
-Refund &amp; Cancelation Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
- </h1>
-<p>
-<b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
- </p>
-
-<p>
-Thank you for choosing my services
-. I provide custom digital services, I want to ensure we have a clear understanding of our financial commitment before a project begins.
- </p>
- </div>
-
-
- <ol class="row">
- <li>
- <h2>
- Project Deposits
- </h2>
- <p>
- Most projects require an initial deposit (typically
- <b>
-30% to 50%
-</b>
-) before work commences. This deposit secures your spot in my workflow and covers the initial research and architecture phase.
-<strong>
- Deposits are non-refundable
- </strong>
- once work has started.
- </p>
- </li>
-
-
- <li>
- <h2>
- Cancellation During Development
- </h2>
- <p>
- If a project is cancelled after development has begun but before completion, the client is responsible for payment for all work completed up to the date of cancellation.
-
-  <ul>
- <li>
- If the work completed exceeds the deposit, an additional invoice will be issued.
-</li>
- <li>
- If the work completed is less than the deposit, no refund of the deposit will be issued.
-</li>
-</ul>
-</p>
-</li>
-
-
-<li>
-<h2>
-Final Delivery &amp; Acceptance
-</h2>
-<p>
-Once the final files are delivered and the "Final Approval" is signed off by the client,
-<strong>
- no refunds will be issued
- </strong>
- . Digital products cannot be "returned" in the traditional sense once the source code is in the client's possession.
- </p>
- </li>
-
-
- <li>
- <h2>
- Revisions
- </h2>
-<p>
-To ensure satisfaction, I include a specific number of revision rounds (as stated in our initial contract). This allows us to fine-tune the design and functionality before final delivery.
-</p>
-</li>
-
-
-<li>
-<h2>
-Questions &amp; Disputes | Contact Me
-</h2>
-<p>
-I strive for 100% client satisfaction. If you are unhappy with the progress of your project, please contact me immediately so we can find a solution.
-</p>
-</li>
-
-</ol>
-
-</div>
-</div>
-</section>
-
-`;
-
-        // 4. THE MAGIC: Synchronous swap
-        this.replaceWith(template.content);
-    }
-}
-// Define the custom element
-if (!customElements.get('refund-and-cancelation-policy-section')) {
-    customElements.define(
-        'refund-and-cancelation-policy-section',
-        RefundAndCancelationPolicySection
-    );
-}
 // ###################
 // inits custom elements done!
 // ###################
@@ -3168,12 +2626,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /*
 injectAsset('js', 'components/loader-section.js');
-injectAsset('js', 'components/design-system-section.js');
-injectAsset('js', 'components/notch-section.js');
 injectAsset('js', 'components/header-section.js');
 injectAsset('js', 'components/hero-section.js');
 injectAsset('js', 'components/about-section.js');
-injectAsset('js', 'components/clients-section.js');
 injectAsset('js', 'components/services-section.js');
 injectAsset('js', 'components/projects-section.js');
 injectAsset('js', 'components/testimonials-section.js');
@@ -3182,5 +2637,4 @@ injectAsset('js', 'components/contact-section.js');
 injectAsset('js', 'components/cta-section.js');
 injectAsset('js', 'components/footer-section.js');
 injectAsset('js', 'components/navigation-section.js');
-injectAsset('js', 'components/toast-section.js');
 */
