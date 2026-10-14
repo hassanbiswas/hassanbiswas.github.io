@@ -1,9 +1,9 @@
 name: Monthly Automated Backup
 
 on:
-  # schedule:
-    # Monthly Schedule: Runs at 00:00 on the 1st of every month
-    # - cron: '0 0 1 * *'
+  schedule:
+    Monthly Schedule: Runs at 00:00 on the 1st of every month
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
 jobs:
