@@ -1,16 +1,39 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    brandLogo,
+    thisYear,
+    experience,
+    locationSecondary,
+    projects,
+    componentSkipSection,
+} = App;
+
 class ProjectsSection extends HTMLElement {
     connectedCallback() {
-        // Instantiate Section for current element
-        const section = new Section(this);
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
+
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-
-      <section ${seoSection(`projects`)} class=" bg-primary snappyContainer" style="--snapType: mandatory;" id="projects">
+      <section ${seoSection(`projects`)} class=" bg-primary snappyContainer" style="--snapType: mandatory;" id="projects" data-version="${VERSION}">
 
       <div class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip; gap: .8em;">
  <p class="fade-in-to txt-tertiary">Selected <span class="txt-secondary">Projects</span> <i>2023 - ${thisYear}</i></p>
@@ -50,7 +73,6 @@ With ${experience}+ years of experience, I'm Designing & developing websites in 
 
 
       </section>
-
     `;
 
         // 4. THE MAGIC: Synchronous swap
@@ -58,6 +80,7 @@ With ${experience}+ years of experience, I'm Designing & developing websites in 
         this.replaceWith(template.content);
     }
 }
+
 // Define the custom element
 if (!customElements.get('projects-section')) {
     customElements.define('projects-section', ProjectsSection);

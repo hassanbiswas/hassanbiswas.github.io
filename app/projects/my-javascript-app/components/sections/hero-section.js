@@ -1,16 +1,40 @@
 // import BrandLogo from '../ui/brandLogo';
 // import Reviews from '../ui/reviews';
-import * as App from '../../../../../../../../index.js';
+import * as App from '/index.js';
 
 // Destructure array, function, and variables directly
-const { VERSION, author, getFavicon, thisYear, experience, txtFill, txtStroke, scrollerGroup } =
-    App;
+const {
+    VERSION,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    txtFill,
+    txtStroke,
+    brandLogo,
+    componentReviews,
+    skills,
+    tools,
+} = App;
 
 // ### 404.html | Hero component ###
-// updated hero section
 class HeroSection extends HTMLElement {
     connectedCallback() {
-        // Configuration for easy updates
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
+
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
+        const color = `var(--txt-primary)`,
+            fontSize = `--font(1.2rem, 1.8rem)`,
+            text = heading;
+
         const scrollerGroup = (style = '', values = '', childVal = '') => {
             return `
                 <div ${values} class="scrollerGroup flex nowrap" style="${style};">
@@ -41,22 +65,11 @@ class HeroSection extends HTMLElement {
             `;
         };
 
-        // Instantiate Section for current element
-        const section = new Section(this);
-        // section.heading = author.title;
-        // section.description = author.description;
-        const color = `var(--txt-primary)`,
-            fontSize = `--font(1.2rem, 1.8rem)`,
-            text = section.heading;
         // 2. Create an off-screen Template
         const template = document.createElement('template');
-
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-
-      <section ${seoSection(`hero`)} id="hero" class=" dark">
+      <section ${seoSection(`hero`)} id="hero" class="dark" data-version="${VERSION}">
         <div class="container-md row items-center custom-containe" style="position: relative; gap: 0; ">
 
         ${brandLogo()}
@@ -86,13 +99,13 @@ class HeroSection extends HTMLElement {
 
 
         <div class="row items-center text-items gradient-mask">
-            <span style="padding: .4em .8em; gap: .4em" class="flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> <!-- Last seen ${random(1, 3)}H ago --> Available for projects</span>
+            <span style="padding: .4em .8em; gap: .4em" class="flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> Available for projects</span>
             <h1 data-animate="scaleI" ${seoH(`hero`)}
                 class="h1 txt-center splitWord"
                 id="brand-title">
-                    ${section.heading}
+                    ${heading}
             </h1>
-            <p class="txt-center txt-primary lineClamp splitText">${section.description}</p>
+            <p class="txt-center txt-primary lineClamp splitText">${description}</p>
             <div class="flex content-center" style="gap: 1.6em; padding-block-start: 1.6em;">
                 <a ${seoA()} style="text-decoration: none;" href="/resume">
                     <buttton style="border: 0px solid var(--bg-primary); padding: 1.2em 1.6em; " class="btn btn-primary txt-primary bg-primary pill splitText">Resume</button>

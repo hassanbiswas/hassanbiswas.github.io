@@ -1,3 +1,8 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const { VERSION, navPrimary, seoH, seoA, seoImg, seoButton, brandLogo, navigations } = App;
+
 class NavigationSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
@@ -7,7 +12,7 @@ class NavigationSection extends HTMLElement {
 
         // HTML
         template.innerHTML = `
-  <section ${navPrimary()} class="" id="bottom-navigation">
+  <section ${navPrimary()} class="" id="bottom-navigation" data-version="${VERSION}">
    <div style="overflow: visible;" class="container-md">
     <nav class="nav-list items-center txt-center" id="header-nav-list">
 
@@ -26,7 +31,6 @@ ${navigation.name}
     </nav>
    </div>
   </section>
-
     `;
 
         // 4. THE MAGIC: Synchronous swap

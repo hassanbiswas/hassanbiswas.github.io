@@ -1,26 +1,45 @@
-import * as App from '../../../../../../../../index.js';
+import * as App from '/index.js';
 
 // Destructure array, function, and variables directly
-const { VERSION, brandColor, categories, getTheme } = App;
-
-console.log(VERSION); // YY.MM.DD
-// getTheme();
+const {
+    VERSION,
+    author,
+    getFavicon,
+    faviconAuthor,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    stories,
+    thisYear,
+    txtFill,
+    txtStroke,
+    componentSkipSection,
+} = App;
 
 class AboutSection extends HTMLElement {
     connectedCallback() {
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
+
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
         const svgMarginBlock = 'auto auto'; // -30px auto
 
-        // Instantiate Section for current element
-        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-
-<section ${seoSection(`about`)} class=" bg-primary  screenHeight snappyContainer " style="--snapType: mandatory;" id="about">
+<section ${seoSection(`about`)} class=" bg-primary  screenHeight snappyContainer " style="--snapType: mandatory;" id="about" data-version="${VERSION}">
     <div style="gap: 0em;" class="row content-center screenHeight">
       <p data-animate="scaleIn" class="h6">
         <span class="txt-tertiary">${author.name}</span> <i>2001 - ${thisYear}</i>
@@ -81,7 +100,6 @@ class AboutSection extends HTMLElement {
 
 
    </section>
-
     `;
 
         // 4. THE MAGIC: Synchronous swap

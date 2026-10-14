@@ -1,16 +1,40 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    author,
+    getFavicon,
+    faviconAuthor,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    urlMessenger,
+    faqs,
+} = App;
+
 class FaqsSection extends HTMLElement {
     connectedCallback() {
-        // Instantiate Section for current element
-        const section = new Section(this);
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
+
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-
-<section ${seoSection(`faqs`)} class="" id="faqs">
+<section ${seoSection(`faqs`)} class="" id="faqs" data-version="${VERSION}">
 <div class="container-sm">
     <div class="row">
 
@@ -73,7 +97,6 @@ and how I work
     </div>
    </div>
 </section>
-
     `;
 
         // 4. THE MAGIC: Synchronous swap

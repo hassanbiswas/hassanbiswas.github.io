@@ -1929,11 +1929,11 @@ transform: scaleX(1); /* animate */
 
 }
 
-#hero .brand-logo-container{
+/* #hero .brand-logo-container{
     position: sticky;
     top: 0;
     z-index: 300;
-}
+} */
 
 .brand-logo-container {
     block-size: min(100%, 20rem);
@@ -2903,7 +2903,7 @@ Note:
     animation: loaderSvgDraw 1s --ease() both infinite;
 }
 
-@keyframes spin3DInfinite {
+@keyframes spin3DInfinitee {
     to {
         transform: rotateZ(-360deg);
     }

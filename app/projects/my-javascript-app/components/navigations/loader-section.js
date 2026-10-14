@@ -1,11 +1,26 @@
 // ### offline.html | Loading component ###
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    author,
+    getFavicon,
+    faviconAuthor,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    greetings,
+} = App;
+
 class LoaderSection extends HTMLElement {
     connectedCallback() {
         document.getElementsByTagName('body')[0].setAttribute('inert', '');
 
         const template = document.createElement('template');
         template.innerHTML = `
-        <section id="loader" class="">
+        <section id="loader" class="" data-version="${VERSION}">
             <div class="container-md content-center">
                 <div class="col items-center" style="align-items: center;">
                     <h3 class="greeting txt-center flex items-center" style="block-size: 100%; flex-wrap: nowrap;">

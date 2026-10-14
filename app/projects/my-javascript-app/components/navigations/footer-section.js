@@ -1,15 +1,38 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    author,
+    getFavicon,
+    faviconAuthor,
+    seoSection,
+    footer,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    begaritola,
+    faviconAndroid,
+    urlMessenger,
+    locationSecondary,
+    legals,
+    socials,
+    methods,
+    pages,
+    urlYoutube,
+    txtFill,
+} = App;
+
 class FooterSection extends HTMLElement {
     connectedCallback() {
-        // Instantiate Section for current element
-        const section = new Section(this);
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-<footer ${footer()} ${seoSection(`footer`)} class="" id="footer">
+<footer ${footer()} ${seoSection(`footer`)} class="" id="footer" data-version="${VERSION}">
    <div class="container-lg row gap-4 py-5">
     <div class="flex j-center">
       <form class="flex">

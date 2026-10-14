@@ -1,17 +1,40 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    locationSecondary,
+    urlReviews,
+    personQuotes,
+    componentProjectProgress,
+    componentReviews,
+} = App;
+
 class TestimonialsSection extends HTMLElement {
     connectedCallback() {
-        // let randomIndex = random(0, personQuotes?.length);
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
 
-        // Instantiate Section for current element
-        const section = new Section(this);
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-<section ${seoSection(`testimonials`)} class="" id="testimonials">
+<section ${seoSection(`testimonials`)} class="" id="testimonials" data-version="${VERSION}">
     <div class="container-md row items-center" style="gap: .8em;">
 
         <div class="row txt-center">
@@ -70,7 +93,6 @@ class TestimonialsSection extends HTMLElement {
 
     </div>
    </section>
-
     `;
 
         // 3. Swap the live component

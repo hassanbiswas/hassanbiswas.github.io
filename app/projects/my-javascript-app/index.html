@@ -79,8 +79,22 @@
             };
 
             injectAsset('css', 'index.css');
-            // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
+
             injectAsset('js', 'index.js');
+            injectAsset('js', 'components/navigations/loader-section.js');
+            injectAsset('js', 'components/navigations/header-section.js');
+            injectAsset('js', 'components/navigations/navigation-section.js');
+            injectAsset('js', 'components/sections/hero-section.js');
+            injectAsset('js', 'components/sections/about-section.js');
+            injectAsset('js', 'components/sections/services-section.js');
+            injectAsset('js', 'components/sections/projects-section.js');
+            injectAsset('js', 'components/sections/testimonials-section.js');
+            injectAsset('js', 'components/sections/contact-section.js');
+            injectAsset('js', 'components/sections/faqs-section.js');
+            injectAsset('js', 'components/sections/cta-section.js');
+            injectAsset('js', 'components/navigations/footer-section.js');
+
+            // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
         </script>
         <link href="/manifest.json" rel="manifest" />
         <script type="speculationrules">
@@ -430,10 +444,11 @@
         </noscript>
         <loader-section> </loader-section>
         <header-section> </header-section>
+        <navigation-section> </navigation-section>
         <main>
             <hero-section
-                description="✼ Elevating Modern Digital Experiences."
                 heading="Crafting digital experiences that inspire, connect, and grow brands worldwide"
+                description="✼ Elevating Modern Digital Experiences."
             >
             </hero-section>
             <about-section> </about-section>
@@ -445,6 +460,5 @@
             <cta-section> </cta-section>
         </main>
         <footer-section> </footer-section>
-        <navigation-section> </navigation-section>
     </body>
 </html>

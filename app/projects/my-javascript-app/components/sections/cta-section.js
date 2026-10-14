@@ -1,18 +1,37 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    componentReviews,
+    urlMobile,
+} = App;
+
 class CtaSection extends HTMLElement {
     connectedCallback() {
-        // data array for easy updates
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
 
-        // Instantiate Section for current element
-        const section = new Section(this);
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         template.innerHTML = `
-
-    <section ${seoSection(`cta`)} class="cta-section  bg-primary" id="cta">
+    <section ${seoSection(`cta`)} class="cta-section  bg-primary" id="cta" data-version="${VERSION}">
         <div class="container-md bg-primary row " style="border-radius: 3.2em; gap: .8em; border: 1px solid var(--bg-secondary); position: relative; ">
 
             <span inert class=" dots" style=""></span>
@@ -28,8 +47,6 @@ class CtaSection extends HTMLElement {
 
         </div>
     </section>
-
-
     `;
 
         // 4. THE MAGIC: Synchronous swap

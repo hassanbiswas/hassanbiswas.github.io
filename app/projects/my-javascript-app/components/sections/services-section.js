@@ -1,13 +1,45 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    author,
+    getFavicon,
+    faviconAuthor,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    locationSecondary,
+    money,
+    random,
+    clientSatisfaction,
+    servicesPrimary,
+    txtStroke,
+    stripedCurrency,
+    coreWebVitals,
+    componentSkipSection,
+} = App;
+
 class ServicesSection extends HTMLElement {
     connectedCallback() {
-        // Instantiate Section for current element
-        const section = new Section(this);
+        const heading = this.getAttribute('heading') || 'attribute: heading';
+        const description = this.getAttribute('description') || 'attribute: description';
+
+        // 1. Calculate 'h' directly based on DOM position
+        const parent = this.parentElement || document.querySelector('main')[0];
+        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
+        const h = index === 0 ? 0 : 1;
+
+        // 2. Safely clamp tag level between 1 and 6
+        const tagLevel = Math.min(h + 1, 6);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML (Top-level element is now your grid section)
-
-        // HTML
         const clipedSection = (
             value = 1,
             direction = null,
@@ -84,16 +116,13 @@ class ServicesSection extends HTMLElement {
 
         ${componentSkipSection()}
 
-
 </div>
         `;
         };
 
         //  CallBack
-
         template.innerHTML = `
-
-<section ${seoSection(`services`)} class="" id="services" style="--snapType: mandatory; position: relative;">
+<section ${seoSection(`services`)} class="" id="services" style="--snapType: mandatory; position: relative;" data-version="${VERSION}">
 
 
         <!-- //Right Part ; original, base & main -->
@@ -107,7 +136,6 @@ class ServicesSection extends HTMLElement {
 
 
 </section>
-
     `;
 
         // 4. THE MAGIC: Synchronous swap
