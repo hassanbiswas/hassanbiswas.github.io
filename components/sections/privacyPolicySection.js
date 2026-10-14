@@ -12,9 +12,9 @@ class PrivacyPolicySection extends HTMLElement {
 <div class="row">
 
 <div class="row">
-<h1 ${seoH(`privacyPolicy`)}>
+<h2 ${seoH(`privacyPolicy`)}>
 Privacy Policy <span class="d-none"> | Hassan Biswas — UI/UX &amp; Front-End Architecture </span>
-</h1>
+</h2>
 <p>
 <b>Last Updated</b>:  <mark>Jan 01, ${new Date().getFullYear()}</mark>
 </p>

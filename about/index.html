@@ -26,9 +26,14 @@
         />
         <script defer="">
             const rootUrl = `/`;
-
-            // Your updated logic automation: Changes once per day
-            const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
+            const VERSION = new Date()
+                .toLocaleDateString('en-GB')
+                .split('/')
+                .reverse()
+                .slice(0, 2)
+                .concat('01')
+                .join('.');
+            // Results in YYYY.MM.01 format
 
             const injectAsset = (type, path, media = 'all') => {
                 const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
@@ -42,16 +47,18 @@
             };
 
             injectAsset('css', 'index.css');
-            // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
+
             injectAsset('js', 'index.js');
+            injectAsset('js', 'components/navigations/loader-section.js');
+            injectAsset('js', 'components/navigations/header-section.js');
+            injectAsset('js', 'components/navigations/navigation-section.js');
+            injectAsset('js', 'components/sections/about-section.js');
+            injectAsset('js', 'components/navigations/footer-section.js');
+
+            // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
         </script>
-        <link href="/manifest.json" rel="manifest" />
         <meta content="hsl(240, 80%, 50%)" name="theme-color" />
         <title>About | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture</title>
-        <meta
-            content="About | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture"
-            name="title"
-        />
         <meta
             content="About: Expert UI/UX and Front-End Architecture. Updated October 2026."
             name="description"
@@ -64,33 +71,12 @@
         <meta content="Hassan Biswas" name="author" />
     </head>
     <body>
-        <!-- class/id removed -->
-        <!--/// body starts here! -->
-        <!--/// #loader starts here! -->
         <loader-section> </loader-section>
-        <!-- loader ends ///-->
-        <!--/// #notch starts here! -->
-        <notch-section> </notch-section>
-        <!-- notch ends ///-->
-        <!--/// #header starts here! -->
         <header-section> </header-section>
-        <!-- header ends ///-->
-        <!--/// #main starts here! -->
-        <main>
-            <!--/// #about starts here! -->
-            <about-section heading=""> </about-section>
-            <!-- about ends ///-->
-        </main>
-        <!-- main ends ///-->
-        <!--/// #footer starts here! -->
-        <footer-section> </footer-section>
-        <!-- footer ends ///-->
-        <!-- navigation menu -->
         <navigation-section> </navigation-section>
-        <!--/// #toast starts here! -->
-        <toast-section> </toast-section>
-        <!-- toast ends ///-->
-        <!-- body ends ///-->
-        <!--  ----------- js code goes here! ------------ -->
+        <main>
+            <about-section> </about-section>
+        </main>
+        <footer-section> </footer-section>
     </body>
 </html>

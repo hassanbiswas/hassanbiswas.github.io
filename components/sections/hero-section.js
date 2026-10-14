@@ -20,8 +20,11 @@ const {
 // ### 404.html | Hero component ###
 class HeroSection extends HTMLElement {
     connectedCallback() {
-        const heading = this.getAttribute('heading') || 'attribute: heading';
-        const description = this.getAttribute('description') || 'attribute: description';
+        const heading =
+            this.getAttribute('heading') ||
+            'Crafting digital experiences that inspire, connect, and grow brands worldwide';
+        const description =
+            this.getAttribute('description') || '✼ Elevating Modern Digital Experiences.';
 
         // 1. Calculate 'h' directly based on DOM position
         const parent = this.parentElement || document.querySelector('main')[0];
