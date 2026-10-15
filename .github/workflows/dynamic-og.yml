@@ -10,13 +10,14 @@ on:
       - completed
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *' # Monthly schedule logic
+    - cron: '0 0 1 * *'
 
 jobs:
   release-automation:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -45,45 +46,62 @@ jobs:
 
       - name: Generate OG Image via Script
         run: |
-          node -e "
-          const puppeteer = require('puppeteer');
+          node <<'NODE'
           const fs = require('fs');
-          const path = './assets/og-images';
+          const puppeteer = require('puppeteer');
 
-          if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true });
+          const outDir = './assets/og-images';
+          fs.mkdirSync(outDir, { recursive: true });
 
           (async () => {
             try {
               const browser = await puppeteer.launch({
-                executablePath: '/usr/bin/google-chrome',
-                args: ['--no-sandbox', '--disable-setuid-sandbox']
+                headless: 'new',
+                args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
               });
+
               const page = await browser.newPage();
               await page.setViewport({ width: 1200, height: 630 });
 
-              // Local file path logic              
-              const htmlPath = 'file://' + process.cwd() + '/index.html';
-              await page.goto(htmlPath, { waitUntil: 'networkidle0' });
+              // Use the actual deployed site, not the local repo file
+              const url = 'https://hassanbiswas.github.io';
+              await page.goto(url, {
+                waitUntil: 'domcontentloaded',
+                timeout: 60000
+              });
 
-              // wait for page rendering to finish
-              await page.waitForSelector('body', { timeout: 6000 }).catch(() => {});
-              await new Promise(resolve => setTimeout(resolve, 3000));
+              // Wait until the page actually has content
+              await page.waitForFunction(() => {
+                const body = document.body;
+                return !!body && body.innerText.trim().length > 50;
+              }, { timeout: 60000 });
 
-              const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
-              const fileName = 'og-main.png';
+              // If your site has a loader/splash, wait for it to disappear
+              await page.waitForFunction(() => {
+                const loaders = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
+                for (const el of loaders) {
+                  const style = window.getComputedStyle(el);
+                  if (style.display !== 'none' && style.visibility !== 'hidden') {
+                    return false;
+                  }
+                }
+                return true;
+              }, { timeout: 60000 });
 
-              await page.screenshot({ path: path + '/' + fileName });
+              // "Set-and-forget" delay after render
+              await page.waitForTimeout(1000);
+
+              const filePath = `${outDir}/og-main.png`;
+              await page.screenshot({ path: filePath, fullPage: false });
+
+              console.log('OG image created:', filePath);
               await browser.close();
-              
-              console.log('------------------------------------------------');
-              console.log('Committee Message: Automated Release - Stable Build');
-              console.log('Data Attribute (Version): ' + VERSION);
-              console.log('------------------------------------------------');
             } catch (err) {
-              console.error(err);
+              console.error('OG generation failed:', err);
               process.exit(1);
             }
-          })();"
+          })();
+          NODE
 
       - name: Commit and Push Changes
         env:
@@ -91,9 +109,9 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          git add assets/og-images/og-main.png
-          
+
+          git add -A assets/og-images/og-main.png
+
           if git diff --staged --quiet; then
             echo "No changes, skipping push."
           else
@@ -102,4 +120,3 @@ jobs:
             git pull --rebase --autostash
             git push
           fi
-          
