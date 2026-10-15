@@ -43,7 +43,7 @@ jobs:
 
       - name: Set Version Logic
         run: |
-          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
+          echo "VERSION=$(date +'\%y.\%m.\%d')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=OG Image Update - Stable Build" >> $GITHUB_ENV
 
       - name: Generate OG Image via Script
@@ -70,34 +70,18 @@ jobs:
               await page.setViewport({ width: 1200, height: 630 });
 
               const url = 'https://hassanbiswas.github.io';
-              await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+              
+              // Wait until network activity settles completely so JS/CSS are loaded
+              await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
 
-              await page.waitForFunction(() => {
-                const body = document.body;
-                return !!body && body.innerText && body.innerText.trim().length > 50;
-              }, { timeout: 60000 });
+              // Ensure the body is rendered
+              await page.waitForSelector('body', { visible: true, timeout: 30000 });
 
-              await page.waitForFunction(() => {
-                const els = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
-                for (const el of els) {
-                  const style = window.getComputedStyle(el);
-                  if (
-                    style.display !== 'none' &&
-                    style.visibility !== 'hidden' &&
-                    el.offsetParent !== null
-                  ) {
-                    return false;
-                  }
-                }
-                return true;
-              }, { timeout: 60000 });
-
-              await (typeof page.waitForTimeout === 'function'
-                ? page.waitForTimeout(1000)
-                : new Promise((resolve) => setTimeout(resolve, 1000)));
+              // Allow extra time for paint cycles, fonts, and layout execution
+              await new Promise((resolve) => setTimeout(resolve, 3000));
 
               const out = `${outDir}/og-main.png`;
-              await page.screenshot({ path: out, fullPage: false });
+              await page.screenshot({ path: out, fullPage: false, type: 'png' });
               console.log('OG image created:', out);
 
               const files = fs.readdirSync(outDir);
@@ -114,3 +98,11 @@ jobs:
             }
           })();
           NODE
+
+      - name: Commit and Push OG Image
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.io"
+          git add assets/og-images/og-main.png
+          git diff --staged --quiet || git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
+          git push
