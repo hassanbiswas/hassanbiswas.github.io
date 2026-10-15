@@ -63,38 +63,39 @@ jobs:
               const page = await browser.newPage();
               await page.setViewport({ width: 1200, height: 630 });
 
-              // Use the actual deployed site, not the local repo file
+              // Use the actual deployed site
               const url = 'https://hassanbiswas.github.io';
-              await page.goto(url, {
-                waitUntil: 'domcontentloaded',
-                timeout: 60000
-              });
+              await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-              // Wait until the page actually has content
+              // Wait until the page has meaningful content
               await page.waitForFunction(() => {
                 const body = document.body;
-                return !!body && body.innerText.trim().length > 50;
+                return !!body && body.innerText && body.innerText.trim().length > 50;
               }, { timeout: 60000 });
 
-              // If your site has a loader/splash, wait for it to disappear
+              // Wait for common loader elements to be hidden (customize selectors if needed)
               await page.waitForFunction(() => {
-                const loaders = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
-                for (const el of loaders) {
-                  const style = window.getComputedStyle(el);
-                  if (style.display !== 'none' && style.visibility !== 'hidden') {
+                const els = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
+                for (const el of els) {
+                  const s = window.getComputedStyle(el);
+                  if (s.display !== 'none' && s.visibility !== 'hidden' && el.offsetParent !== null) {
                     return false;
                   }
                 }
                 return true;
               }, { timeout: 60000 });
 
-              // "Set-and-forget" delay after render
+              // final settle delay (set-and-forget)
               await page.waitForTimeout(1000);
 
-              const filePath = `${outDir}/og-main.png`;
-              await page.screenshot({ path: filePath, fullPage: false });
+              const out = `${outDir}/og-main.png`;
+              await page.screenshot({ path: out, fullPage: false });
+              console.log('OG image created:', out);
 
-              console.log('OG image created:', filePath);
+              // debug: list directory
+              const files = fs.readdirSync(outDir);
+              console.log('outDir files:', files);
+
               await browser.close();
             } catch (err) {
               console.error('OG generation failed:', err);
