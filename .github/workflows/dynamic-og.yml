@@ -66,8 +66,8 @@ jobs:
               await page.goto(htmlPath, { waitUntil: 'networkidle0' });
 
               // wait for page rendering to finish
-              await page.waitForSelector('body', { timeout: 5000 }).catch(() => {});
-              await new Promise(resolve => setTimeout(resolve, 2000));
+              await page.waitForSelector('body', { timeout: 6000 }).catch(() => {});
+              await new Promise(resolve => setTimeout(resolve, 3000));
 
               const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
               const fileName = 'og-main.png';
