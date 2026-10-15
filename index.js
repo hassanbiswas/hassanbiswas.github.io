@@ -85,7 +85,7 @@ export const seoPicture = (url, type = `png`) => {
 export const seoA = () => {
     return `loading="lazy"
         rel="noopener noreferrer"
-        target="_blank"`;
+        target=""`; // _blank
 };
 
 // const seoAudio = () => { };
@@ -289,7 +289,7 @@ export const progressAnimate = (startValue = 0, endValue = 100, loaderColor = 'c
 };
 
 //  Constractor for listing
-const list = (name, link = '#', favicon = null) => {
+export const list = (name, link = '#', favicon = null) => {
     return `<li>${a(name, link)}</li>`;
 };
 export function List(name, link = '#', favicon = null) {
@@ -454,45 +454,13 @@ export const socials = [
     new SocialsItem(`X (Twitter)`, `${urlX}`, `${faviconX}`),
 ];
 
-// ###################
-// methods & functions
-// ###################
-
-/**
- * Automated Asset Loader
- * Features: Base64 Injection, Cache-Busting, Logic Preservation
- *//**
- * Injects SVG Favicons with automated versioning and responsive attributes.
- */
 /*
-  const injectIcons = () => {
-    // Define icon configurations
-    const icons = [
-      { rel: "icon" },
-      { rel: "apple-touch-icon" },
-      { rel: "alternate icon" },
-    ];
-
-    icons.forEach((iconData) => {
-      // Search for existing link with the specific rel
-      let link = document.querySelector(`link[rel='${iconData.rel}']`);
-
-      if (!link) {
-        link = document.createElement("link");
-        link.rel = iconData.rel;
-        head.appendChild(link);
-      }
-
       // Apply high-performance & SEO attributes
       link.type = "image/svg+xml";
       link.href = `${author.faviconSvg}?v=${VERSION}`; // Cache-busting using date
       link.setAttribute("sizes", "any");
       link.setAttribute("loading", "lazy"); // Performance optimization
       link.dataset.version = VERSION;
-    });
-  };
-
-  injectIcons();
   */
 
 export const ogImg = document.querySelector('meta[property="og:image"]');
@@ -706,12 +674,12 @@ export function Section(element) {
 }
 
 // Configuration for easy updates
-const devLanguages = [new List(`HTML`), new List(`CSS`), new List(`JavaScript`)];
-const devLibraries = [new List(`Bootstrap`), new List(`GSAP`)];
-const designTools = [new List(`Figma`), new List(`Webflow`), new List(`Frammer`)];
-const devIdes = [new List(`VScode`), new List(`Antigravity`), new List(`Claude`)];
-const aiModels = [new List(`Gemini`), new List(`Gemma`)];
-const versionControlls = [new List(`GitHub`)];
+export const devLanguages = [new List(`HTML`), new List(`CSS`), new List(`JavaScript`)],
+    devLibraries = [new List(`Bootstrap`), new List(`GSAP`)],
+    designTools = [new List(`Figma`), new List(`Webflow`), new List(`Frammer`)],
+    devIdes = [new List(`VScode`), new List(`Antigravity`), new List(`Claude`)],
+    aiModels = [new List(`Gemini`), new List(`Gemma`)],
+    versionControlls = [new List(`GitHub`)];
 
 function DevSkill(name, favicon, link = '#') {
     this.name = name;
@@ -732,6 +700,9 @@ function DevTool(name, favicon, link = '#') {
 export const tools = [
     new DevTool(`VScode`, `${faviconVscode}`),
     new DevTool(`Bootstrap`, `${faviconBootstrap}`),
+    new DevTool(`TailwindCSS`, null),
+    new DevTool(`ReactJS`, null),
+    new DevTool(`NextJS`, null),
     new DevTool(`Figma`, `${faviconFigma}`),
     new DevTool(`Webflow`, `${faviconWebflow}`),
     new DevTool(`Framer`, `${faviconFramer}`),
@@ -848,27 +819,27 @@ function ProjectsItem(date, category, title, link, image) {
 export const projects = [
     new ProjectsItem(
         `01-Jan-${thisYear}`,
-        'Portfolio website',
+        'HTML CSS JavaScript',
         `${author.title}`,
         `/`,
         `/assets/og-images/og-main.png?v=${VERSION}`
     ),
     new ProjectsItem(
         `24-Nov-${thisYear - 1}`,
-        'Design Agency website',
-        'DEVAEC | Website Design & Front-End Development',
-        `${urlYoutube}`
+        'ReactJS TailwindCSS NextJS',
+        'Web Development with ReactJS+TailwindCSS+NextJS',
+        `/projects/my-next-app`
     ),
     new ProjectsItem(
         '13-May-2024',
-        'E-commerce website',
-        'TANUVL | Fashion & Clothing',
+        'Portfolio Website',
+        `${author.name} | YouTube`,
         `https://youtu.be/HTCgsgdRELg?t=17&si=MawSODh4e3nBabPJ`
     ),
     new ProjectsItem(
         '09-Jul-2023',
         'Landing Page',
-        'Md Ezazul Hassan',
+        `${author.name} | YouTube`,
         `https://youtu.be/NcC0lgGDCHc?t=23&si=1ToXGc7JTbbEo3f0`
     ),
 ];
@@ -881,15 +852,15 @@ function FaqsItem(question, answer) {
 export const faqs = [
     new FaqsItem(
         `What do I do?`,
-        `I usually <b> design </b> &amp; <b>develop</b> website<sup class="txt-tertiary" style="">Front-End</sup> using latest <b>HTML</b>, <b>CSS</b> &amp; <b>JavaScript</b>.`
+        `I usually design/develop Frontend using latest HTML, CSS, JavaScript, <b>TailwindCSS</b>, <b>ReactJS</b> &amp; <b>NextJS</b>.`
     ),
     new FaqsItem(
         `What is my design process?`,
-        `I use <b>Figma</b> for initial wireframing, followed by <b>Framer</b> or <b>Webflow</b> for high-fidelity development. My goal is to bridge the gap between design and logic.`
+        `I use <b>Figma</b> for initial wireframing, followed by <b>ReactJS</b>+<b>TailwindCSS</b>+<b>NextJS</b> for high-fidelity development to bridge the gap between design and logic.`
     ),
     new FaqsItem(
-        `Do I provide custom JavaScript functions?`,
-        `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional <b>UI components</b>. Also providing CSS functions.`
+        `Do I provide components?`,
+        `Yes, I specialize in latest <b>JavaScript</b> to create custom logic, API integrations, and functional <b>ReactJS Components</b>.`
     ),
     new FaqsItem(
         `What is the price range?`,
@@ -980,9 +951,9 @@ export const navigations = [
         `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em;"/>Home</span>`,
         '/#hero'
     ),
-    new NavItem('About', '/#about'),
-    new NavItem('Services', '/#services'),
-    new NavItem('Projects', '/#projects'),
+    new NavItem('About', '/about'),
+    new NavItem('Services', '/services'),
+    new NavItem('Projects', '/projects'),
 ];
 
 // ###################
@@ -1101,7 +1072,7 @@ const navObserver = new IntersectionObserver(
     entries => {
         entries.forEach(entry => {
             const id = entry.target.getAttribute('id');
-            const navLink = document.querySelector(`nav#header-nav-list a[href="/#${id}"]`);
+            const navLink = document.querySelector(`nav#header-nav-list a[href="/${id}"]`);
 
             if (entry.isIntersecting) {
                 navLink?.classList.add('active');
@@ -1110,7 +1081,7 @@ const navObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.4 }
+    { threshold: 0.3 }
 ); // Trigger when section is 60% visible, avoid 1
 document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
 

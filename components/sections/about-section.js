@@ -39,7 +39,7 @@ class AboutSection extends HTMLElement {
 
         // 3. Define the HTML (Top-level element is now your grid section)
         template.innerHTML = `
-<section ${seoSection(`about`)} class=" bg-primary  screenHeight snappyContainer " style="--snapType: mandatory;" id="about" data-version="${VERSION}">
+<section ${seoSection(`about`)} class=" bg-primary  screenHeigh snappyContaine " style="--snapType: mandatory;" id="about" data-version="${VERSION}">
     <div style="gap: 0em;" class="row content-center screenHeight">
       <p data-animate="scaleIn" class="h6">
         <span class="txt-tertiary">${author.name}</span> <i>2001 - ${thisYear}</i>
@@ -96,7 +96,7 @@ class AboutSection extends HTMLElement {
      )
      .join('')}
 
-     ${componentSkipSection()}
+    <!-- ${componentSkipSection()} -->
 
 
    </section>

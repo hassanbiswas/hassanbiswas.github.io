@@ -530,7 +530,7 @@ text-decoration: none;
   /* =========== ul li ============ */
 
 #services ul {
-    padding-inline-start: var(--gap-1);
+    /* padding-inline-start: var(--gap-1); */
 
     li { list-style-type: disc; }
 
@@ -2080,8 +2080,8 @@ padding-block: var(--space-xs);
 
     scroll-snap-type: revert;
     scroll-snap-align: start;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    /* overflow-y: auto; */
+    /* overscroll-behavior: contain; */
 
 
     /* overflow: clip auto; */  /* +v8 */
@@ -2110,11 +2110,11 @@ q,
   #services {
     padding-block: 0em;
     background: var(--bg-primary);
-    block-size: 100dvh;
+    min-block-size: 100dvh;
     position: relative;
 
     scroll-snap-align: start;
-    overscroll-behavior: contain;
+    /* overscroll-behavior: contain; */
 
     overflow: clip auto;
     scrollbar-gutter: none;
@@ -2122,6 +2122,14 @@ q,
 
     /* touch-action: pan-x pan-x; */  /* +v8 cmnt */
     /* Ensures touch devices handle both directions without locking */  /* +v8 cmnt */
+        /* scroll-snap-type: both mandatory; */
+
+        & > * {
+            scroll-snap-align: start;
+            overflow: clip;
+            min-block-size: 100dvh;
+            padding-inline: var(--padding-inline);
+        }
 
     svg {
         margin-top: -3.2rem;
@@ -2142,76 +2150,6 @@ q,
         }
     }
 
-
-    .servicesCarousel{
-        all: revert;
-        display: flex;
-        flex-direction: var(--direction, column);
-        gap: 0em;
-        align-items: stretch;
-        justify-content: stretch;
-
-        overflow: clip auto;
-        /* scrollbar-gutter: none; */
-        /* scrollbar-width: none; */
-
-        scroll-snap-type: both mandatory;
-
-        /* position: relative; */
-            anchor-name: --serviceCarousel;
-            /* scroll-marker-group: after; */
-
-        & > * {
-            scroll-snap-align: start;
-            overflow: clip;
-            block-size: 100dvh;
-            padding-inline: var(--padding-inline);
-
-                /* animation-name: carouselClip; */
-                /* animation-duration: 3ms; */
-                /* animation-timing-function: --ease(); */
-                /* animation-delay: calc(3ms * --stagger()); */
-                /* animation-iteration-count: infinite; */
-
-                /* animation-timeline: var(--data-trigger, view()); */
-                /* animation-range: entry 0% cover 30%; */
-        }
-
-    }
-
-    .scroll-marker-group {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .8em;
-
-        padding-block-end: 2.4rem;
-        flex-direction: row;
-        position: fixed;
-        position-anchor: --serviceCarousel;
-        position-area: top center;
-        /* top: 0;
-        left: 0;
-        right: 0;
-        bottom: auto; */
-        margin-block-start: 2.4rem;
-        margin-block-end: auto;
-        clip-path: var(--clip-path);
-    }
-
-    .scroll-marker {
-        /* content: ''; */
-        padding: .4em .8em;
-        border-radius: 100dvw;
-        background: var(--bg-tertiary);
-    }
-
-    .scroll-marker:active {
-        content: var(--data-name, 'status');
-        background: var(--brand-primary);
-    }
-
-
     .service-image {
         transition: --duration() --ease();
         aspect-ratio: 16/9;
@@ -2224,7 +2162,6 @@ q,
         opacity: 1 ;
 
         img { aspect-ratio: 16/9; } /* !important */
-
     }
 }
 
@@ -2293,13 +2230,13 @@ padding-block: 0;
 
   #projects {
     padding-block: 0em;
-block-size: 100dvh;
+    /* block-size: 100dvh; */
     overflow-x: clip;  /* -v8 */
     /* overflow-y: scroll; */  /* -v8 */
 
     scroll-snap-align: start;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    /* overscroll-behavior: contain; */
 
     /* overflow: clip auto; */  /* +v8 */
     /* scrollbar-gutter: none; */  /* +v8 */
@@ -2785,7 +2722,7 @@ filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
 
 /* Styling the overall transition */
 ::view-transition-group(*) {
-    animation-duration: --duration();
+    animation-duration: 1s;
     animation-timing-function: --ease();
     animation-fill-mode: both;
 }
@@ -2802,8 +2739,9 @@ body > :is(#loader, main > section[id]) {
     animation-name: pagesOld;
 }
 @keyframes pagesOld {
-    from { transform: translateY(0%); opacity: 1; }
-    to { transform: translateY(-30%); opacity: 0.3; }
+    0% { transform: translateY(0%) scale(1); }
+    50% { transform: translateY(0%) scale(.3); }
+    100% { transform: translateY(-70%) scale(.3); }
 }
 /* Custom @keyframes for the new page */
 ::view-transition-new(root),
@@ -2811,10 +2749,13 @@ body > :is(#loader, main > section[id]) {
 ::view-transition-new(pages),
 :active-view-transition-type(back)::view-transition-new(pages) {
     animation-name: pagesNew;
+    animation-delay: 400ms;
+    transform-origin: bottom;
 }
 @keyframes pagesNew {
-    from { transform: translateY(30%); opacity: 0.3; clip-path: inset(30% 30% 0% 0%); }
-    to { transform: translateY(0%); opacity: 1; clip-path: inset(0%); }
+    0% { transform: translateY(70%) scale(.3); clip-path: inset(70% 30% 0% 30%); } /* inset(70% 30% 0% 30%) / inset(100% 0% 0% 0%) */
+    50% { transform: translateY(0%) scale(.3); clip-path: inset(70% 30% 0% 30%); }
+    100% { transform: translateY(0%) scale(1); clip-path: inset(0%); }
 }
 
 
@@ -2903,7 +2844,7 @@ Note:
     animation: loaderSvgDraw 1s --ease() both infinite;
 }
 
-@keyframes spin3DInfinitee {
+@keyframes spin3DInfinite {
     to {
         transform: rotateZ(-360deg);
     }

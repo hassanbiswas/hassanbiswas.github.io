@@ -1,12 +1,15 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const { VERSION, seoSection, seoH, seoA } = App;
+
 class TermsOfServiceSection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML
-
         template.innerHTML = `
-
 <section ${seoSection(`termsOfService`)} style="background: var(--bg-primary); color: (--txt-secondary);" class=" info-section">
 <div class="container-md">
 <div class="row">
@@ -130,7 +133,6 @@ For any legal inquiries regarding these terms, please reach out.
 </div>
 </div>
 </section>
-
 `;
 
         // 4. THE MAGIC: Synchronous swap

@@ -33,7 +33,7 @@ class ProjectsSection extends HTMLElement {
 
         // 3. Define the HTML (Top-level element is now your grid section)
         template.innerHTML = `
-      <section ${seoSection(`projects`)} class=" bg-primary snappyContainer" style="--snapType: mandatory;" id="projects" data-version="${VERSION}">
+      <section ${seoSection(`projects`)} class=" bg-primary snappyContaine" style="--snapType: mandatory;" id="projects" data-version="${VERSION}">
 
       <div class="container-md row  screenHeight" style="padding-block: 1em; overflow: clip; gap: .8em;">
  <p class="fade-in-to txt-tertiary">Selected <span class="txt-secondary">Projects</span> <i>2023 - ${thisYear}</i></p>
@@ -69,7 +69,7 @@ With ${experience}+ years of experience, I'm Designing & developing websites in 
 </div>
 
 
-     ${componentSkipSection()}
+     <!-- ${componentSkipSection()} -->
 
 
       </section>

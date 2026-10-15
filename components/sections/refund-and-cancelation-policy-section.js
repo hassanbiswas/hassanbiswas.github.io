@@ -1,12 +1,25 @@
+import * as App from '/index.js';
+
+// Destructure array, function, and variables directly
+const {
+    VERSION,
+    seoSection,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    brandLogo,
+    componentReviews,
+    urlMobile,
+} = App;
+
 class RefundAndCancelationPolicySection extends HTMLElement {
     connectedCallback() {
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
         // 3. Define the HTML
-
         template.innerHTML = `
-
 <section ${seoSection(`refundAndCancelationPolicy`)} style="background: var(--bg-primary); color: (--txt-secondary);" class=" info-section">
  <div class="container-md">
 <div class="row">
@@ -102,7 +115,6 @@ I strive for 100% client satisfaction. If you are unhappy with the progress of y
 </div>
 </div>
 </section>
-
 `;
 
         // 4. THE MAGIC: Synchronous swap

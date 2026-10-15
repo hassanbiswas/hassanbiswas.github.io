@@ -46,7 +46,6 @@ class HeroSection extends HTMLElement {
                     .map(
                         skill => `
                         <a ${seoA()} href="${skill.link}" aria-label="${skill.name}" ${childVal}>
-                            <!-- <img ${seoImg(skill.favicon, skill.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/> -->
                             ${skill.name}
                         </a>
                     `
@@ -57,7 +56,6 @@ class HeroSection extends HTMLElement {
                     .map(
                         tool => `
                         <a ${seoA()} href="${tool.link}" aria-label="${tool.name}" ${childVal}>
-                            <!-- <img ${seoImg(tool.favicon, tool.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/> -->
                             ${tool.name}
                         </a>
                     `
