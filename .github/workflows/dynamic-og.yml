@@ -7,7 +7,6 @@ on:
   workflow_run:
     workflows:
       - compression.yml
-      - deploy.yml
     types:
       - completed
   workflow_dispatch:
@@ -100,9 +99,19 @@ jobs:
           NODE
 
       - name: Commit and Push OG Image
+        env:
+          TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.io"
+          
+          # Set remote URL with the ephemeral token
+          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git
+          
+          git fetch origin main
+          git pull origin main --rebase --autostash
+          
           git add assets/og-images/og-main.png
           git diff --staged --quiet || git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
-          git push
+          git push origin main
+          
