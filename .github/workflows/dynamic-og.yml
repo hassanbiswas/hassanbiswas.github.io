@@ -5,12 +5,14 @@ on:
     branches:
       - main
   workflow_run:
-    workflows: ["compression.yml", "deploy.yml"]
+    workflows:
+      - compression.yml
+      - deploy.yml
     types:
       - completed
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: "0 0 1 * *"
 
 jobs:
   release-automation:
@@ -34,7 +36,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Puppeteer
         run: npm install puppeteer --no-save
@@ -57,52 +59,58 @@ jobs:
             try {
               const browser = await puppeteer.launch({
                 headless: 'new',
-                args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+                args: [
+                  '--no-sandbox',
+                  '--disable-setuid-sandbox',
+                  '--disable-dev-shm-usage',
+                ],
               });
 
-          const page = await browser.newPage();
-          await page.setViewport({ width: 1200, height: 630 });
+              const page = await browser.newPage();
+              await page.setViewport({ width: 1200, height: 630 });
 
-          // Use the actual deployed site
-  const url = 'https://hassanbiswas.github.io';
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+              const url = 'https://hassanbiswas.github.io';
+              await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-  // Wait until the page has meaningful content
-  await page.waitForFunction(() => {
-    const body = document.body;
-    return !!body && body.innerText && body.innerText.trim().length > 50;
-  }, { timeout: 60000 });
+              await page.waitForFunction(() => {
+                const body = document.body;
+                return !!body && body.innerText && body.innerText.trim().length > 50;
+              }, { timeout: 60000 });
 
-  // Wait for common loader elements to be hidden
-  await page.waitForFunction(() => {
-    const els = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
-    for (const el of els) {
-      const s = window.getComputedStyle(el);
-      if (s.display !== 'none' && s.visibility !== 'hidden' && el.offsetParent !== null) {
-        return false;
-      }
-    }
-    return true;
-  }, { timeout: 60000 });
+              await page.waitForFunction(() => {
+                const els = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
+                for (const el of els) {
+                  const style = window.getComputedStyle(el);
+                  if (
+                    style.display !== 'none' &&
+                    style.visibility !== 'hidden' &&
+                    el.offsetParent !== null
+                  ) {
+                    return false;
+                  }
+                }
+                return true;
+              }, { timeout: 60000 });
 
-  // final settle delay (cross-version safe)
-  await (typeof page.waitForTimeout === 'function'
-    ? page.waitForTimeout(1000)
-    : new Promise(r => setTimeout(r, 1000)));
+              await (typeof page.waitForTimeout === 'function'
+                ? page.waitForTimeout(1000)
+                : new Promise((resolve) => setTimeout(resolve, 1000)));
 
-  const out = `${outDir}/og-main.png`;
-  await page.screenshot({ path: out, fullPage: false });
-  console.log('OG image created:', out);
+              const out = `${outDir}/og-main.png`;
+              await page.screenshot({ path: out, fullPage: false });
+              console.log('OG image created:', out);
 
-  // debug: list directory and file info
-  const files = fs.readdirSync(outDir);
-  console.log('outDir files:', files);
-  if (fs.existsSync(out)) {
-    console.log('og-main.png size:', fs.statSync(out).size);
-  }
+              const files = fs.readdirSync(outDir);
+              console.log('outDir files:', files);
 
-  await browser.close();
-} catch (err) {
-  console.error('OG generation failed:', err);
-  process.exit(1);
-}
+              if (fs.existsSync(out)) {
+                console.log('og-main.png size:', fs.statSync(out).size);
+              }
+
+              await browser.close();
+            } catch (err) {
+              console.error('OG generation failed:', err);
+              process.exit(1);
+            }
+          })();
+          NODE
