@@ -60,64 +60,49 @@ jobs:
                 args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
               });
 
-              const page = await browser.newPage();
-              await page.setViewport({ width: 1200, height: 630 });
+          const page = await browser.newPage();
+          await page.setViewport({ width: 1200, height: 630 });
 
-              // Use the actual deployed site
-              const url = 'https://hassanbiswas.github.io';
-              await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+          // Use the actual deployed site
+  const url = 'https://hassanbiswas.github.io';
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-              // Wait until the page has meaningful content
-              await page.waitForFunction(() => {
-                const body = document.body;
-                return !!body && body.innerText && body.innerText.trim().length > 50;
-              }, { timeout: 60000 });
+  // Wait until the page has meaningful content
+  await page.waitForFunction(() => {
+    const body = document.body;
+    return !!body && body.innerText && body.innerText.trim().length > 50;
+  }, { timeout: 60000 });
 
-              // Wait for common loader elements to be hidden (customize selectors if needed)
-              await page.waitForFunction(() => {
-                const els = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
-                for (const el of els) {
-                  const s = window.getComputedStyle(el);
-                  if (s.display !== 'none' && s.visibility !== 'hidden' && el.offsetParent !== null) {
-                    return false;
-                  }
-                }
-                return true;
-              }, { timeout: 60000 });
+  // Wait for common loader elements to be hidden
+  await page.waitForFunction(() => {
+    const els = document.querySelectorAll('.loader, .loading, .splash, [data-loading]');
+    for (const el of els) {
+      const s = window.getComputedStyle(el);
+      if (s.display !== 'none' && s.visibility !== 'hidden' && el.offsetParent !== null) {
+        return false;
+      }
+    }
+    return true;
+  }, { timeout: 60000 });
 
-              // final settle delay (set-and-forget)
-              await page.waitForTimeout(1000);
+  // final settle delay (cross-version safe)
+  await (typeof page.waitForTimeout === 'function'
+    ? page.waitForTimeout(1000)
+    : new Promise(r => setTimeout(r, 1000)));
 
-              const out = `${outDir}/og-main.png`;
-              await page.screenshot({ path: out, fullPage: false });
-              console.log('OG image created:', out);
+  const out = `${outDir}/og-main.png`;
+  await page.screenshot({ path: out, fullPage: false });
+  console.log('OG image created:', out);
 
-              // debug: list directory
-              const files = fs.readdirSync(outDir);
-              console.log('outDir files:', files);
+  // debug: list directory and file info
+  const files = fs.readdirSync(outDir);
+  console.log('outDir files:', files);
+  if (fs.existsSync(out)) {
+    console.log('og-main.png size:', fs.statSync(out).size);
+  }
 
-              await browser.close();
-            } catch (err) {
-              console.error('OG generation failed:', err);
-              process.exit(1);
-            }
-          })();
-          NODE
-
-      - name: Commit and Push Changes
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add -A assets/og-images/og-main.png
-
-          if git diff --staged --quiet; then
-            echo "No changes, skipping push."
-          else
-            git commit -m "$COMMITTEE_MSG [$VERSION]"
-            git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-            git pull --rebase --autostash
-            git push
-          fi
+  await browser.close();
+} catch (err) {
+  console.error('OG generation failed:', err);
+  process.exit(1);
+}
