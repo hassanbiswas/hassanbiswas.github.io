@@ -30,7 +30,7 @@ jobs:
       - name: Set Version and Metadata
         run: |
           # Use your preferred YY.MM.DD format
-          echo "VERSION=$(date +'%y.%m.01')" >> $GITHUB_ENV
+          echo "VERSION=$(date +'%y.%m.%d')" >> $GITHUB_ENV
           echo "COMMITTEE_MSG=Release - Stable Build" >> $GITHUB_ENV
 
       - name: Process Assets and Release
