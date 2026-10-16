@@ -1772,7 +1772,8 @@ body {
   #loader {
     /* cursor: hidden; */
 color-scheme: dark;
-background: var(--brand-primary);
+/* background: var(--brand-primary); */
+background: transparent;
 position: fixed;
 inset: 0;
 z-index: 1000;
@@ -1782,22 +1783,6 @@ margin: 0;
 
 > * { place-items: center; }
 }
-
-
-header {
-background: var(--bg-primary);
-padding-block: 0;
-
-.flex {
-  justify-content: space-between;
-  gap: 1.6em;
-
-  a {
-text-decoration: none;
-}
-
-}
-}/* #header ends */
 
   .section-radius {
 border-radius: var(--section-radius);
@@ -2266,7 +2251,8 @@ padding-block: 0;
         transition: all --duration() --ease();
 
         @starting-style {
-            opacity: 0; transform: scale(0.3);
+            opacity: 0;
+            transform: scale(.3);
         }
 
         img { aspect-ratio: 16/9; block-size: 100%; }
@@ -2275,7 +2261,8 @@ padding-block: 0;
 }
 #projects:has( .project-item:is(:hover, :focus-visible)) .project-item:not(:is(:hover, :focus-visible))
 .project-image {
-    opacity: 0; transform: scale(0.3);
+    opacity: 0;
+    transform: scale(.3);
 }
 
 
@@ -2469,7 +2456,7 @@ display: none;
 .clipCircle { clip-path: circle(var(--size, 30%) at var(--x, 30%) var(--y, 50%)); }
 
   /* for fluid nav with large center */
-#bottom-navigation {
+#header {
 position: fixed;
 top: auto;
 left: 0;
@@ -2722,9 +2709,10 @@ filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
 
 /* Styling the overall transition */
 ::view-transition-group(*) {
-    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-duration: 2s;
     animation-timing-function: --ease();
-    animation-fill-mode: both;
+    transform-style: preserve-3d;
 }
 
 body > :is(#loader, main > section[id]) {
@@ -2737,25 +2725,26 @@ body > :is(#loader, main > section[id]) {
 ::view-transition-old(pages),
 :active-view-transition-type(back)::view-transition-old(pages) {
     animation-name: pagesOld;
+    transform-origin: top;
 }
-@keyframes pagesOld {
-    0% { transform: translateY(0%) scale(1); }
-    50% { transform: translateY(0%) scale(.3); }
-    100% { transform: translateY(-70%) scale(.3); }
-}
+
 /* Custom @keyframes for the new page */
 ::view-transition-new(root),
 :active-view-transition-type(back)::view-transition-new(root),
 ::view-transition-new(pages),
 :active-view-transition-type(back)::view-transition-new(pages) {
     animation-name: pagesNew;
-    animation-delay: 400ms;
-    transform-origin: bottom;
+}
+
+@keyframes pagesOld {
+    0% { transform: scale(1) translateY(0%); clip-path: inset(0%); }
+    50% { transform: scale(1) translateY(0%); clip-path: inset(0% 30% 70% 30%); }
+    100% { transform: scale(1) translateY(-100%); clip-path: inset(0% 30% 70% 30%); }
 }
 @keyframes pagesNew {
-    0% { transform: translateY(70%) scale(.3); clip-path: inset(70% 30% 0% 30%); } /* inset(70% 30% 0% 30%) / inset(100% 0% 0% 0%) */
-    50% { transform: translateY(0%) scale(.3); clip-path: inset(70% 30% 0% 30%); }
-    100% { transform: translateY(0%) scale(1); clip-path: inset(0%); }
+    0% { transform: scale(2) translateY(100%); clip-path: inset(100% 0% 0% 0%); } /* inset(70% 30% 0% 30%) / inset(100% 0% 0% 0%) */
+    50% { transform: scale(2) translateY(100%); clip-path: inset(0% 0% 0% 0%); }
+    100% { transform: scale(1) translateY(0%); clip-path: inset(0%); }
 }
 
 
@@ -2835,13 +2824,39 @@ Note:
     animation: splitWordLink --duration() --ease() --stagger();
 }
 
+.loaderClipContainer {
+    position: fixed;
+    inset: 0;
+    /* display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr; */
+    display: flex;
+    gap: 0px;
+
+    > * {
+        flex: 1;
+        /* background: var(--bg-primary); */
+        background: var(--brand-primary);
+        filter: brightness(.9);
+        block-size: 100%;
+        animation: loaderClip 1.5s --ease() forwards;
+        animation-delay: --stagger-center(.15s);
+        animation-play-state: var(--playState, paused);
+    }
+}
+
+@keyframes loaderClip {
+    0% { clip-path: inset(0%); }
+    100% { clip-path: inset(0% 0% 100% 0%); }
+}
+
 @keyframes loaderSvgDraw {
-    0%, 100% { stroke-dashoffset: 100; }
-    50% { stroke-dashoffset: 0; }
+    0%, 100% { stroke-dashoffset: 0; }
+    50% { stroke-dashoffset: 110; }
 }
 .loaderSvgDraw {
-    stroke-dashoffset: 100;
-    animation: loaderSvgDraw 1s --ease() both infinite;
+    animation: loaderSvgDraw 1s linear infinite;
+    animation-play-state: paused;
 }
 
 @keyframes spin3DInfinite {

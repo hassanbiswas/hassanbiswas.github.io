@@ -856,7 +856,7 @@ export const faqs = [
     ),
     new FaqsItem(
         `What is my design process?`,
-        `I use <b>Figma</b> for initial wireframing, followed by <b>ReactJS</b>+<b>TailwindCSS</b>+<b>NextJS</b> for high-fidelity development to bridge the gap between design and logic.`
+        `I use <b>Figma</b> for initial wireframing, followed by <b>ReactJS</b>, <b>TailwindCSS</b>, <b>NextJS</b> for high-fidelity development to bridge the gap between design and logic.`
     ),
     new FaqsItem(
         `Do I provide components?`,
@@ -1072,7 +1072,7 @@ const navObserver = new IntersectionObserver(
     entries => {
         entries.forEach(entry => {
             const id = entry.target.getAttribute('id');
-            const navLink = document.querySelector(`nav#header-nav-list a[href="/${id}"]`);
+            const navLink = document.querySelector(`#header a[href="/${id}"]`);
 
             if (entry.isIntersecting) {
                 navLink?.classList.add('active');
@@ -1083,7 +1083,7 @@ const navObserver = new IntersectionObserver(
     },
     { threshold: 0.3 }
 ); // Trigger when section is 60% visible, avoid 1
-document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
+document.querySelectorAll('main > section[id]').forEach(section => navObserver.observe(section));
 
 // remove lazy loading in screen medias
 const lazyLoading = document.querySelectorAll('img, picture, svg, iframe, audio, video');
@@ -1102,7 +1102,7 @@ const lazyObserver = new IntersectionObserver(
             }
         });
     },
-    { rootMargin: `${window.innerHeight / 3}px` }
+    { rootMargin: `${window.innerHeight / 4}px` }
 ); // Trigger when section is 200px away to visible, avoid (-)
 
 // document.querySelectorAll('[loading', 'lazy]')
@@ -1129,7 +1129,7 @@ const scrollSnapObserver = new IntersectionObserver(
     },
     { threshold: 0.15 }
 );
-scrollSnapItems?.forEach(el => scrollSnapObserver.observe(el));
+// scrollSnapItems?.forEach(el => scrollSnapObserver.observe(el));
 
 // ------ install app --------
 let deferredPrompt;

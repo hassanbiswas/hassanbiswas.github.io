@@ -1,7 +1,18 @@
 import * as App from '/index.js';
 
 // Destructure array, function, and variables directly
-const { VERSION, author, header, brandLogo, seoA, locationPrimary, urlMessenger } = App;
+const {
+    VERSION,
+    author,
+    header,
+    brandLogo,
+    navPrimary,
+    seoH,
+    seoA,
+    seoImg,
+    seoButton,
+    navigations,
+} = App;
 
 class HeaderSection extends HTMLElement {
     connectedCallback() {
@@ -10,18 +21,23 @@ class HeaderSection extends HTMLElement {
 
         // 3. Define the HTML
         template.innerHTML = `
-            <header ${header()} class="" id="header" data-version="${VERSION}">
-                <div class="container-md">
-                    <nav style="padding-block: 0.4em; gap: .8em;" class="flex j-between">
+            <header ${header()} id="header" data-version="${VERSION}">
+            <div style="overflow: visible;" class="container-md">
+                <nav ${navPrimary()} class="nav-list items-center txt-center" id="header-nav-list">
+                    ${navigations
+                        .map(
+                            navigation => `
+                    <a style="block-size: stretch; ${navigator.style || ''}" class="list-item flex items-center txt-center ${navigation.class || ''}" href="${navigation.link}" >
+            ${navigation.name}
+                    </a>
+                `
+                        )
+                        .join('')}
 
-            <div aria-label="Primary service location" class="flex" style="gap: 4px; flex-wrap: nowrap;">
-    ${locationPrimary}
+                    <a class="list-item active-bg" inert="" aria-hidden="true" style="pointer-events: none;"></a>
+                </nav>
             </div>
-
-            <a ${seoA()} aria-label="Messenger" href="${urlMessenger}" style="">@${author.siteUrl}</a>
-        </nav>
-       </div>
-      </header>
+        </header>
     `;
 
         // 4. THE MAGIC: Synchronous swap

@@ -17,10 +17,23 @@ const {
 class LoaderSection extends HTMLElement {
     connectedCallback() {
         document.getElementsByTagName('body')[0].setAttribute('inert', '');
+        document.body.style = 'pointer-events: none;';
 
         const template = document.createElement('template');
         template.innerHTML = `
         <section id="loader" class="" data-version="${VERSION}">
+            <div class="loaderClipContainer">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
             <div class="container-md content-center">
                 <div class="col items-center" style="align-items: center;">
                     <h3 class="greeting txt-center flex items-center" style="block-size: 100%; flex-wrap: nowrap;">
@@ -34,8 +47,9 @@ class LoaderSection extends HTMLElement {
     `;
 
         const content = template.content.cloneNode(true);
-        const sayHello = content.querySelector('#say-hello');
         const loader = content.querySelector('#loader');
+        const loaderClipContainer = content.querySelector('.loaderClipContainer');
+        const sayHello = content.querySelector('#say-hello');
 
         // 1. Initial State Checks
         let i = 0;
@@ -58,41 +72,38 @@ class LoaderSection extends HTMLElement {
         // 3. Animation Logic with Connectivity Check
         const greetingInterval = setInterval(() => {
             sayHello.textContent = greetings[i];
+            sayHello.style.animationPlayState = 'running';
             i++;
 
             // Reset loop if we hit the end of the array
             // if (i >= greetings.length) {
-
             /**
              * The Exit Condition:
              * - Page must be fully loaded (isPageLoaded)
              * - Browser must be online (navigator.onLine)
              */
             if (isPageLoaded) {
-                // clearInterval(greetingInterval);
+                clearInterval(greetingInterval);
 
                 // Smooth Exit Animation
-                loader.style.transition =
-                    'clip-path --duration() --ease(), opacity --duration() --ease(), visibility --duration()';
+                loader.style.transition = 'all --duration() --ease(), visibility --duration()';
                 // Animation
 
+                clearInterval(greetingInterval);
+                sayHello.style.opacity = 0;
+                loaderClipContainer.style = '--playState: running';
                 setTimeout(() => {
-                    clearInterval(greetingInterval);
-                    loader.style.clipPath = 'circle(0% at center center)';
-                    loader.style.opacity = 0;
-                    loader.style.visibility = 'hidden';
+                    sayHello.style.visibility = 'hidden';
                     loader.remove();
                     document.getElementsByTagName('body')[0].removeAttribute('inert');
-                }, 1000); // 400
+                    document.body.style = 'pointer-events: all;';
+                }, 2000); // 400
             } else if (i >= greetings.length) {
                 i = 0;
+            } else {
+                // Keep looping if offline or still loading
+                i = 0;
             }
-            /*
- else {
-   // Keep looping if offline or still loading
-   i = 0;
- }
- */
             // }
         }, 1000); // 200
     }
