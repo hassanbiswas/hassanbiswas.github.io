@@ -70,12 +70,12 @@ class HeroSection extends HTMLElement {
         const template = document.createElement('template');
         // 3. Define the HTML (Top-level element is now your grid section)
         template.innerHTML = `
-      <section ${seoSection(`hero`)} id="hero" class="dark" data-version="${VERSION}">
+        <section ${seoSection(`hero`)} id="hero" class="dark" data-version="${VERSION}">
+        <!-- <span class="container-fluid mesh-gradien gradientShif"></span> -->
         <div class="container-md row items-center custom-containe" style="position: relative; gap: 0; ">
-
         ${brandLogo()}
 
-        <svg width="0" height="0">
+        <!-- <svg width="0" height="0">
         <clipPath id="myClip"
         clipPathUnits="objectBoundingBox">
         <path d="
@@ -96,7 +96,7 @@ class HeroSection extends HTMLElement {
             Q 0 0 .1 0
         "/>
         </clipPath>
-        </svg>
+        </svg> -->
 
 
         <div class="row items-center text-items gradient-mask">
@@ -109,7 +109,9 @@ class HeroSection extends HTMLElement {
             <p class="txt-center txt-primary lineClamp splitText">${description}</p>
             <div class="flex content-center" style="gap: 1.6em; padding-block-start: 1.6em;">
                 <a ${seoA()} style="text-decoration: none;" href="/resume">
-                    <buttton style="border: 0px solid var(--bg-primary); padding: 1.2em 1.6em; " class="btn btn-primary txt-primary bg-primary pill splitText">Resume</button>
+                <buttton style="position: static; border: 0px solid var(--bg-primary); padding: 1.2em 1.6em; " class="btn btn-primary txt-primary bg-primary pill splitText">
+                    Resume
+                    </button>
                 </a>
                 <a class="h6 txt-primary pill splitText" href="/#contact" style="border: 0px solid currentColor; ">Contact</a>
             </div>

@@ -1769,21 +1769,6 @@ body {
  :is([value="dark"]) { display: none;}
 }
 
-  #loader {
-    /* cursor: hidden; */
-color-scheme: dark;
-/* background: var(--brand-primary); */
-background: transparent;
-position: fixed;
-inset: 0;
-z-index: 1000;
-block-size: 100vh;
-inline-size: 100vw;
-margin: 0;
-
-> * { place-items: center; }
-}
-
   .section-radius {
 border-radius: var(--section-radius);
 overflow-x: clip;
@@ -1828,6 +1813,35 @@ transition: --duration() --ease();
   clip-path: url("#myClip");
   background-color: var(--brand-primary);
 }
+
+.mesh-gradient {
+    /* background-color: hsl(40, 100%, 55%); */
+    background-color: var(--brand-primary);
+
+    position: absolute;
+    inset: 0;
+
+    /* Stacked radial gradients to build the mesh effect */
+    background-image:
+        /* Top left: Deep blue/purple transitioning into the brand color */
+        radial-gradient(circle at 25% 15%, hsl(from var(--brand-primary) h s 40%) 0%, transparent 55%),
+
+        /* Center left: Vibrant pink/magenta accent */
+        radial-gradient(circle at 15% 50%, hsl(from var(--brand-primary) h s 50%) 0%, transparent 50%),
+
+        /* Bottom center/left: Intense bright red */
+        radial-gradient(circle at 30% 85%, hsl(from var(--brand-primary) h s 35%) 0%, transparent 50%),
+
+        /* Center/Bottom right: Soft purple/magenta edge */
+        radial-gradient(circle at 90% 85%, hsl(from var(--brand-primary) h s 45%) 0%, transparent 40%),
+
+        /* Top right: Bright warm orange blend */
+        radial-gradient(circle at 85% 20%, hsl(from var(--brand-primary) h s 30%) 0%, transparent 50%);
+
+    /* Ensures smooth visual transitions */
+    background-blend-mode: normal;
+}
+
 
 
 #hero {
@@ -2824,12 +2838,16 @@ Note:
     animation: splitWordLink --duration() --ease() --stagger();
 }
 
-.loaderClipContainer {
+
+#loader {
+    color-scheme: dark;
+    background: transparent;
     position: fixed;
     inset: 0;
-    /* display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr; */
+    z-index: 1000;
+    block-size: 100vh;
+    inline-size: 100vw;
+    margin: 0;
     display: flex;
     gap: 0px;
 
@@ -2839,8 +2857,8 @@ Note:
         background: var(--brand-primary);
         filter: brightness(.9);
         block-size: 100%;
-        animation: loaderClip var(--duration, 2400ms) --ease() forwards;
-        animation-delay: var(--stagg, --stagger-center(150ms));
+        animation: loaderClip 1.3s --ease() forwards;
+        animation-delay: --stagger-center(.13s);
         animation-play-state: var(--playState, paused);
         margin-inline: -1px;
     }
@@ -2940,19 +2958,18 @@ Note:
 
 
 @keyframes gradientShift {
-    to {
+    100% {
         filter: hue-rotate(360deg);
     }
 }
-[data-animate="gradientShift"], .gradientSshift {
+.gradientShift {
     /* background: linear-gradient(
         260deg,
         red,
         orangered,
         blue
     ); */
-    animation-name: gradientShift;
-    animation-iteration-count: infinite;
+    animation: gradientShift 30s linear infinite;
 }
 
 
