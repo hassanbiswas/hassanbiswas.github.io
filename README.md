@@ -31,11 +31,10 @@ Web Developer, Front-End Specialist & UI Designer. Focused on building responsiv
 
 ## Tech Stack & Tools
 
-[portfolio-website](https://github.com/topics/portfolio-website) [ui-ux-design](https://github.com/topics/ui-ux-design) [github](https://github.com/topics/github) [javascript](https://github.com/topics/javascript) [css](https://github.com/topics/css) [html](https://github.com/topics/html) [bootstrap](https://github.com/topics/bootstrap) [website](https://github.com/topics/website) [web-development](https://github.com/topics/web-development) [css-animations](https://github.com/topics/css-animations) [vscode](https://github.com/topics/vscode) [css-grid](https://github.com/topics/css-grid) [web-design](https://github.com/topics/web-design) [figma](https://github.com/topics/figma) [framer](https://github.com/topics/framer) [webflow](https://github.com/topics/webflow) [front-end-development](https://github.com/topics/front-end-development) [css-flexbox](https://github.com/topics/css-flexbox)
-
-- Languages: HTML, CSS, JavaScript
+- Languages: HTML, CSS, JavaScript, ReactJS, TailwindCSS, NextJS, Bootstrap
 - UI/UX Design: Figma, Framer
 - No-Code/Low-Code: Figma, Webflow, Relume
+- Tools: VScode, GitHub
 - Deployment: GitHub Pages
 
 [![divider_twin_serpant](https://hassanbiswas.github.io/assets/img/public/divider_dual_energy_tracks.svg)](https://hassanbiswas.github.io)
@@ -60,9 +59,9 @@ I’m collaborating with:
 
 <ul>
   <li>Website's project</li>
+  <li>UI/UX Designer</li>
   <li>Front-End Developers</li>
-  <li>Back-End Developers</li>
-  <li>Website Design Agencies</li>
+  <li>Web Design Agencies</li>
 </ul>
 
 </td>
@@ -101,7 +100,7 @@ Serving clients worldwide. <a href="https://hassanbiswas.github.io">https://hass
 ⚡ Building & Developing scalable Websites
 </p>
 <p align="center">
-Star ⭐ the repos if he helped you!
+Star ⭐ the repos if I helped you!
 </p>
 
 <p align="center">
