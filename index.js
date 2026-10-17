@@ -245,9 +245,9 @@ const hues = [8, 14, 240, 256, 270, 334].sort();
 const maxHues = hues.length;
 let brandPrimary = `hsl(240, 80%, 50%)`;
 let brandH = hues[random(0, maxHues)] || null;
-if (brandH) {
-    html.style.setProperty('--brand-h', brandH);
-}
+// if (brandH) {
+//     html.style.setProperty('--brand-h', brandH);
+// }
 
 // 2. Get the computed style of the html
 const styleSheet = getComputedStyle(html);
@@ -522,19 +522,6 @@ function QuotesItem(name, title, quote, link, photo, star, platform) {
 }
 export const personQuotes = [
     new QuotesItem(
-        `${author.name}`,
-        `Web Developer`,
-        `I saw incredible results after
-launching the campaign. The advertising
-approach was effective, data-driven, and
-exceeded expectations from the very
-beginning.`,
-        `/`,
-        `${faviconAuthor}`,
-        `★★★★★`,
-        `CEO`
-    ),
-    new QuotesItem(
         `Mariam Coudhuri`,
         `Project Collaborator`,
         `Thanks ${author.name} for the quick turnaround on our student platform! The animations and responsive layout exceeded our expectations completely.`,
@@ -569,6 +556,19 @@ beginning.`,
         `${faviconThreads}`,
         `★★★★★`,
         `Threads`
+    ),
+    new QuotesItem(
+        `${author.name}`,
+        `Web Developer`,
+        `I saw incredible results after
+    launching the campaign. The advertising
+    approach was effective, data-driven, and
+    exceeded expectations from the very
+    beginning.`,
+        `/`,
+        `${faviconAuthor}`,
+        `★★★★★`,
+        `CEO`
     ),
 ];
 

@@ -40,7 +40,7 @@
             // Results in YYYY.MM.01 format
 
             const injectAsset = (type, path, media = 'all') => {
-                const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
+                const versionedPath = `${rootUrl}${path}`;
                 if (type === 'css') {
                     document.write(
                         `<link rel="stylesheet" href="${versionedPath}" media="${media}">`

@@ -32,7 +32,7 @@
             const VERSION = new Date().toLocaleDateString('en-GB').split('/').reverse().join('.');
 
             const injectAsset = (type, path, media = 'all') => {
-                const versionedPath = `${rootUrl}${path}?v=${VERSION}`;
+                const versionedPath = `${rootUrl}${path}`;
                 if (type === 'css') {
                     document.write(
                         `<link rel="stylesheet" href="${versionedPath}" media="${media}">`

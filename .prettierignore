@@ -7,4 +7,5 @@ vendor
 *.jpg
 *.zip
 *.yml
+*.yaml
 *.css

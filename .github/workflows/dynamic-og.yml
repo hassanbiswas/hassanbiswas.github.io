@@ -67,10 +67,10 @@ jobs:
 
               const page = await browser.newPage();
               //await page.setViewport({ width: 1200, height: 630 });
-              await page.setViewport({ width: 1080, height: 768 });
+              await page.setViewport({ width: 1440, height: 1080 });
 
               const url = 'https://hassanbiswas.github.io';
-              
+
               // Wait until network activity settles completely so JS/CSS are loaded
               await page.goto(url, { waitUntil: 'networkidle0', timeout: 70000 });
 
@@ -105,14 +105,13 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.io"
-          
+
           # Set remote URL with the ephemeral token
           git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git
-          
+
           git fetch origin main
           git pull origin main --rebase --autostash
-          
+
           git add assets/og-images/og-main.png
           git diff --staged --quiet || git commit -m "${{ env.COMMITTEE_MSG }} [${{ env.VERSION }}]"
           git push origin main
-          

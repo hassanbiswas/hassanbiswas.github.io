@@ -16,8 +16,6 @@ class LoaderSection extends HTMLElement {
             <span></span>
             <span></span>
             <span></span>
-            <span></span>
-            <span></span>
         </section>
     `;
 
@@ -26,7 +24,7 @@ class LoaderSection extends HTMLElement {
 
         // 1. Initial State Checks
         let isPageLoaded = document.readyState === 'complete',
-            end = 6,
+            end = 5,
             delay = 600;
 
         let start = 0,
