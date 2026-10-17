@@ -66,18 +66,19 @@ jobs:
               });
 
               const page = await browser.newPage();
-              await page.setViewport({ width: 1200, height: 630 });
+              //await page.setViewport({ width: 1200, height: 630 });
+              await page.setViewport({ width: 1080, height: 768 });
 
               const url = 'https://hassanbiswas.github.io';
               
               // Wait until network activity settles completely so JS/CSS are loaded
-              await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 });
+              await page.goto(url, { waitUntil: 'networkidle0', timeout: 70000 });
 
               // Ensure the body is rendered
-              await page.waitForSelector('body', { visible: true, timeout: 30000 });
+              await page.waitForSelector('body', { visible: true, timeout: 40000 });
 
               // Allow extra time for paint cycles, fonts, and layout execution
-              await new Promise((resolve) => setTimeout(resolve, 3000));
+              await new Promise((resolve) => setTimeout(resolve, 4000));
 
               const out = `${outDir}/og-main.png`;
               await page.screenshot({ path: out, fullPage: false, type: 'png' });
