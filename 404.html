@@ -21,10 +21,8 @@
                 // 3. Remove .html or .php extensions
                 path = path.replace(/\.(html|php)$/, '');
 
-                // 4. Strip trailing slash (e.g., /about/ becomes /about)
-                if (path.length > 1 && path.endsWith('/')) {
-                    path = path.slice(0, -1);
-                }
+                // 4. Strip trailing slashes, but keep the root path (e.g., /about/ becomes /about)
+                path = path.replace(/\/+$/, '') || '/';
 
                 // Redirect if path structure was normalized
                 if (path !== originalPath) {

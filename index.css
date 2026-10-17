@@ -2839,9 +2839,10 @@ Note:
         background: var(--brand-primary);
         filter: brightness(.9);
         block-size: 100%;
-        animation: loaderClip 1.5s --ease() forwards;
-        animation-delay: --stagger-center(.15s);
+        animation: loaderClip var(--duration, 2400ms) --ease() forwards;
+        animation-delay: var(--stagg, --stagger-center(150ms));
         animation-play-state: var(--playState, paused);
+        margin-inline: -1px;
     }
 }
 
@@ -2855,7 +2856,7 @@ Note:
     50% { stroke-dashoffset: 110; }
 }
 .loaderSvgDraw {
-    animation: loaderSvgDraw 1s linear infinite;
+    animation: loaderSvgDraw linear infinite;
     animation-play-state: paused;
 }
 

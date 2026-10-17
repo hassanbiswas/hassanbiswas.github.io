@@ -50,7 +50,7 @@ class AboutSection extends HTMLElement {
         </h2>
         <div class="row " style="gap: var(--space-xs); ">
             <p data-animate="scaleIn" class="splitWord">Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
-            <a data-visible class="p splitText" href="/#story-1">
+            <a data-visible class="p splitText" href="/about#story-1">
                 ❯ View Story
             </a>
         </div>

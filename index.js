@@ -1,3 +1,18 @@
+const originalPath = window.location.pathname;
+const normalizedPath = originalPath.replace(/\/+$/, '') || '/';
+if (normalizedPath !== originalPath) {
+    if (!document.querySelector('base')) {
+        const base = document.createElement('base');
+        base.href = `${originalPath}${window.location.search}`;
+        document.head.prepend(base);
+    }
+    window.history.replaceState(
+        window.history.state,
+        '',
+        `${normalizedPath}${window.location.search}${window.location.hash}`
+    );
+}
+
 // Dynamic release versioning (YY.MM.DD)
 export const VERSION = new Date()
     .toLocaleDateString('en-GB')
@@ -319,12 +334,12 @@ export const txtStroke = (text = 'Text_Color_Scale', color = 'currentColor', sca
 export const greetings = [
         'Hello',
         'لسلام ليكم',
-        'Olá!',
-        'еHola!',
-        'Ciao!',
-        'Привет!',
-        'Hallo!',
-        'Bonjour!',
+        'Olá',
+        'еHola',
+        'Ciao',
+        'Привет',
+        'Hallo',
+        'Bonjour',
     ],
     money = value => {
         return value?.toLocaleString('en-US', { style: 'currency', currency: 'USD' }); // undefined
@@ -1072,7 +1087,13 @@ const navObserver = new IntersectionObserver(
     entries => {
         entries.forEach(entry => {
             const id = entry.target.getAttribute('id');
-            const navLink = document.querySelector(`#header a[href="/${id}"]`);
+            // const navLink = document.querySelector(`#header a[href="/#${id}"]`);
+            const navLink = [...document.querySelectorAll('#header a')].find(link => {
+                const url = new URL(link.href, location.href);
+                return (
+                    url.hash === `#${id}` || url.pathname.replace(/\/$/, '').split('/').pop() === id
+                );
+            });
 
             if (entry.isIntersecting) {
                 navLink?.classList.add('active');

@@ -44,9 +44,9 @@ jobs:
 
             const CONFIG = {
               '/': { priority: 1.0, changefreq: 'weekly' },
-              '/about/': { priority: 0.8, changefreq: 'monthly' },
+              '/about': { priority: 0.8, changefreq: 'monthly' },
               '/projects/': { priority: 0.8, changefreq: 'monthly' },
-              '/services/': { priority: 0.8, changefreq: 'monthly' },
+              '/services': { priority: 0.8, changefreq: 'monthly' },
               '/contact/': { priority: 0.8, changefreq: 'monthly' }
             };
 
@@ -68,7 +68,7 @@ jobs:
                   }
                 } else if (INCLUSIONS.extensions.includes(path.extname(file))) {
                   let urlPath = '/' + path.relative(process.cwd(), filePath).replace(/\\/g, '/').replace(/index\.html$/, '');
-                  if (!urlPath.endsWith('/')) urlPath += '/';
+                  urlPath = urlPath.replace(/\/+$/, '') || '/';
                   fileList.push(urlPath);
                 }
               });
