@@ -1,9 +1,9 @@
 name: Generate Dynamic OG Images
 
 on:
-  push:
-    branches:
-      - main
+  #push:
+    #branches:
+      #- main
   workflow_run:
     workflows:
       - compression.yml
@@ -11,7 +11,7 @@ on:
       - completed
   workflow_dispatch:
   schedule:
-    - cron: "0 0 1 * *"
+    - cron: "0 0 * * 0"
 
 jobs:
   release-automation:
