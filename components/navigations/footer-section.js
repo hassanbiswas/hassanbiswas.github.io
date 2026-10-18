@@ -3,6 +3,7 @@ import * as App from '/index.js';
 // Destructure array, function, and variables directly
 const {
     VERSION,
+    Section,
     author,
     getFavicon,
     faviconAuthor,
@@ -27,6 +28,8 @@ const {
 
 class FooterSection extends HTMLElement {
     connectedCallback() {
+        const section = new Section(this);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 
@@ -46,64 +49,58 @@ class FooterSection extends HTMLElement {
             </form>
         </div>
 
-        <div class="flex wrap a-start j-start">
+        <div class="col">
             <div class="row" style="gap: var(--space-xs);">
-                <h2 ${seoH(`footer`)} class ="p txt-tertiary">I craft marketing strategies that elevate brands, <span class="txt-primary"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audiences, and drive measurable business growth.</span>
+                <h2 ${seoH(`footer`)} class="h2 txt-tertiary">I craft marketing strategies that elevate brands, <span class="txt-primary"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audiences, and drive measurable business growth.</span>
                 </h2>
-
-                <h3 class="p">
-                Providing high-quality web design and front-end development services to clients in ${locationSecondary}.
-                </h3>
 
                 <div style="align-content: stretch;" class="flex a-center j-start">
                     <a ${seoA()} href="/resume" style="flex: 0; block-size: stretch; align-self: stretch;"><button ${seoButton()} class="btn-primary pill items-center txt-center splitText nowrap" style="display: flex; flex-direction: row; gap: 0;">Resume</button>
                     </a>
 
-                    <button ${seoButton()} class="btn-primary" style="--brand-primary: rgb(0, 256, 0); flex: 0; block-size: stretch; align-self: stretch; display: flex; place-items: center; flex-wrap: nowrap; gap: .4em; background: rgba(0, 256, 0, .3); display: non; border: 0; color: var(--txt-primary);" id="installApp">
+                    <button ${seoButton()} class="btn-primary" style="--brand-primary: rgb(0, 256, 0); flex: 0; block-size: stretch; align-self: stretch; display: flex; place-items: center; flex-wrap: nowrap; gap: .4em; background: rgba(0, 256, 0, .3); display: none; border: 0; color: var(--txt-primary);" id="installApp">
                         <img ${seoImg(faviconAndroid, `App`)} style="inline-size: 1.5em; display: inline;" class="squar"/>
                         <span style="line-height: 100%" class="d-non splitWord">Install App</span>
                     </button>
                 </div>
             </div>
 
-            <nav style="flex: 1; gap: var(--space-xs);" class="row">
-            ${pages
-                .map(
-                    (page, index) => `
-        <a class="h6" ${seoA()} style="text-decoration: none; flex: 1; flex-basis: 10ch;" href="${page.link}"><span class="p txt-tertiary">[0${index + 1}]</span> <span class="splitText">${page.name}</span>
-        </a>
-            `
-                )
-                .join('')}
-            </nav>
-
-            <nav style="flex: 1; gap: var(--space-xs);" class="row">
-            ${methods
-                .map(
-                    (method, index) => `
-                <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; text-decoration: none;" href="${method.link}">
-                    <span class="splitText">${method.name}</span> <span class="txt-tertiary">↗</span>
-                </a>
-            `
-                )
-                .join('')}
-            </nav>
-
-            <nav style="flex: 1; gap: var(--space-xs);" class="row flex">
-                ${socials
+            <div class="flex wrap a-start j-start">
+                <nav style="flex: 1; gap: var(--space-xs);" class="row">
+                ${pages
                     .map(
-                        social => `
-                <a ${seoA()} aria-label="${social.name}" href="${social.link}">
-                    <img ${seoImg(social.favicon, social.name)} style="border-radius: var(--pill); overflow: clip; inline-size: 1.5em;" class=”pill squar rounded monochrome"/>
-                </a>
+                        (page, index) => `
+            <a class="h6" ${seoA()} style="text-decoration: none; flex: 1; flex-basis: 10ch;" href="${page.link}"><span class="p txt-tertiary">[0${index + 1}]</span> <span class="splitText">${page.name}</span>
+            </a>
                 `
                     )
                     .join('')}
+                </nav>
 
-                <a ${seoA()} aria-label="messenger" id="chat-bubble" style="inline-size: 4em;" class=”pill squar rounded" href="${urlMessenger}">
-                    <img ${seoImg(getFavicon(`m.me`, 50), `Messenger`)} class=”pill squar rounded"/>
-                </a>
-            </nav>
+                <nav style="flex: 1; gap: var(--space-xs); display: non;" class="row">
+                ${methods
+                    .map(
+                        (method, index) => `
+                    <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; text-decoration: none;" href="${method.link}">
+                        <span class="splitText">${method.name}</span>
+                    </a>
+                `
+                    )
+                    .join('')}
+                </nav>
+
+                <nav style="flex: 1; gap: var(--space-xs);" class="row">
+                    ${socials
+                        .map(
+                            (social, index) => `
+                    <a ${seoA()} href="${social.link}" class="splitText">
+                        ${social.name}
+                    </a>
+                    `
+                        )
+                        .join('')}
+                </nav>
+            </div>
         </div>
 
         <nav class="row flex wrap content-center" style="gap: var(--space-xs);">

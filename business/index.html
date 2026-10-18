@@ -4,6 +4,8 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="0; URL=/" http-equiv="refresh" />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="modulepreload" href="/index.js" />
         <script defer="">
             const rootUrl = `/`;
             const VERSION = new Date()
@@ -26,9 +28,6 @@
                 }
             };
 
-            injectAsset('css', 'index.css');
-
-            injectAsset('js', 'index.js');
             injectAsset('js', 'components/navigations/loader-section.js');
             injectAsset('js', 'components/navigations/header-section.js');
             injectAsset('js', 'components/sections/hero-section.js');

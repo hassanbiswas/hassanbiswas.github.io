@@ -3,6 +3,7 @@ import * as App from '/index.js';
 // Destructure array, function, and variables directly
 const {
     VERSION,
+    Section,
     seoSection,
     seoH,
     seoA,
@@ -15,6 +16,8 @@ const {
 
 class RefundAndCancelationPolicySection extends HTMLElement {
     connectedCallback() {
+        const section = new Section(this);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 

@@ -5,6 +5,7 @@ import * as App from '/index.js';
 // Destructure array, function, and variables directly
 const {
     VERSION,
+    Section,
     seoSection,
     seoH,
     seoA,
@@ -20,19 +21,13 @@ const {
 // ### 404.html | Hero component ###
 class HeroSection extends HTMLElement {
     connectedCallback() {
+        const section = new Section(this);
+
         const heading =
             this.getAttribute('heading') ||
             'Crafting digital experiences that inspire, connect, and grow brands worldwide';
         const description =
             this.getAttribute('description') || '✼ Elevating Modern Digital Experiences.';
-
-        // 1. Calculate 'h' directly based on DOM position
-        const parent = this.parentElement || document.querySelector('main')[0];
-        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
-        const h = index === 0 ? 0 : 1;
-
-        // 2. Safely clamp tag level between 1 and 6
-        const tagLevel = Math.min(h + 1, 6);
 
         const color = `var(--txt-primary)`,
             fontSize = `--font(1.2rem, 1.8rem)`,

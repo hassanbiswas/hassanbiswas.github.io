@@ -13,16 +13,13 @@
                     path = path.toLowerCase();
                 }
 
-                // 2. Remove index.html or index.php
-                if (path.endsWith('/index.html') || path.endsWith('/index.php')) {
-                    path = path.replace(/index\.(html|php)$/, '');
-                }
+                // 2. Remove /index.html or /index.php
+                path = path.replace(/\/index\.(html|php)$/, '');
 
-                // 3. Remove .html or .php extensions
-                path = path.replace(/\.(html|php)$/, '');
-
-                // 4. Strip trailing slashes, but keep the root path (e.g., /about/ becomes /about)
-                path = path.replace(/\/+$/, '') || '/';
+                // 3. Remove the last slash also for the root's last slash
+                // path = path.replace(/\/$/, '') || '/';
+                path = path.replace(/\/$/, '') || '/';
+                // path = path.replace(/\/$/, '');
 
                 // Redirect if path structure was normalized
                 if (path !== originalPath) {
@@ -32,8 +29,8 @@
 
                 // 5. Custom Error Mapping
                 const errorMapping = {
-                    '/admin': '/',
-                    '/login': '/',
+                    '/admin': '/404.html',
+                    '/login': '/404.html',
                 };
 
                 if (errorMapping[path]) {
@@ -46,11 +43,11 @@
                     fetch(path, { method: 'HEAD' })
                         .then(response => {
                             if (!response.ok) {
-                                window.location.replace('/');
+                                window.location.replace('/404.html');
                             }
                         })
                         .catch(() => {
-                            window.location.replace('/');
+                            window.location.replace('/404.html');
                         });
                 }
 
@@ -64,7 +61,7 @@
                         // If element with id matching hash doesn't exist, strip hash and fallback to root
                         if (!targetElement) {
                             history.replaceState(null, null, window.location.pathname);
-                            window.location.replace('/');
+                            window.location.replace('/404.html');
                         }
                     }
                 }
@@ -101,6 +98,8 @@
             sizes="any"
             type="image/svg+xml"
         />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="modulepreload" href="/index.js" />
         <script defer="">
             const rootUrl = `/`;
             const VERSION = new Date()
@@ -123,9 +122,6 @@
                 }
             };
 
-            injectAsset('css', 'index.css');
-
-            injectAsset('js', 'index.js');
             injectAsset('js', 'components/navigations/loader-section.js');
             injectAsset('js', 'components/navigations/header-section.js');
             injectAsset('js', 'components/sections/hero-section.js');
@@ -136,25 +132,15 @@
         <meta content="hsl(240, 80%, 50%)" name="theme-color" />
         <title>404 | Web Developer | Hassan Biswas — UI/UX &amp; Front-End Architecture</title>
         <meta content="Website Designer" name="subtitle" />
-        <meta
-            content="404: Expert UI/UX and Front-End Architecture. Updated October 2026."
-            name="description"
-        />
-        <meta
-            content="Hassan Biswas, 404, 404, UI/UX, Front-End, Web Design, NextJS, ReactJS developer, Froentend Developer, custom website, Bangladesh, web development, web architecture, web design, TailwindCSS, web development company, web development agency, web development services, web development solutions, web development firm, web development studio, web development team, web development experts, web development professionals, web development specialists"
-            name="keywords"
-        />
         <meta content="Hassan Biswas" name="author" />
-        <meta content="index, follow" name="robots" />
     </head>
     <body>
         <loader-section> </loader-section>
         <header-section> </header-section>
         <main>
             <hero-section
-                description="Check your connection and try again.
-                Please wait, redirecting!"
                 heading="404 : Page not found!"
+                description="Check your connection and try again."
             >
             </hero-section>
         </main>

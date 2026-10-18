@@ -24,6 +24,8 @@
             sizes="any"
             type="image/svg+xml"
         />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="modulepreload" href="/index.js" />
         <script defer="">
             const rootUrl = `/`;
             const VERSION = new Date()
@@ -46,9 +48,6 @@
                 }
             };
 
-            injectAsset('css', 'index.css');
-
-            injectAsset('js', 'index.js');
             injectAsset('js', 'components/navigations/loader-section.js');
             injectAsset('js', 'components/navigations/header-section.js');
             injectAsset('js', 'components/sections/hero-section.js');

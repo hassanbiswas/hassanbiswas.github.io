@@ -66,7 +66,7 @@ jobs:
 
               current_date = datetime.now().strftime("%B %Y")
               unique_desc = f"{h1_text}: {snippet} Updated {current_date}."
-              unique_keys = f"Hassan Biswas, {folder_label}, {h1_text}, UI/UX, Front-End, Web Design, NextJS, ReactJS developer, Froentend Developer, custom website, Bangladesh, web development, web architecture, web design, TailwindCSS, web development company, web development agency, web development services, web development solutions, web development firm, web development studio, web development team, web development experts, web development professionals, web development specialists"
+              unique_keys = f"Hassan Biswas, {folder_label}, {h1_text}, Web Design, Froentend Developer, UI/UX design, web development, React, Next.js, responsive web design, accessible websites, custom website, Bangladesh, web architecture, web design, TailwindCSS, web development company, web development agency, web development services, web development solutions, web development studio, web development experts, web development specialists"
 
               # 3. Update Title
               if soup.title:
@@ -82,7 +82,8 @@ jobs:
                   "keywords": unique_keys,
                   "theme-color": BRAND_BLUE,
                   "author": "Hassan Biswas",
-                  "robots": "index, follow"
+                  "subtitle": "Web Designer & Front-End Architect",
+                  "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
               }
 
               for name, content in meta_updates.items():

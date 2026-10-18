@@ -24,6 +24,8 @@
             sizes="any"
             type="image/svg+xml"
         />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="modulepreload" href="/index.js" />
         <script defer="">
             const rootUrl = `/`;
 
@@ -41,9 +43,9 @@
                 }
             };
 
-            injectAsset('css', 'index.css');
+            // injectAsset('css', 'index.css');
             // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
-            injectAsset('js', 'index.js');
+            // injectAsset('js', 'index.js');
         </script>
         <link href="/manifest.json" rel="manifest" />
         <meta content="hsl(240, 80%, 50%)" name="theme-color" />

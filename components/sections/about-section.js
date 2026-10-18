@@ -3,6 +3,7 @@ import * as App from '/index.js';
 // Destructure array, function, and variables directly
 const {
     VERSION,
+    Section,
     author,
     getFavicon,
     faviconAuthor,
@@ -21,16 +22,7 @@ const {
 
 class AboutSection extends HTMLElement {
     connectedCallback() {
-        const heading = this.getAttribute('heading') || 'attribute: heading';
-        const description = this.getAttribute('description') || 'attribute: description';
-
-        // 1. Calculate 'h' directly based on DOM position
-        const parent = this.parentElement || document.querySelector('main')[0];
-        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
-        const h = index === 0 ? 0 : 1;
-
-        // 2. Safely clamp tag level between 1 and 6
-        const tagLevel = Math.min(h + 1, 6);
+        const section = new Section(this);
 
         const svgMarginBlock = 'auto auto'; // -30px auto
 
@@ -50,9 +42,6 @@ class AboutSection extends HTMLElement {
         </h2>
         <div class="row " style="gap: var(--space-xs); ">
             <p data-animate="scaleIn" class="splitWord">Having earned a <b>Diploma in Computer Science & Technology</b> and received specialized certification from <b>Utshob Technology Ltd</b> at Sheikh Hasina Software Technology Park, I help clients around the globe establish strong digital identities.</p>
-            <a data-visible class="p splitText" href="/about#story-1">
-                ❯ View Story
-            </a>
         </div>
       </div>
     </div>

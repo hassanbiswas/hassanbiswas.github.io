@@ -3,6 +3,7 @@ import * as App from '/index.js';
 // Destructure array, function, and variables directly
 const {
     VERSION,
+    Section,
     seoSection,
     seoH,
     seoA,
@@ -15,16 +16,7 @@ const {
 
 class CtaSection extends HTMLElement {
     connectedCallback() {
-        const heading = this.getAttribute('heading') || 'attribute: heading';
-        const description = this.getAttribute('description') || 'attribute: description';
-
-        // 1. Calculate 'h' directly based on DOM position
-        const parent = this.parentElement || document.querySelector('main')[0];
-        const index = parent ? Array.from(parent.children).indexOf(this) : 0;
-        const h = index === 0 ? 0 : 1;
-
-        // 2. Safely clamp tag level between 1 and 6
-        const tagLevel = Math.min(h + 1, 6);
+        const section = new Section(this);
 
         // 2. Create an off-screen Template
         const template = document.createElement('template');

@@ -1,10 +1,12 @@
 import * as App from '/index.js';
 
 // Destructure array, function, and variables directly
-const { VERSION, seoSection, seoH, seoA } = App;
+const { VERSION, Section, seoSection, seoH, seoA } = App;
 
 class TermsOfServiceSection extends HTMLElement {
     connectedCallback() {
+        const section = new Section(this);
+
         // 2. Create an off-screen Template
         const template = document.createElement('template');
 

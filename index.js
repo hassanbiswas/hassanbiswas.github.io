@@ -1,18 +1,3 @@
-const originalPath = window.location.pathname;
-const normalizedPath = originalPath.replace(/\/+$/, '') || '/';
-if (normalizedPath !== originalPath) {
-    if (!document.querySelector('base')) {
-        const base = document.createElement('base');
-        base.href = `${originalPath}${window.location.search}`;
-        document.head.prepend(base);
-    }
-    window.history.replaceState(
-        window.history.state,
-        '',
-        `${normalizedPath}${window.location.search}${window.location.hash}`
-    );
-}
-
 // Dynamic release versioning (YY.MM.DD)
 export const VERSION = new Date()
     .toLocaleDateString('en-GB')
@@ -241,13 +226,13 @@ export const random = (min, max) => {
 const html = document.documentElement,
     head = document.head || document.getElementsByTagName('head')[0],
     body = document.body || document.getElementsByTagName('body')[0];
-const hues = [8, 14, 240, 256, 270, 334].sort();
+const hues = [8, 240].sort();
 const maxHues = hues.length;
 let brandPrimary = `hsl(240, 80%, 50%)`;
 let brandH = hues[random(0, maxHues)] || null;
-// if (brandH) {
-//     html.style.setProperty('--brand-h', brandH);
-// }
+if (brandH) {
+    html.style.setProperty('--brand-h', brandH);
+}
 
 // 2. Get the computed style of the html
 const styleSheet = getComputedStyle(html);
@@ -316,8 +301,8 @@ export function List(name, link = '#', favicon = null) {
 export const txtFill = (text = 'Text_Color_Scale', color = 'currentColor', scale = '1') => {
     return `
         <text data-animate="svgDrawFil" x="50%" y="50%" text-anchor="middle"
-        style="stroke: ${color}; stroke-width: .5; fill: ${color}; font-size: calc(var(--p) * ${scale});
-        font-weight: 800; stroke-dasharry: 100; stroke-dashoffset: 0;"
+        style="stroke: ${color}; stroke-width: .7; fill: ${color}; font-size: calc(var(--p) * ${scale});
+        font-weight: 800; stroke-dasharry: 1000; stroke-dashoffset: 0;"
         >${text}</text>
     `;
 };
@@ -325,8 +310,8 @@ export const txtFill = (text = 'Text_Color_Scale', color = 'currentColor', scale
 export const txtStroke = (text = 'Text_Color_Scale', color = 'currentColor', scale = '1') => {
     return `
         <text data-animate="svgDrawStroke" x="50%" y="50%" text-anchor="middle"
-        style="stroke: ${color}; stroke-width: .5; fill: transparent; font-size: calc(var(--p) * ${scale});
-        font-weight: 800; stroke-dasharry: 100; stroke-dashoffset: 0;"
+        style="stroke: ${color}; stroke-width: .7; fill: transparent; font-size: calc(var(--p) * ${scale});
+        font-weight: 800; stroke-dasharry: 1000; stroke-dashoffset: 0;"
         >${text}</text>
     `;
 };
@@ -450,11 +435,7 @@ export const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
     faviconFramer = getFavicon(`framer.com`),
     faviconGithub = getFavicon(`github.com`);
 
-export const preferedLanguages = [
-    `English<span class="txt-tertiary">(Native)</span>`,
-    `Bangla<span class="txt-tertiary">(Advanced)</span>`,
-    `Hindi<span class="txt-tertiary">(Speaking)</span>`,
-];
+export const preferedLanguages = [`English`, `Bangla`, `Hindi`];
 
 function SocialsItem(name, link, favicon) {
     this.name = name;
@@ -587,7 +568,7 @@ export const componentReviews = () => {
             .map(
                 person => `
         <li class="bg-secondary pill" style="padding: .3em; margin-inline: -0.4em;">
-            <img class=" pill" ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em;"/>
+            <img class="square pill" ${seoImg(person.photo, `Client`)} style="inline-size: 1.5em; block-size: 1.5em; overflow: clip;"/>
         </li>
         `
             )
@@ -686,6 +667,7 @@ export function Section(element) {
 
     // 2. Safely clamp tag level between 1 and 6
     const tagLevel = Math.min(h + 1, 6);
+    console.log(`<h${tagLevel}>...<h${tagLevel}>`);
 }
 
 // Configuration for easy updates
@@ -871,7 +853,7 @@ export const faqs = [
     ),
     new FaqsItem(
         `What is my design process?`,
-        `I use <b>Figma</b> for initial wireframing, followed by <b>ReactJS</b>, <b>TailwindCSS</b>, <b>NextJS</b> for high-fidelity development to bridge the gap between design and logic.`
+        `I use <b>Figma</b> for initial wireframing, followed by <b>NextJS</b> for high-fidelity development to bridge the gap between design and logic.`
     ),
     new FaqsItem(
         `Do I provide components?`,
@@ -896,20 +878,9 @@ function LinksDataItem(name, link, title, favicon) {
     this.favicon = favicon;
 }
 export const linksData = [
-    new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`, `${faviconMobile}`),
-    new LinksDataItem(
-        `@hassanbiswas.github.io`,
-        `${urlMessenger}`,
-        `Messenger`,
-        `${faviconMessenger}`
-    ),
-    new LinksDataItem(
-        `hassanbiswas.github.io@gmail.com`,
-        `${urlGmail}`,
-        `Gmail`,
-        `${faviconGmail}`
-    ),
-    new LinksDataItem(`${locationPrimary}`, `${begaritola}`, `Location`, `${faviconMap}`),
+    new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`),
+    new LinksDataItem(`hassanbiswas.github.io@gmail.com`, `${urlGmail}`, `Gmail`),
+    new LinksDataItem(`${locationSecondary}`, `${begaritola}`, `Location`),
 ];
 
 function ButtonsItem(name, link, classes) {
@@ -963,7 +934,7 @@ export const legals = [
 // Clean & readable initialization
 export const navigations = [
     new NavItem(
-        `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em;"/>Home</span>`,
+        `<span class="items-center" style="display: flex; gap: var(--space-xs); padding-inline-end: var(--space-m);"><img ${seoImg(faviconAuthor, `Home`)} style="inline-size: 1.5em; block-size: 1.5em; overflow: clip;"/>Home</span>`,
         '/#hero'
     ),
     new NavItem('About', '/about'),
@@ -1012,19 +983,34 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', evt =
 // #######################
 
 // scroll up? down?
-// let lastScrollY = 0;
-// window.addEventListener('scroll', () => {
-//     const currentScrollY = window.scrollY;
+let lastScrollY = window.scrollY;
+let lastScrollDirection = 0;
+let scrollUpdatePending = false;
+window.addEventListener(
+    'scroll',
+    () => {
+        if (scrollUpdatePending) return;
+        scrollUpdatePending = true;
 
-//     if (currentScrollY > lastScrollY) {
-//         console.log('Page scroll DOWN');
-//     } else if (currentScrollY < lastScrollY) {
-//         console.log('Page scroll UP');
-//     }
+        requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+            const delta = currentScrollY - lastScrollY;
 
-//     // Update the last position for the next event
-//     lastScrollY = currentScrollY;
-// });
+            if (delta !== 0) {
+                const direction = delta > 0 ? 1 : -1;
+                // Log only when the direction changes, avoiding per-scroll-event console work.
+                if (direction !== lastScrollDirection) {
+                    console.log(direction > 0 ? 'Page scroll DOWN' : 'Page scroll UP');
+                    lastScrollDirection = direction;
+                }
+                lastScrollY = currentScrollY;
+            }
+
+            scrollUpdatePending = false;
+        });
+    },
+    { passive: true }
+);
 
 // #######################
 // \\\\\ ResizeObserver \\\\\\\
@@ -1138,13 +1124,13 @@ const scrollSnapObserver = new IntersectionObserver(
             const parentEl = document.documentElement;
             if (entry.isIntersecting) {
                 entry.target.setAttribute('data-visible', 'true');
-                entry.target.scrollTo(0, 0, 'smooth');
-                parentEl.style.scrollSnapType = `both mandatory`;
-                entry.target.parentElement.style.scrollSnapType = `proximity`;
+                // entry.target.scrollTo(0, 0, 'smooth');
+                // parentEl.style.scrollSnapType = `both mandatory`;
+                // entry.target.parentElement.style.scrollSnapType = `both proximity`;
                 // observer.unobserve(entry.target);
             } else {
                 entry.target.removeAttribute('data-visible');
-                parentEl.style.scrollSnapType = `both proximity`;
+                // parentEl.style.scrollSnapType = `both proximity`;
             }
         });
     },
@@ -1156,44 +1142,33 @@ const scrollSnapObserver = new IntersectionObserver(
 let deferredPrompt;
 const installBtn = document.getElementById('installApp');
 
-window.addEventListener('beforeinstallprompt', e => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
-    e.preventDefault();
-    // Stash the event so it can be triggered later
-    deferredPrompt = e;
-    // Update UI to notify the user they can install the PWA
-    installBtn.style.display = 'block';
+installBtn?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
 
-    installBtn.addEventListener('click', () => {
-        // Hide our custom install button
-        installBtn.style.display = 'none';
-        // Show the prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice.then(choiceResult => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-            } else {
-                console.log('User dismissed the install prompt');
-            }
-            deferredPrompt = null;
-        });
-    });
+    const installPrompt = deferredPrompt;
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+
+    await installPrompt.prompt();
+    const choiceResult = await installPrompt.userChoice;
+    console.log(
+        choiceResult.outcome === 'accepted'
+            ? 'User accepted the install prompt'
+            : 'User dismissed the install prompt'
+    );
 });
 
-// Logic to hide button if already installed
+window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) installBtn.style.display = 'block';
+});
+
 window.addEventListener('appinstalled', () => {
     console.log('PWA was installed');
-    installBtn.style.display = 'none';
+    if (installBtn) installBtn.style.display = 'none';
+    deferredPrompt = null;
 });
-
-// - 1. inject HTML element above ##############
-// - 2. get HTML element ###############
-// - 3. create functions/animations ###############
-
-// ###### HTML dom goes above ######
-
-// define custom elements before get dom element || seoMedia || function || call
 
 // ###### JavaScript function goes bellow ######
 // const dynamicElements = document.querySelectorAll('img:not([loading])');
@@ -1234,28 +1209,44 @@ svgs?.forEach(el => {
     el.style.objectFit = `scale-down`;
 });
 
-// const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
+const imageContainers = document.querySelectorAll('*:has(img, picture, video, iframe)');
 // color from image
-// imageContainers?.forEach(container => {
-//     let image = container.querySelector('img'),
-//         width = image.innerWidth,
-//         height = image.innerHeight,
-//         canvas = document.createElement('canvas'),
-//         ctx = canvas.getContext('2d');
+imageContainers?.forEach(container => {
+    const image = container.querySelector('img');
+    if (!image) return;
 
-//     canvas.innerWidth = width;
-//     canvas.innerHeight = height;
-// ctx.drawImage(image, 0, 0, width, height);
+    const setColorFromImage = () => {
+        if (!image.naturalWidth || !image.naturalHeight) return;
 
-// let imageData = ctx.getImageData(x, y, 1, 1).data,
-//     r = imageData[0],
-//     g = imageData[1],
-//     b = imageData[2];
+        const canvas = document.createElement('canvas');
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const context = canvas.getContext('2d');
+        if (!context) return;
 
-// convrt rgb to hex
-//     let imageColor = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-//     container.style.setProperty(`--brand-primary`, imageColor);
-// });
+        try {
+            context.drawImage(image, 0, 0);
+            const pixel = context.getImageData(
+                Math.floor(canvas.width / 2),
+                Math.floor(canvas.height / 2),
+                1,
+                1
+            ).data;
+            const imageColor = `#${[pixel[0], pixel[1], pixel[2]]
+                .map(channel => channel.toString(16).padStart(2, '0'))
+                .join('')}`;
+            container.style.setProperty('--brand-primary', imageColor);
+        } catch (error) {
+            // Cross-origin images cannot be read from a canvas.
+        }
+    };
+
+    if (image.complete) {
+        setColorFromImage();
+    } else {
+        image.addEventListener('load', setColorFromImage, { once: true });
+    }
+});
 
 // #######################
 // \\\\\ Animations \\\\\\\
@@ -1269,7 +1260,10 @@ svgs?.forEach(el => {
 // let sentences = text.split(/(?<=[.!?])\s+/); // to sentences
 // let centencesLineBreak = text.split(/\r?\n/).map(line.trim()).filter(Boolean); // to sentences (lineBreak)
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
+    console.log('HTML DOM is loaded, but images might not be!');
+    // SEO script for hight performance & ranking
+
     const splitText = (selector = '.splitText') => {
         const selectors = document.querySelectorAll(selector);
         if (!selectors.length) return;
@@ -1304,165 +1298,48 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     splitWord();
-});
 
-// const x = this.lerp(20, 0, t);
-// const y = this.lerp(-50, 0, t);
-// const opacity = this.lerp(0, 1, t);
+    // const x = this.lerp(20, 0, t);
+    // const y = this.lerp(-50, 0, t);
+    // const opacity = this.lerp(0, 1, t);
 
-// const attachTiltEffect = () => {
-//     const tiltCard = document.getElementById('logoTiltCard');
-//     const wrapper = this.container.querySelector('.svg-logo-perspective');
-//     if (!tiltCard || !wrapper) return;
+    const attachTiltEffect = () => {
+        const tiltCard = document.getElementById('tiltCard');
+        const wrapper = this.container.querySelector('.tiltCardWrapper');
+        if (!tiltCard || !wrapper) return;
 
-// const handleMove = (clientX, clientY) => {
-//     const rect = wrapper.getBoundingClientRect();
-//     const x = clientX - rect.left;
-//     const y = clientY - rect.top;
-//     const centerX = rect.width / 2;
-//     const centerY = rect.height / 2;
-// Calculate tilt angles based on pointer distance from center
-//     const rotateX = ((y - centerY) / centerY) * -30;
-//     const rotateY = ((x - centerX) / centerX) * 30;
-//     tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
-// };
-// const handleReset = () => {
-//     tiltCard.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-// };
-// Mouse events
-// wrapper.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
-// wrapper.addEventListener('mouseleave', handleReset);
-// Touch events for mobile responsiveness
-//     wrapper.addEventListener(
-//         'touchmove',
-//         e => {
-//             if (e.touches.length > 0) {
-//                 handleMove(e.touches[0].clientX, e.touches[0].clientY);
-//             }
-//         },
-//         { passive: true }
-//     );
-//     wrapper.addEventListener('touchend', handleReset);
-// };
+        const handleMove = (clientX, clientY) => {
+            const rect = wrapper.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
 
-// ###### function calls bellow ######
+            const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+            const y = Math.max(0, Math.min(clientY - rect.top, rect.height));
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            // Calculate tilt angles based on pointer distance from center
+            const rotateX = ((y - centerY) / centerY) * -30;
+            const rotateY = ((x - centerX) / centerX) * 30;
+            tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
+        };
+        const handleReset = () => {
+            tiltCard.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        };
+        // Mouse events
+        wrapper.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
+        wrapper.addEventListener('mouseleave', handleReset);
+        // Touch events for mobile responsiveness
+        wrapper.addEventListener(
+            'touchmove',
+            e => {
+                if (e.touches.length > 0) {
+                    handleMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            },
+            { passive: true }
+        );
+        wrapper.addEventListener('touchend', handleReset);
+    };
 
-// ###################
-// inits & event listners
-// ###################
-
-// Services Splite Sections synchronized scroll
-// document.addEventListener('DOMContentLoaded', () => {
-//     const servicesSection = document.querySelector('#services');
-//     if (!servicesSection) return;
-
-//     const original = servicesSection.querySelector('[data-type="original"]');
-//     const duplicate = servicesSection.querySelector('[data-type="duplicate"]');
-
-//     if (!original || !duplicate) return;
-
-// let isSyncing = false;
-
-// original.addEventListener('scroll', () => {
-//     if (isSyncing) {
-//         isSyncing = false;
-//         return;
-//     }
-//     isSyncing = true;
-//     duplicate.scrollTop = -original.scrollTop;
-//     // duplicate.scrollTop = Math.floor(-1 * original.scrollTop);
-//     console.log(duplicate.scrollTop);
-// });
-
-//     duplicate.addEventListener('scroll', () => {
-//         if (isSyncing) {
-//             isSyncing = false;
-//             return;
-//         }
-//         isSyncing = true;
-//         original.scrollTop = -duplicate.scrollTop;
-//         // original.scrollTop = Math.floor(-1 * duplicate.scrollTop);
-//         console.log(original.scrollTop);
-//     });
-// });
-// window.addEventListener('scroll', () => {
-//     console.log('Scrolled!');
-// });
-// document.addEventListener('DOMContentLoaded', () => {
-//     const servicesSection =
-//         document.querySelector('main > #services') || document.querySelector('#services');
-//     if (!servicesSection) return;
-
-//     const original = servicesSection.querySelector('[data-type="original"]');
-//     const duplicate = servicesSection.querySelector('[data-type="duplicate"]');
-
-//     if (!original || !duplicate) return;
-
-// let isSyncing = false;
-
-// const getScrollableHeight = el => el.scrollHeight - el.clientHeight;
-
-// original.addEventListener('scroll', () => {
-//     if (isSyncing) {
-//         isSyncing = false;
-//         return;
-//     }
-//     isSyncing = true;
-
-//     // Invert relative to maximum scrollable distance
-//     const maxDuplicate = getScrollableHeight(duplicate);
-//     const maxOriginal = getScrollableHeight(original);
-
-//     if (maxOriginal > 0) {
-//         const scrollRatio = original.scrollTop / maxOriginal;
-//         duplicate.scrollTop = maxDuplicate - scrollRatio * maxDuplicate;
-//     }
-// });
-
-// duplicate.addEventListener('scroll', () => {
-//     if (isSyncing) {
-//         isSyncing = false;
-//         return;
-//     }
-//     isSyncing = true;
-
-//         const maxDuplicate = getScrollableHeight(duplicate);
-//         const maxOriginal = getScrollableHeight(original);
-
-//         if (maxDuplicate > 0) {
-//             const scrollRatio = duplicate.scrollTop / maxDuplicate;
-//             original.scrollTop = maxOriginal - scrollRatio * maxOriginal;
-//         }
-//     });
-
-//     console.log(`Services split sync running. Version: ${VERSION}`);
-// });
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const servicesSection = document.querySelector('body > main > #services');
-//     if (!servicesSection) return;
-
-//     const original = servicesSection.querySelector('[data-type="original"]');
-//     const duplicate = servicesSection.querySelector('[data-type="duplicate"]');
-
-// document.querySelector('#services [data-type="original"]').addEventListener('scroll', () => {
-//     document.querySelector('#services [data-type="duplicate"]').scrollTop = Math.floor(
-//         -1 * document.querySelector('#services [data-type="original"]').scrollTop
-//     );
-//     console.log('original is scrolled!');
-// });
-// document.querySelector('#services [data-type="duplicate"]').addEventListener('scroll', () => {
-//     document.querySelector('#services [data-type="original"]').scrollTop = Math.floor(
-//         -1 * document.querySelector('#services [data-type="duplicate"]').scrollTop
-//     );
-//     console.log('duplicate is scrolled!');
-// });
-// });
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Document Loaded Successfully!');
-
-    // Functions Call
     const scrollPrevBtns = document.querySelectorAll('.scrollPrevBtn');
     scrollPrevBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1499,33 +1376,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ######### Don't Go Bellow ⚠️ ##########
-// ========= Handle Window Change ========
-
-// document.addEventListener('DOMContentLoaded', function () {
-// console.log("HTML DOM is loaded, but images might not be!");
-// SEO script for hight performance & ranking
-// });
 
 // Ends of Script
 // CUSTOM SECTION
-// class CSection extends HTMLElement {
-//     connectedCallback() {
-//         const selector = this.getAttribute('selector');
-//         const heading = this.getAttribute('heading');
-//         const details = this.getAttribute('details');
-//         const link = this.getAttribute('link');
-//         const linkText = this.getAttribute('linkText');
-//         const img = this.getAttribute('img');
-//         this.innerHTML = `
-//             <section class="${selector}">
-//                 <div class="primary">
-//                     <h2>${heading}</h2>
-//                     <p>${details}</p>
-//                     <a class="btn" href="${link}">${linkText}</a>
-//                 </div>
-//                 <img src="${img}" />
-//             </section>
-//         `;
-//     }
-// }
-// customElements.define('c-section', CSection);
+class CSection extends HTMLElement {
+    connectedCallback() {
+        const selector = this.getAttribute('selector');
+        const heading = this.getAttribute('heading');
+        const details = this.getAttribute('details');
+        const lists = this.getAttribute('lists');
+        const link = this.getAttribute('link');
+        const linkText = this.getAttribute('linkText');
+        const img = this.getAttribute('img');
+        this.innerHTML = `
+            <section class="${selector}">
+                <div class="primary">
+                    <h2>${heading}</h2>
+                    <p>${details}</p>
+                    <ul>
+                        ${lists
+                            .split(',')
+                            .map(list => `<li>${list.trim()}</li>`)
+                            .join('')}
+                    </ul>
+                    <a class="btn" href="${link}">${linkText}</a>
+                </div>
+                <img src="${img}" />
+            </section>
+        `;
+    }
+}
+customElements.define('c-section', CSection);

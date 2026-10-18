@@ -24,6 +24,8 @@
             sizes="any"
             type="image/svg+xml"
         />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="modulepreload" href="/index.js" />
         <script defer="">
             const rootUrl = `/`;
             const VERSION = new Date()
@@ -46,13 +48,10 @@
                 }
             };
 
-            injectAsset('css', 'index.css');
             // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
 
-            injectAsset('js', 'index.js');
             injectAsset('js', 'components/navigations/loader-section.js');
             injectAsset('js', 'components/navigations/header-section.js');
-            injectAsset('js', 'components/navigations/navigation-section.js');
             injectAsset('js', 'components/sections/projects-section.js');
             injectAsset('js', 'components/sections/testimonials-section.js');
             injectAsset('js', 'components/sections/contact-section.js');
@@ -76,7 +75,6 @@
     <body>
         <loader-section> </loader-section>
         <header-section> </header-section>
-        <navigation-section> </navigation-section>
         <main>
             <projects-section> </projects-section>
             <testimonials-section> </testimonials-section>

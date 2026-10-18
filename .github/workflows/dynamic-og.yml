@@ -67,7 +67,7 @@ jobs:
 
               const page = await browser.newPage();
               //await page.setViewport({ width: 1200, height: 630 });
-              await page.setViewport({ width: 1440, height: 1080 });
+              await page.setViewport({ width: 1440, height: 810 });
 
               const url = 'https://hassanbiswas.github.io';
 

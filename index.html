@@ -67,6 +67,8 @@
             sizes="any"
             type="image/svg+xml"
         />
+        <link rel="stylesheet" href="/index.css" />
+        <link rel="modulepreload" href="/index.js" />
         <script defer="">
             const rootUrl = `/`;
             const VERSION = new Date()
@@ -90,10 +92,8 @@
                 }
             };
 
-            injectAsset('css', 'index.css');
             // injectAsset('css', 'assets/css/animation.css', '(prefers-reduced-motion: none)');
 
-            injectAsset('js', 'index.js');
             injectAsset('js', 'components/navigations/loader-section.js');
             injectAsset('js', 'components/navigations/header-section.js');
             injectAsset('js', 'components/sections/hero-section.js');
@@ -136,9 +136,9 @@
                         "name": "Hassan Biswas",
                         "url": "https://hassanbiswas.github.io/",
                         "jobTitle": "Web Developer & Front-End Architect",
-                        "description": "Freelance Front-End Developer & UI/UX Specialist specializing in transforming Figma, Framer, and Webflow designs into clean, responsive, accessible, and high-performance websites using pure HTML, CSS, and modern JavaScript.",
+                        "description": "Freelance Front-End Developer and UI/UX Specialist creating responsive, accessible, high-performance websites with HTML, CSS, JavaScript, Tailwind CSS, React, and Next.js.",
                         "image": "https://lh3.googleusercontent.com/a/ACg8ocJfIX4otqilqq6qUXViOZFY1tLeGWq20Ylvch7bsP_41Kwlq20=s400-c-no",
-                        "email": "mailto:hassanbiswas.github.io@gmail.com",
+                        "email": "hassanbiswas.github.io@gmail.com",
                         "telephone": "+8801602873384",
                         "address": {
                             "@type": "PostalAddress",
@@ -152,6 +152,9 @@
                             "HTML5",
                             "CSS3",
                             "JavaScript",
+                            "Tailwind CSS",
+                            "React",
+                            "Next.js",
                             "Figma",
                             "Framer",
                             "Webflow",
@@ -187,19 +190,11 @@
                         "@id": "https://hassanbiswas.github.io/#website",
                         "url": "https://hassanbiswas.github.io/",
                         "name": "Web Developer | Hassan Biswas — UI/UX & Front-End Architecture",
-                        "description": "High-performance front-end development and SEO-friendly digital experiences.",
+                        "description": "Portfolio and professional services of Hassan Biswas, specializing in accessible, high-performance front-end development with HTML, CSS, JavaScript, Tailwind CSS, React, and Next.js.",
                         "publisher": {
                             "@id": "https://hassanbiswas.github.io/#person"
                         },
-                        "inLanguage": "en",
-                        "potentialAction": {
-                            "@type": "SearchAction",
-                            "target": {
-                                "@type": "EntryPoint",
-                                "urlTemplate": "https://hassanbiswas.github.io/?s={search_term_string}"
-                            },
-                            "query-input": "required name=search_term_string"
-                        }
+                        "inLanguage": "en"
                     },
                     {
                         "@type": "ProfessionalService",
@@ -226,6 +221,8 @@
                             "latitude": 23.0132,
                             "longitude": 89.2272
                         },
+                        "description": "Available 24 hours a day, 7 days a week.",
+                        "openingHours": "Mo-Su 00:00-23:59",
                         "openingHoursSpecification": {
                             "@type": "OpeningHoursSpecification",
                             "dayOfWeek": [
@@ -237,7 +234,7 @@
                                 "Saturday",
                                 "Sunday"
                             ],
-                            "opens": "00:01",
+                            "opens": "00:00",
                             "closes": "23:59"
                         },
                         "areaServed": [
@@ -296,92 +293,6 @@
                                 }
                             ]
                         }
-                    },
-                    {
-                        "@type": "FAQPage",
-                        "@id": "https://hassanbiswas.github.io/#faqs",
-                        "mainEntity": [
-                            {
-                                "@type": "Question",
-                                "name": "How long does it take to convert a Figma design to a live website?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "The timeline depends on the project's complexity. A high-performance single-page architecture typically takes 3-5 days, while a full multi-page front-end system can take 1-2 weeks."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Do you build responsive and mobile-friendly websites?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Yes, I build every website with a mobile-first approach. I use modern HTML, CSS, JS techniques like fluid typography to ensure a seamless experience on all devices."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Are your front-end architectures optimized for SEO?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Absolutely. I use semantic HTML, optimize Core Web Vitals (LCP, FID, CLS), and implement structured data to ensure your website is easily crawlable and ranks higher on search engines."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Can you work with modern UI libraries and design systems?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Yes, I frequently work with Figma, Framer, and Webflow. I specialize in translating complex design systems into scalable, maintainable HTML, CSS, and JavaScript components."
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        "@type": "BreadcrumbList",
-                        "@id": "https://hassanbiswas.github.io/#breadcrumbs",
-                        "itemListElement": [
-                            {
-                                "@type": "ListItem",
-                                "position": 1,
-                                "name": "Home",
-                                "item": "https://hassanbiswas.github.io/"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 2,
-                                "name": "About",
-                                "item": "https://hassanbiswas.github.io/#about"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 3,
-                                "name": "Services",
-                                "item": "https://hassanbiswas.github.io/#services"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 4,
-                                "name": "Projects",
-                                "item": "https://hassanbiswas.github.io/#projects"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 5,
-                                "name": "Testimonials",
-                                "item": "https://hassanbiswas.github.io/#testimonials"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 6,
-                                "name": "Contact",
-                                "item": "https://hassanbiswas.github.io/#contact"
-                            },
-                            {
-                                "@type": "ListItem",
-                                "position": 7,
-                                "name": "FAQ's",
-                                "item": "https://hassanbiswas.github.io/#faqs"
-                            }
-                        ]
                     }
                 ]
             }
@@ -394,15 +305,18 @@
         />
         <meta content="Website Designer &amp; Front-End Architect" name="subtitle" />
         <meta
-            content="Home: Expert UI/UX and Front-End Architecture. Updated October 2026."
+            content="Hassan Biswas is a Bangladesh-based front-end developer specializing in UI/UX and responsive web development. Explore selected projects and learn how to get in touch."
             name="description"
         />
         <meta
-            content="Hassan Biswas, Home, Home, UI/UX, Front-End, Web Design, NextJS, ReactJS developer, Froentend Developer, custom website, Bangladesh, web development, web architecture, web design, TailwindCSS, web development company, web development agency, web development services, web development solutions, web development firm, web development studio, web development team, web development experts, web development professionals, web development specialists"
+            content="Hassan Biswas, front-end developer, Bangladesh, UI/UX design, web development, React, Next.js, responsive web design, accessible websites"
             name="keywords"
         />
+        <meta
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+            name="robots"
+        />
         <meta content="Hassan Biswas" name="author" />
-        <meta content="index, follow" name="robots" />
         <link href="https://hassanbiswas.github.io/" rel="canonical" />
         <meta content="website" property="og:type" />
         <meta content="https://hassanbiswas.github.io/" property="og:url" />
