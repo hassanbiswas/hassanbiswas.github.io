@@ -38,7 +38,7 @@ class FooterSection extends HTMLElement {
 <footer ${footer()} ${seoSection(`footer`)} class="" id="footer" data-version="${VERSION}">
     <div class="container-lg row gap-4 py-5">
 
-        <div class="flex j-center">
+        <div class="flex j-center" style="display: none;">
             <form class="flex">
                 <label style="opacity: 1;" class="d-non txt-tertiary" for="system-theme">Choose Theme:</label>
                 <select id="system-theme" name="system-theme" class="pill btn-primary" style="cursor: pointer;">
@@ -82,7 +82,7 @@ class FooterSection extends HTMLElement {
                     .map(
                         (method, index) => `
                     <a class="h6" ${seoA()} aria-label="${method.name}" style="flex: 1; flex-basis: 10ch; text-decoration: none;" href="${method.link}">
-                        <span class="splitText">${method.name}</span>
+                        <span class="p txt-tertiary">[0${index + 1}]</span> <span class="splitText">${method.name}</span>
                     </a>
                 `
                     )
@@ -93,8 +93,8 @@ class FooterSection extends HTMLElement {
                     ${socials
                         .map(
                             (social, index) => `
-                    <a ${seoA()} href="${social.link}" class="splitText">
-                        ${social.name}
+                    <a ${seoA()} href="${social.link}" class="">
+                        <span class="p txt-tertiary">[0${index + 1}]</span> <span class="splitText">${social.name}</span>
                     </a>
                     `
                         )

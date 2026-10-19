@@ -34,7 +34,7 @@ class FaqsSection extends HTMLElement {
         <h2 data-animate="scaleIn" ${seoH(`faqs`)}>
             <span class="splitWord">Got questions?</span> <br/><span class="txt-tertiary splitText">I’ve got answers</span>
         </h2>
-        <p class="">
+        <p class="txt-center">
             <span class="text-revel-onscrol splitWord">
             Everything you need to know about my process, pricing,
         and how I work

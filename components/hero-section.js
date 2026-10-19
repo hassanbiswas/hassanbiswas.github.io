@@ -113,8 +113,9 @@ class HeroSection extends HTMLElement {
             ${componentReviews()}
 
             <div class="scrollerWrapper">
-                <div data-visible class="infiniteScroller flex nowrap" style="padding-block: .8em; gap: 0;">
-                    ${scrollerGroup(`gap: 2.4em; padding-inline-end: 2.4em;`)}
+                <div data-visible class="infiniteScroller flex nowrap" style="padding-block: .8em; gap: .8em;">
+                    <!-- ${scrollerGroup(`gap: 2.4em; padding-inline-end: 2.4em;`)} -->
+                    ${scrollerGroup(`gap: 2.4em;`)}
                     ${scrollerGroup(`gap: 2.4em;`, `aria-hidden="true"`, `aria-hidden="true" tabindex="-1"`)}
                 </div>
             </div>

@@ -26,12 +26,12 @@ class ProjectsSection extends HTMLElement {
         // 3. Define the HTML (Top-level element is now your grid section)
         template.innerHTML = `
     <section ${seoSection(`projects`)} class="bg-primary snappyContaine" id="projects" data-version="${VERSION}">
+    <div class="container-lg" style="padding-block: 1em; min-block-size: 100dvh;">
 
-        <div class="container-lg" style="padding-block: 1em; min-block-size: 50dvh;">
-            <div class="col" style="display: flex; flex-direction: row; flex-wrap: wrap; column-gap: 3.2rem; row-gap: .8rem;">
+        <div class="col" style="display: flex; flex-direction: row; flex-wrap: wrap; column-gap: 3.2rem; row-gap: .8rem;">
                 <p class="fade-in-to txt-tertiary" style="display: block; white-space: nowrap;">Selected <span class="txt-secondary">Projects</span> <i>2023 - ${thisYear}</i>
                 </p>
-                <div class="" style="flex: 1;">
+                <div class="" style="flex: 1; flex-basis: 30rem;">
                     <h2 data-animate="scaleIn" ${seoH(`projects`)} class="h2 splitWord" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
                     </h2>
                     <p data-animate="scaleIn" class="h2 txt-tertiary" style="font-weight: bold; display: inline;">
@@ -42,7 +42,8 @@ class ProjectsSection extends HTMLElement {
                 </div>
             </div>
 
-            <div style="gap: 0em; min-block-size: 50dvh;" class="row content-center projects-list  fluidHovere">
+
+            <div style="gap: 0em;" class="row content-center projects-list  fluidHovere">
                 ${projects
                     .map(
                         (project, index) => `

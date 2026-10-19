@@ -55,15 +55,6 @@ class ContactSection extends HTMLElement {
                 )
                 .join('')}
         </div>
-        <div class="" style="gap: .4em;">
-        ${preferedLanguages
-            .map(
-                (language, index) => `
-            <b class="h5">${language}</b>
-        `
-            )
-            .join(', ')}
-        </div>
     </div>
 
     <div class="flex j-center">

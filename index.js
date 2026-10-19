@@ -917,8 +917,14 @@ function MethodsItem(name, link, title, alt, favicon) {
     this.favicon = favicon;
 }
 export const methods = [
-    new MethodsItem(`Meet`, `${urlMeet}`, `Video Conference`, `Google Meet`, `${faviconMeet}`),
-    new MethodsItem(`bKash`, `${urlBkash}`, `Payment by bKash`, `bKash`, `${faviconBkash}`),
+    new MethodsItem(
+        `Conference`,
+        `${urlMeet}`,
+        `Video Conference`,
+        `Google Meet`,
+        `${faviconMeet}`
+    ),
+    new MethodsItem(`Payment`, `${urlBkash}`, `Payment by bKash`, `bKash`, `${faviconBkash}`),
 ];
 
 function LegalsItem(name, link) {
@@ -1047,9 +1053,6 @@ const visibilityObserver = new IntersectionObserver(
         rootMargin: `${window.innerHeight / 3}px`,
     }
 );
-// Select all elements you want to animate
-document.querySelectorAll('[data-visible]').forEach(el => visibilityObserver.observe(el));
-
 const skeletonObserver = new IntersectionObserver(
     entries => {
         entries.forEach(entry => {
@@ -1065,21 +1068,15 @@ const skeletonObserver = new IntersectionObserver(
         threshold: 0.6,
     }
 );
-// Select all elements you want to animate
-document.querySelectorAll('[data-skeleton] .splitWord').forEach(el => skeletonObserver.observe(el));
-
 // for navigation
 const navObserver = new IntersectionObserver(
     entries => {
         entries.forEach(entry => {
             const id = entry.target.getAttribute('id');
-            // const navLink = document.querySelector(`#header a[href="/#${id}"]`);
-            const navLink = [...document.querySelectorAll('#header a')].find(link => {
-                const url = new URL(link.href, location.href);
-                return (
-                    url.hash === `#${id}` || url.pathname.replace(/\/$/, '').split('/').pop() === id
-                );
-            });
+            // const navLink = document.querySelector(`#header-nav-list a[href="/#${id}"]`);
+            const navLink = [...document.querySelectorAll('#header-nav-list a[href]')].find(link =>
+                link.getAttribute('href').includes(id)
+            );
 
             if (entry.isIntersecting) {
                 navLink?.classList.add('active');
@@ -1088,10 +1085,8 @@ const navObserver = new IntersectionObserver(
             }
         });
     },
-    { threshold: 0.3 }
+    { threshold: 0.2 }
 ); // Trigger when section is 60% visible, avoid 1
-document.querySelectorAll('main > section[id]').forEach(section => navObserver.observe(section));
-
 // remove lazy loading in screen medias
 const lazyLoading = document.querySelectorAll('img, picture, svg, iframe, audio, video');
 lazyLoading?.forEach(el => {
@@ -1263,6 +1258,15 @@ imageContainers?.forEach(container => {
 document.addEventListener('DOMContentLoaded', function () {
     console.log('HTML DOM is loaded, but images might not be!');
     // SEO script for hight performance & ranking
+
+    // Select all elements you want to animate
+    document.querySelectorAll('[data-visible]').forEach(el => visibilityObserver.observe(el));
+    // Select all elements you want to animate skeleton
+    document
+        .querySelectorAll('[data-skeleton] .splitWord')
+        .forEach(el => skeletonObserver.observe(el));
+    // Nav Observer
+    document.querySelectorAll('section[id]').forEach(section => navObserver.observe(section));
 
     const splitText = (selector = '.splitText') => {
         const selectors = document.querySelectorAll(selector);

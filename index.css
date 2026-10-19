@@ -881,7 +881,8 @@ padding-block: var(--space-s);
   /* ### 1. Button hierarchy & types */
   /* ============= button ================ */
   /* [class*="button btn"], */
-  /* [class|="button"] */ /* eg: button-x button-y button-z */
+  /* [class|="button"], */ /* eg: button-x button-y button-z */
+  /* [class^="button"], */ /* eg: buttonX buttonY buttonZ */
   button,
   .button,
   input[type="button"],
@@ -2884,7 +2885,8 @@ Note:
     }
 }
 /* set Animation to parent */
-.spin3DInfinite[data-visible="true"] {
+.spin3DInfinite[data-visible="true"]
+{
     animation: spin3DInfinite 20s linear infinite;
     animation-play-state: running;
 
@@ -3025,7 +3027,8 @@ Note:
         display: flex;
         flex-wrap: nowrap;
 
-        &[data-visible="true"] {
+        &[data-visible="true"]
+        {
             animation: infiniteScroller 20s linear infinite;
         }
     }
