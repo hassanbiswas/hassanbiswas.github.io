@@ -300,7 +300,7 @@ export function List(name, link = '#', favicon = null) {
 
 export const txtFill = (text = 'Text_Color_Scale', color = 'currentColor', scale = '1') => {
     return `
-        <text data-animate="svgDrawFil" x="50%" y="50%" text-anchor="middle"
+        <text x="50%" y="50%" text-anchor="middle"
         style="stroke: ${color}; stroke-width: .7; fill: ${color}; font-size: calc(var(--p) * ${scale});
         font-weight: 800; stroke-dasharry: 1000; stroke-dashoffset: 0;"
         >${text}</text>
@@ -309,7 +309,7 @@ export const txtFill = (text = 'Text_Color_Scale', color = 'currentColor', scale
 
 export const txtStroke = (text = 'Text_Color_Scale', color = 'currentColor', scale = '1') => {
     return `
-        <text data-animate="svgDrawStroke" x="50%" y="50%" text-anchor="middle"
+        <text x="50%" y="50%" text-anchor="middle"
         style="stroke: ${color}; stroke-width: .7; fill: transparent; font-size: calc(var(--p) * ${scale});
         font-weight: 800; stroke-dasharry: 1000; stroke-dashoffset: 0;"
         >${text}</text>

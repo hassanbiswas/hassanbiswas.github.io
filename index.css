@@ -2080,23 +2080,20 @@ padding-block: var(--space-xs);
 }
 
 #about {
-    /* color-scheme: dark; */
     position: relative;
 
     padding-block: 0em;
     background: var(--bg-primary);
 
-    /* scroll-snap-type: revert; */
     scroll-snap-align: start;
-    /* overflow-y: auto; */
     /* overscroll-behavior: contain; */
 
 
-    /* overflow: clip auto; */  /* +v8 */
-    /* scrollbar-gutter: none; */  /* +v8 */
-    /* scrollbar-width: none; */  /* +v8 */
-    a, b { color: var(--txt-primary); }
-    & > :not(:first-child) p { color: var(--txt-primary); }
+    /* overflow: clip auto; */
+    /* scrollbar-gutter: none; */
+    /* scrollbar-width: none; */
+
+    a, b, p { color: var(--txt-primary); }
 
     img {
         transition: all --duration() --ease();
@@ -2483,10 +2480,7 @@ display: none;
   /* for fluid nav with large center */
 #header {
     position: fixed;
-    top: auto;
-    left: 0;
-    bottom: 2.4rem;
-    right: 0;
+    inset: auto 0 2.4rem 0;
     z-index: 789;
     pointer-events: none;
     display: grid;
@@ -2497,11 +2491,9 @@ display: none;
         pointer-events: all;
 
         background: var(--bg-primary);
-        display: grid;
+        display: flex;
         align-items: center;
         justify-content: center;
-        grid-auto-flow: column;
-        grid-auto-columns: auto;
         gap: 0em;
         border-radius: var(--pill);
         overflow: clip;
@@ -2732,8 +2724,12 @@ filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
     transform-style: preserve-3d;
 }
 
-/* body > :is(#loader, main > section[id]) {
-    view-transition-name: pages;
+/* #loader,
+#header {
+    view-transition-name: noTransition;
+}
+::view-transition-group(noTransition) {
+    animation: none;
 } */
 
 /* Custom @keyframes for the old page _Default_ */
@@ -2985,6 +2981,38 @@ Note:
     100% { stroke-dashoffset: 0; }
 }
 
+@keyframes storyImageOne {
+    0% { clip-path: inset(0%); }
+    100% { clip-path: inset(0% 0% 100% 0%); }
+}
+@keyframes storyImageTwo {
+    0% { clip-path: inset(0%); }
+    100% { clip-path: inset(100% 0% 0% 0%); }
+}
+
+.storyImageOne {
+    animation-name: storyImageOne;
+}
+.storyImageTwo {
+    animation-name: storyImageTwo;
+}
+#about .scene {
+    z-index: calc(-1 * sibling-index());
+    /* animation-range: entry calc(sibling-index() * var(--data-start, 50%)) cover calc(sibling-index() * var(--data-end, 100%)) */
+    view-timeline: --scene block;
+}
+.storyImageOne,
+.storyImageTwo {
+    animation-timing-function: --ease();
+    animation-fill-mode: both;
+
+    /* animation-range: entry calc(sibling-index() * var(--data-start, 20%)) cover calc(sibling-index() * var(--data-end, 40%)); */
+
+    animation-timeline: --scene;
+    /* animation-range: entry 30% exit 70%; */
+    animation-range: entry 85% exit 100%;
+}
+
 /* reversed */
 @keyframes clipIn {
     0% { clip-path: inset(0%); }
@@ -3000,7 +3028,6 @@ Note:
 [data-animate="scaleIn"] {
     transform-origin: var(--data-origin, bottom);
 }
-
 @keyframes infiniteScroller {
     to { transform: translateX(-50%); }
 }
