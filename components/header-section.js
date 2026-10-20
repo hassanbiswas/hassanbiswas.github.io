@@ -22,7 +22,7 @@ class HeaderSection extends HTMLElement {
         // 3. Define the HTML
         template.innerHTML = `
             <header ${header()} id="header" class="" data-version="${VERSION}">
-                <nav ${navPrimary()} class="nav-list items-center txt-center" id="header-nav-list">
+                <nav ${navPrimary()} class="nav-list items-center txt-center" id="header-nav-list" style="transition: all 0s;">
                     ${navigations
                         .map(
                             navigation => `

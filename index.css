@@ -43,7 +43,7 @@
 
 @function --size(--min: 1.6rem, --max: 3.2rem) {
     result: clamp(
-        var(--min),
+        min(100%, var(--min)),
         calc(var(--min) + (var(--max) - var(--min)) * var(--progress)),
         var(--max)
     )
@@ -2111,33 +2111,20 @@ q,
     display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: clip;
 }
 
-  /* #services */
-  #services {
-    padding-block: 0em;
+/* #services */
+#services {
+    padding-block: 0;
+    /* color-scheme: dark; */
     background: var(--bg-primary);
-    min-block-size: 100dvh;
-    position: relative;
-
-    scroll-snap-align: start;
+    block-size: 100dvh;
     /* overscroll-behavior: contain; */
-
-    overflow: clip auto;
     scrollbar-gutter: none;
     scrollbar-width: none;
-
     /* touch-action: pan-x pan-x; */  /* +v8 cmnt */
-    /* Ensures touch devices handle both directions without locking */  /* +v8 cmnt */
-        /* scroll-snap-type: both mandatory; */
 
-        & > * {
-            scroll-snap-align: start;
-            overflow: clip;
-            min-block-size: 100dvh;
-            padding-inline: var(--padding-inline);
-        }
 
     svg {
-        margin-top: -3.2rem;
+        /* margin-top: -7rem; */
         mask-image: linear-gradient(
             to var(--direction, bottom),
             transparent,
@@ -2147,26 +2134,37 @@ q,
         );
     }
 
-    ul {
-        padding-inline: .8em;
+    p { max-inline-size: 60%; }
 
-        li:not([class], [id], :last-child) {
-            border-bottom: 1px solid var(--border-clr);
+    .servicesCarousel {
+        min-inline-size: max-content;
+        display: flex;
+        place-content: center;
+        /* gap: 2.4rem; */
+
+        scrollbar-gutter: none;
+        scrollbar-width: none;
+        padding-inline: var(--padding-inline);
+
+        & > * {
+            flex: 1;
+            /* inline-size: --size(20rem, 60rem); */
         }
     }
 
     .service-image {
         transition: --duration() --ease();
-        aspect-ratio: 16/9;
-        inline-size: clamp(min(100%, 17rem), 3rem + 2dvw, 27rem);
+        block-size: --size(12rem, 32rem);
+        /* inline-size: 25%; */
+        aspect-ratio: 9/16;
         overflow: clip;
         object-fit: contain;
         position: absolute;
-        inset: 0;
+        inset: 0%;
         margin: auto;
-        opacity: 1 ;
 
-        img { aspect-ratio: 16/9; } /* !important */
+        img { block-size: 100%; aspect-ratio: 16/9; } /* !important */
+
     }
 }
 
@@ -2525,15 +2523,15 @@ display: none;
 
         .active-bg {
             background: var(--bg-secondary);
-        z-index: -1;
-        pointer-events: none;
-        position: absolute;
+            z-index: -1;
+            pointer-events: none;
+            position: absolute;
 
-        position-anchor: --active-link;
-        left: anchor(left);
-        right: anchor(right);
-        top: anchor(top);
-        bottom: anchor(bottom);
+            position-anchor: --active-link;
+            left: anchor(left);
+            right: anchor(right);
+            top: anchor(top);
+            bottom: anchor(bottom);
         }
     }
 }/* #nav-list-item */
@@ -2723,14 +2721,6 @@ filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.25));
     animation-timing-function: --ease();
     transform-style: preserve-3d;
 }
-
-/* #loader,
-#header {
-    view-transition-name: noTransition;
-}
-::view-transition-group(noTransition) {
-    animation: none;
-} */
 
 /* Custom @keyframes for the old page _Default_ */
 ::view-transition-old(root),
@@ -2982,8 +2972,8 @@ Note:
 }
 
 @keyframes storyImageOne {
-    0% { clip-path: inset(0%); }
-    100% { clip-path: inset(0% 0% 100% 0%); }
+    0% { clip-path: inset(0%); transform: translateY(7%); }
+    100% { clip-path: inset(0% 0% 100% 0%); transform: translateY(0%); }
 }
 @keyframes storyImageTwo {
     0% { clip-path: inset(0%); }
@@ -3006,12 +2996,28 @@ Note:
     animation-timing-function: --ease();
     animation-fill-mode: both;
 
-    /* animation-range: entry calc(sibling-index() * var(--data-start, 20%)) cover calc(sibling-index() * var(--data-end, 40%)); */
 
     animation-timeline: --scene;
     /* animation-range: entry 30% exit 70%; */
     animation-range: entry 85% exit 100%;
 }
+
+
+@keyframes serviceImage {
+    0% { object-position: 0% 0%; }
+    100% { object-position: 100% 0%; }
+}
+
+.serviceImage {
+    animation-name: serviceImage;
+    animation-timing-function: --ease();
+    animation-fill-mode: both;
+    animation-timeline: --serviceImage;
+    animation-range: entry 0% exit 30%;
+}
+
+
+
 
 /* reversed */
 @keyframes clipIn {

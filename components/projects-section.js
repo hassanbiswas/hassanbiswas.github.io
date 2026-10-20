@@ -28,13 +28,13 @@ class ProjectsSection extends HTMLElement {
     <section ${seoSection(`projects`)} class="bg-primary snappyContaine" id="projects" data-version="${VERSION}">
     <div class="container-lg" style="padding-block: 1em; min-block-size: 100dvh;">
 
-        <div class="col" style="display: flex; flex-direction: row; flex-wrap: wrap; column-gap: 3.2rem; row-gap: .8rem;">
+        <div class="col" style="flex-direction: row; flex-wrap: wrap; column-gap: 3.2rem; row-gap: .8rem;">
                 <p class="fade-in-to txt-tertiary" style="display: block; white-space: nowrap;">Selected <span class="txt-secondary">Projects</span> <i>2023 - ${thisYear}</i>
                 </p>
                 <div class="" style="flex: 1; flex-basis: 30rem;">
                     <h2 data-animate="scaleIn" ${seoH(`projects`)} class="h2 splitWord" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
                     </h2>
-                    <p data-animate="scaleIn" class="h2 txt-tertiary" style="font-weight: bold; display: inline;">
+                    <p data-animate="scaleIn" class="h2 txt-tertiary" style="font-weight: bold; display: inline; display: none;">
                     <span class="text-revel-onscrol">
                     With ${experience}+ years of experience, I'm Designing & developing websites in ${locationSecondary}.
                     </span>

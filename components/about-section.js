@@ -31,7 +31,7 @@ class AboutSection extends HTMLElement {
 
         // 3. Define the HTML (Top-level element is now your grid section)
         template.innerHTML = `
-<section ${seoSection(`about`)} class="bg-primary" style="color-scheme: dark;" id="about" data-version="${VERSION}">
+<section ${seoSection(`about`)} class="bg-primary" style="" id="about" data-version="${VERSION}">
 
         <div style="gap: 0em; position: relative; position: fixed; inset: 0; max-inline-size: 102.4rem; margin-inline: auto;" class="layer row content-center screenHeight">
         <p class="h6 storyImageOne">
@@ -50,17 +50,17 @@ class AboutSection extends HTMLElement {
  ${stories
      .map(
          (story, index) => `
-    <div class=" scene screenHeight" style="position: relative;">
+    <div class="scene screenHeight" style="position: relative;">
 
         <div id="story-${index + 1}" class="layer row content-center screenHeight" style="padding-block: 0em; overflow: clip; position: relative; position: fixed; inset: 0; max-inline-size: 102.4rem; margin-inline: auto;opacity: 1;">
 
-            <span inert aria-hidden="true" class="storyImageOne" style="opacity: 1; scale: 1.1; filter: brightness(.7) contrast(.7) grayscale(.7); position: fixed; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="bobject-fit: cover; height: 100%;"/></span>
+            <span inert aria-hidden="true" class="storyImageOne" style="opacity: 1; scale: 1.2; filter: brightness(.7) contrast(.7); position: fixed; inset: 0; "><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="bobject-fit: cover; height: 100%;"/></span>
 
             <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" style="position: absolute; inset: 0; margin: auto; margin-block: ${svgMarginBlock}; overflow: visible; user-select: none;"  class="storyImageOne">
                 ${txtFill(story.date, 'var(--txt-tertiary)', '2.3')}
             </svg>
 
-            <span inert aria-hidden="true" class="storyImageTwo" style="position: absolute; inset: 30%; margin: auto; block-size: clamp(30rem, 100%, 64rem); opacity: 1"><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
+            <span inert aria-hidden="true" class="storyImageTwo" style="position: absolute; inset: 30%; margin: auto; block-size: clamp(30rem, 100%, 64rem); aspect-ratio: 9/16; opacity: 1"><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
 
             <svg fill="none" viewBox="0 0 100 100" style="position: absolute; inset: 0; margin: auto; margin-block: ${svgMarginBlock}; overflow: visible;" class="storyImageOne">
                 ${txtStroke(story.date, 'var(--txt-tertiary)', '2.3')}
