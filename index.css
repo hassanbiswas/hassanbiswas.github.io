@@ -2102,6 +2102,10 @@ padding-block: var(--space-xs);
             opacity: 0.3;
         }
     }
+
+    svg {
+        mix-blend-mode: luminosity;
+    }
 }
 
 
@@ -2124,38 +2128,32 @@ q,
 
 
     svg {
-        /* margin-top: -7rem; */
         mask-image: linear-gradient(
             to var(--direction, bottom),
             transparent,
-            var(--txt-primary, black) 0%,
-            var(--txt-primary, black) 30%,
-            transparent
+            var(--txt-primary, black),
+            transparent 60%
         );
+        z-index: -1;
     }
 
     p { max-inline-size: 60%; }
 
     .servicesCarousel {
         min-inline-size: max-content;
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
         place-content: center;
-        /* gap: 2.4rem; */
+        grid-auto-columns: max(20rem, 40dvw);
 
         scrollbar-gutter: none;
         scrollbar-width: none;
         padding-inline: var(--padding-inline);
-
-        & > * {
-            flex: 1;
-            /* inline-size: --size(20rem, 60rem); */
-        }
     }
 
     .service-image {
         transition: --duration() --ease();
-        block-size: --size(12rem, 32rem);
-        /* inline-size: 25%; */
+        inline-size: 25%;
         aspect-ratio: 9/16;
         overflow: clip;
         object-fit: contain;
@@ -2865,11 +2863,11 @@ Note:
     animation-play-state: paused;
 }
 
-@keyframes spin3DInfinite {
+/* @keyframes spin3DInfinite {
     to {
         transform: rotateZ(-360deg);
     }
-}
+} */
 /* set Animation to parent */
 .spin3DInfinite[data-visible="true"]
 {
@@ -2972,8 +2970,8 @@ Note:
 }
 
 @keyframes storyImageOne {
-    0% { clip-path: inset(0%); transform: translateY(7%); }
-    100% { clip-path: inset(0% 0% 100% 0%); transform: translateY(0%); }
+    0% { clip-path: inset(0%); }
+    100% { clip-path: inset(0% 0% 100% 0%); }
 }
 @keyframes storyImageTwo {
     0% { clip-path: inset(0%); }
@@ -3007,7 +3005,6 @@ Note:
     0% { object-position: 0% 0%; }
     100% { object-position: 100% 0%; }
 }
-
 .serviceImage {
     animation-name: serviceImage;
     animation-timing-function: --ease();
@@ -3015,8 +3012,6 @@ Note:
     animation-timeline: --serviceImage;
     animation-range: entry 0% exit 30%;
 }
-
-
 
 
 /* reversed */

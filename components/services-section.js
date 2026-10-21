@@ -41,7 +41,7 @@ class ServicesSection extends HTMLElement {
             ${servicesPrimary
                 .map(
                     (service, index) => `
-            <div id="service-${index + 1}" class="stacking-container service-${index + 1}" style="view-timeline: --serviceCarousel inline; overflow: clip; flex: 1; aspect-ratio: 1/1; padding: 1.6em;">
+            <div id="service-${index + 1}" class="stacking-container service-${index + 1}" style="view-timeline: --serviceCarousel inline; overflow: clip; aspect-ratio: 1/1; padding: 0;">
 
                     <svg inert aria-hidden="true" fill="none" viewBox="0 0 100 100" style="overflow: visible; user-select: none;" >
                         ${txtStroke(stripedCurrency(service.price), 'var(--txt-primary)', '3')}
@@ -56,7 +56,7 @@ class ServicesSection extends HTMLElement {
                             <img ${seoImg(`${service.getImage(index)}`, `Service Image`, `100%`)} class="serviceImage"/>
                         </span>
 
-                        <div class="flex items-center content-center" style="flex-direction: column; gap: .8em;">
+                        <div class="flex items-center content-center" style="flex-direction: column; gap: .8em; display: none;" aria-hidden="true" >
                             <h3 class="h5 txt-center splitText">${service.name}</h3>
                             <h4 class="txt-center">
                                 <span class="p txt-tertiary splitWord">Starting from</span>
