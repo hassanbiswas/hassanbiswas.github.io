@@ -1944,8 +1944,8 @@ transform: scaleX(1); /* animate */
 } */
 
 .brand-logo-container {
-    block-size: min(100%, 20rem);
-    inline-size: min(100%, 20rem);
+    /* block-size: min(100%, 20rem); */
+    inline-size: --size(15rem, 25rem);
     /* mask-image: radial-gradient(
     circle,
     color-mix(in lch, var(--bg-primary), var(--txt-primary, black) 0%),
@@ -2144,11 +2144,14 @@ q,
         display: grid;
         grid-auto-flow: column;
         place-content: center;
-        grid-auto-columns: max(20rem, 40dvw);
+        grid-auto-columns: 1fr;
+        /* grid-auto-columns: max(35rem, 40dvw); */
 
         scrollbar-gutter: none;
         scrollbar-width: none;
         padding-inline: var(--padding-inline);
+
+        > * { inline-size: --size(35rem, 60rem); }
     }
 
     .service-image {

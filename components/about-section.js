@@ -60,7 +60,7 @@ class AboutSection extends HTMLElement {
                 ${txtFill(story.date, 'var(--txt-tertiary)', '2.3')}
             </svg>
 
-            <span inert aria-hidden="true" class="storyImageTwo" style="position: absolute; inset: 30%; margin: auto; block-size: clamp(30rem, 100%, 64rem); aspect-ratio: 9/16; opacity: 1"><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
+            <span inert aria-hidden="true" class="storyImageTwo" style="position: absolute; inset: 0; margin: auto; block-size: --size(30rem, 64rem); aspect-ratio: 9/16; opacity: 1"><img ${seoImg(`${story.image}`, `Story Image`, `100%`)} style="object-fit: cover; height: 100%;"/></span>
 
             <svg fill="none" viewBox="0 0 100 100" style="position: absolute; inset: 0; margin: auto; margin-block: ${svgMarginBlock}; overflow: visible;" class="storyImageOne">
                 ${txtStroke(story.date, 'var(--txt-tertiary)', '2.3')}
