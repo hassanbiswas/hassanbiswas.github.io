@@ -409,7 +409,8 @@ export const getFavicon = (domain = `hassanbiswas.github.io`, size = 24) =>
     `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}&v=${VERSION}`;
 
 // export const faviconAuthor = author.faviconSvg,
-export const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
+// export const faviconAuthor = getFavicon(`hassanbiswas.github.io`),
+export const faviconAuthor = '/favicon.svg',
     faviconMessenger = getFavicon(`m.me`),
     faviconYoutube = getFavicon(`youtube.com`),
     // wa.me
@@ -880,7 +881,8 @@ function LinksDataItem(name, link, title, favicon) {
     this.favicon = favicon;
 }
 export const linksData = [
-    new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`),
+    // new LinksDataItem(`(+880) 1602-873384`, `${urlMobile}`, `Mobile`),
+    new LinksDataItem(`(+880) 1602-873384`, `${urlWhatsapp}`, `WhatsApp`),
     new LinksDataItem(`hassanbiswas.github.io@gmail.com`, `${urlGmail}`, `Gmail`),
     new LinksDataItem(`${locationSecondary}`, `${begaritola}`, `Location`),
 ];

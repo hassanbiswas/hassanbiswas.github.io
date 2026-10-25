@@ -12,6 +12,7 @@ const {
     brandLogo,
     componentReviews,
     urlMobile,
+    urlWhatsapp,
 } = App;
 
 class CtaSection extends HTMLElement {
@@ -34,7 +35,7 @@ class CtaSection extends HTMLElement {
 
             <div class="flex" style="gap: .8em; " >
                 ${componentReviews()}
-                <a ${seoA()} href="${urlMobile}"><input class="btn-primary splitWord" type="submit" value="Wanna Call" style=""/></a>
+                <a ${seoA()} href="${urlWhatsapp}"><input class="btn-primary splitWord" type="submit" value="Wanna Call" style=""/></a>
             </div>
 
         </div>

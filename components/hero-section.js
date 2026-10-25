@@ -108,7 +108,7 @@ class HeroSection extends HTMLElement {
                     Resume
                     </button>
                 </a>
-                <a class="h6 txt-primary pill splitText" href="/#contact" style="border: 0px solid currentColor; ">Contact</a>
+                <a class="h6 txt-primary pill splitText" href="/contact" style="border: 0px solid currentColor; ">Contact</a>
             </div>
             ${componentReviews()}
 
