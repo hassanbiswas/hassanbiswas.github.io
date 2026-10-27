@@ -39,7 +39,7 @@
                 ['touchstart', 'scroll', 'mousemove'].forEach(event => {
                     window.addEventListener(event, initAnalytics, { passive: true });
                 });
-                setTimeout(initAnalytics, 4000);
+                setTimeout(initAnalytics, 100); // 4000
             })();
         </script>
         <meta
@@ -375,7 +375,7 @@
                 heading="Crafting digital experiences that inspire, connect, and grow brands worldwide"
             >
             </hero-section>
-            <about-section> </about-section>
+            <!-- <about-section> </about-section> -->
             <services-section> </services-section>
             <projects-section> </projects-section>
 
