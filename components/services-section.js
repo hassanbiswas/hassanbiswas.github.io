@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     author,
@@ -23,7 +20,7 @@ const {
     stripedCurrency,
     coreWebVitals,
     componentSkipSection,
-} = App;
+} from '/index.js';
 
 class ServicesSection extends HTMLElement {
     connectedCallback() {

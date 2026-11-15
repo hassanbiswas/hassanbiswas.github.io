@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     author,
@@ -24,7 +21,7 @@ const {
     pages,
     urlYoutube,
     txtFill,
-} = App;
+} from '/index.js';
 
 class FooterSection extends HTMLElement {
     connectedCallback() {
@@ -51,7 +48,7 @@ class FooterSection extends HTMLElement {
 
         <div class="col">
             <div class="row" style="gap: var(--space-xs);">
-                <h2 ${seoH(`footer`)} class="h2 txt-tertiary">I craft marketing strategies that elevate brands, <span class="txt-primary"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audiences, and drive measurable business growth.</span>
+                <h2 ${seoH(`footer`)} class="h4 txt-tertiary">Strategies that elevate brands, <span class="txt-primary"><a ${seoA()} aria-label="Business Profile" href="${begaritola}"><img ${seoImg(author.photo, author.name)} style="display: inline; inline-size: 1em;" class="square rounded"/></a> attract audience and drive measurable business growth.</span>
                 </h2>
 
                 <div style="align-content: stretch;" class="flex a-center j-start">

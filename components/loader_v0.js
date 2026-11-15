@@ -1,8 +1,5 @@
 // ### offline.html | Loading component ###
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     author,
     getFavicon,
@@ -12,7 +9,7 @@ const {
     seoButton,
     brandLogo,
     greetings,
-} = App;
+} from '/index.js';
 
 class LoaderSection extends HTMLElement {
     connectedCallback() {

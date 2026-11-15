@@ -230,10 +230,10 @@ const html = document.documentElement,
 const hues = [8, 240].sort();
 const maxHues = hues.length;
 let brandPrimary = `hsl(240, 80%, 50%)`;
-let brandH = hues[random(0, maxHues)] || null;
-if (brandH) {
-    html.style.setProperty('--brand-h', brandH);
-}
+let brandH = hues[random(0, maxHues)] || 0;
+// if (brandH) {
+//     html.style.setProperty('--brand-h', brandH);
+// }
 
 // 2. Get the computed style of the html
 const styleSheet = getComputedStyle(html);
@@ -592,28 +592,28 @@ export const componentProjectProgress = () => {
           <div class="flex a-start componentProjectProgress" style="gap: 1.6em; padding-inline: 1.6em;">
 
                 <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
+                    <b class="h3 txt-center">
                         <span class="txtStroke">${experience}</span>
                         <span class="txt-tertiary">+</span>
                     </b>
                     <p class="txt-center">Experience</p>
                 </div>
                 <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
+                    <b class="h3 txt-center">
                         <span class="txtStroke">${successProjects}</span>
                         <span class="txt-tertiary">+</span>
                     </b>
                     <a href="/#projects" class="p txt-center">Success projects</a>
                 </div>
                 <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
+                    <b class="h3 txt-center">
                         <span class="txtStroke">${coreWebVitals}</span>
                         <span class="txt-tertiary">%</span>
                     </b>
                     <a ${seoA()} href="${urlCoreWebVitals}" class="p txt-center">Core web vitals</a>
                 </div>
                 <div class="row" style="gap: .4em;">
-                    <b class="h1 txt-center">
+                    <b class="h3 txt-center">
                         <span class="txtStroke">${clientSatisfaction}</span>
                         <span class="txt-tertiary">%</span>
                     </b>
@@ -775,14 +775,6 @@ export const stories = [
         `map`
     ),
     new StoriesItem(
-        '2025',
-        'Utshob Tech Certified & Freelance',
-        `Building high-performing client sites at Sheikh Hasina Software Technology Park and serving international contracts.`,
-        'https://maps.app.goo.gl/sLyE5QY5UDVfkTcS7',
-        'View Place',
-        `map`
-    ),
-    new StoriesItem(
         // FIXED: Used backticks to allow double quotes in the HTML string
         `${thisYear - 1}`,
         'Designing and developing website.',
@@ -867,7 +859,7 @@ export const faqs = [
         `Not to worry! Price range will be based on budget &amp; then the website's difficulty.`
     ),
     new FaqsItem(
-        `Am I available for projects or <b>hire</b>?`,
+        `Available for projects?`,
         `Yes, you can hire me throw discussion on <a ${seoA()} href="${urlMessenger}"><b>Messenger</b></a> <sup class="txt-tertiary"> 24/7</sup> or look at <a ${seoA()} class="txt-primary" href="/#contact">contact</a> method.
 `
     ),

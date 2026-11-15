@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     seoSection,
@@ -12,7 +9,7 @@ const {
     brandLogo,
     componentReviews,
     urlMobile,
-} = App;
+} from '/index.js';
 
 class RefundAndCancelationPolicySection extends HTMLElement {
     connectedCallback() {

@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const { VERSION, Section, seoSection, seoH, seoA } = App;
+import { VERSION, Section, seoSection, seoH, seoA } from '/index.js';
 
 class PrivacyPolicySection extends HTMLElement {
     connectedCallback() {

@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     author,
@@ -15,7 +12,7 @@ const {
     brandLogo,
     urlMessenger,
     faqs,
-} = App;
+} from '/index.js';
 
 class FaqsSection extends HTMLElement {
     connectedCallback() {

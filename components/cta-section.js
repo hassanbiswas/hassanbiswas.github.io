@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     seoSection,
@@ -13,7 +10,7 @@ const {
     componentReviews,
     urlMobile,
     urlWhatsapp,
-} = App;
+} from '/index.js';
 
 class CtaSection extends HTMLElement {
     connectedCallback() {
@@ -29,8 +26,8 @@ class CtaSection extends HTMLElement {
 
             <span inert class=" dots" style=""></span>
 
-            <h2 data-animate="scaleIn" ${seoH(`cta`)} class="h1 ">
-                <span class="splitWord">Have project? Need website</span> <span class="txt-tertiary splitWord">or</span> <span class="splitWord">looking for Developer? I'm here!</span>
+            <h2 data-animate="scaleIn" ${seoH(`cta`)} class="splitWord">
+                Let's work together!
             </h2>
 
             <div class="flex" style="gap: .8em; " >

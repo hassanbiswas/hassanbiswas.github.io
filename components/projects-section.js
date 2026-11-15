@@ -1,7 +1,4 @@
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     seoSection,
@@ -14,7 +11,7 @@ const {
     locationSecondary,
     projects,
     componentSkipSection,
-} = App;
+} from '/index.js';
 
 class ProjectsSection extends HTMLElement {
     connectedCallback() {
@@ -26,20 +23,13 @@ class ProjectsSection extends HTMLElement {
         // 3. Define the HTML (Top-level element is now your grid section)
         template.innerHTML = `
     <section ${seoSection(`projects`)} class="bg-primary snappyContaine" id="projects" data-version="${VERSION}">
-    <div class="container-lg" style="padding-block: 1em; min-block-size: 100dvh;">
+    <div class="container-xl" style="padding-block: 1em; min-block-size: 100dvh;">
 
-        <div class="col" style="flex-direction: row; flex-wrap: wrap; column-gap: 3.2rem; row-gap: .8rem;">
+        <div class="col  a-start j-between" style="flex-direction: row; flex-wrap: wrap; justify-content: space-between; column-gap: 3.2rem; row-gap: .8rem; inline-size: 100%;">
                 <p class="fade-in-to txt-tertiary" style="display: block; white-space: nowrap;">Selected <span class="txt-secondary">Projects</span> <i>2023 - ${thisYear}</i>
                 </p>
-                <div class="" style="flex: 1; flex-basis: 30rem;">
-                    <h2 data-animate="scaleIn" ${seoH(`projects`)} class="h2 splitWord" style="display: inline;">I am providing the best value at a reasonable price with a focus on performance and SEO-friendly architecture.
-                    </h2>
-                    <p data-animate="scaleIn" class="h2 txt-tertiary" style="font-weight: bold; display: inline; display: none;">
-                    <span class="text-revel-onscrol">
-                    With ${experience}+ years of experience, I'm Designing & developing websites in ${locationSecondary}.
-                    </span>
-                    </p>
-                </div>
+                <h2 data-animate="scaleIn" ${seoH(`projects`)} class="h2 splitWord" style="display: inline; flex: 1; flex-basis: 30rem;">Reasonable price with performance and SEO.
+                </h2>
             </div>
 
 

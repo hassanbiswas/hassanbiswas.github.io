@@ -1,9 +1,6 @@
 // import BrandLogo from '../ui/brandLogo';
 // import Reviews from '../ui/reviews';
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const {
+import {
     VERSION,
     Section,
     seoSection,
@@ -16,16 +13,14 @@ const {
     componentReviews,
     skills,
     tools,
-} = App;
+} from '/index.js';
 
 // ### 404.html | Hero component ###
 class HeroSection extends HTMLElement {
     connectedCallback() {
         const section = new Section(this);
 
-        const heading =
-            this.getAttribute('heading') ||
-            'Crafting digital experiences that inspire, connect, and grow brands worldwide';
+        const heading = this.getAttribute('heading') || 'UI/UX &amp; Front-End Developer';
         const description =
             this.getAttribute('description') || '✼ Elevating Modern Digital Experiences.';
 
@@ -97,7 +92,7 @@ class HeroSection extends HTMLElement {
         <div class="row items-center text-items gradient-mask">
             <span style="padding: .4em .8em; gap: .4em" class="flex badge txt-bg-inverse pill a-center"><i class="pill " style="background: #14db14; padding: .4em; "></i> Available for projects</span>
             <h1 data-animate="scaleI" ${seoH(`hero`)}
-                class="h1 txt-center splitWord"
+                class="txt-center splitWord"
                 id="brand-title">
                     ${heading}
             </h1>

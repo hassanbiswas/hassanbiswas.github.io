@@ -15,6 +15,11 @@
     initial-value: 0;
 }
 
+@property --fluid {
+    syntax: "<number>";
+    initial-value: 0;
+    inherits: true;
+}
 
 /* CUSTOM FUNCTIONS */
 
@@ -36,7 +41,7 @@
 @function --font(--min: 1.4rem, --max: 1.6rem) {
     result: clamp(
         var(--min),
-        calc(var(--min) + (var(--max) - var(--min)) * var(--progress)),
+        calc(var(--min) + (var(--max) - var(--min)) * var(--fluid)),
         var(--max)
     )
 }
@@ -44,7 +49,7 @@
 @function --size(--min: 1.6rem, --max: 3.2rem) {
     result: clamp(
         min(100%, var(--min)),
-        calc(var(--min) + (var(--max) - var(--min)) * var(--progress)),
+        calc(var(--min) + (var(--max) - var(--min)) * var(--fluid)),
         var(--max)
     )
 }
@@ -52,7 +57,7 @@
 @function --space(--step <number>: 1, --base: 10px) {
     result: calc((((
         8px,
-        (8px + (16px - 8px) * var(--progress)),
+        (8px + (16px - 8px) * var(--fluid)),
         16px
     ) / var(--base)) * var(--step)) * 1rem)
 }
@@ -206,19 +211,50 @@ Maps a value from an input range [inMin, inMax] to an output range [outMin, outM
 /* ====== font ====== */
 /* --custom-font: "Custom-Font", "Ubuntu", sans-serif; */
 
+
+/* fluidity min & max */
+--fluid-vmin: 42.5rem;
+/* 375px M */
+--fluid-vmax: 102.4rem;
+/* 1024px M */
+/* Progress ratio: 0 at min-width, 1 at max-width */
+/* --fluid: progress(100vi, var(--fluid-vmin), var(--fluid-vmax)); */
+--fluid: clamp(
+    0,
+    tan(atan2(100cqi - var(--fluid-vmin), var(--fluid-vmax) - var(--fluid-vmin))),
+    1
+);
+--type-scale-sm: 1.2;
+--type-scale-lg: 1.4;
+/* 1.414 | 1.618 */
+/* 1.2 ---> 1.414 */
+--type-scale: calc(
+    var(--type-scale-sm) + var(--fluid) * (var(--type-scale-lg) - var(--type-scale-sm))
+);
+/* --p: calc(1rem + var(--fluid) * 0.125rem); */
+--p: calc(1.6rem + var(--fluid) * 0.125rem);
+--h6: var(--p);
+--h5: calc(var(--p) * var(--type-scale));
+--h4: calc(var(--p) * pow(var(--type-scale), 2));
+--h3: calc(var(--p) * pow(var(--type-scale), 3));
+--h2: calc(var(--p) * pow(var(--type-scale), 4));
+--h1: calc(var(--p) * pow(var(--type-scale), 5));
+
+
+
 /* fluidity min & max */
 --max-width: 102.4rem;  /* 1024px M */
 --min-width: 37.5rem; /* 375px M */
 /* Progress ratio: 0 at min-width, 1 at max-width */
---progress: calc((100cqi - var(--min-width)) / (var(--max-width) - var(--min-width)));
+/* --fluid: calc((100cqi - var(--min-width)) / (var(--max-width) - var(--min-width))); */
 
---h1: --font(3rem, 4rem);
+/* --h1: --font(3rem, 4rem);
 --h2: --font(2.4rem, 3rem);
 --h3: --font(2rem, 2.4rem);
 --h4: --font(1.8rem, 2rem);
 --h5: --font(1.6rem, 1.8rem);
 --h6: --font(1.4rem, 1.6rem);
---p: --font(1.4rem, 1.6rem);
+--p: --font(1.4rem, 1.6rem); */
 
 --p-sm: --font(1.2rem, 1.4rem);
 --p-xsm: --font(1rem, 1.2rem);
@@ -227,49 +263,49 @@ Maps a value from an input range [inMin, inMax] to an output range [outMin, outM
 /* --space(1) */
 --space-2xs: clamp(
   .4rem,
-  calc(.4rem + (.8rem - .4rem) * var(--progress)),
+  calc(.4rem + (.8rem - .4rem) * var(--fluid)),
   .8rem
 );
 
 --space-xs: clamp(
   .8rem,
-  calc(.8rem + (1.6rem - .8rem) * var(--progress)),
+  calc(.8rem + (1.6rem - .8rem) * var(--fluid)),
   1.6rem
 );
 
 --space-s: clamp(
   1.6rem,
-  calc(1.6rem + (2.4rem - 1.6rem) * var(--progress)),
+  calc(1.6rem + (2.4rem - 1.6rem) * var(--fluid)),
   2.4rem
 );
 
 --space-m: clamp(
   2.4rem,
-  calc(2.4rem + (3.2rem - 2.4rem) * var(--progress)),
+  calc(2.4rem + (3.2rem - 2.4rem) * var(--fluid)),
   3.2rem
 );
 
 --space-l: clamp(
   3.2rem,
-  calc(3.2rem + (4.8rem - 3.2rem) * var(--progress)),
+  calc(3.2rem + (4.8rem - 3.2rem) * var(--fluid)),
   4.8rem
 );
 
 --space-xl: clamp(
   4.8rem,
-  calc(4.8rem + (6.4rem - 4.8rem) * var(--progress)),
+  calc(4.8rem + (6.4rem - 4.8rem) * var(--fluid)),
   6.4rem
 );
 
 --space-2xl: clamp(
   6.4rem,
-  calc(6.4rem + (8rem - 6.4rem) * var(--progress)),
+  calc(6.4rem + (8rem - 6.4rem) * var(--fluid)),
   8rem
 );
 
 --space-3xl: clamp(
   8rem,
-  calc(8rem + (12.8rem - 8rem) * var(--progress)),
+  calc(8rem + (12.8rem - 8rem) * var(--fluid)),
   12.8rem
 );
 
@@ -303,7 +339,7 @@ Maps a value from an input range [inMin, inMax] to an output range [outMin, outM
 /*
 --padding-inline: clamp(
   1.6rem,
-  calc(1.6rem + (2.4rem - 1.6rem) * var(--progress)),
+  calc(1.6rem + (2.4rem - 1.6rem) * var(--fluid)),
   2.4rem
 );
 */
@@ -1270,7 +1306,6 @@ minmax(0, var(--container-xxl-size))
   /* (Notch, Loader, Header, (Main > *), Footer, Nav, Toast ...) > * ... */
     & > * {
         grid-column: container-md;
-        container-type: inline-size;
     }
 }
 
@@ -1291,7 +1326,6 @@ minmax(0, var(--container-xxl-size))
 
     & > * {
         grid-column: container-md;
-        container-type: inline-size;
     }
 }
 
@@ -1605,10 +1639,7 @@ inline-size: 100%;
 
   /* 5. Implementation Rule */
   /* Your typography variables now depend on this container being defined */
-  /* *:has(p, h1, h2, h3, h4, h5, h6), */
-  .layout-context {
-container-type: inline-size; /* Enables your fluid --h1 units */
-}
+  /* *:has(p, h1, h2, h3, h4, h5, h6) */
 
   /* #### M */
   /* .m-auto {margin-inline: minmax(0, 1fr);} */
@@ -1806,6 +1837,9 @@ main > section[id]:first-of-type {
     }
 }
 
+main > section {
+    container-type: inline-size;
+}
 
 /* Container Setup */  /* +v8 cmnt */
   .hero-container {
@@ -1967,7 +2001,7 @@ transform: scaleX(1); /* animate */
                 transform: translateX(20%) translateY(20%);
 
         &:has(.brand-logo-wrapper:first-child .brand-logo:is(:hover, :focus-visible)) .brand-logo-wrapper {
-            transform: perspective(200px) rotateY(60deg) translateZ(calc( -0.5rem * sibling-index()));
+            transform: perspective(200px) rotateY(60deg) translateZ(calc( -5px * sibling-index()));
         }
 
         .brand-logo-wrapper {
@@ -2446,7 +2480,6 @@ a {
 
     align-items: center;
     justify-content: start;
-    container-type: inline-size;
 }
 
 svg {
@@ -3005,8 +3038,8 @@ Note:
 
 
 @keyframes serviceImage {
-    0% { object-position: 0% 0%; }
-    100% { object-position: 100% 0%; }
+    0% { object-position: 100% 0%; }
+    100% { object-position: 0% 0%; }
 }
 .serviceImage {
     animation-name: serviceImage;

@@ -1,8 +1,5 @@
 // ### offline.html | Loading component ###
-import * as App from '/index.js';
-
-// Destructure array, function, and variables directly
-const { VERSION, author, getFavicon, faviconAuthor, seoImg, brandLogo } = App;
+import { VERSION, author, getFavicon, faviconAuthor, seoImg, brandLogo } from '/index.js';
 
 class LoaderSection extends HTMLElement {
     connectedCallback() {
@@ -49,6 +46,7 @@ class LoaderSection extends HTMLElement {
 
             // Reset loop if we hit the end of the array
             if (start >= end) {
+                // loader.style = '--playState: running';
                 if (isPageLoaded) {
                     clearInterval(greetingInterval);
                     // Animation
